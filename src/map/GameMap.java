@@ -8,9 +8,12 @@ import settings.GameSettings;
 import java.awt.*;
 import java.util.Arrays;
 
+/**
+ * Implements a map in the game. The maps are built up with tiles.
+ */
 public class GameMap {
 
-    private GameSettings settings = GameSettings.getInstance();
+    private final GameSettings settings = GameSettings.getInstance();
 
     private final Tile[][] tiles;
 

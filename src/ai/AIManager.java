@@ -4,6 +4,9 @@ import ai.state.*;
 import entity.NPC;
 import main.state.State;
 
+/**
+ * Handles the flow during and between states.
+ */
 public class AIManager {
 
     private AIState currentAIState;

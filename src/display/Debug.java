@@ -1,7 +1,6 @@
 package display;
 
 import entity.NPC;
-import entity.SelectionCircle;
 import main.state.State;
 import settings.GameSettings;
 import ui.*;
@@ -10,6 +9,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements a debugger to draw and update components that do not have an importance in the actual game.
+ */
 public class Debug {
 
     private GameSettings settings = GameSettings.getInstance();

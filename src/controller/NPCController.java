@@ -3,6 +3,9 @@ package controller;
 import core.Vector2D;
 import settings.GameSettings;
 
+/**
+ * Implements controller for NPCs.
+ */
 public class NPCController implements EntityController {
 
     private GameSettings settings = GameSettings.getInstance();

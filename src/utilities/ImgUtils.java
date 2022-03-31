@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+/**
+ * Implements tools for handling images.
+ */
 public class ImgUtils {
 
     public static final int ALPHA_OPAQUE = 1;

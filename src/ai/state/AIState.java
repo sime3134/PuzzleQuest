@@ -4,6 +4,10 @@ import ai.AITransition;
 import entity.NPC;
 import main.state.State;
 
+/**
+ * An entity with an AI can be in several states representing their current action and goal.
+ * This abstract class is the skeleton for the actual doable states like Wander, Stand etc.
+ */
 public abstract class AIState {
     private final AITransition transition;
     protected NPC currentCharacter;

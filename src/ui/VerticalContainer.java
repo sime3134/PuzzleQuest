@@ -2,6 +2,9 @@ package ui;
 
 import core.Vector2D;
 
+/**
+ * A vertical UI container.
+ */
 public class VerticalContainer extends UIContainer{
 
     public VerticalContainer(int margin, int padding) {

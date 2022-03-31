@@ -6,6 +6,9 @@ import main.state.State;
 
 import java.security.SecureRandom;
 
+/**
+ * Implements a state where the entity will choose his next action/state.
+ */
 public class ChooseNextAction extends AIState{
 
     public ChooseNextAction(NPC currentCharacter, String lastState){

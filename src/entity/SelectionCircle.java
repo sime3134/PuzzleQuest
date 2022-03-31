@@ -9,6 +9,9 @@ import utilities.ImgUtils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * A graphic circle to display who the player currently interacts with.
+ */
 public class SelectionCircle extends GameObject{
 
     private final Color color;

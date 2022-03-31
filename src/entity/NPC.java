@@ -7,11 +7,14 @@ import core.Vector2D;
 import main.state.State;
 import utilities.Buffer;
 
+/**
+ * Implements living entities that are not controlled by the player.
+ */
 public class NPC extends MovingEntity{
 
     private final AIManager brain;
 
-    private Buffer<Vector2D> targets;
+    private final Buffer<Vector2D> targets;
 
     public AIManager getBrain() {
         return brain;

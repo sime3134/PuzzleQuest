@@ -5,7 +5,7 @@ import input.Input;
 import java.awt.event.KeyEvent;
 
 /**
- * Handles the controller for the player.
+ * Implements the controller for the player.
  */
 public class PlayerController implements EntityController {
 

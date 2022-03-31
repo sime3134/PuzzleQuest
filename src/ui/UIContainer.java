@@ -10,6 +10,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Base class for all UI containers.
+ */
 public abstract class UIContainer extends UIComponent{
 
     private GameSettings settings = GameSettings.getInstance();

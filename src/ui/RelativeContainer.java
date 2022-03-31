@@ -4,6 +4,9 @@ import core.Vector2D;
 import display.Camera;
 import entity.GameObject;
 
+/**
+ * An UI container that follows a game object on the screen.
+ */
 public class RelativeContainer extends HorizontalContainer{
 
     GameObject objectToFollow;

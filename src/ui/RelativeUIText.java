@@ -4,6 +4,9 @@ import entity.NPC;
 import main.state.State;
 import settings.GameSettings;
 
+/**
+ * A UI component that displays text that can be updated during the game.
+ */
 public class RelativeUIText extends UIText{
 
     private final Object obj;

@@ -1,5 +1,8 @@
 package settings;
 
+/**
+ * Stores settings for the game.
+ */
 public class GameSettings {
 
     private static GameSettings settings;

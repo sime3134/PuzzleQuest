@@ -5,7 +5,9 @@ import settings.GameSettings;
 
 import java.awt.event.KeyEvent;
 
-//Controller for controlling input outside the actual game. Ex: turning debug mode on or off.
+/**
+ * Controller for controlling input outside the actual game. Ex: turning debug mode on or off.
+ */
 public class GameController {
 
     private final GameSettings settings = GameSettings.getInstance();

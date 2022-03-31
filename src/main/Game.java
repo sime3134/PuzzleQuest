@@ -8,7 +8,9 @@ import settings.GameSettings;
 
 import java.awt.*;
 
-
+/**
+ * Main class for the game controlling the current state of the game.
+ */
 public class Game {
     GameSettings settings;
     private State state;

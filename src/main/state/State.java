@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Base class for the several states in the game. Ex: in-game, pause or menu states.
+ */
 public abstract class State {
 
     protected List<UIContainer> uiContainers;

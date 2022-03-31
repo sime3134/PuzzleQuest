@@ -6,6 +6,9 @@ import utilities.ImgUtils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Implements a UI component that displays text.
+ */
 public class UIText extends UIComponent{
 
     protected String text;

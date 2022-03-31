@@ -7,6 +7,9 @@ import entity.NPC;
 import main.state.State;
 import utilities.Buffer;
 
+/**
+ * Implements a state where the entity will walk towards a goal.
+ */
 public class Wander extends AIState{
 
     Buffer<Vector2D> targets;

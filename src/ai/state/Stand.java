@@ -5,8 +5,11 @@ import core.Time;
 import entity.NPC;
 import main.state.State;
 
+/**
+ * Implements a state where the entity will simply stand still for a set amount of time.
+ */
 public class Stand extends AIState {
-    private int updatesAlive;
+    private int numberOfUpdatesWaiting;
 
     public Stand(NPC currentCharacter, String lastState) {
         super(currentCharacter, lastState);
@@ -14,10 +17,10 @@ public class Stand extends AIState {
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("choose_next_action", ((state, currentCharacter) -> updatesAlive >= Time.getNumberOfUpdatesFromSeconds(3)));
+        return new AITransition("choose_next_action", ((state, currentCharacter) -> numberOfUpdatesWaiting >= Time.getNumberOfUpdatesFromSeconds(3)));
     }
 
     public void update(State state) {
-        updatesAlive++;
+        numberOfUpdatesWaiting++;
     }
 }

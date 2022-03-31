@@ -4,7 +4,7 @@ import display.GameFrame;
 import settings.GameSettings;
 
 /**
- * Thread running the game at 60 FPS.
+ * Single thread running the game at a steady speed.
  */
 public class GameLoop implements Runnable {
 

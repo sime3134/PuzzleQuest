@@ -8,6 +8,9 @@ import settings.GameSettings;
 import java.awt.*;
 import java.util.Optional;
 
+/**
+ * Implements a camera that can be used to follow game objects or restrict what is drawn to the screen etc.
+ */
 public class Camera {
 
     private final GameSettings settings = GameSettings.getInstance();

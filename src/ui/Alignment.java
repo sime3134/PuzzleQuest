@@ -1,5 +1,8 @@
 package ui;
 
+/**
+ * Implements alignments on the screen for UI components.
+ */
 public class Alignment {
 
     public enum Horizontal {

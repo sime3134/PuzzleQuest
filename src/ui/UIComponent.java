@@ -5,6 +5,9 @@ import main.state.State;
 
 import java.awt.*;
 
+/**
+ * The base class for all UI components.
+ */
 public abstract class UIComponent {
     protected Vector2D position;
     protected int width;
