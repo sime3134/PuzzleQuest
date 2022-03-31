@@ -1,7 +1,10 @@
 package entity;
 
+import ai.state.Wander;
 import content.SpriteSet;
 import controller.EntityController;
+import core.Vector2D;
+import entity.humanoid.Humanoid;
 import main.state.State;
 import settings.GameSettings;
 
@@ -11,17 +14,16 @@ import java.util.Optional;
 /**
  * The player of the game.
  */
-public class Player extends MovingEntity {
+public class Player extends Humanoid {
 
-    private GameSettings settings = GameSettings.getInstance();
+    private final GameSettings settings = GameSettings.getInstance();
 
     private NPC target;
-    private double targetRange;
-    private SelectionCircle selectionCircle;
+    private final double targetRange;
+    private final SelectionCircle selectionCircle;
 
-    public Player(EntityController entityController, SpriteSet spriteSet, int spriteWidth, int spriteHeight,
-                  SelectionCircle selectionCircle){
-        super(entityController, 4, spriteSet, spriteWidth, spriteHeight);
+    public Player(EntityController entityController, SpriteSet spriteSet, SelectionCircle selectionCircle){
+        super(entityController, spriteSet);
         this.selectionCircle = selectionCircle;
         this.targetRange = settings.getSpriteSize();
     }
@@ -29,7 +31,16 @@ public class Player extends MovingEntity {
     @Override
     public void update(State state) {
         super.update(state);
+
         handleTarget(state);
+        handlePlayerSpecificInput(state);
+    }
+
+    private void handlePlayerSpecificInput(State state){
+        if(getController().requestedAction() && target != null){
+            target.getTargets().addFirst(new Vector2D(0,0));
+            target.getBrain().setCurrentAIState(new Wander((NPC) target, "test"));
+        }
     }
 
     private void handleTarget(State state) {

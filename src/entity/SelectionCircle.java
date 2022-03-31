@@ -17,11 +17,15 @@ public class SelectionCircle extends GameObject{
     private final Color color;
     private final BufferedImage sprite;
 
-    public SelectionCircle(int width, int height) {
-        super(width, height, width, height);
+    public SelectionCircle() {
+        super();
+        width = 38;
+        height = 22;
+        collisionBoxWidth = 1;
+        collisionBoxHeight = 1;
         color = Color.ORANGE;
         sprite = createSprite();
-        renderOffset = new Vector2D(0, height - 4f);
+        renderOffset = new Vector2D(5, height + 9f);
         renderOrder = 4;
     }
 
@@ -30,16 +34,15 @@ public class SelectionCircle extends GameObject{
         Graphics2D g = image.createGraphics();
 
         g.setColor(color);
-        g.fillOval(0,0, width, height);
+        g.setStroke(new BasicStroke(3));
+        g.drawOval(0,0, width, height);
 
         g.dispose();
         return image;
     }
 
     @Override
-    public void update(State state) {
-
-    }
+    public void update(State state) {}
 
     @Override
     public void draw(Graphics g, Camera camera) {
@@ -53,6 +56,6 @@ public class SelectionCircle extends GameObject{
     public CollisionBox getCollisionBox() {
         Vector2D renderedPosition = getPosition().getCopy();
         renderedPosition.add(renderOffset);
-        return CollisionBox.of(renderedPosition, width, height);
+        return CollisionBox.of(renderedPosition, collisionBoxWidth, collisionBoxHeight);
     }
 }

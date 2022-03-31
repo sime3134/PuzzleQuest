@@ -43,9 +43,9 @@ public class GameState extends State{
     }
 
     private void initializeEntities() {
-        selectionCircle = new SelectionCircle(48, 32);
+        selectionCircle = new SelectionCircle();
         player = new Player(PlayerController.getInstance(),
-                content.getUnit("player"), 48, 48, selectionCircle);
+                content.getSpriteSet("player"), selectionCircle);
         gameObjects.add(player);
         gameObjects.add(selectionCircle);
         camera.focusOn(player);
@@ -64,8 +64,7 @@ public class GameState extends State{
             }while(!isValidSpawnPosition(spawnPosition));
 
             NPC npc = new NPC(new NPCController(),
-                    content.getUnit("villager" + randomizer.nextInt(5)),
-                    48, 48);
+                    content.getSpriteSet("villager" + randomizer.nextInt(5)));
             npc.setPosition(spawnPosition);
             gameObjects.add(npc);
 

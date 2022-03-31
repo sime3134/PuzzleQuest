@@ -17,6 +17,10 @@ public class AIManager {
         return currentAIState;
     }
 
+    public void setCurrentAIState(AIState currentAIState) {
+        this.currentAIState = currentAIState;
+    }
+
     public AIManager(NPC entity) {
         this.entity = entity;
         lastState = "choose_next_action";

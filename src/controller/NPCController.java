@@ -35,6 +35,11 @@ public class NPCController implements EntityController {
         return right;
     }
 
+    @Override
+    public boolean requestedAction() {
+        return false;
+    }
+
     public void moveToTarget(Vector2D target, Vector2D start) {
         double deltaX = target.getX() - start.getX();
         double deltaY = target.getY() - start.getY();

@@ -14,18 +14,18 @@ import java.util.Map;
  */
 public class ContentManager {
 
-    private final Map<String, SpriteSet> gameObjects;
+    private final Map<String, SpriteSet> spriteSets;
     private final Map<String, Image> tileSheets;
     private Font font;
 
     public ContentManager(){
-        gameObjects = new HashMap<>();
+        spriteSets = new HashMap<>();
         tileSheets = new HashMap<>();
     }
 
     public void loadContent() {
-        loadUnits("/sprites/gameObjects");
-        loadTiles("/sprites/tiles");
+        loadSpriteSets("/sprites/gameObjects");
+        loadTileSheets("/sprites/tiles");
         loadFont("/font/joystix.ttf");
     }
 
@@ -42,7 +42,7 @@ public class ContentManager {
         ge.registerFont(font);
     }
 
-    private void loadTiles(String filePath) {
+    private void loadTileSheets(String filePath) {
         String[] imagesInFolder = getImagesInFolder(filePath);
 
         for(String fileName : imagesInFolder){
@@ -51,7 +51,7 @@ public class ContentManager {
         }
     }
 
-    private void loadUnits(String filePath) {
+    private void loadSpriteSets(String filePath) {
         String[] folderNames = getFolderNames(filePath);
 
         for(String folderName : folderNames){
@@ -64,7 +64,7 @@ public class ContentManager {
                         ImgUtils.loadImage(pathToFolder + "/" + sheetName));
             }
 
-            gameObjects.put(folderName, spriteSet);
+            spriteSets.put(folderName, spriteSet);
         }}
 
     private String[] getImagesInFolder(String basePath) {
@@ -79,11 +79,11 @@ public class ContentManager {
         return file.list((current, name) -> new File(current, name).isDirectory());
     }
 
-    public SpriteSet getUnit(String name) {
-        return gameObjects.get(name);
+    public SpriteSet getSpriteSet(String name) {
+        return spriteSets.get(name);
     }
 
-    public Image getTile(String name) {
+    public Image getTileSheet(String name) {
         return tileSheets.get(name);
     }
 }

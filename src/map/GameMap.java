@@ -32,7 +32,7 @@ public class GameMap {
 
     private void initializeTiles(ContentManager content) {
         for(Tile[] row : tiles){
-            Arrays.fill(row, new Tile(content.getTile("grass2")));
+            Arrays.fill(row, new Tile(content.getTileSheet("grass2")));
         }
     }
 

@@ -4,13 +4,14 @@ import ai.AIManager;
 import content.SpriteSet;
 import controller.EntityController;
 import core.Vector2D;
+import entity.humanoid.Humanoid;
 import main.state.State;
 import utilities.Buffer;
 
 /**
  * Implements living entities that are not controlled by the player.
  */
-public class NPC extends MovingEntity{
+public class NPC extends Humanoid {
 
     private final AIManager brain;
 
@@ -24,8 +25,8 @@ public class NPC extends MovingEntity{
         return targets;
     }
 
-    public NPC(EntityController entityController, SpriteSet spriteSet, int spriteWidth, int spriteHeight) {
-        super(entityController, 4, spriteSet, spriteWidth, spriteHeight);
+    public NPC(EntityController entityController, SpriteSet spriteSet) {
+        super(entityController, spriteSet);
         this.targets = new Buffer<>();
         brain = new AIManager(this);
     }

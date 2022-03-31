@@ -8,4 +8,5 @@ public interface EntityController {
     boolean requestedDown();
     boolean requestedLeft();
     boolean requestedRight();
+    boolean requestedAction();
 }
