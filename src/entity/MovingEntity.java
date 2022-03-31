@@ -28,24 +28,24 @@ public abstract class MovingEntity extends GameObject {
         return entityController;
     }
 
-    protected MovingEntity(EntityController entityController, double speed, SpriteSet spriteSet,
-                           int spriteWidth, int spriteHeight) {
-        super(spriteWidth, spriteHeight, spriteWidth / 2, spriteHeight / 2);
+    protected MovingEntity(EntityController entityController, SpriteSet spriteSet) {
+        super();
         this.entityController = entityController;
         this.velocity = new Vector2D(0,0);
-        this.speed = speed;
+        this.speed = 4;
         this.direction = Direction.DOWN;
         this.directionVector = new Vector2D(0,0);
-        animationManager = new AnimationManager(spriteSet, spriteWidth, spriteHeight);
+        animationManager = new AnimationManager(spriteSet, getWidth(), getHeight());
     }
 
     @Override
     public void update(State state){
         handleMovement();
+        animationManager.update(direction);
         checkForCollisions(state);
         updateDirection();
-        animationManager.update(direction);
-        setAnimation();
+        animationManager.playAnimation(decideAnimation());
+        decideAnimation();
 
         position.add(velocity);
     }
@@ -60,19 +60,12 @@ public abstract class MovingEntity extends GameObject {
     }
 
     private void checkForCollisions(State state) {
-        state.getCollidingBoxes(getCollisionBox()).forEach(entity -> handleCollision(entity));
+        state.getCollidingBoxes(getCollisionBox()).forEach(this::handleCollision);
     }
 
     protected abstract void handleCollision(GameObject other);
 
-    private void setAnimation() {
-
-        if(isMoving()){
-            animationManager.setAnimation("walk");
-        }else{
-            animationManager.setAnimation("stand");
-        }
-    }
+    protected abstract String decideAnimation();
 
     /**
      * Updates the direction the entity is facing.
@@ -85,7 +78,7 @@ public abstract class MovingEntity extends GameObject {
         }
     }
 
-    private boolean isMoving() {
+    protected boolean isMoving() {
         return Math.sqrt(velocity.getX() * velocity.getX() + velocity.getY() * velocity.getY()) > 0;
     }
 

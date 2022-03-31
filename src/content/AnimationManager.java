@@ -30,7 +30,7 @@ public class AnimationManager {
         this.currentAnimationName = "";
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
-        setAnimation("stand");
+        playAnimation("stand");
     }
 
     /**
@@ -67,7 +67,7 @@ public class AnimationManager {
      * Changes which animation we want to use. For example walking animation or standing animation.
      * @param name Can be "stand" or "walk" for different animations.
      */
-    public void setAnimation(String name){
+    public void playAnimation(String name){
         if(!name.equals(currentAnimationName)) {
             this.currentAnimationSheet = (BufferedImage) spriteSet.get(name);
             currentAnimationName = name;

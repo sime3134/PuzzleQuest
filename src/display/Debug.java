@@ -1,6 +1,7 @@
 package display;
 
 import entity.NPC;
+import entity.SelectionCircle;
 import main.state.State;
 import settings.GameSettings;
 import ui.*;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class Debug {
 
-    private GameSettings settings = GameSettings.getInstance();
+    private final GameSettings settings = GameSettings.getInstance();
     private final List<UIContainer> uiContainers;
 
     public Debug(State state){
@@ -27,7 +28,9 @@ public class Debug {
         container.setBackgroundColor(new Color(0,0,0,0));
         uiContainers.add(container);
 
-        state.getGameObjects().forEach(gameObject -> {
+        state.getGameObjects().stream()
+                .filter(gameObject -> !(gameObject instanceof SelectionCircle))
+                .forEach(gameObject -> {
             UIContainer entityContainer = new RelativeContainer(gameObject, state.getCamera());
             entityContainer.setBackgroundColor(Color.lightGray);
             UIText playerText;
@@ -50,7 +53,8 @@ public class Debug {
     public void draw(State state, Graphics g){
         Camera camera = state.getCamera();
         state.getGameObjects().stream()
-                .filter(gameObject -> camera.isObjectInView(gameObject))
+                .filter(gameObject -> camera.isObjectInView(gameObject)
+                        && !(gameObject instanceof SelectionCircle))
                 .map(gameObject -> gameObject.getCollisionBox())
                 .forEach(collisionBox -> collisionBox.draw(g, camera));
         uiContainers.forEach(container -> container.draw(g));
