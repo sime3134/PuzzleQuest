@@ -26,6 +26,8 @@ public class GameFrame extends JFrame {
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(settings.getScreenWidth(), settings.getScreenHeight()));
         canvas.setFocusable(false);
+        canvas.addMouseListener(Input.getInstance());
+        canvas.addMouseMotionListener(Input.getInstance());
         add(canvas);
         addKeyListener(Input.getInstance());
         pack();
