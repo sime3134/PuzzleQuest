@@ -47,6 +47,7 @@ public class GameState extends State{
         player = new Player(PlayerController.getInstance(),
                 content.getUnit("player"), 48, 48, selectionCircle);
         gameObjects.add(player);
+        gameObjects.add(selectionCircle);
         camera.focusOn(player);
 
         initializeNPCs(50);
