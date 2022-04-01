@@ -9,37 +9,40 @@ import java.awt.*;
  * The base class for all UI components.
  */
 public abstract class UIComponent {
-    protected Vector2D position;
+    protected Vector2D relativePosition;
+    protected Vector2D absolutePosition;
     protected int width;
     protected int height;
     protected Spacing margin;
     protected Spacing padding;
 
     protected UIComponent() {
-        position = new Vector2D(0,0);
+        relativePosition = new Vector2D(0,0);
+        absolutePosition = new Vector2D(0,0);
         this.width = 1;
         this.height = 1;
-        this.margin = new Spacing(1);
-        this.padding = new Spacing(1);
-    }
-    protected UIComponent(int margin, int padding) {
-        position = new Vector2D(0,0);
-        this.width = 1;
-        this.height = 1;
-        setMargin(margin);
-        setPadding(padding);
+        this.margin = new Spacing(0);
+        this.padding = new Spacing(0);
     }
 
     public abstract Image getSprite();
     public abstract void update(State state);
     public abstract void draw(Graphics g);
 
-    public Vector2D getPosition() {
-        return position;
+    public Vector2D getRelativePosition() {
+        return relativePosition;
     }
 
-    public void setPosition(Vector2D position) {
-        this.position = position;
+    public void setRelativePosition(Vector2D relativePosition) {
+        this.relativePosition = relativePosition;
+    }
+
+    public Vector2D getAbsolutePosition() {
+        return absolutePosition;
+    }
+
+    public void setAbsolutePosition(Vector2D absolutePosition) {
+        this.absolutePosition = absolutePosition;
     }
 
     public int getWidth() {

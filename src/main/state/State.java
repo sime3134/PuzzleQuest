@@ -50,15 +50,11 @@ public abstract class State {
     public void update(){
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(currentMap);
+
         handleMouseInput();
     }
 
     private void handleMouseInput() {
-
-        if(input.isMouseClicked()){
-            System.out.println("MOUSE CLICKED AT POSITION: " + input.getMousePosition().getX() + " x " + input.getMousePosition().getY());
-        }
-
         input.clearMouseClick();
     }
 

@@ -7,11 +7,7 @@ import core.Vector2D;
  */
 public class VerticalContainer extends UIContainer{
 
-    public VerticalContainer(int margin, int padding) {
-        super(margin, padding);
-    }
-
-    public VerticalContainer(){
+    public VerticalContainer() {
         super();
     }
 
@@ -39,11 +35,12 @@ public class VerticalContainer extends UIContainer{
 
     @Override
     protected void calculateContentPosition() {
-        int currentY = position.intY() + padding.getTop();
+        int currentY = padding.getTop();
 
         for(UIComponent child : children){
             currentY += child.getMargin().getTop();
-            child.setPosition(new Vector2D(position.intX() + padding.getLeft(), currentY));
+            child.setRelativePosition(new Vector2D(padding.getLeft(), currentY));
+            child.setAbsolutePosition(new Vector2D(padding.getLeft() + absolutePosition.getX(), currentY + absolutePosition.getY()));
             currentY += child.getHeight();
             currentY += child.getMargin().getBottom();
         }

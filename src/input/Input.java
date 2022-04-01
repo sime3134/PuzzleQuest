@@ -18,6 +18,36 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     private boolean mouseClicked;
     private boolean mousePressed;
 
+    public static Input getInstance() {
+        if(input == null){
+            input = new Input();
+        }
+        return input;
+    }
+
+    private Input(){
+        currentlyPressed = new boolean[1000];
+        pressed = new boolean[1000];
+        mousePosition = new Vector2D(0, 0);
+    }
+
+    public boolean isKeyPressed(int keyCode) {
+        if(!pressed[keyCode] && currentlyPressed[keyCode]) {
+            pressed[keyCode] = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isKeyCurrentlyPressed(int keyCode) {
+        return currentlyPressed[keyCode];
+    }
+
+    public void clearMouseClick() {
+        mouseClicked = false;
+    }
+
     public Vector2D getMousePosition() {
         return mousePosition;
     }
@@ -30,32 +60,8 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         return mousePressed;
     }
 
-    public static Input getInstance() {
-        if(input == null){
-            input = new Input();
-        }
-        return input;
-    }
-
-    private Input(){
-        currentlyPressed = new boolean[255];
-        pressed = new boolean[255];
-    }
-
-    //KEYBOARD
-
-    public boolean isPressed(int keyCode) {
-        if(!pressed[keyCode] && currentlyPressed[keyCode]){
-            pressed[keyCode] = true;
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean isCurrentlyPressed(int keyCode) {
-        return currentlyPressed[keyCode];
-    }
+    @Override
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -69,21 +75,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        //NOT NEEDED
-    }
-
-    public void clearMouseClick(){
-        mouseClicked = false;
-    }
-
-
-    //MOUSE
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -97,6 +89,12 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     }
 
     @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
     public void mouseDragged(MouseEvent e) {
         mousePosition = new Vector2D(e.getPoint().getX(), e.getPoint().getY());
     }
@@ -104,15 +102,5 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
         mousePosition = new Vector2D(e.getPoint().getX(), e.getPoint().getY());
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 }

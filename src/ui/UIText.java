@@ -32,11 +32,6 @@ public class UIText extends UIComponent{
         setupText(text);
     }
 
-    public UIText(int margin, int padding, String text) {
-        super(margin, padding);
-        setupText(text);
-    }
-
     private void setupText(String text){
         this.text = text;
         this.fontSize = 24;
@@ -86,8 +81,8 @@ public class UIText extends UIComponent{
     @Override
     public void draw(Graphics g) {
         g.drawImage(getSprite(),
-                position.intX(),
-                position.intY(),
+                absolutePosition.intX(),
+                absolutePosition.intY(),
                 null);
     }
 }

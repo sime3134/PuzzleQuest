@@ -21,8 +21,8 @@ public class RelativeContainer extends HorizontalContainer{
     @Override
     public void calculatePosition(){
         if(objectToFollow != null) {
-            this.position = objectToFollow.getRenderPosition(camera);
-            position.subtract(new Vector2D(5, 20));
+            this.absolutePosition = objectToFollow.getRenderPosition(camera);
+            absolutePosition.subtract(new Vector2D(5, 20));
             calculateContentPosition();
         }
     }

@@ -15,13 +15,24 @@ import java.util.List;
  */
 public abstract class UIContainer extends UIComponent{
 
-    private GameSettings settings = GameSettings.getInstance();
+    private final GameSettings settings = GameSettings.getInstance();
 
     protected Color backgroundColor;
+
+    protected int fixedWidth;
+    protected int fixedHeight;
 
     protected Alignment alignment;
 
     protected List<UIComponent> children;
+
+    public void setFixedWidth(int fixedWidth) {
+        this.fixedWidth = fixedWidth;
+    }
+
+    public void setFixedHeight(int fixedHeight) {
+        this.fixedHeight = fixedHeight;
+    }
 
     public void setAlignment(Alignment alignment) {
         this.alignment = alignment;
@@ -29,17 +40,10 @@ public abstract class UIContainer extends UIComponent{
 
     protected UIContainer(){
         super();
-        setupContainer();
-    }
-
-    protected UIContainer(int margin, int padding) {
-        super(margin, padding);
-        setupContainer();
-    }
-
-    private void setupContainer(){
         alignment = new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP);
-        backgroundColor = Color.RED;
+        backgroundColor = new Color(0, 0, 0, 0);
+        margin = new Spacing(5);
+        padding = new Spacing(5);
         children = new ArrayList<>();
         calculateSize();
         calculatePosition();
@@ -52,8 +56,10 @@ public abstract class UIContainer extends UIComponent{
     private void calculateSize() {
         int calculatedWidth = calculateContentWidth();
         int calculatedHeight = calculateContentHeight();
-        width = padding.getHorizontal() + calculatedWidth;
-        height = padding.getVertical() + calculatedHeight;
+        width = fixedWidth != 0
+            ? fixedWidth : padding.getHorizontal() + calculatedWidth;
+        height = fixedHeight != 0
+            ? fixedHeight : padding.getVertical() + calculatedHeight;
     }
 
     protected void calculatePosition() {
@@ -73,7 +79,8 @@ public abstract class UIContainer extends UIComponent{
             x = settings.getScreenHeight() - height - margin.getTop();
         }
 
-        this.position = new Vector2D(x,y);
+        this.relativePosition = new Vector2D(x, y);
+        this.absolutePosition = new Vector2D(x, y);
         calculateContentPosition();
     }
 
@@ -108,8 +115,8 @@ public abstract class UIContainer extends UIComponent{
     public void draw(Graphics g) {
         g.drawImage(
                 getSprite(),
-                position.intX(),
-                position.intY(),
+                absolutePosition.intX(),
+                absolutePosition.intY(),
                 null
         );
 

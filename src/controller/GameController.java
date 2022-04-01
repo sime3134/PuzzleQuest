@@ -18,16 +18,16 @@ public class GameController {
     }
 
     public void update(){
-        if(input.isPressed(KeyEvent.VK_F2)) {
+        if(input.isKeyPressed(KeyEvent.VK_F2)) {
             settings.toggleDebugMode();
         }
-        if(input.isPressed(KeyEvent.VK_F6)) {
+        if(input.isKeyPressed(KeyEvent.VK_F6)) {
             settings.decreaseGameSpeedMultiplier();
         }
-        if(input.isPressed(KeyEvent.VK_F7)) {
+        if(input.isKeyPressed(KeyEvent.VK_F7)) {
             settings.resetGameSpeedMultiplier();
         }
-        if(input.isPressed(KeyEvent.VK_F8)) {
+        if(input.isKeyPressed(KeyEvent.VK_F8)) {
             settings.increaseGameSpeedMultiplier();
         }
     }

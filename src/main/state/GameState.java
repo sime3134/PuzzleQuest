@@ -10,6 +10,7 @@ import entity.Player;
 import entity.SelectionCircle;
 import map.GameMap;
 import ui.*;
+import ui.clickable.UIButton;
 
 import java.awt.*;
 import java.security.SecureRandom;
@@ -37,9 +38,18 @@ public class GameState extends State{
     private void initializeUI() {
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        container.addComponent(new UIText(1,10, "Puzzle Quest 2"));
+        container.addComponent(new UIText("Puzzle Quest 2"));
         container.setBackgroundColor(new Color(0,0,0,0));
         uiContainers.add(container);
+
+        UIContainer buttonContainer = new VerticalContainer();
+        buttonContainer.setBackgroundColor(Color.DARK_GRAY);
+        buttonContainer.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
+        buttonContainer.addComponent(new UIButton("TEST", () -> System.out.println("button 1 clicked!!!")));
+        buttonContainer.addComponent(new UIButton("TEST", () -> System.out.println("button 2 clicked!!!")));
+        buttonContainer.addComponent(new UIButton("TEST", () -> System.out.println("button 3 clicked!!!")));
+        buttonContainer.addComponent(new UIButton("TEST", () -> System.out.println("button 4 clicked!!!")));
+        uiContainers.add(buttonContainer);
     }
 
     private void initializeEntities() {
