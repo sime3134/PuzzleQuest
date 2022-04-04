@@ -1,6 +1,7 @@
 package ui;
 
 /**
+ * @author Simon Jern
  * Implements alignments on the screen for UI components.
  */
 public class Alignment {

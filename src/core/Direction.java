@@ -1,6 +1,7 @@
 package core;
 
 /**
+ * @author Simon Jern
  * The direction an entity is facing. Can be used for choosing the right animation.
  */
 public enum Direction {

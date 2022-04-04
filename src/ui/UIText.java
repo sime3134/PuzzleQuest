@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
+ * @author Simon Jern
  * Implements a UI component that displays text.
  */
 public class UIText extends UIComponent{
@@ -34,7 +35,7 @@ public class UIText extends UIComponent{
 
     private void setupText(String text){
         this.text = text;
-        this.fontSize = 24;
+        this.fontSize = 16;
         this.fontStyle = Font.BOLD;
         this.fontFamily = "Joystix Monospace";
         this.fontColor = Color.WHITE;

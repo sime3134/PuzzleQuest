@@ -1,15 +1,15 @@
 package core;
 
-import settings.GameSettings;
+import settings.Settings;
 
 /**
+ * @author Simon Jern
  * A class to store and use both x and y values at the same, for example when storing positions.
+ * Includes methods to make different calculations with the values.
  */
 public class Vector2D {
     private double x;
     private double y;
-
-    private GameSettings settings = GameSettings.getInstance();
 
     public double getX() {
         return x;
@@ -52,7 +52,7 @@ public class Vector2D {
 
     public boolean isInRangeOf(Vector2D position) {
         if(position != null) {
-            return Math.abs(x - position.getX()) < settings.getProximityRange() && Math.abs(y - position.getY()) < settings.getProximityRange();
+            return Math.abs(x - position.getX()) < Settings.getProximityRange() && Math.abs(y - position.getY()) < Settings.getProximityRange();
         }
         return false;
     }

@@ -9,6 +9,7 @@ import main.state.State;
 import utilities.Buffer;
 
 /**
+ * @author Simon Jern
  * Implements living entities that are not controlled by the player.
  */
 public class NPC extends Humanoid {

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author Simon Jern
  * Used to load different content to the game. For example spritesheets, tiles and music.
  */
 public class ContentManager {

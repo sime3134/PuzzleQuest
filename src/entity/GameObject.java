@@ -4,16 +4,15 @@ import core.CollisionBox;
 import core.Vector2D;
 import display.Camera;
 import main.state.State;
-import settings.GameSettings;
+import settings.Settings;
 
 import java.awt.*;
 
 /**
+ * @author Simon Jern
  * The core class for all entities in the game.
  */
 public abstract class GameObject {
-
-    GameSettings settings = GameSettings.getInstance();
 
     protected GameObject parent;
 
@@ -65,8 +64,8 @@ public abstract class GameObject {
     protected GameObject(){
         this.position = new Vector2D(0,0);
         this.renderOffset = new Vector2D(0,0);
-        this.width = settings.getSpriteSize();
-        this.height = settings.getSpriteSize();
+        this.width = Settings.getSpriteSize();
+        this.height = Settings.getSpriteSize();
         this.collisionBoxWidth = 0;
         this.collisionBoxHeight = 0;
         this.renderOrder = 5;

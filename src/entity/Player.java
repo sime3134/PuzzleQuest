@@ -6,17 +6,16 @@ import controller.EntityController;
 import core.Vector2D;
 import entity.humanoid.Humanoid;
 import main.state.State;
-import settings.GameSettings;
+import settings.Settings;
 
 import java.util.Comparator;
 import java.util.Optional;
 
 /**
+ * @author Simon Jern
  * The player of the game.
  */
 public class Player extends Humanoid {
-
-    private final GameSettings settings = GameSettings.getInstance();
 
     private NPC target;
     private final double targetRange;
@@ -25,7 +24,7 @@ public class Player extends Humanoid {
     public Player(EntityController entityController, SpriteSet spriteSet, SelectionCircle selectionCircle){
         super(entityController, spriteSet);
         this.selectionCircle = selectionCircle;
-        this.targetRange = settings.getSpriteSize();
+        this.targetRange = Settings.getSpriteSize();
     }
 
     @Override

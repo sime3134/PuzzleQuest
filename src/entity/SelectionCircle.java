@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
+ * @author Simon Jern
  * A graphic circle to display who the player currently interacts with.
  */
 public class SelectionCircle extends GameObject{

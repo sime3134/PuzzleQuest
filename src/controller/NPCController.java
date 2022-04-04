@@ -1,14 +1,13 @@
 package controller;
 
 import core.Vector2D;
-import settings.GameSettings;
+import settings.Settings;
 
 /**
+ * @author Simon Jern
  * Implements controller for NPCs.
  */
 public class NPCController implements EntityController {
-
-    private GameSettings settings = GameSettings.getInstance();
 
     private boolean up;
     private boolean down;
@@ -44,10 +43,10 @@ public class NPCController implements EntityController {
         double deltaX = target.getX() - start.getX();
         double deltaY = target.getY() - start.getY();
 
-        up = deltaY < 0 && Math.abs(deltaY) > settings.getProximityRange();
-        right = deltaX > 0 && Math.abs(deltaX) > settings.getProximityRange();
-        down = deltaY > 0 && Math.abs(deltaY) > settings.getProximityRange();
-        left = deltaX < 0 && Math.abs(deltaX) > settings.getProximityRange();
+        up = deltaY < 0 && Math.abs(deltaY) > Settings.getProximityRange();
+        right = deltaX > 0 && Math.abs(deltaX) > Settings.getProximityRange();
+        down = deltaY > 0 && Math.abs(deltaY) > Settings.getProximityRange();
+        left = deltaX < 0 && Math.abs(deltaX) > Settings.getProximityRange();
     }
 
     public void stop() {

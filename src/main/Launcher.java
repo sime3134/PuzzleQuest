@@ -3,6 +3,7 @@ package main;
 import display.GameFrame;
 
 /**
+ * @author Simon Jern
  * The launcher for the game.
  */
 public class Launcher {

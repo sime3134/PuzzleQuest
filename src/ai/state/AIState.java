@@ -5,6 +5,7 @@ import entity.NPC;
 import main.state.State;
 
 /**
+ * @author Simon Jern
  * An entity with an AI can be in several states representing their current action and goal.
  * This abstract class is the skeleton for the actual doable states like Wander, Stand etc.
  */

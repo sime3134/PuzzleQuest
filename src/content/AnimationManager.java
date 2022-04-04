@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
+ * @author Simon Jern
  * This class implements animations for sprites. For example every MovingEntity has an instance of this class
  * that it uses to draw the correct sprite to the screen.
  */

@@ -2,12 +2,17 @@ package ui.clickable;
 
 import core.Vector2D;
 import input.Input;
+import input.mouse.MouseConsumer;
 import main.state.State;
 import ui.UIComponent;
 
 import java.awt.*;
 
-public abstract class UIClickable extends UIComponent {
+/**
+ * @author Simon Jern
+ * Implements clickable UI components.
+ */
+public abstract class UIClickable extends UIComponent implements MouseConsumer {
 
     protected boolean hasFocus;
     protected boolean isPressed;
@@ -19,12 +24,10 @@ public abstract class UIClickable extends UIComponent {
         hasFocus = getBounds().contains(mousePosition.intX(), mousePosition.intY());
         isPressed = hasFocus && Input.getInstance().isMousePressed();
 
-        if(hasFocus && Input.getInstance().isMouseClicked()){
-            onClick();
+        if(hasFocus){
+            state.getMouseHandler().setCurrentConsumer(this);
         }
     }
-
-    protected abstract void onClick();
 
     @Override
     public abstract void draw(Graphics g);

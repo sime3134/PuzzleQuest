@@ -5,10 +5,11 @@ import display.Camera;
 import java.awt.*;
 
 /**
+ * @author Simon Jern
  * Implements collision boxes that are used to check for collision and similar between objects.
  */
 public class CollisionBox {
-    private Rectangle bounds;
+    private final Rectangle bounds;
 
     public Rectangle getBounds() {
         return bounds;

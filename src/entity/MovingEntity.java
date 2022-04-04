@@ -12,6 +12,7 @@ import main.state.State;
 import java.awt.*;
 
 /**
+ * @author Simon Jern
  * The core class for all objects that has some kind of movement in the game.
  */
 public abstract class MovingEntity extends GameObject {

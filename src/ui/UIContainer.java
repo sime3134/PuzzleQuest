@@ -1,8 +1,10 @@
 package ui;
 
 import core.Vector2D;
+import input.Input;
 import main.state.State;
-import settings.GameSettings;
+import settings.Settings;
+import ui.clickable.UIClickable;
 import utilities.ImgUtils;
 
 import java.awt.*;
@@ -11,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author Simon Jern
  * Base class for all UI containers.
  */
-public abstract class UIContainer extends UIComponent{
+public abstract class UIContainer extends UIComponent {
 
-    private final GameSettings settings = GameSettings.getInstance();
+    protected boolean centerChildren;
 
     protected Color backgroundColor;
 
@@ -26,6 +29,7 @@ public abstract class UIContainer extends UIComponent{
 
     protected List<UIComponent> children;
 
+    //region Getters and Setters (click to view)
     public void setFixedWidth(int fixedWidth) {
         this.fixedWidth = fixedWidth;
     }
@@ -38,9 +42,25 @@ public abstract class UIContainer extends UIComponent{
         this.alignment = alignment;
     }
 
+    public void setBackgroundColor(Color color) {
+        this.backgroundColor = color;
+    }
+
+    @Override
+    public Image getSprite() {
+        return createUiSprite();
+    }
+
+    public void setCenterChildren(boolean centerChildren) {
+        this.centerChildren = centerChildren;
+    }
+
+    //endregion
+
     protected UIContainer(){
         super();
         alignment = new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP);
+        centerChildren = false;
         backgroundColor = new Color(0, 0, 0, 0);
         margin = new Spacing(5);
         padding = new Spacing(5);
@@ -63,30 +83,27 @@ public abstract class UIContainer extends UIComponent{
     }
 
     protected void calculatePosition() {
-        int x = padding.getLeft();
-        if(alignment.getHorizontal().equals(Alignment.Horizontal.CENTER)){
-            x = settings.getScreenWidth() / 2 - width / 2;
-        }
-        if(alignment.getHorizontal().equals(Alignment.Horizontal.RIGHT)){
-            x = settings.getScreenWidth() - width - margin.getRight();
-        }
+            int x = padding.getLeft();
+            if (alignment.getHorizontal().equals(Alignment.Horizontal.CENTER)) {
+                x = Settings.getScreenWidth() / 2 - width / 2;
+            }
+            if (alignment.getHorizontal().equals(Alignment.Horizontal.RIGHT)) {
+                x = Settings.getScreenWidth() - width - margin.getRight();
+            }
 
-        int y = padding.getTop();
-        if(alignment.getVertical().equals(Alignment.Vertical.CENTER)){
-            y = settings.getScreenHeight() / 2 - height / 2;
-        }
-        if(alignment.getVertical().equals(Alignment.Vertical.BOTTOM)){
-            x = settings.getScreenHeight() - height - margin.getTop();
-        }
+            int y = padding.getTop();
+            if (alignment.getVertical().equals(Alignment.Vertical.CENTER)) {
+                y = Settings.getScreenHeight() / 2 - height / 2;
+            }
+            if (alignment.getVertical().equals(Alignment.Vertical.BOTTOM)) {
+                y = Settings.getScreenHeight() - height - margin.getTop();
+            }
 
-        this.relativePosition = new Vector2D(x, y);
-        this.absolutePosition = new Vector2D(x, y);
+            this.relativePosition = new Vector2D(x, y);
+            if (parent == null) {
+                this.absolutePosition = new Vector2D(x, y);
+            }
         calculateContentPosition();
-    }
-
-    @Override
-    public Image getSprite() {
-        return createUiSprite();
     }
 
     private Image createUiSprite() {
@@ -102,6 +119,7 @@ public abstract class UIContainer extends UIComponent{
 
     public void addComponent(UIComponent uiComponent){
         children.add(uiComponent);
+        uiComponent.setParent(this);
     }
 
     @Override
@@ -123,9 +141,5 @@ public abstract class UIContainer extends UIComponent{
         for(UIComponent component : children){
             component.draw(g);
         }
-    }
-
-    public void setBackgroundColor(Color color) {
-        this.backgroundColor = color;
     }
 }

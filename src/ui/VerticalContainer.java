@@ -3,6 +3,7 @@ package ui;
 import core.Vector2D;
 
 /**
+ * @author Simon Jern
  * A vertical UI container.
  */
 public class VerticalContainer extends UIContainer{
@@ -36,11 +37,15 @@ public class VerticalContainer extends UIContainer{
     @Override
     protected void calculateContentPosition() {
         int currentY = padding.getTop();
+        int currentX = padding.getLeft();
 
         for(UIComponent child : children){
+            if(centerChildren){
+                currentX = getWidth() / 2 - child.getWidth() / 2;
+            }
             currentY += child.getMargin().getTop();
-            child.setRelativePosition(new Vector2D(padding.getLeft(), currentY));
-            child.setAbsolutePosition(new Vector2D(padding.getLeft() + absolutePosition.getX(), currentY + absolutePosition.getY()));
+            child.setRelativePosition(new Vector2D(currentX, currentY));
+            child.setAbsolutePosition(new Vector2D(currentX + absolutePosition.getX(), currentY + absolutePosition.getY()));
             currentY += child.getHeight();
             currentY += child.getMargin().getBottom();
         }

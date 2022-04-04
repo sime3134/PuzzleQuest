@@ -2,9 +2,10 @@ package ui;
 
 import entity.NPC;
 import main.state.State;
-import settings.GameSettings;
+import settings.Settings;
 
 /**
+ * @author Simon Jern
  * A UI component that displays text that can be updated during the game.
  */
 public class RelativeUIText extends UIText{
@@ -21,10 +22,6 @@ public class RelativeUIText extends UIText{
         super.update(state);
         if(obj instanceof NPC npc) {
             text = npc.getBrain().getCurrentAIState().getClass().getSimpleName();
-        }
-        if(obj instanceof GameSettings settings){
-            setFontSize(8);
-            text = "Game speed: " + settings.getGameSpeedMultiplier();
         }
     }
 }

@@ -1,6 +1,7 @@
 package controller;
 
 /**
+ * @author Simon Jern
  * Interface for controllers that control entities.
  */
 public interface EntityController {

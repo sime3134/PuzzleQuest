@@ -6,6 +6,10 @@ import entity.GameObject;
 import entity.MovingEntity;
 import main.state.State;
 
+/**
+ * @author Simon Jern
+ * Implements code for humanoid game objects in the game.
+ */
 public abstract class Humanoid extends MovingEntity {
 
     protected Humanoid(EntityController entityController, SpriteSet spriteSet) {

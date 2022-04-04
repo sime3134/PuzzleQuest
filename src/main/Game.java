@@ -2,24 +2,23 @@ package main;
 
 import controller.GameController;
 import display.Debug;
-import main.state.GameState;
+import main.state.EditorState;
 import main.state.State;
-import settings.GameSettings;
+import settings.Settings;
 
 import java.awt.*;
 
 /**
+ * @author Simon Jern
  * Main class for the game controlling the current state of the game.
  */
 public class Game {
-    GameSettings settings;
     private State state;
     private final Debug debug;
     GameController gameController;
 
     public Game(){
-        settings = GameSettings.getInstance();
-        state = new GameState();
+        state = new EditorState();
         debug = new Debug(state);
         gameController = new GameController();
     }
@@ -32,7 +31,7 @@ public class Game {
 
     public void draw(Graphics g){
         state.draw(g);
-        if(settings.isDebugMode()) {
+        if(Settings.isDebugMode()) {
             debug.draw(state, g);
         }
     }

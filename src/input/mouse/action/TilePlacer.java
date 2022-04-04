@@ -1,0 +1,63 @@
+package input.mouse.action;
+
+import core.Vector2D;
+import input.Input;
+import main.state.State;
+import map.Tile;
+import settings.Settings;
+import ui.UIImage;
+
+import java.awt.*;
+
+public class TilePlacer extends MouseAction{
+
+    private final Tile tile;
+    private final UIImage previewImage;
+    private int currentGridX;
+    private int currentGridY;
+
+    public TilePlacer(Tile tile) {
+        this.tile = tile;
+        previewImage = new UIImage(tile.getSprite());
+    }
+
+    @Override
+    public void onClick(State state) {
+        if(state.getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
+            state.getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
+        }
+    }
+
+    @Override
+    public void onDrag(State state) {
+        if(state.getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
+            state.getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
+        }
+    }
+
+    @Override
+    public void update(State state) {
+        Vector2D mousePosition = Input.getInstance().getMousePosition().getCopy();
+        mousePosition.add(state.getCamera().getPosition());
+
+        currentGridX = mousePosition.intX() / Settings.getSpriteSize();
+        currentGridY = mousePosition.intY() / Settings.getSpriteSize();
+
+        mousePosition.subtract(new Vector2D(
+                mousePosition.intX() % Settings.getSpriteSize(),
+                mousePosition.intY() % Settings.getSpriteSize()));
+        mousePosition.subtract(state.getCamera().getPosition());
+
+        previewImage.setAbsolutePosition(mousePosition);
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        previewImage.draw(g);
+    }
+
+    @Override
+    public UIImage getSprite() {
+        return previewImage;
+    }
+}

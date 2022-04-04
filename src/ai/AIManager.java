@@ -5,6 +5,7 @@ import entity.NPC;
 import main.state.State;
 
 /**
+ * @author Simon Jern
  * Handles the flow during and between states.
  */
 public class AIManager {

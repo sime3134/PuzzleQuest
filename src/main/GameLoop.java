@@ -1,14 +1,14 @@
 package main;
 
 import display.GameFrame;
-import settings.GameSettings;
+import settings.Settings;
 
 /**
+ * @author Simon Jern
  * Single thread running the game at a steady speed.
  */
 public class GameLoop implements Runnable {
 
-    private final GameSettings settings = GameSettings.getInstance();
     private final Game game;
     private final GameFrame gameFrame;
 
@@ -40,7 +40,7 @@ public class GameLoop implements Runnable {
         while(!Thread.interrupted()) {
             currentTime = System.currentTimeMillis();
             double lastRenderTimeInSeconds = (currentTime - lastUpdate) / 1000d;
-            accumulator += lastRenderTimeInSeconds * settings.getGameSpeedMultiplier();
+            accumulator += lastRenderTimeInSeconds * Settings.getGameSpeedMultiplier();
             lastUpdate = currentTime;
 
             if(accumulator >= updateRate) {

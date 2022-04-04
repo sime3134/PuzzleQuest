@@ -1,24 +1,32 @@
 package ui.clickable;
 
 import main.state.State;
+import ui.Spacing;
 import ui.UIContainer;
 import ui.UIText;
 import ui.VerticalContainer;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * Implements the UI for a clickable button.
+ */
 public class UIButton extends UIClickable{
 
     private final UIContainer buttonContainer;
     private final UIText buttonText;
 
-    private final Runnable clickEvent;
+    private final ClickAction clickAction;
 
-    public UIButton(String buttonText, Runnable clickEvent) {
+    public UIButton(String buttonText, ClickAction clickAction) {
         this.buttonText = new UIText(buttonText);
-        this.clickEvent = clickEvent;
+        this.clickAction = clickAction;
+
+        setMargin(new Spacing(5, 0, 0, 0));
 
         buttonContainer = new VerticalContainer();
+        buttonContainer.setCenterChildren(true);
         buttonContainer.addComponent(this.buttonText);
         buttonContainer.setFixedWidth(150);
     }
@@ -42,8 +50,15 @@ public class UIButton extends UIClickable{
     }
 
     @Override
-    protected void onClick() {
-        clickEvent.run();
+    public void onClick(State state) {
+        if(hasFocus) {
+            clickAction.execute(state);
+        }
+    }
+
+    @Override
+    public void onDrag(State state) {
+
     }
 
     @Override

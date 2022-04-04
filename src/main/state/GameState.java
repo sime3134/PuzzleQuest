@@ -4,7 +4,6 @@ import controller.NPCController;
 import controller.PlayerController;
 import core.CollisionBox;
 import core.Vector2D;
-import entity.GameObject;
 import entity.NPC;
 import entity.Player;
 import entity.SelectionCircle;
@@ -14,9 +13,9 @@ import ui.clickable.UIButton;
 
 import java.awt.*;
 import java.security.SecureRandom;
-import java.util.Comparator;
 
 /**
+ * @author Simon Jern
  * The class containing all the front logic for the game. This class should not contain any complicated or overly long
  * methods but instead pair together several components of the game such as the player, NPCs, content etc.
  */
@@ -45,10 +44,10 @@ public class GameState extends State{
         UIContainer buttonContainer = new VerticalContainer();
         buttonContainer.setBackgroundColor(Color.DARK_GRAY);
         buttonContainer.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
-        buttonContainer.addComponent(new UIButton("TEST", () -> System.out.println("button 1 clicked!!!")));
-        buttonContainer.addComponent(new UIButton("TEST", () -> System.out.println("button 2 clicked!!!")));
-        buttonContainer.addComponent(new UIButton("TEST", () -> System.out.println("button 3 clicked!!!")));
-        buttonContainer.addComponent(new UIButton("TEST", () -> System.out.println("button 4 clicked!!!")));
+        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 1 clicked!!!")));
+        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 2 clicked!!!")));
+        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 3 clicked!!!")));
+        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 4 clicked!!!")));
         uiContainers.add(buttonContainer);
     }
 
@@ -90,24 +89,5 @@ public class GameState extends State{
                 )
         );
         return getCollidingBoxes(box).isEmpty();
-    }
-
-    @Override
-    public void update(){
-        super.update();
-        updateObjectsDrawOrder();
-        gameObjects.forEach(gameObject -> gameObject.update(this));
-    }
-
-    public void draw(Graphics g){
-        currentMap.draw(g, camera);
-        gameObjects.stream()
-                .filter(gameObject -> camera.isObjectInView(gameObject))
-                .forEach(gameObject -> gameObject.draw(g, camera));
-        uiContainers.forEach(uiContainer -> uiContainer.draw(g));
-    }
-
-    private void updateObjectsDrawOrder() {
-        gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(gameObject -> gameObject.getPosition().getY()));
     }
 }

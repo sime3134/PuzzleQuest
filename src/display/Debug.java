@@ -3,7 +3,7 @@ package display;
 import entity.NPC;
 import entity.SelectionCircle;
 import main.state.State;
-import settings.GameSettings;
+import settings.Settings;
 import ui.*;
 
 import java.awt.*;
@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author Simon Jern
  * Implements a debugger to draw and update components that do not have an importance in the actual game.
  */
 public class Debug {
 
-    private final GameSettings settings = GameSettings.getInstance();
     private final List<UIContainer> uiContainers;
 
     public Debug(State state){
@@ -24,7 +24,6 @@ public class Debug {
 
         UIContainer container = new VerticalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP));
-        container.addComponent(new RelativeUIText(String.valueOf(settings.getGameSpeedMultiplier()), settings));
         container.setBackgroundColor(new Color(0,0,0,0));
         uiContainers.add(container);
 

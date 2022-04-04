@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 /**
+ * @author Simon Jern
  * Implements tools for handling images.
  */
 public class ImgUtils {

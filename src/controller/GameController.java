@@ -1,16 +1,16 @@
 package controller;
 
 import input.Input;
-import settings.GameSettings;
+import settings.Settings;
 
 import java.awt.event.KeyEvent;
 
 /**
+ * @author Simon Jern
  * Controller for controlling input outside the actual game. Ex: turning debug mode on or off.
  */
 public class GameController {
 
-    private final GameSettings settings = GameSettings.getInstance();
     private final Input input;
 
     public GameController(){
@@ -19,16 +19,16 @@ public class GameController {
 
     public void update(){
         if(input.isKeyPressed(KeyEvent.VK_F2)) {
-            settings.toggleDebugMode();
+            Settings.toggleDebugMode();
         }
         if(input.isKeyPressed(KeyEvent.VK_F6)) {
-            settings.decreaseGameSpeedMultiplier();
+            Settings.decreaseGameSpeedMultiplier();
         }
         if(input.isKeyPressed(KeyEvent.VK_F7)) {
-            settings.resetGameSpeedMultiplier();
+            Settings.resetGameSpeedMultiplier();
         }
         if(input.isKeyPressed(KeyEvent.VK_F8)) {
-            settings.increaseGameSpeedMultiplier();
+            Settings.increaseGameSpeedMultiplier();
         }
     }
 }

@@ -1,6 +1,7 @@
 package ui;
 
 /**
+ * @author Simon Jern
  * Implements spacing that can be used to position UI components.
  */
 public class Spacing {

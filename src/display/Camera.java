@@ -3,18 +3,19 @@ package display;
 import core.Vector2D;
 import entity.GameObject;
 import map.GameMap;
-import settings.GameSettings;
+import settings.Settings;
 
 import java.awt.*;
 import java.util.Optional;
 
 /**
+ *
+ * @author Simon Jern
  * Implements a camera that can be used to follow game objects or restrict what is drawn to the screen etc.
  */
 public class Camera {
 
-    private final GameSettings settings = GameSettings.getInstance();
-    private final Vector2D position;
+    private Vector2D position;
     private final int windowWidth;
     private final int windowHeight;
 
@@ -26,18 +27,23 @@ public class Camera {
         return position;
     }
 
+    public void setPosition(Vector2D position) {
+        this.position = position;
+    }
+
     private void setCurrentView() {
         currentView = new Rectangle(
                 position.intX(),
                 position.intY(),
-                windowWidth + settings.getRenderMargin(),
-                windowHeight + settings.getRenderMargin());
+                windowWidth + Settings.getRenderMargin(),
+                windowHeight + Settings.getRenderMargin());
     }
 
     public Camera() {
         position = new Vector2D(0,0);
-        this.windowWidth = settings.getScreenWidth();
-        this.windowHeight = settings.getScreenHeight();
+        this.windowWidth = Settings.getScreenWidth();
+        this.windowHeight = Settings.getScreenHeight();
+        this.objectInFocus = Optional.empty();
         setCurrentView();
     }
 

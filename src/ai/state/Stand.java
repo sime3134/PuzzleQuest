@@ -1,11 +1,11 @@
 package ai.state;
 
 import ai.AITransition;
-import core.Time;
 import entity.NPC;
 import main.state.State;
 
 /**
+ * @author Simon Jern
  * Implements a state where the entity will simply stand still for a set amount of time.
  */
 public class Stand extends AIState {
@@ -17,7 +17,7 @@ public class Stand extends AIState {
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("choose_next_action", ((state, currentCharacter) -> numberOfUpdatesWaiting >= Time.getNumberOfUpdatesFromSeconds(3)));
+        return new AITransition("choose_next_action", ((state, currentCharacter) -> numberOfUpdatesWaiting >= state.getTime().getUpdatesFromSeconds(3)));
     }
 
     public void update(State state) {

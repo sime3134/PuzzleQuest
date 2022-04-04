@@ -2,18 +2,18 @@ package display;
 
 import input.Input;
 import main.Game;
-import settings.GameSettings;
+import settings.Settings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 /**
+ * @author Simon Jern
  * The window frame that the game is displayed in.
  */
 public class GameFrame extends JFrame {
 
-    private final GameSettings settings = GameSettings.getInstance();
     private final Game game;
     private final Canvas canvas;
 
@@ -24,7 +24,7 @@ public class GameFrame extends JFrame {
         setResizable(false);
 
         canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(settings.getScreenWidth(), settings.getScreenHeight()));
+        canvas.setPreferredSize(new Dimension(Settings.getScreenWidth(), Settings.getScreenHeight()));
         canvas.setFocusable(false);
         canvas.addMouseListener(Input.getInstance());
         canvas.addMouseMotionListener(Input.getInstance());

@@ -6,6 +6,7 @@ import main.state.State;
 import java.awt.*;
 
 /**
+ * @author Simon Jern
  * The base class for all UI components.
  */
 public abstract class UIComponent {
@@ -16,18 +17,11 @@ public abstract class UIComponent {
     protected Spacing margin;
     protected Spacing padding;
 
-    protected UIComponent() {
-        relativePosition = new Vector2D(0,0);
-        absolutePosition = new Vector2D(0,0);
-        this.width = 1;
-        this.height = 1;
-        this.margin = new Spacing(0);
-        this.padding = new Spacing(0);
-    }
+    protected UIContainer parent;
+
+    //region Getters and Setters (click to open)
 
     public abstract Image getSprite();
-    public abstract void update(State state);
-    public abstract void draw(Graphics g);
 
     public Vector2D getRelativePosition() {
         return relativePosition;
@@ -92,4 +86,22 @@ public abstract class UIComponent {
             this.padding = new Spacing(1);
         }
     }
+
+    public void setParent(UIContainer parent) {
+        this.parent = parent;
+    }
+
+    //endregion
+
+    protected UIComponent() {
+        relativePosition = new Vector2D(0,0);
+        absolutePosition = new Vector2D(0,0);
+        this.width = 1;
+        this.height = 1;
+        this.margin = new Spacing(0);
+        this.padding = new Spacing(0);
+    }
+
+    public abstract void update(State state);
+    public abstract void draw(Graphics g);
 }

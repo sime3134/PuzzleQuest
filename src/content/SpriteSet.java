@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author Simon Jern
  * A sprite set contains all animations for an entity, for example walking and standing animations.
  */
 public class SpriteSet {

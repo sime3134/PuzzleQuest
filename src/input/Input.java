@@ -5,6 +5,7 @@ import core.Vector2D;
 import java.awt.event.*;
 
 /**
+ * @author Simon Jern
  * Handles keyboard input.
  */
 public class Input implements KeyListener, MouseListener, MouseMotionListener {

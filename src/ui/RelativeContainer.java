@@ -5,6 +5,7 @@ import display.Camera;
 import entity.GameObject;
 
 /**
+ * @author Simon Jern
  * An UI container that follows a game object on the screen.
  */
 public class RelativeContainer extends HorizontalContainer{
