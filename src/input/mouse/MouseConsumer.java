@@ -1,10 +1,11 @@
 package input.mouse;
 
+import main.Game;
 import main.state.State;
 
 public interface MouseConsumer {
 
-    void onClick(State state);
-    void onDrag(State state);
+    void onClick(Game game);
+    void onDrag(Game game);
 
 }

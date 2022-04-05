@@ -1,6 +1,7 @@
 package ui.clickable;
 
 import input.mouse.action.TilePlacer;
+import main.Game;
 import main.state.State;
 import map.Tile;
 import ui.UIImage;
@@ -50,12 +51,12 @@ public class UITileToggle extends UIClickable{
     }
 
     @Override
-    public void onClick(State state) {
-        state.getMouseHandler().setPrimaryButtonAction(tilePlacer);
+    public void onClick(Game game) {
+        game.getState().getMouseHandler().setPrimaryButtonAction(tilePlacer);
     }
 
     @Override
-    public void onDrag(State state) {
+    public void onDrag(Game game) {
 
     }
 

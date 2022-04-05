@@ -1,5 +1,6 @@
 package ui.clickable;
 
+import main.Game;
 import main.state.State;
 import ui.Spacing;
 import ui.UIContainer;
@@ -19,11 +20,18 @@ public class UIButton extends UIClickable{
 
     private final ClickAction clickAction;
 
+    private Color backgroundColor;
+    private Color hoverColor;
+    private Color clickColor;
+
     public UIButton(String buttonText, ClickAction clickAction) {
         this.buttonText = new UIText(buttonText);
         this.clickAction = clickAction;
 
         setMargin(new Spacing(5, 0, 0, 0));
+        backgroundColor = Color.GRAY;
+        hoverColor = Color.LIGHT_GRAY;
+        clickColor = Color.DARK_GRAY;
 
         buttonContainer = new VerticalContainer();
         buttonContainer.setCenterChildren(true);
@@ -38,26 +46,26 @@ public class UIButton extends UIClickable{
         width = buttonContainer.getWidth();
         height = buttonContainer.getHeight();
 
-        buttonContainer.setBackgroundColor(Color.GRAY);
+        buttonContainer.setBackgroundColor(backgroundColor);
 
         if(hasFocus){
-            buttonContainer.setBackgroundColor(Color.LIGHT_GRAY);
+            buttonContainer.setBackgroundColor(hoverColor);
         }
 
         if(isPressed){
-            buttonContainer.setBackgroundColor(Color.DARK_GRAY);
+            buttonContainer.setBackgroundColor(clickColor);
         }
     }
 
     @Override
-    public void onClick(State state) {
+    public void onClick(Game game) {
         if(hasFocus) {
-            clickAction.execute(state);
+            clickAction.execute(game);
         }
     }
 
     @Override
-    public void onDrag(State state) {
+    public void onDrag(Game game) {
 
     }
 
@@ -80,5 +88,17 @@ public class UIButton extends UIClickable{
     @Override
     public Image getSprite() {
         return buttonContainer.getSprite();
+    }
+
+    public void setBackgroundColor(Color backgroundColor){
+        this.backgroundColor = backgroundColor;
+    }
+
+    public void setHoverColor(Color hoverColor) {
+        this.hoverColor = hoverColor;
+    }
+
+    public void setClickColor(Color clickColor) {
+        this.clickColor = clickColor;
     }
 }

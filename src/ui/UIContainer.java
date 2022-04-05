@@ -46,6 +46,10 @@ public abstract class UIContainer extends UIComponent {
         this.backgroundColor = color;
     }
 
+    public Color getBackgroundColor() {
+        return this.backgroundColor;
+    }
+
     @Override
     public Image getSprite() {
         return createUiSprite();

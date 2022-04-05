@@ -3,6 +3,7 @@ package ui.clickable;
 import core.Vector2D;
 import display.Camera;
 import input.Input;
+import main.Game;
 import main.state.State;
 import map.GameMap;
 import settings.Settings;
@@ -81,15 +82,15 @@ public class UIMinimap extends UIClickable{
     }
 
     @Override
-    public void onClick(State state) {}
+    public void onClick(Game game) {}
 
     @Override
-    public void onDrag(State state) {
+    public void onDrag(Game game) {
         Vector2D mousePosition = Input.getInstance().getMousePosition().getCopy();
         mousePosition.subtract(absolutePosition);
         mousePosition.subtract(pixelOffset);
 
-        state.getCamera().setPosition(
+        game.getState().getCamera().setPosition(
                 new Vector2D(
                         mousePosition.getX() / minimapRatio - cameraViewBounds.getWidth() / minimapRatio / 2,
                         mousePosition.getY() / minimapRatio - cameraViewBounds.getHeight() / minimapRatio / 2

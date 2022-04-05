@@ -1,5 +1,6 @@
 package ui.clickable;
 
+import main.Game;
 import main.state.State;
 import settings.Setting;
 import ui.*;
@@ -83,14 +84,14 @@ public class UICheckbox extends UIComponent {
         }
 
         @Override
-        public void onClick(State state) {
+        public void onClick(Game game) {
             if(hasFocus) {
                 setting.setValue(!setting.getValue());
             }
         }
 
         @Override
-        public void onDrag(State state) {
+        public void onDrag(Game game) {
         }
 
         @Override

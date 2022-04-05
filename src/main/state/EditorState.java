@@ -28,8 +28,8 @@ public class EditorState extends State {
         uiContainers.add(toolsContainer);
 
 
-        UIButton saveButton = new UIButton("SAVE", state -> MapIO.save(state.getCurrentMap()));
-        UIButton loadButton = new UIButton("LOAD", state -> state.loadMap());
+        UIButton saveButton = new UIButton("SAVE", game -> MapIO.save(game.getState().getCurrentMap()));
+        UIButton loadButton = new UIButton("LOAD", game -> game.getState().loadMap());
         UIButtonMenu buttonMenu = new UIButtonMenu(saveButton, loadButton);
         uiContainers.add(buttonMenu);
     }

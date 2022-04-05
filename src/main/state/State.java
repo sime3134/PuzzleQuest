@@ -7,6 +7,7 @@ import display.Camera;
 import entity.GameObject;
 import input.Input;
 import input.mouse.MouseHandler;
+import main.Game;
 import map.GameMap;
 import IO.MapIO;
 import ui.UIContainer;
@@ -71,12 +72,12 @@ public abstract class State {
         uiContainers = new ArrayList<>();
     }
 
-    public void update(){
+    public void update(Game game){
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(currentMap);
 
         time.update();
-        mouseHandler.update(this);
+        mouseHandler.update(game);
 
         updateObjectsDrawOrder();
         gameObjects.forEach(gameObject -> gameObject.update(this));

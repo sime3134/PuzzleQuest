@@ -4,6 +4,7 @@ import controller.GameController;
 import display.Debug;
 import main.state.EditorState;
 import main.state.GameState;
+import main.state.MainMenuState;
 import main.state.State;
 import settings.Settings;
 
@@ -19,14 +20,14 @@ public class Game {
     GameController gameController;
 
     public Game(){
-        state = new GameState();
+        state = new MainMenuState();
         debug = new Debug(state);
         gameController = new GameController();
     }
 
     public void update(){
         gameController.update();
-        state.update();
+        state.update(this);
         debug.update(state);
     }
 
@@ -35,5 +36,13 @@ public class Game {
         if(Settings.isDebugMode()) {
             debug.draw(state, g);
         }
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

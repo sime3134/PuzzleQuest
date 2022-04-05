@@ -2,6 +2,7 @@ package input.mouse;
 
 import input.Input;
 import input.mouse.action.MouseAction;
+import main.Game;
 import main.state.State;
 
 import java.awt.*;
@@ -15,11 +16,11 @@ public class MouseHandler {
     private MouseAction primaryButtonAction;
     private MouseConsumer currentConsumer;
 
-    public void update(State state){
+    public void update(Game game){
         final Input input = Input.getInstance();
 
-        handlePrimaryButton(state);
-        handleCurrentConsumer(state, input);
+        handlePrimaryButton(game.getState());
+        handleCurrentConsumer(game, input);
 
         cleanUp(input);
     }
@@ -39,12 +40,12 @@ public class MouseHandler {
         input.clearMouseClick();
     }
 
-    private void handleCurrentConsumer(State state, Input input) {
+    private void handleCurrentConsumer(Game game, Input input) {
         if(currentConsumer != null){
             if(input.isMouseClicked()) {
-                currentConsumer.onClick(state);
+                currentConsumer.onClick(game);
             } else if(input.isMousePressed()){
-                currentConsumer.onDrag(state);
+                currentConsumer.onDrag(game);
             }
         }
     }

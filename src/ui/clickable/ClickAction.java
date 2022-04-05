@@ -1,8 +1,8 @@
 package ui.clickable;
 
 
-import main.state.State;
+import main.Game;
 
 public interface ClickAction {
-    void execute(State state);
+    void execute(Game game);
 }

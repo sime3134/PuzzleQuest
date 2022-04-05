@@ -1,5 +1,6 @@
 package ui;
 
+import main.Game;
 import main.state.State;
 import ui.clickable.UIClickable;
 
@@ -84,12 +85,12 @@ public class UITabContainer extends VerticalContainer{
         }
 
         @Override
-        public void onClick(State state) {
+        public void onClick(Game game) {
             parent.activateTab(this);
         }
 
         @Override
-        public void onDrag(State state) {
+        public void onDrag(Game game) {
 
         }
 

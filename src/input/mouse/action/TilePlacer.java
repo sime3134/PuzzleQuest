@@ -2,6 +2,7 @@ package input.mouse.action;
 
 import core.Vector2D;
 import input.Input;
+import main.Game;
 import main.state.State;
 import map.GameMap;
 import map.Tile;
@@ -23,16 +24,16 @@ public class TilePlacer extends MouseAction{
     }
 
     @Override
-    public void onClick(State state) {
-        if(state.getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
-            state.getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
+    public void onClick(Game game) {
+        if(game.getState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
+            game.getState().getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
         }
     }
 
     @Override
-    public void onDrag(State state) {
-        if(state.getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
-            state.getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
+    public void onDrag(Game game) {
+        if(game.getState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
+            game.getState().getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
         }
     }
 
