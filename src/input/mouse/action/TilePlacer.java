@@ -3,6 +3,7 @@ package input.mouse.action;
 import core.Vector2D;
 import input.Input;
 import main.state.State;
+import map.GameMap;
 import map.Tile;
 import settings.Settings;
 import ui.UIImage;

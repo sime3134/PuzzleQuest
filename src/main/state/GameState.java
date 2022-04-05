@@ -21,7 +21,6 @@ import java.security.SecureRandom;
  */
 public class GameState extends State{
     private Player player;
-    private SelectionCircle selectionCircle;
 
     public Vector2D getPlayerPosition() {
         return player.getPosition();
@@ -29,7 +28,7 @@ public class GameState extends State{
 
     public GameState(){
         super();
-        currentMap = new GameMap(32, 32, content);
+        loadMap();
         initializeEntities();
         initializeUI();
     }
@@ -37,22 +36,22 @@ public class GameState extends State{
     private void initializeUI() {
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        container.addComponent(new UIText("Puzzle Quest 2"));
+        container.addComponent(new UIText("PuzzleQuest 2"));
         container.setBackgroundColor(new Color(0,0,0,0));
         uiContainers.add(container);
 
-        UIContainer buttonContainer = new VerticalContainer();
-        buttonContainer.setBackgroundColor(Color.DARK_GRAY);
-        buttonContainer.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
-        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 1 clicked!!!")));
-        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 2 clicked!!!")));
-        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 3 clicked!!!")));
-        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 4 clicked!!!")));
-        uiContainers.add(buttonContainer);
+//        UIContainer buttonContainer = new VerticalContainer();
+//        buttonContainer.setBackgroundColor(Color.DARK_GRAY);
+//        buttonContainer.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
+//        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 1 clicked!!!")));
+//        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 2 clicked!!!")));
+//        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 3 clicked!!!")));
+//        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 4 clicked!!!")));
+//        uiContainers.add(buttonContainer);
     }
 
     private void initializeEntities() {
-        selectionCircle = new SelectionCircle();
+        SelectionCircle selectionCircle = new SelectionCircle();
         player = new Player(PlayerController.getInstance(),
                 content.getSpriteSet("player"), selectionCircle);
         gameObjects.add(player);

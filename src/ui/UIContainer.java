@@ -142,4 +142,8 @@ public abstract class UIContainer extends UIComponent {
             component.draw(g);
         }
     }
+
+    protected void clear() {
+        children.clear();
+    }
 }

@@ -11,9 +11,9 @@ import ui.clickable.UIMinimap;
  * @author Simon Jern
  * Implements a UI container used in the tile editor to display settings and mini map.
  */
-public class UIRenderSettingsContainer extends VerticalContainer {
+public class UISettingsContainer extends VerticalContainer {
 
-    public UIRenderSettingsContainer(GameMap currentMap) {
+    public UISettingsContainer(GameMap currentMap) {
         setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
         addComponent(new UIMinimap(currentMap));
         addComponent(new UICheckbox("GRID", Settings.getShouldRenderGrid()));

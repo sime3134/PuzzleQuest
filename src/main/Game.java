@@ -3,6 +3,7 @@ package main;
 import controller.GameController;
 import display.Debug;
 import main.state.EditorState;
+import main.state.GameState;
 import main.state.State;
 import settings.Settings;
 
@@ -18,7 +19,7 @@ public class Game {
     GameController gameController;
 
     public Game(){
-        state = new EditorState();
+        state = new GameState();
         debug = new Debug(state);
         gameController = new GameController();
     }

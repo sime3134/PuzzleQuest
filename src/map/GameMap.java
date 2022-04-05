@@ -58,7 +58,7 @@ public class GameMap implements Persistable {
 
     private void initializeTiles(ContentManager content) {
         for(Tile[] row : tiles){
-            Arrays.fill(row, new Tile(content, "desert"));
+            Arrays.fill(row, new Tile(content, 501, "terrain"));
         }
     }
 

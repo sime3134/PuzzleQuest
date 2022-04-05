@@ -14,8 +14,8 @@ import java.util.Arrays;
  */
 public class Tile implements Persistable {
 
-    private transient Image tileSheet;
-    private transient Image sprite;
+    private Image tileSheet;
+    private Image sprite;
     private int tileIndex;
     private String tileSheetName;
 
@@ -46,8 +46,18 @@ public class Tile implements Persistable {
 
     public Tile() {}
 
+    /**
+     * Constructor used to display tile sheet in tile editor.
+     */
     public Tile(ContentManager content, String tileSheetName){
         this.tileSheet = content.getTileSheet(tileSheetName);
+        this.tileSheetName = tileSheetName;
+        generateSprite();
+    }
+
+    public Tile(ContentManager content, int tileIndex, String tileSheetName){
+        this.tileSheet = content.getTileSheet(tileSheetName);
+        this.tileIndex = tileIndex;
         this.tileSheetName = tileSheetName;
         generateSprite();
     }
@@ -96,7 +106,6 @@ public class Tile implements Persistable {
     @Override
     public void applySerializedData(String serializedData) {
         String[] tokens = serializedData.split(DELIMITER);
-        System.out.println(Arrays.toString(tokens));
         tileSheetName = tokens[1];
         tileIndex = Integer.parseInt(tokens[2]);
     }

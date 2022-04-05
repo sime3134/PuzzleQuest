@@ -15,13 +15,16 @@ public class UITileMenu extends HorizontalContainer {
         setBackgroundColor(Color.DARK_GRAY);
         setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.BOTTOM));
 
-        addComponent(getTileSheet(content));
+        UITabContainer tileContainer = new UITabContainer();
+        tileContainer.addTab("terrain", getTileSheet(content, "terrain"));
+        tileContainer.addTab("terrain", getTileSheet(content, "terrain"));
+        addComponent(tileContainer);
     }
 
-    private UIComponent getTileSheet(ContentManager content) {
+    private UIContainer getTileSheet(ContentManager content, String tileSheet) {
         UIContainer main = new HorizontalContainer();
         main.setMargin(new Spacing(0));
-        Tile tile = new Tile(content, "terrain");
+        Tile tile = new Tile(content, tileSheet);
 
         int tilesX = tile.getTileSheet().getWidth(null) / Settings.getSpriteSize();
         int tilesY = tile.getTileSheet().getHeight(null) / Settings.getSpriteSize();
