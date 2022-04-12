@@ -33,9 +33,7 @@ public class Game {
 
     public void draw(Graphics g){
         state.draw(g);
-        if(Settings.isDebugMode()) {
-            debug.draw(state, g);
-        }
+        debug.draw(state, g);
     }
 
     public State getState() {
@@ -44,5 +42,6 @@ public class Game {
 
     public void setState(State state) {
         this.state = state;
+        Settings.reset();
     }
 }

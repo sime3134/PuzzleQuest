@@ -95,6 +95,11 @@ public class UICheckbox extends UIComponent {
         }
 
         @Override
+        public void onRelease(Game game) {
+
+        }
+
+        @Override
         public void draw(Graphics g) {
             g.drawImage(
                     getSprite(),

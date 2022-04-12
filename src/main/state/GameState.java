@@ -51,11 +51,9 @@ public class GameState extends State{
     }
 
     private void initializeEntities() {
-        SelectionCircle selectionCircle = new SelectionCircle();
         player = new Player(PlayerController.getInstance(),
-                content.getSpriteSet("player"), selectionCircle);
+                content.getSpriteSet("player"));
         gameObjects.add(player);
-        gameObjects.add(selectionCircle);
         camera.focusOn(player);
 
         initializeNPCs(50);

@@ -6,10 +6,12 @@ package settings;
  */
 public abstract class Settings {
 
+    private Settings(){}
+
     private static final int SPRITE_SIZE = 48;
 
-    private static final int SCREEN_WIDTH = SPRITE_SIZE * 16;
-    private static final int SCREEN_HEIGHT = SPRITE_SIZE * 12;
+    private static final int SCREEN_WIDTH = 1280;
+    private static final int SCREEN_HEIGHT = 720;
 
     private static final int PROXIMITY_RANGE = 5;
     private static final int RENDER_MARGIN = 2 * SPRITE_SIZE;
@@ -19,6 +21,10 @@ public abstract class Settings {
     private static double GAME_SPEED_MULTIPLIER = 1;
 
     private static final Setting<Boolean> SHOULD_RENDER_GRID = new Setting<>(false);
+
+    private static final Setting<Boolean> SHOULD_RENDER_COLLISION_BOX = new Setting<>(false);
+
+    private static final Setting<Boolean> SHOULD_RENDER_TILE_WALKABILITY = new Setting<>(false);
 
     //region Getters and Setters (click to view)
 
@@ -70,6 +76,17 @@ public abstract class Settings {
 
     public static Setting<Boolean> getShouldRenderGrid() {
         return SHOULD_RENDER_GRID;
+    }
+
+    public static Setting<Boolean> getShouldRenderCollisionBox() { return SHOULD_RENDER_COLLISION_BOX; }
+
+    public static Setting<Boolean> getShouldRenderTileWalkability() { return SHOULD_RENDER_TILE_WALKABILITY; }
+
+    public static void reset() {
+        SHOULD_RENDER_GRID.setValue(false);
+        SHOULD_RENDER_COLLISION_BOX.setValue(false);
+        SHOULD_RENDER_TILE_WALKABILITY.setValue(false);
+
     }
 
     //endregion

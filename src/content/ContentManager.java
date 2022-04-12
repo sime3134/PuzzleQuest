@@ -16,17 +16,19 @@ import java.util.Map;
 public class ContentManager {
 
     private final Map<String, SpriteSet> spriteSets;
-    private final Map<String, Image> tileSheets;
+    private final Map<String, Image> images;
     private Font font;
 
     public ContentManager(){
         spriteSets = new HashMap<>();
-        tileSheets = new HashMap<>();
+        images = new HashMap<>();
     }
 
     public void loadContent() {
         loadSpriteSets("/sprites/gameObjects");
-        loadTileSheets("/sprites/tiles");
+        loadImages("/sprites/tiles");
+        loadImages("/sprites/scenery");
+        loadImages("/sprites/icons");
         loadFont("/font/joystix.ttf");
     }
 
@@ -43,11 +45,11 @@ public class ContentManager {
         ge.registerFont(font);
     }
 
-    private void loadTileSheets(String filePath) {
+    private void loadImages(String filePath) {
         String[] imagesInFolder = getImagesInFolder(filePath);
 
         for(String fileName : imagesInFolder){
-            tileSheets.put(fileName.substring(0, fileName.length() - 4),
+            images.put(fileName.substring(0, fileName.length() - 4),
                     ImgUtils.loadImage(filePath + "/" + fileName));
         }
     }
@@ -84,7 +86,7 @@ public class ContentManager {
         return spriteSets.get(name);
     }
 
-    public Image getTileSheet(String name) {
-        return tileSheets.get(name);
+    public Image getImage(String name) {
+        return images.get(name);
     }
 }

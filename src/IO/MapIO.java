@@ -24,26 +24,29 @@ public class MapIO {
     }
 
     public static GameMap load(ContentManager content){
-        try(BufferedReader reader = new BufferedReader(new FileReader(MapIO.class.getResource("/maps/map.pzq").getFile()))){
-            GameMap gameMap = new GameMap();
+        if(MapIO.class.getResource("/maps/map.pzq") != null) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(MapIO.class.getResource("/maps/map.pzq").getFile()))) {
+                GameMap gameMap = new GameMap();
 
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while((line = reader.readLine()) != null){
-                sb.append(System.lineSeparator());
-                sb.append(line);
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(System.lineSeparator());
+                    sb.append(line);
+                }
+
+                gameMap.applySerializedData(sb.toString());
+
+                gameMap.reloadGraphics(content);
+
+                return gameMap;
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            gameMap.applySerializedData(sb.toString());
-
-            gameMap.reloadGraphics(content);
-
-            return gameMap;
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            return null;
         }
-
-        return null;
+        return new GameMap(64, 32, content);
     }
 }

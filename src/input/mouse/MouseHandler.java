@@ -3,7 +3,6 @@ package input.mouse;
 import input.Input;
 import input.mouse.action.MouseAction;
 import main.Game;
-import main.state.State;
 
 import java.awt.*;
 
@@ -13,39 +12,90 @@ import java.awt.*;
  */
 public class MouseHandler {
 
-    private MouseAction primaryButtonAction;
+    private MouseAction lastLeftButtonAction;
+    private MouseAction leftButtonAction;
+    private MouseAction rightButtonAction;
+    private MouseAction wheelButtonAction;
     private MouseConsumer currentConsumer;
 
     public void update(Game game){
         final Input input = Input.getInstance();
 
-        handlePrimaryButton(game.getState());
+        handleLeftButton(game);
+        handleRightButton(game);
+        handleWheelButton(game);
+        
         handleCurrentConsumer(game, input);
 
         cleanUp(input);
     }
 
-    private void handlePrimaryButton(State state) {
-        if(primaryButtonAction != null){
-            setCurrentConsumer(primaryButtonAction);
-            primaryButtonAction.update(state);
+    private void handleWheelButton(Game game) {
+        if(wheelButtonAction != null){
+            wheelButtonAction.update(game.getState());
+            Input input = Input.getInstance();
+
+            if(input.isWheelMouseClicked()){
+                wheelButtonAction.onClick(game);
+            }
+
+            if(input.isWheelMousePressed()){
+                wheelButtonAction.onDrag(game);
+            }
+
+            if(input.isWheelMouseReleased()){
+                wheelButtonAction.onRelease(game);
+            }
+        }
+    }
+
+    private void handleRightButton(Game game) {
+        if(rightButtonAction != null){
+            rightButtonAction.update(game.getState());
+            Input input = Input.getInstance();
+
+            if(input.isRightMouseClicked()){
+                rightButtonAction.onClick(game);
+            }
+
+            if(input.isRightMousePressed()){
+                rightButtonAction.onDrag(game);
+            }
+
+            if(input.isRightMouseReleased()){
+                rightButtonAction.onRelease(game);
+            }
+        }
+        
+    }
+
+    private void handleLeftButton(Game game) {
+        if(leftButtonAction != null){
+            setCurrentConsumer(leftButtonAction);
+            leftButtonAction.update(game.getState());
         }
     }
 
     private void cleanUp(Input input) {
-        if(!input.isMousePressed()) {
+        if(!input.isLeftMousePressed()) {
             currentConsumer = null;
         }
 
-        input.clearMouseClick();
+        input.cleanUpMouseEvents();
     }
 
     private void handleCurrentConsumer(Game game, Input input) {
         if(currentConsumer != null){
-            if(input.isMouseClicked()) {
+            if(input.isLeftMouseClicked()) {
                 currentConsumer.onClick(game);
-            } else if(input.isMousePressed()){
+            }
+
+            if(input.isLeftMousePressed()){
                 currentConsumer.onDrag(game);
+            }
+
+            if(input.isLeftMouseReleased()){
+                currentConsumer.onRelease(game);
             }
         }
     }
@@ -56,17 +106,43 @@ public class MouseHandler {
         }
     }
 
-    public void setPrimaryButtonAction(MouseAction primaryButtonAction) {
-        this.primaryButtonAction = primaryButtonAction;
+    public void switchLeftButtonAction(MouseAction newMouseAction) {
+        if(leftButtonAction != null){
+            leftButtonAction.cleanUp();
+        }
+
+        lastLeftButtonAction = this.leftButtonAction;
+        this.leftButtonAction = newMouseAction;
+    }
+
+
+    public MouseAction getLeftButtonAction() {
+        return leftButtonAction;
+    }
+
+    public MouseAction getRightButtonAction() {
+        return rightButtonAction;
+    }
+
+    public void setRightButtonAction(MouseAction rightButtonAction) {
+        this.rightButtonAction = rightButtonAction;
+    }
+
+    public MouseAction getWheelButtonAction() {
+        return wheelButtonAction;
+    }
+
+    public void setWheelButtonAction(MouseAction wheelButtonAction) {
+        this.wheelButtonAction = wheelButtonAction;
+    }
+
+    public MouseAction getLastLeftButtonAction() {
+        return lastLeftButtonAction;
     }
 
     public void draw(Graphics g) {
-        if(primaryButtonAction != null) {
-            primaryButtonAction.draw(g);
+        if(leftButtonAction != null) {
+            leftButtonAction.draw(g);
         }
-    }
-
-    public MouseAction getPrimaryButtonAction() {
-        return primaryButtonAction;
     }
 }

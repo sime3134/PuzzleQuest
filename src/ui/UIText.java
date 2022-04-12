@@ -28,6 +28,10 @@ public class UIText extends UIComponent{
         this.fontSize = fontSize;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public UIText(String text) {
         super();
         setupText(text);

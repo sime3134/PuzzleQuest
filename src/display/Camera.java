@@ -59,8 +59,8 @@ public class Camera {
             position.setY(objectPosition.getY() - windowHeight / 2f);
 
             clamp(currentMap);
-            setCurrentView();
         }
+        setCurrentView();
     }
 
     /**

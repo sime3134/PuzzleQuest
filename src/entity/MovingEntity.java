@@ -44,6 +44,7 @@ public abstract class MovingEntity extends GameObject {
         handleMovement();
         animationManager.update(direction);
         checkForCollisions(state);
+        checkForTileCollisions(state);
         updateDirection();
         animationManager.playAnimation(decideAnimation());
         decideAnimation();
@@ -52,16 +53,25 @@ public abstract class MovingEntity extends GameObject {
     }
 
     @Override
+    public Image getSprite() {
+        return animationManager.getSprite();
+    }
+
+    @Override
     public void draw(Graphics g, Camera camera){
         g.drawImage(animationManager.getSprite(),
                 getRenderPosition(camera).intX(),
                 getRenderPosition(camera).intY(),
                 null);
-
     }
 
     private void checkForCollisions(State state) {
         state.getCollidingBoxes(getCollisionBox()).forEach(this::handleCollision);
+    }
+
+    private void checkForTileCollisions(State state) {
+        state.getCurrentMap().getCollidingUnwalkableTileBoxes(getCollisionBox())
+                .forEach(tileCollisionBox -> velocity.reset(willCollideX(tileCollisionBox), willCollideY(tileCollisionBox)));
     }
 
     protected abstract void handleCollision(GameObject other);
@@ -112,7 +122,7 @@ public abstract class MovingEntity extends GameObject {
 
         return CollisionBox.of(
                 new Vector2D(positionWithVelocity.intX() + collisionBoxWidth / 2f,
-                positionWithVelocity.intY() + collisionBoxHeight / 2f),
+                positionWithVelocity.intY() + collisionBoxHeight / 2f + 11f),
                 collisionBoxWidth,
                 collisionBoxHeight
         );
@@ -124,7 +134,7 @@ public abstract class MovingEntity extends GameObject {
         positionWithXApplied.add(new Vector2D(velocity.getX(),0));
         return CollisionBox.of(
                 new Vector2D(positionWithXApplied.intX() + collisionBoxWidth / 2f,
-                        getPosition().intY() + collisionBoxHeight / 2f),
+                        getPosition().intY() + collisionBoxHeight / 2f + 11f),
                 collisionBoxWidth,
                 collisionBoxHeight
         ).collidingWith(otherBox);
@@ -137,7 +147,7 @@ public abstract class MovingEntity extends GameObject {
 
         return CollisionBox.of(
                 new Vector2D(getPosition().intX() + collisionBoxWidth / 2f,
-                        positionWithYApplied.intY() + collisionBoxHeight / 2f),
+                        positionWithYApplied.intY() + collisionBoxHeight / 2f + 11f),
                 collisionBoxWidth,
                 collisionBoxHeight
         ).collidingWith(otherBox);

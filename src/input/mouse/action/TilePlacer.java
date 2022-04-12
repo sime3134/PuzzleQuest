@@ -4,7 +4,6 @@ import core.Vector2D;
 import input.Input;
 import main.Game;
 import main.state.State;
-import map.GameMap;
 import map.Tile;
 import settings.Settings;
 import ui.UIImage;
@@ -38,6 +37,11 @@ public class TilePlacer extends MouseAction{
     }
 
     @Override
+    public void onRelease(Game game) {
+
+    }
+
+    @Override
     public void update(State state) {
         Vector2D mousePosition = Input.getInstance().getMousePosition().getCopy();
         mousePosition.add(state.getCamera().getPosition());
@@ -61,5 +65,10 @@ public class TilePlacer extends MouseAction{
     @Override
     public UIImage getSprite() {
         return previewImage;
+    }
+
+    @Override
+    public void cleanUp() {
+
     }
 }

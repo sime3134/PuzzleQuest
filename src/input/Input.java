@@ -16,8 +16,18 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     private final boolean[] pressed;
 
     private Vector2D mousePosition;
-    private boolean mouseClicked;
-    private boolean mousePressed;
+
+    private boolean leftMouseClicked;
+    private boolean leftMousePressed;
+    private boolean leftMouseReleased;
+
+    private boolean rightMouseClicked;
+    private boolean rightMousePressed;
+    private boolean rightMouseReleased;
+
+    private boolean wheelMouseClicked;
+    private boolean wheelMousePressed;
+    private boolean wheelMouseReleased;
 
     public static Input getInstance() {
         if(input == null){
@@ -45,20 +55,54 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         return currentlyPressed[keyCode];
     }
 
-    public void clearMouseClick() {
-        mouseClicked = false;
+    public void cleanUpMouseEvents() {
+        leftMouseClicked = false;
+        rightMouseClicked = false;
+        wheelMouseClicked = false;
+
+        leftMouseReleased = false;
+        rightMouseReleased = false;
+        wheelMouseReleased = false;
     }
 
     public Vector2D getMousePosition() {
         return mousePosition;
     }
 
-    public boolean isMouseClicked() {
-        return mouseClicked;
+    public boolean isLeftMouseClicked() {
+        return leftMouseClicked;
     }
 
-    public boolean isMousePressed() {
-        return mousePressed;
+    public boolean isLeftMousePressed() {
+        return leftMousePressed;
+    }
+
+    public boolean isRightMouseClicked() {
+        return rightMouseClicked;
+    }
+
+    public boolean isRightMousePressed() {
+        return rightMousePressed;
+    }
+
+    public boolean isWheelMouseClicked() {
+        return wheelMouseClicked;
+    }
+
+    public boolean isWheelMousePressed() {
+        return wheelMousePressed;
+    }
+
+    public boolean isLeftMouseReleased() {
+        return leftMouseReleased;
+    }
+
+    public boolean isRightMouseReleased() {
+        return rightMouseReleased;
+    }
+
+    public boolean isWheelMouseReleased() {
+        return wheelMouseReleased;
     }
 
     @Override
@@ -80,13 +124,28 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mousePressed = true;
+        leftMousePressed = e.getButton() == MouseEvent.BUTTON1;
+        rightMousePressed = e.getButton() == MouseEvent.BUTTON3;
+        wheelMousePressed = e.getButton() == MouseEvent.BUTTON2;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseClicked = true;
-        mousePressed = false;
+        if(e.getButton() == MouseEvent.BUTTON1) {
+            leftMouseClicked = true;
+            leftMousePressed = false;
+            leftMouseReleased = true;
+        }
+        if(e.getButton() == MouseEvent.BUTTON3) {
+            rightMouseClicked = true;
+            rightMousePressed = false;
+            rightMouseReleased = true;
+        }
+        if(e.getButton() == MouseEvent.BUTTON2) {
+            wheelMouseClicked = true;
+            wheelMousePressed = false;
+            wheelMouseReleased = true;
+        }
     }
 
     @Override

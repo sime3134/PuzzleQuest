@@ -8,6 +8,7 @@ import entity.humanoid.Humanoid;
 import main.state.State;
 import settings.Settings;
 
+import java.awt.*;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -21,9 +22,10 @@ public class Player extends Humanoid {
     private final double targetRange;
     private final SelectionCircle selectionCircle;
 
-    public Player(EntityController entityController, SpriteSet spriteSet, SelectionCircle selectionCircle){
+    public Player(EntityController entityController, SpriteSet spriteSet){
         super(entityController, spriteSet);
-        this.selectionCircle = selectionCircle;
+        this.selectionCircle = new SelectionCircle(38, 22);
+        this.selectionCircle.setRenderOffset(new Vector2D(5, selectionCircle.getHeight() + 9f));
         this.targetRange = Settings.getSpriteSize();
     }
 
@@ -48,12 +50,17 @@ public class Player extends Humanoid {
         if(closestNPC.isPresent()){
             NPC npc = closestNPC.get();
             if(!npc.equals(target)){
-                selectionCircle.setParent(npc);
+                if(target != null){
+                    target.detach(selectionCircle);
+                }
+                npc.attach(selectionCircle);
                 target = npc;
             }
         }else{
-            selectionCircle.clearParent();
-            target = null;
+            if(target != null){
+                target.detach(selectionCircle);
+                target = null;
+            }
         }
     }
 
@@ -66,7 +73,8 @@ public class Player extends Humanoid {
 
     @Override
     protected void handleCollision(GameObject other) {
-        if(other instanceof NPC) {
+        if(other instanceof NPC
+                || other instanceof Scenery && !((Scenery)other).isWalkable()) {
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
         }
     }

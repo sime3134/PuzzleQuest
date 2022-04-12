@@ -2,6 +2,7 @@ package ui.clickable;
 
 import core.Vector2D;
 import display.Camera;
+import entity.GameObject;
 import input.Input;
 import main.Game;
 import main.state.State;
@@ -11,6 +12,9 @@ import utilities.ImgUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Simon Jern
@@ -25,30 +29,60 @@ public class UIMinimap extends UIClickable{
     private BufferedImage mapImage;
     private Color color;
 
+    private final Map<Image, Image> cachedScaledImages;
+
     public UIMinimap(GameMap gameMap) {
         width = 128;
         height = 128;
         cameraViewBounds = new Rectangle(0, 0, width, height);
         color = Color.GRAY;
 
+        cachedScaledImages = new HashMap<>();
+
         calculateRatio(gameMap);
-        generateMap(gameMap);
+        generateMap(gameMap, List.of());
     }
 
-    private void generateMap(GameMap gameMap) {
+    private void generateMap(GameMap gameMap, List<GameObject> gameObjects) {
         mapImage = (BufferedImage) ImgUtils.createCompatibleImage(width, height, ImgUtils.ALPHA_BIT_MASKED);
         Graphics2D g = mapImage.createGraphics();
 
         for(int x = 0; x < gameMap.getTiles().length; x++){
             for(int y = 0; y < gameMap.getTiles()[0].length; y++){
                 g.drawImage(
-                        gameMap.getTiles()[x][y].getSprite().getScaledInstance(spriteSizeOnMinimap, spriteSizeOnMinimap, 0),
+                        getScaledSprite(gameMap.getTiles()[x][y].getSprite()),
                         x * spriteSizeOnMinimap + (getWidth() - gameMap.getTiles().length * spriteSizeOnMinimap) / 2,
                         y * spriteSizeOnMinimap + (getHeight() - gameMap.getTiles()[0].length * spriteSizeOnMinimap) / 2,
                         null
                 );
             }
         }
+
+        gameObjects.forEach(gameObject -> {
+            Vector2D positionWithOffset = gameObject.getPosition().getCopy();
+            positionWithOffset.subtract(gameObject.getRenderOffset());
+
+            g.drawImage(
+                    getScaledSprite(gameObject.getSprite()),
+                    (int) Math.round(positionWithOffset.getX() / Settings.getSpriteSize() * spriteSizeOnMinimap),
+                    (int) Math.round(positionWithOffset.getY() / Settings.getSpriteSize() * spriteSizeOnMinimap),
+                    null);
+        });
+    }
+
+    private Image getScaledSprite(Image sprite){
+        if(cachedScaledImages.containsKey(sprite)){
+            return cachedScaledImages.get(sprite);
+        }
+
+        int scaledWidth = (int)Math.round(sprite.getWidth(null) * minimapRatio);
+        int scaledHeight = (int)Math.round(sprite.getHeight(null) * minimapRatio);
+
+        Image scaledSprite = sprite.getScaledInstance(scaledWidth, scaledHeight, 0
+        );
+        cachedScaledImages.put(sprite, scaledSprite);
+
+        return scaledSprite;
     }
 
     private void calculateRatio(GameMap gameMap) {
@@ -99,11 +133,16 @@ public class UIMinimap extends UIClickable{
     }
 
     @Override
+    public void onRelease(Game game) {
+
+    }
+
+    @Override
     public void update(State state) {
         super.update(state);
 
         if(state.getTime().secondsDividableBy(0.25)){
-            generateMap(state.getCurrentMap());
+            generateMap(state.getCurrentMap(), state.getGameObjects());
         }
         Camera camera = state.getCamera();
         cameraViewBounds = new Rectangle(

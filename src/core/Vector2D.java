@@ -1,5 +1,6 @@
 package core;
 
+import IO.Persistable;
 import settings.Settings;
 
 /**
@@ -7,7 +8,7 @@ import settings.Settings;
  * A class to store and use both x and y values at the same, for example when storing positions.
  * Includes methods to make different calculations with the values.
  */
-public class Vector2D {
+public class Vector2D implements Persistable {
     private double x;
     private double y;
 
@@ -101,5 +102,17 @@ public class Vector2D {
         double deltaY = this.getY() - otherPosition.getY();
 
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
+
+    @Override
+    public String serialize() {
+        return String.format("%d|%d", intX(), intY());
+    }
+
+    @Override
+    public void applySerializedData(String serializedData) {
+        String[] tokens = serializedData.split("\\|");
+        x = Double.parseDouble(tokens[0]);
+        y = Double.parseDouble(tokens[1]);
     }
 }

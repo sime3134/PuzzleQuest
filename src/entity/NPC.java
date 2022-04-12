@@ -8,6 +8,8 @@ import entity.humanoid.Humanoid;
 import main.state.State;
 import utilities.Buffer;
 
+import java.awt.*;
+
 /**
  * @author Simon Jern
  * Implements living entities that are not controlled by the player.
@@ -40,7 +42,9 @@ public class NPC extends Humanoid {
 
     @Override
     protected void handleCollision(GameObject other) {
-        if(other instanceof NPC && other != this || other instanceof Player){
+        if(other instanceof NPC && other != this
+                || other instanceof Player
+                || other instanceof Scenery && !((Scenery)other).isWalkable()){
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
         }
     }

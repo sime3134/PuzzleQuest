@@ -19,10 +19,10 @@ public abstract class UIClickable extends UIComponent implements MouseConsumer {
 
     @Override
     public void update(State state) {
-        Vector2D mousePosition = Input.getInstance().getMousePosition();
+        Vector2D mousePosition = Input.getInstance().getMousePosition().getCopy();
 
         hasFocus = getBounds().contains(mousePosition.intX(), mousePosition.intY());
-        isPressed = hasFocus && Input.getInstance().isMousePressed();
+        isPressed = hasFocus && Input.getInstance().isLeftMousePressed();
 
         if(hasFocus){
             state.getMouseHandler().setCurrentConsumer(this);

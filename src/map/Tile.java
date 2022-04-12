@@ -6,7 +6,6 @@ import settings.Settings;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 /**
  * @author Simon Jern
@@ -18,13 +17,14 @@ public class Tile implements Persistable {
     private Image sprite;
     private int tileIndex;
     private String tileSheetName;
+    private boolean walkable;
 
     public Image getSprite(){
         return sprite;
     }
 
     public Tile getCopy() {
-        return new Tile(tileSheet, tileIndex, tileSheetName);
+        return new Tile(tileSheet, tileIndex, tileSheetName, walkable);
     }
 
     public Image getTileSheet() {
@@ -44,28 +44,41 @@ public class Tile implements Persistable {
         generateSprite();
     }
 
-    public Tile() {}
+    public boolean isWalkable() {
+        return walkable;
+    }
+
+    public void setWalkable(boolean walkable) {
+        this.walkable = walkable;
+    }
+
+    public Tile() {
+        walkable = true;
+    }
 
     /**
      * Constructor used to display tile sheet in tile editor.
      */
-    public Tile(ContentManager content, String tileSheetName){
-        this.tileSheet = content.getTileSheet(tileSheetName);
+    public Tile(ContentManager content, String tileSheetName, boolean walkable){
+        this.tileSheet = content.getImage(tileSheetName);
         this.tileSheetName = tileSheetName;
+        this.walkable = walkable;
         generateSprite();
     }
 
-    public Tile(ContentManager content, int tileIndex, String tileSheetName){
-        this.tileSheet = content.getTileSheet(tileSheetName);
+    public Tile(ContentManager content, int tileIndex, String tileSheetName, boolean walkable){
+        this.tileSheet = content.getImage(tileSheetName);
         this.tileIndex = tileIndex;
         this.tileSheetName = tileSheetName;
+        this.walkable = walkable;
         generateSprite();
     }
 
-    public Tile(Image tileSheet, int tileIndex, String tileSheetName){
+    public Tile(Image tileSheet, int tileIndex, String tileSheetName, boolean walkable){
         this.tileSheet = tileSheet;
         this.tileIndex = tileIndex;
         this.tileSheetName = tileSheetName;
+        this.walkable = walkable;
         generateSprite();
     }
 
@@ -82,7 +95,7 @@ public class Tile implements Persistable {
     }
 
     public void reloadGraphics(ContentManager content){
-        tileSheet = content.getTileSheet(tileSheetName);
+        tileSheet = content.getImage(tileSheetName);
         generateSprite();
     }
 
@@ -97,6 +110,8 @@ public class Tile implements Persistable {
         stringBuilder.append(tileSheetName);
         stringBuilder.append(DELIMITER);
         stringBuilder.append(tileIndex);
+        stringBuilder.append(DELIMITER);
+        stringBuilder.append(walkable);
         return stringBuilder.toString();
     }
 
@@ -108,5 +123,6 @@ public class Tile implements Persistable {
         String[] tokens = serializedData.split(DELIMITER);
         tileSheetName = tokens[1];
         tileIndex = Integer.parseInt(tokens[2]);
+        walkable = Boolean.parseBoolean(tokens[3]);
     }
 }

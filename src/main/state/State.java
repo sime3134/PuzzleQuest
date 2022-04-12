@@ -5,6 +5,7 @@ import core.CollisionBox;
 import core.Time;
 import display.Camera;
 import entity.GameObject;
+import entity.Scenery;
 import input.Input;
 import input.mouse.MouseHandler;
 import main.Game;
@@ -34,7 +35,7 @@ public abstract class State {
     protected Time time;
     protected final List<GameObject> gameObjects;
 
-    //region Getts and Setters (click to view)
+    //region Getters and Setters (click to view)
 
     public Camera getCamera() {
         return camera;
@@ -46,10 +47,6 @@ public abstract class State {
 
     public GameMap getCurrentMap() {
         return currentMap;
-    }
-
-    protected void setCurrentMap(GameMap newMap) {
-        this.currentMap = newMap;
     }
 
     public MouseHandler getMouseHandler() {
@@ -87,9 +84,15 @@ public abstract class State {
         currentMap.draw(g, camera);
         gameObjects.stream()
                 .filter(gameObject -> camera.isObjectInView(gameObject))
-                .forEach(gameObject -> gameObject.draw(g, camera));
+                .forEach(gameObject -> renderGameObject(g, camera, gameObject));
         mouseHandler.draw(g);
         uiContainers.forEach(uiContainer -> uiContainer.draw(g));
+    }
+
+    private void renderGameObject(Graphics g, Camera camera, GameObject gameObject) {
+        gameObject.getAttachments().forEach(attachment -> renderGameObject(g, camera, attachment));
+
+        gameObject.draw(g, camera);
     }
 
     public List<GameObject> getCollidingBoxes(CollisionBox box) {
@@ -99,7 +102,7 @@ public abstract class State {
     }
 
     private void updateObjectsDrawOrder() {
-        gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(gameObject -> gameObject.getPosition().getY()));
+        gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(gameObject -> gameObject.getRenderOrderComparisonYPosition()));
     }
 
     public <T extends GameObject> List<T> getGameObjectsOfClass(Class<T> clazz) {
@@ -111,5 +114,22 @@ public abstract class State {
 
     protected void loadMap() {
         currentMap = MapIO.load(content);
+        if (currentMap != null) {
+            gameObjects.addAll(currentMap.getSceneryList());
+            currentMap.getSceneryList().clear();
+        }
+    }
+
+    public void saveMap(){
+        currentMap.setSceneryList(getGameObjectsOfClass(Scenery.class));
+        MapIO.save(currentMap);
+    }
+
+    public void spawn(GameObject gameObject){
+        gameObjects.add(gameObject);
+    }
+
+    public void despawn(GameObject gameObject) {
+        gameObjects.remove(gameObject);
     }
 }

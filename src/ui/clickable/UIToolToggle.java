@@ -1,27 +1,32 @@
 package ui.clickable;
 
-import input.mouse.action.TilePlacer;
+import input.mouse.action.MouseAction;
 import main.Game;
 import main.state.State;
-import map.Tile;
 import ui.UIImage;
 import utilities.ImgUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class UITileToggle extends UIClickable{
+public class UIToolToggle extends UIClickable{
 
     private final UIImage image;
     private BufferedImage activeSprite;
-    private final TilePlacer tilePlacer;
+    private final MouseAction mouseAction;
     private boolean active;
 
-    public UITileToggle(Tile tile) {
-        image = new UIImage(tile.getSprite().getScaledInstance(16, 16, 0));
-        tilePlacer = new TilePlacer(tile);
-        width = image.getWidth();
-        height = image.getHeight();
+    public UIToolToggle(Image image, MouseAction mouseAction, int minimizedWidth, int minimizedHeight) {
+        if(image.getWidth(null) != minimizedWidth && image.getHeight(null) != minimizedHeight) {
+            this.image = new UIImage(image.getScaledInstance(minimizedWidth, minimizedHeight, 0));
+        }else{
+            this.image = new UIImage(image);
+        }
+        this.mouseAction = mouseAction;
+
+        width = this.image.getWidth();
+        height = this.image.getHeight();
+
         generateActiveSprite();
     }
 
@@ -45,18 +50,29 @@ public class UITileToggle extends UIClickable{
     @Override
     public void update(State state) {
         super.update(state);
-        if(state.getMouseHandler().getPrimaryButtonAction() != null){
-            active = state.getMouseHandler().getPrimaryButtonAction().equals(tilePlacer);
+        if(state.getMouseHandler().getLeftButtonAction() != null){
+            active = state.getMouseHandler().getLeftButtonAction().equals(mouseAction);
         }
     }
 
     @Override
     public void onClick(Game game) {
-        game.getState().getMouseHandler().setPrimaryButtonAction(tilePlacer);
+        if(game.getState().getMouseHandler().getLeftButtonAction() != mouseAction) {
+            game.getState().getMouseHandler().switchLeftButtonAction(mouseAction);
+        }else{
+            game.getState().getMouseHandler().switchLeftButtonAction(
+                    game.getState().getMouseHandler().getLastLeftButtonAction()
+            );
+        }
     }
 
     @Override
     public void onDrag(Game game) {
+
+    }
+
+    @Override
+    public void onRelease(Game game) {
 
     }
 

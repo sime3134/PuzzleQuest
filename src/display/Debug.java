@@ -16,46 +16,26 @@ import java.util.List;
  */
 public class Debug {
 
-    private final List<UIContainer> uiContainers;
-
     public Debug(State state){
-
-        uiContainers = new ArrayList<>();
-
-        UIContainer container = new VerticalContainer();
-        container.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP));
-        container.setBackgroundColor(new Color(0,0,0,0));
-        uiContainers.add(container);
-
-        state.getGameObjects().stream()
-                .filter(gameObject -> !(gameObject instanceof SelectionCircle))
-                .forEach(gameObject -> {
-            UIContainer entityContainer = new RelativeContainer(gameObject, state.getCamera());
-            entityContainer.setBackgroundColor(Color.lightGray);
-            UIText playerText;
-            if(gameObject instanceof NPC npc) {
-                playerText = new RelativeUIText(npc.getBrain().getCurrentAIState().getClass().getSimpleName(), npc);
-            }
-            else{
-                playerText = new UIText(gameObject.getClass().getSimpleName());
-            }
-            playerText.setFontSize(12);
-            entityContainer.addComponent(playerText);
-            uiContainers.add(entityContainer);
-        });
     }
 
     public void update(State state){
-        uiContainers.forEach(container -> container.update(state));
+        if(Settings.isDebugMode()) {
+        }
     }
 
     public void draw(State state, Graphics g){
+        if(Settings.isDebugMode() || Settings.getShouldRenderCollisionBox().getValue()){
+            drawCollisionBoxes(state, g);
+        }
+    }
+
+    private void drawCollisionBoxes(State state, Graphics g) {
         Camera camera = state.getCamera();
         state.getGameObjects().stream()
                 .filter(gameObject -> camera.isObjectInView(gameObject)
                         && !(gameObject instanceof SelectionCircle))
                 .map(gameObject -> gameObject.getCollisionBox())
                 .forEach(collisionBox -> collisionBox.draw(g, camera));
-        uiContainers.forEach(container -> container.draw(g));
     }
 }

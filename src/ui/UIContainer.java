@@ -1,14 +1,11 @@
 package ui;
 
 import core.Vector2D;
-import input.Input;
 import main.state.State;
 import settings.Settings;
-import ui.clickable.UIClickable;
 import utilities.ImgUtils;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +26,8 @@ public abstract class UIContainer extends UIComponent {
 
     protected List<UIComponent> children;
 
+    protected Image sprite;
+
     //region Getters and Setters (click to view)
     public void setFixedWidth(int fixedWidth) {
         this.fixedWidth = fixedWidth;
@@ -46,13 +45,9 @@ public abstract class UIContainer extends UIComponent {
         this.backgroundColor = color;
     }
 
-    public Color getBackgroundColor() {
-        return this.backgroundColor;
-    }
-
     @Override
     public Image getSprite() {
-        return createUiSprite();
+        return sprite;
     }
 
     public void setCenterChildren(boolean centerChildren) {
@@ -110,15 +105,14 @@ public abstract class UIContainer extends UIComponent {
         calculateContentPosition();
     }
 
-    private Image createUiSprite() {
-        BufferedImage image = (BufferedImage) ImgUtils.createCompatibleImage(width, height, ImgUtils.ALPHA_BIT_MASKED);
-        Graphics2D graphics = image.createGraphics();
+    private void createUiSprite() {
+        sprite = ImgUtils.createCompatibleImage(width, height, ImgUtils.ALPHA_BIT_MASKED);
+        Graphics2D graphics = (Graphics2D) sprite.getGraphics();
 
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, width, height);
 
         graphics.dispose();
-        return image;
     }
 
     public void addComponent(UIComponent uiComponent){
@@ -128,9 +122,13 @@ public abstract class UIContainer extends UIComponent {
 
     @Override
     public void update(State state) {
-        children.forEach(component -> component.update(state));
         calculateSize();
         calculatePosition();
+        children.forEach(component -> component.update(state));
+
+        if(state.getTime().secondsDividableBy(0.1)){
+            createUiSprite();
+        }
     }
 
     @Override
@@ -149,5 +147,13 @@ public abstract class UIContainer extends UIComponent {
 
     protected void clear() {
         children.clear();
+    }
+
+    public boolean hasComponent(UIComponent component) {
+        return children.contains(component);
+    }
+
+    public void removeComponent(UIComponent component) {
+        children.remove(component);
     }
 }

@@ -3,13 +3,14 @@ package ui;
 import main.Game;
 import main.state.State;
 import ui.clickable.UIClickable;
+import ui.clickable.UIHideButton;
 
 import java.awt.*;
 
 public class UITabContainer extends VerticalContainer{
 
-    private UIContainer tabContainer;
-    private UIContainer contentContainer;
+    private final UIContainer tabContainer;
+    private final UIContainer contentContainer;
     private UITab activeTab;
 
     public UITabContainer() {
@@ -25,6 +26,12 @@ public class UITabContainer extends VerticalContainer{
 
         addComponent(tabContainer);
         addComponent(contentContainer);
+
+        setupHideButton();
+    }
+
+    private void setupHideButton() {
+        tabContainer.addComponent(new UIHideButton(this, contentContainer));
     }
 
     public void addTab(String labelText, UIContainer contents) {
@@ -48,10 +55,10 @@ public class UITabContainer extends VerticalContainer{
 
     private static class UITab extends UIClickable {
 
-        private UITabContainer parent;
-        private UIContainer label;
-        private UIText labelText;
-        private UIContainer contents;
+        private final UITabContainer parent;
+        private final UIContainer label;
+        private final UIText labelText;
+        private final UIContainer contents;
 
         public UITab(UITabContainer parent, String labelText, UIContainer contents) {
             this.parent = parent;
@@ -91,6 +98,11 @@ public class UITabContainer extends VerticalContainer{
 
         @Override
         public void onDrag(Game game) {
+
+        }
+
+        @Override
+        public void onRelease(Game game) {
 
         }
 

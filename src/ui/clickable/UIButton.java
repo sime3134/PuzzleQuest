@@ -15,10 +15,10 @@ import java.awt.*;
  */
 public class UIButton extends UIClickable{
 
-    private final UIContainer buttonContainer;
-    private final UIText buttonText;
+    protected final UIContainer buttonContainer;
+    protected final UIText buttonText;
 
-    private final ClickAction clickAction;
+    protected final ClickAction clickAction;
 
     private Color backgroundColor;
     private Color hoverColor;
@@ -70,6 +70,11 @@ public class UIButton extends UIClickable{
     }
 
     @Override
+    public void onRelease(Game game) {
+
+    }
+
+    @Override
     public void draw(Graphics g) {
         g.drawImage(
                 getSprite(),
@@ -100,5 +105,10 @@ public class UIButton extends UIClickable{
 
     public void setClickColor(Color clickColor) {
         this.clickColor = clickColor;
+    }
+
+    public void setFixedSize(int width, int height){
+        buttonContainer.setFixedWidth(width);
+        buttonContainer.setFixedHeight(height);
     }
 }

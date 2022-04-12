@@ -15,4 +15,5 @@ public abstract class MouseAction implements MouseConsumer {
     public abstract void update(State state);
     public abstract void draw(Graphics g);
     public abstract UIImage getSprite();
+    public abstract void cleanUp();
 }

@@ -1,10 +1,11 @@
 package editor;
 
 import content.ContentManager;
+import input.mouse.action.TilePlacer;
 import map.Tile;
 import settings.Settings;
 import ui.*;
-import ui.clickable.UITileToggle;
+import ui.clickable.UIToolToggle;
 
 import java.awt.*;
 
@@ -17,14 +18,13 @@ public class UITileMenu extends HorizontalContainer {
 
         UITabContainer tileContainer = new UITabContainer();
         tileContainer.addTab("terrain", getTileSheet(content, "terrain"));
-        tileContainer.addTab("terrain", getTileSheet(content, "terrain"));
         addComponent(tileContainer);
     }
 
     private UIContainer getTileSheet(ContentManager content, String tileSheet) {
         UIContainer main = new HorizontalContainer();
         main.setMargin(new Spacing(0));
-        Tile tile = new Tile(content, tileSheet);
+        Tile tile = new Tile(content, tileSheet, true);
 
         int tilesX = tile.getTileSheet().getWidth(null) / Settings.getSpriteSize();
         int tilesY = tile.getTileSheet().getHeight(null) / Settings.getSpriteSize();
@@ -37,7 +37,7 @@ public class UITileMenu extends HorizontalContainer {
             for(int y = 0; y < tilesY; y++){
                 Tile indexedTile = tile.getCopy();
                 indexedTile.setTileIndex(x * tilesX + y);
-                UITileToggle toggle = new UITileToggle(indexedTile);
+                UIToolToggle toggle = new UIToolToggle(indexedTile.getSprite(), new TilePlacer(indexedTile), 16, 16);
                 column.addComponent(toggle);
             }
 
