@@ -10,8 +10,8 @@ public abstract class Settings {
 
     private static final int SPRITE_SIZE = 48;
 
-    private static final int SCREEN_WIDTH = 1280;
-    private static final int SCREEN_HEIGHT = 720;
+    private static final int SCREEN_WIDTH = 1100;
+    private static final int SCREEN_HEIGHT = 600;
 
     private static final int PROXIMITY_RANGE = 3;
     private static final int RENDER_MARGIN = 2 * SPRITE_SIZE;
