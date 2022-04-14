@@ -62,4 +62,9 @@ public class PauseMenuState extends State{
 
     }
 
+    @Override
+    public void prepare() {
+
+    }
+
 }

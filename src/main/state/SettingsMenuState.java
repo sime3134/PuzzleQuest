@@ -51,4 +51,9 @@ public class SettingsMenuState extends State{
         uiContainers.add(decreaseButton);
 
     }
+
+    @Override
+    public void prepare() {
+
+    }
 }
