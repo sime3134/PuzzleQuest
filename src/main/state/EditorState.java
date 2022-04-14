@@ -6,9 +6,8 @@ import editor.UITileMenu;
 import input.mouse.action.CameraMovement;
 import input.mouse.action.ClearAction;
 import input.mouse.action.SceneryTool;
-import map.GameMap;
 import ui.Alignment;
-import ui.UIButtonMenu;
+import ui.HorizontalUIButtonMenu;
 import ui.UIContainer;
 import ui.UITabContainer;
 import ui.clickable.UIButton;
@@ -49,7 +48,7 @@ public class EditorState extends State {
         UIButton saveButton = new UIButton("save", game -> game.getCurrentState().saveMap());
         UIButton loadButton = new UIButton("load", game -> game.getCurrentState().loadMap());
         UIButton newButton = new UIButton("new", game -> game.getCurrentState().newMap());
-        UIButtonMenu buttonMenu = new UIButtonMenu(mainMenuButton, saveButton, loadButton, newButton);
+        HorizontalUIButtonMenu buttonMenu = new HorizontalUIButtonMenu(mainMenuButton, saveButton, loadButton, newButton);
         uiContainers.add(buttonMenu);
     }
 }

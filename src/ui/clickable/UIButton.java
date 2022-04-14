@@ -36,7 +36,7 @@ public class UIButton extends UIClickable{
         buttonContainer = new VerticalContainer();
         buttonContainer.setCenterChildren(true);
         buttonContainer.addComponent(this.buttonText);
-        buttonContainer.setFixedWidth(150);
+        buttonContainer.setFixedWidth(300);
     }
 
     @Override
@@ -107,8 +107,25 @@ public class UIButton extends UIClickable{
         this.clickColor = clickColor;
     }
 
-    public void setFixedSize(int width, int height){
+    @Override
+    public void setPadding(int padding) {
+        buttonContainer.setPadding(padding);
+    }
+
+    @Override
+    public void setMargin(int margin) {
+        buttonContainer.setMargin(margin);
+    }
+
+    public void setFontSize(int size) {
+        buttonText.setFontSize(size);
+    }
+
+    public void setWith(int width) {
         buttonContainer.setFixedWidth(width);
+    }
+
+    public void setHeight(int height) {
         buttonContainer.setFixedHeight(height);
     }
 }

@@ -5,50 +5,65 @@ import settings.Settings;
 import ui.*;
 import ui.clickable.UIButton;
 
+import java.awt.*;
+
+/**
+ * @Author Johan Salomonsson
+ */
 public class SettingsMenuState extends State{
 
     public SettingsMenuState() {
         loadMap();
 
-        UIContainer container = new HorizontalContainer();
+        UIContainer container = new VerticalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        UIText title = new UIText("Puzzle Quest 2.0");
-        title.setFontSize(28);
+        UIText title = new UIText("Audio");
+        title.setFontSize(38);
         container.addComponent(title);
         uiContainers.add(container);
-
-        UIContainer audioOnOff = new HorizontalContainer();
-        audioOnOff.setFixedPosition(true);
-        audioOnOff.setAbsolutePosition(new Vector2D(Settings.getScreenWidth()/2, 100));
-        UIText audioText = new UIText("Audio");
-        audioText.setFontSize(18);
-        audioOnOff.addComponent(audioText);
-        uiContainers.add(audioOnOff);
 
         UIButton on = new UIButton("ON", game -> game.setCurrentState(game.getGameState()));
         UIButton off = new UIButton("OFF", game -> game.setCurrentState(game.getGameState()));
         UIButton increase = new UIButton("+", game -> game.setCurrentState(game.getGameState()));
         UIButton decrease = new UIButton("-", game -> game.setCurrentState(game.getGameState()));
+        UIButton back = new UIButton("Back", game -> game.setCurrentState(new MainMenuState()));
 
-        UIButtonMenu onButton = new UIButtonMenu(on);
-        onButton.setFixedPosition(true);
-        onButton.setAbsolutePosition(new Vector2D(Settings.getScreenWidth()/2 - 150, 200));
-        uiContainers.add(onButton);
+        on.setBackgroundColor(Color.GRAY);
+        on.setClickColor(Color.YELLOW);
+        on.setHoverColor(Color.lightGray);
+        on.setPadding(25);
+        on.setFontSize(20);
 
-        UIButtonMenu offButton = new UIButtonMenu(off);
-        offButton.setFixedPosition(true);
-        offButton.setAbsolutePosition(new Vector2D(Settings.getScreenWidth()/2, 200));
-        uiContainers.add(offButton);
+        off.setBackgroundColor(Color.GRAY);
+        off.setClickColor(Color.YELLOW);
+        off.setHoverColor(Color.lightGray);
+        off.setPadding(25);
+        off.setFontSize(20);
 
-        UIButtonMenu increaseButton = new UIButtonMenu(increase);
-        increaseButton.setFixedPosition(true);
-        increaseButton.setAbsolutePosition(new Vector2D(Settings.getScreenWidth()/2 - 150, 400));
-        uiContainers.add(increaseButton);
+        increase.setBackgroundColor(Color.GRAY);
+        increase.setClickColor(Color.YELLOW);
+        increase.setHoverColor(Color.lightGray);
+        increase.setPadding(25);
+        increase.setFontSize(30);
 
-        UIButtonMenu decreaseButton = new UIButtonMenu(decrease);
-        decreaseButton.setFixedPosition(true);
-        decreaseButton.setAbsolutePosition(new Vector2D(Settings.getScreenWidth()/2, 400));
-        uiContainers.add(decreaseButton);
+        decrease.setBackgroundColor(Color.GRAY);
+        decrease.setClickColor(Color.YELLOW);
+        decrease.setHoverColor(Color.lightGray);
+        decrease.setPadding(25);
+        decrease.setFontSize(30);
+
+        back.setBackgroundColor(Color.GRAY);
+        back.setClickColor(Color.YELLOW);
+        back.setHoverColor(Color.lightGray);
+        back.setWith(80);
+
+        VerticalUIButtonMenu settingsMenu = new VerticalUIButtonMenu(on, off, increase, decrease);
+        settingsMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
+        uiContainers.add(settingsMenu);
+
+        VerticalUIButtonMenu backButton = new VerticalUIButtonMenu(back);
+        backButton.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP));
+        uiContainers.add(backButton);
 
     }
 

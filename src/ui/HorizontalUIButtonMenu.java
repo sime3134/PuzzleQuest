@@ -8,13 +8,13 @@ import java.util.List;
 /**
  * @author Simon Jern
  */
-public class UIButtonMenu extends HorizontalContainer{
+public class HorizontalUIButtonMenu extends HorizontalContainer{
 
-    public UIButtonMenu(){
+    public HorizontalUIButtonMenu(){
         setBackgroundColor(Color.DARK_GRAY);
     }
 
-    public UIButtonMenu(UIButton ...buttons) {
+    public HorizontalUIButtonMenu(UIButton ...buttons) {
         for(UIButton button : buttons){
             addComponent(button);
         }

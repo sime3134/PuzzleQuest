@@ -2,11 +2,9 @@ package main.state;
 
 import controller.NPCController;
 import controller.PlayerController;
-import core.CollisionBox;
 import core.Vector2D;
 import entity.NPC;
 import entity.Player;
-import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
 
@@ -39,8 +37,8 @@ public class GameState extends State{
         container.addComponent(new UIText("PuzzleQuest 2"));
         container.setBackgroundColor(new Color(0,0,0,0));
 
-        UIButton mainMenuButton = new UIButton("main menu", game -> game.setCurrentState(new MainMenuState()));
-        UIButtonMenu buttonMenu = new UIButtonMenu(mainMenuButton);
+        UIButton pauseMenuButton = new UIButton("pause", game -> game.setCurrentState(new PauseMenuState()));
+        HorizontalUIButtonMenu buttonMenu = new HorizontalUIButtonMenu(pauseMenuButton);
         uiContainers.add(buttonMenu);
 
         uiContainers.add(container);

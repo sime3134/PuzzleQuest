@@ -1,12 +1,13 @@
 package main.state;
 
-import core.Vector2D;
-import settings.Settings;
 import ui.*;
 import ui.clickable.UIButton;
 
 import java.awt.*;
 
+/**
+ * @author Johan Salomonsson
+ */
 public class MainMenuState extends State{
 
 
@@ -14,37 +15,46 @@ public class MainMenuState extends State{
         loadMap();
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        UIText title = new UIText("Puzzle Quesssst 5.0");
+        UIText title = new UIText("Puzzle Quest 2.0");
         title.setFontSize(28);
         container.addComponent(title);
         uiContainers.add(container);
 
         UIButton newGame = new UIButton("New Game", game -> game.setCurrentState(game.getGameState()));
         UIButton loadGame = new UIButton("Load Game", game -> game.setCurrentState(game.getGameState()));
-        UIButton settings = new UIButton("Settings", game -> game.setCurrentState(game.getGameState()));
+        UIButton settings = new UIButton("Settings", game -> game.setCurrentState(new SettingsMenuState()));
         UIButton exitGame = new UIButton("Exit Game", game -> game.setCurrentState(game.getGameState()));
         UIButton worldEditor = new UIButton("World Editor", game -> game.setCurrentState(game.getEditorState()));
 
         newGame.setBackgroundColor(Color.GRAY);
         newGame.setClickColor(Color.YELLOW);
         newGame.setHoverColor(Color.lightGray);
+        newGame.setPadding(25);
 
         loadGame.setBackgroundColor(Color.GRAY);
         loadGame.setClickColor(Color.YELLOW);
         loadGame.setHoverColor(Color.lightGray);
+        loadGame.setPadding(25);
 
         settings.setBackgroundColor(Color.GRAY);
         settings.setClickColor(Color.YELLOW);
         settings.setHoverColor(Color.lightGray);
+        settings.setPadding(25);
 
         exitGame.setBackgroundColor(Color.GRAY);
         exitGame.setClickColor(Color.YELLOW);
         exitGame.setHoverColor(Color.lightGray);
+        exitGame.setPadding(25);
 
         worldEditor.setBackgroundColor(Color.GRAY);
         worldEditor.setClickColor(Color.YELLOW);
         worldEditor.setHoverColor(Color.lightGray);
+        worldEditor.setPadding(25);
 
+        VerticalUIButtonMenu menu = new VerticalUIButtonMenu(newGame, loadGame, exitGame,settings, worldEditor);
+        menu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
+        uiContainers.add(menu);
+        /*
         UIButtonMenu newGameButton = new UIButtonMenu(newGame);
         newGameButton.setFixedPosition(true);
         newGameButton.setAbsolutePosition(new Vector2D((Settings.getScreenWidth()/2) - newGameButton.getWidth(), 100));
@@ -57,7 +67,7 @@ public class MainMenuState extends State{
 
         UIButtonMenu exitButton = new UIButtonMenu(exitGame);
         exitButton.setFixedPosition(true);
-        exitButton.setAbsolutePosition(new Vector2D(Settings.getScreenWidth()/2 - exitGame.getWidth(), 300));
+        exitButton.setAbsolutePosition(new Vector2D((Settings.getScreenWidth()/2) - (exitGame.getWidth()/2), 300));
         uiContainers.add(exitButton);
 
         UIContainer settingsButton = new UIButtonMenu(settings);
@@ -67,7 +77,7 @@ public class MainMenuState extends State{
 
         UIContainer worldEditorButton = new UIButtonMenu(worldEditor);
         worldEditorButton.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.BOTTOM));
-        uiContainers.add(worldEditorButton);
+        uiContainers.add(worldEditorButton); */
     }
 
     @Override
