@@ -68,6 +68,8 @@ public class UIMinimap extends UIClickable{
                     (int) Math.round(positionWithOffset.getY() / Settings.getSpriteSize() * spriteSizeOnMinimap),
                     null);
         });
+
+        g.dispose();
     }
 
     private Image getScaledSprite(Image sprite){
@@ -124,7 +126,7 @@ public class UIMinimap extends UIClickable{
         mousePosition.subtract(absolutePosition);
         mousePosition.subtract(pixelOffset);
 
-        game.getState().getCamera().setPosition(
+        game.getCurrentState().getCamera().setPosition(
                 new Vector2D(
                         mousePosition.getX() / minimapRatio - cameraViewBounds.getWidth() / minimapRatio / 2,
                         mousePosition.getY() / minimapRatio - cameraViewBounds.getHeight() / minimapRatio / 2
@@ -142,6 +144,7 @@ public class UIMinimap extends UIClickable{
         super.update(state);
 
         if(state.getTime().secondsDividableBy(0.25)){
+            calculateRatio(state.getCurrentMap());
             generateMap(state.getCurrentMap(), state.getGameObjects());
         }
         Camera camera = state.getCamera();

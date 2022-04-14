@@ -33,7 +33,7 @@ public class SceneryTool extends MouseAction{
         Input input = Input.getInstance();
 
         if(dragPosition == null){
-            State state = game.getState();
+            State state = game.getCurrentState();
             dragPosition = input.getMousePosition().getCopy();
 
             if(!input.isKeyCurrentlyPressed(KeyEvent.VK_SHIFT)) {

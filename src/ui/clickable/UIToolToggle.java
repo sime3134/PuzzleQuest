@@ -57,11 +57,11 @@ public class UIToolToggle extends UIClickable{
 
     @Override
     public void onClick(Game game) {
-        if(game.getState().getMouseHandler().getLeftButtonAction() != mouseAction) {
-            game.getState().getMouseHandler().switchLeftButtonAction(mouseAction);
+        if(game.getCurrentState().getMouseHandler().getLeftButtonAction() != mouseAction) {
+            game.getCurrentState().getMouseHandler().switchLeftButtonAction(mouseAction);
         }else{
-            game.getState().getMouseHandler().switchLeftButtonAction(
-                    game.getState().getMouseHandler().getLastLeftButtonAction()
+            game.getCurrentState().getMouseHandler().switchLeftButtonAction(
+                    game.getCurrentState().getMouseHandler().getLastLeftButtonAction()
             );
         }
     }

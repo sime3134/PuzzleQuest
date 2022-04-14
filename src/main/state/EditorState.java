@@ -1,6 +1,5 @@
 package main.state;
 
-import core.Vector2D;
 import editor.UISceneryMenu;
 import editor.UISettingsContainer;
 import editor.UITileMenu;
@@ -44,10 +43,9 @@ public class EditorState extends State {
         toolsContainer.addTab("Tiles", new UITileMenu(content));
         uiContainers.add(toolsContainer);
 
-
-        UIButton mainMenuButton = new UIButton("main menu", game -> game.setState(new MainMenuState()));
-        UIButton saveButton = new UIButton("save", game -> game.getState().saveMap());
-        UIButton loadButton = new UIButton("load", game -> game.getState().loadMap());
+        UIButton mainMenuButton = new UIButton("main menu", game -> game.setCurrentState(new MainMenuState()));
+        UIButton saveButton = new UIButton("save", game -> game.getCurrentState().saveMap());
+        UIButton loadButton = new UIButton("load", game -> game.getCurrentState().loadMap());
         UIButtonMenu buttonMenu = new UIButtonMenu(mainMenuButton, saveButton, loadButton);
         uiContainers.add(buttonMenu);
     }

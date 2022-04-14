@@ -1,10 +1,15 @@
 package display;
 
+import content.ContentManager;
+import editor.UISettingsContainer;
 import entity.SelectionCircle;
 import main.state.State;
 import settings.Settings;
+import ui.UIContainer;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Simon Jern
@@ -12,17 +17,26 @@ import java.awt.*;
  */
 public class Debug {
 
+    protected List<UIContainer> uiContainers;
+
     public Debug(State state){
+        uiContainers = new ArrayList<>();
+        UIContainer container = new UISettingsContainer(state.getCurrentMap(), state.getContent());
+        uiContainers.add(container);
     }
 
     public void update(State state){
         if(Settings.isDebugMode()) {
+            uiContainers.forEach(container -> container.update(state));
         }
     }
 
     public void draw(State state, Graphics g){
-        if(Settings.isDebugMode() || Settings.getRenderCollisionBox().getValue()){
+        if(Settings.getRenderCollisionBox().getValue()){
             drawCollisionBoxes(state, g);
+        }
+        if(Settings.isDebugMode()) {
+            uiContainers.forEach(container -> container.draw(g));
         }
     }
 

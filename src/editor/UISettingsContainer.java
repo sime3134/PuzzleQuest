@@ -22,6 +22,7 @@ public class UISettingsContainer extends VerticalContainer {
         addComponent(new UICheckbox("GRID", Settings.getRenderGrid()));
         addComponent(new UICheckbox("Col. box", Settings.getRenderCollisionBox()));
         addComponent(new UICheckbox("Pathable", Settings.isPathable()));
+        addComponent(new UICheckbox("Paths", Settings.getRenderPaths()));
         addComponent(new UIToolToggle(content.getImage("walkable"), new TileWalkabilityToggle(), 48, 48));
     }
 }

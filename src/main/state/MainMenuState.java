@@ -1,6 +1,5 @@
 package main.state;
 
-import map.GameMap;
 import ui.Alignment;
 import ui.UIButtonMenu;
 import ui.clickable.UIButton;
@@ -11,8 +10,8 @@ public class MainMenuState extends State{
 
     public MainMenuState(){
         loadMap();
-        UIButton editorButton = new UIButton("Editor", game -> game.setState(new EditorState()));
-        UIButton startGameButton = new UIButton("Start Game", game -> game.setState(new GameState()));
+        UIButton editorButton = new UIButton("Editor", game -> game.setCurrentState(game.getEditorState()));
+        UIButton startGameButton = new UIButton("Start Game", game -> game.setCurrentState(game.getGameState()));
 
         startGameButton.setBackgroundColor(Color.ORANGE);
         startGameButton.setClickColor(Color.YELLOW);

@@ -8,6 +8,7 @@ import entity.NPC;
 import entity.Player;
 import main.Game;
 import ui.*;
+import ui.clickable.UIButton;
 
 import java.awt.*;
 import java.security.SecureRandom;
@@ -32,6 +33,11 @@ public class GameState extends State{
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         container.addComponent(new UIText("PuzzleQuest 2"));
         container.setBackgroundColor(new Color(0,0,0,0));
+
+        UIButton mainMenuButton = new UIButton("main menu", game -> game.setCurrentState(new MainMenuState()));
+        UIButtonMenu buttonMenu = new UIButtonMenu(mainMenuButton);
+        uiContainers.add(buttonMenu);
+
         uiContainers.add(container);
     }
 
@@ -44,20 +50,13 @@ public class GameState extends State{
         initializeNPCs(20);
     }
 
-    @Override
-    public void update(Game game) {
-        super.update(game);
-    }
-
     private void initializeNPCs(int numberToAdd) {
         SecureRandom randomizer = new SecureRandom();
         for(int i = 0; i < numberToAdd; i++){
 
             Vector2D spawnPosition;
 
-            do{
-                spawnPosition = currentMap.getRandomAvailablePositionOnMap();
-            }while(!isValidSpawnPosition(spawnPosition));
+            spawnPosition = currentMap.getRandomAvailablePositionOnMap();
 
             NPC npc = new NPC(new NPCController(),
                     content.getSpriteSet("villager" + randomizer.nextInt(5)));
@@ -65,16 +64,5 @@ public class GameState extends State{
             gameObjects.add(npc);
 
         }
-    }
-
-    private boolean isValidSpawnPosition(Vector2D spawnPosition){
-        CollisionBox box = new CollisionBox(
-                new Rectangle(
-                        spawnPosition.intX() - 30,
-                        spawnPosition.intY() - 30,
-                        80, 80
-                )
-        );
-        return getCollidingBoxes(box).isEmpty();
     }
 }

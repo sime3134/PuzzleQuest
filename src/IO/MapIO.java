@@ -48,8 +48,8 @@ public class MapIO {
                 e.printStackTrace();
             }
 
-            return null;
+            return new GameMap(32, 32, content, gameObjects);
         }
-        return new GameMap(64, 32, content, gameObjects);
+        return new GameMap(32, 32, content, gameObjects);
     }
 }

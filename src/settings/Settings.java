@@ -28,6 +28,8 @@ public abstract class Settings {
 
     private static final Setting<Boolean> PATHABLE = new Setting<>(false);
 
+    private static final Setting<Boolean> RENDER_PATHS = new Setting<>(false);
+
     //region Getters and Setters (click to view)
 
     public static int getSpriteSize() {
@@ -86,11 +88,14 @@ public abstract class Settings {
 
     public static Setting<Boolean> isPathable() { return PATHABLE; }
 
+    public static Setting<Boolean> getRenderPaths() { return RENDER_PATHS; }
+
     public static void reset() {
-        RENDER_GRID.setValue(true);
+        RENDER_GRID.setValue(false);
         RENDER_COLLISION_BOX.setValue(false);
         RENDER_TILE_WALKABILITY.setValue(false);
-        PATHABLE.setValue(true);
+        PATHABLE.setValue(false);
+        RENDER_PATHS.setValue(false);
     }
 
     //endregion

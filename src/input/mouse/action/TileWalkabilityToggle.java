@@ -15,7 +15,7 @@ public class TileWalkabilityToggle extends MouseAction{
     @Override
     public void onClick(Game game) {
         Input input = Input.getInstance();
-        State state = game.getState();
+        State state = game.getCurrentState();
 
         Vector2D mousePosition = input.getMousePosition().getCopy();
         mousePosition.add(state.getCamera().getPosition());

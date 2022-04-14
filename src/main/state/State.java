@@ -12,6 +12,7 @@ import main.Game;
 import map.GameMap;
 import IO.MapIO;
 import ui.UIContainer;
+import ui.clickable.UIMinimap;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -56,6 +57,11 @@ public abstract class State {
     public Time getTime() {
         return time;
     }
+
+    public ContentManager getContent() {
+        return content;
+    }
+
     //endregion
 
     protected State(){

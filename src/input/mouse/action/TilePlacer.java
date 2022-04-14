@@ -24,15 +24,15 @@ public class TilePlacer extends MouseAction{
 
     @Override
     public void onClick(Game game) {
-        if(game.getState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
-            game.getState().getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
+        if(game.getCurrentState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
+            game.getCurrentState().getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
         }
     }
 
     @Override
     public void onDrag(Game game) {
-        if(game.getState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
-            game.getState().getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
+        if(game.getCurrentState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
+            game.getCurrentState().getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
         }
     }
 
