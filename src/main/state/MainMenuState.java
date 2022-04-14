@@ -14,7 +14,7 @@ public class MainMenuState extends State{
         loadMap();
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        UIText title = new UIText("Puzzle Quest 2.0");
+        UIText title = new UIText("Puzzle Quesssst 5.0");
         title.setFontSize(28);
         container.addComponent(title);
         uiContainers.add(container);
