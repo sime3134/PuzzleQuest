@@ -39,7 +39,6 @@ public class Player extends Humanoid {
 
     private void handlePlayerSpecificInput(){
         if(getController().requestedAction() && target != null){
-            target.getTargets().addFirst(new Vector2D(0,0));
             target.getBrain().setCurrentAIState(new Wander(target, "ignore"));
         }
     }

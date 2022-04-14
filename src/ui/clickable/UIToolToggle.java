@@ -78,7 +78,25 @@ public class UIToolToggle extends UIClickable{
 
     @Override
     public Image getSprite() {
-        return active ? activeSprite : image.getSprite();
+        if(active){
+            return activeSprite;
+        }
+
+        if(hasFocus){
+            Image imageWithFocus =ImgUtils.createCompatibleImage(image.getWidth(), image.getHeight(), ImgUtils.ALPHA_OPAQUE);
+            Graphics2D g = (Graphics2D) imageWithFocus.getGraphics();
+
+            g.drawImage(image.getSprite(), 0, 0, null);
+
+            g.setColor(new Color(255, 255, 255, 75));
+            g.fillRect(0, 0, image.getWidth(), image.getHeight());
+
+            g.dispose();
+
+            return imageWithFocus;
+        }
+
+        return image.getSprite();
     }
 
     @Override

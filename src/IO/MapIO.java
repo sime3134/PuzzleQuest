@@ -1,10 +1,13 @@
 package IO;
 
 import content.ContentManager;
+import entity.GameObject;
+import main.Game;
 import map.GameMap;
 
 import java.io.*;
 import java.net.URL;
+import java.util.List;
 
 public class MapIO {
 
@@ -23,10 +26,10 @@ public class MapIO {
         }
     }
 
-    public static GameMap load(ContentManager content){
+    public static GameMap load(ContentManager content, List<GameObject> gameObjects){
         if(MapIO.class.getResource("/maps/map.pzq") != null) {
             try (BufferedReader reader = new BufferedReader(new FileReader(MapIO.class.getResource("/maps/map.pzq").getFile()))) {
-                GameMap gameMap = new GameMap();
+                GameMap gameMap = new GameMap(gameObjects);
 
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -47,6 +50,6 @@ public class MapIO {
 
             return null;
         }
-        return new GameMap(64, 32, content);
+        return new GameMap(64, 32, content, gameObjects);
     }
 }

@@ -15,20 +15,17 @@ public class Scenery extends GameObject implements Persistable {
     private String name;
     private boolean walkable;
 
-    public Scenery() {
-    }
+    public Scenery() {}
 
     public Scenery(String name,
-                   int selectionCircleWidth,
-                   int selectionCircleHeight,
-                   int selectionCircleRenderXOffset,
-                   int selectionCircleRenderYOffset,
-                   int collisionBoxWidth,
-                   int collisionBoxHeight,
+                   int selectionCircleWidth, int selectionCircleHeight,
+                   int selectionCircleRenderXOffset, int selectionCircleRenderYOffset,
+                   int collisionBoxWidth, int collisionBoxHeight,
                    double renderOrderComparisonOffset,
                    Vector2D collisionBoxOffset,
                    boolean walkable,
                    ContentManager content) {
+
         this.name = name;
         this.collisionBoxWidth = collisionBoxWidth;
         this.collisionBoxHeight = collisionBoxHeight;
@@ -40,6 +37,7 @@ public class Scenery extends GameObject implements Persistable {
         this.selectionCircleRenderXOffset = selectionCircleRenderXOffset;
         this.selectionCircleRenderYOffset = selectionCircleRenderYOffset;
         loadGraphics(content);
+
     }
 
     public void loadGraphics(ContentManager content) {
@@ -67,9 +65,20 @@ public class Scenery extends GameObject implements Persistable {
 
         return CollisionBox.of(
                 new Vector2D(position.getX() + collisionBoxOffset.getX(),
-                        position.intY() + collisionBoxOffset.getY()),
+                        position.getY() + collisionBoxOffset.getY()),
                 collisionBoxWidth,
                 collisionBoxHeight
+        );
+    }
+
+    public CollisionBox getExtendedCollisionBox() {
+        Vector2D position = getPosition().getCopy();
+
+        return CollisionBox.of(
+                new Vector2D(position.getX() + collisionBoxOffset.getX() - 5,
+                        position.getY() + collisionBoxOffset.getY() - 5),
+                collisionBoxWidth + 5,
+                collisionBoxHeight + 5
         );
     }
 
@@ -99,7 +108,7 @@ public class Scenery extends GameObject implements Persistable {
         return sprite;
     }
 
-    protected boolean isWalkable() {
+    public boolean isWalkable() {
         return walkable;
     }
 

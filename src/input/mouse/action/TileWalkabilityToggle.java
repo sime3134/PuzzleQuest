@@ -25,7 +25,13 @@ public class TileWalkabilityToggle extends MouseAction{
 
         if(state.getCurrentMap().isWithinBounds(gridX, gridY)){
             Tile tile = state.getCurrentMap().getTile(gridX, gridY);
-            tile.setWalkable(!tile.isWalkable());
+            if(tile.getCollisionBoxType() == 0){
+                tile.setCollisionBoxType(1);
+            }else if(tile.getCollisionBoxType() == 1){
+                tile.setCollisionBoxType(2);
+            }else{
+                tile.setCollisionBoxType(0);
+            }
         }
     }
 
@@ -41,7 +47,7 @@ public class TileWalkabilityToggle extends MouseAction{
 
     @Override
     public void update(State state) {
-        Settings.getShouldRenderTileWalkability().setValue(true);
+        Settings.getRenderTileWalkability().setValue(true);
     }
 
     @Override
@@ -55,6 +61,6 @@ public class TileWalkabilityToggle extends MouseAction{
 
     @Override
     public void cleanUp() {
-        Settings.getShouldRenderTileWalkability().setValue(false);
+        Settings.getRenderTileWalkability().setValue(false);
     }
 }

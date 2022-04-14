@@ -13,18 +13,20 @@ public abstract class Settings {
     private static final int SCREEN_WIDTH = 1280;
     private static final int SCREEN_HEIGHT = 720;
 
-    private static final int PROXIMITY_RANGE = 5;
+    private static final int PROXIMITY_RANGE = 3;
     private static final int RENDER_MARGIN = 2 * SPRITE_SIZE;
 
     private static boolean DEBUG_MODE = false;
 
     private static double GAME_SPEED_MULTIPLIER = 1;
 
-    private static final Setting<Boolean> SHOULD_RENDER_GRID = new Setting<>(false);
+    private static final Setting<Boolean> RENDER_GRID = new Setting<>(false);
 
-    private static final Setting<Boolean> SHOULD_RENDER_COLLISION_BOX = new Setting<>(false);
+    private static final Setting<Boolean> RENDER_COLLISION_BOX = new Setting<>(false);
 
-    private static final Setting<Boolean> SHOULD_RENDER_TILE_WALKABILITY = new Setting<>(false);
+    private static final Setting<Boolean> RENDER_TILE_WALKABILITY = new Setting<>(false);
+
+    private static final Setting<Boolean> PATHABLE = new Setting<>(false);
 
     //region Getters and Setters (click to view)
 
@@ -74,19 +76,21 @@ public abstract class Settings {
         GAME_SPEED_MULTIPLIER = 1;
     }
 
-    public static Setting<Boolean> getShouldRenderGrid() {
-        return SHOULD_RENDER_GRID;
+    public static Setting<Boolean> getRenderGrid() {
+        return RENDER_GRID;
     }
 
-    public static Setting<Boolean> getShouldRenderCollisionBox() { return SHOULD_RENDER_COLLISION_BOX; }
+    public static Setting<Boolean> getRenderCollisionBox() { return RENDER_COLLISION_BOX; }
 
-    public static Setting<Boolean> getShouldRenderTileWalkability() { return SHOULD_RENDER_TILE_WALKABILITY; }
+    public static Setting<Boolean> getRenderTileWalkability() { return RENDER_TILE_WALKABILITY; }
+
+    public static Setting<Boolean> isPathable() { return PATHABLE; }
 
     public static void reset() {
-        SHOULD_RENDER_GRID.setValue(false);
-        SHOULD_RENDER_COLLISION_BOX.setValue(false);
-        SHOULD_RENDER_TILE_WALKABILITY.setValue(false);
-
+        RENDER_GRID.setValue(true);
+        RENDER_COLLISION_BOX.setValue(false);
+        RENDER_TILE_WALKABILITY.setValue(false);
+        PATHABLE.setValue(true);
     }
 
     //endregion

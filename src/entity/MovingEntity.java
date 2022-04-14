@@ -82,14 +82,14 @@ public abstract class MovingEntity extends GameObject {
      * Updates the direction the entity is facing.
      */
     private void updateDirection() {
-        if(isMoving()){
-            direction = Direction.fromMotion(velocity);
+        direction = Direction.fromMotion(velocity, direction);
+        if(isMoving()) {
             directionVector = velocity.getCopy();
             directionVector.normalize();
         }
     }
 
-    protected boolean isMoving() {
+    public boolean isMoving() {
         return Math.sqrt(velocity.getX() * velocity.getX() + velocity.getY() * velocity.getY()) > 0;
     }
 
@@ -110,6 +110,8 @@ public abstract class MovingEntity extends GameObject {
             velocityX++;
 
         velocity = new Vector2D(velocityX, velocityY);
+
+        updateDirection();
 
         velocity.normalize();
         velocity.multiply(speed);

@@ -113,10 +113,9 @@ public abstract class State {
     }
 
     protected void loadMap() {
-        currentMap = MapIO.load(content);
+        currentMap = MapIO.load(content, gameObjects);
         if (currentMap != null) {
             gameObjects.addAll(currentMap.getSceneryList());
-            currentMap.getSceneryList().clear();
         }
     }
 
@@ -127,9 +126,11 @@ public abstract class State {
 
     public void spawn(GameObject gameObject){
         gameObjects.add(gameObject);
+        currentMap.getSceneryList().add((Scenery) gameObject);
     }
 
     public void despawn(GameObject gameObject) {
         gameObjects.remove(gameObject);
+        currentMap.getSceneryList().remove((Scenery) gameObject);
     }
 }

@@ -4,11 +4,14 @@ import ai.AIManager;
 import content.SpriteSet;
 import controller.EntityController;
 import core.Vector2D;
+import display.Camera;
 import entity.humanoid.Humanoid;
 import main.state.State;
-import utilities.Buffer;
+import settings.Settings;
 
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Simon Jern
@@ -17,21 +20,20 @@ import java.awt.*;
 public class NPC extends Humanoid {
 
     private final AIManager brain;
+    private List<Vector2D> path;
 
-    private final Buffer<Vector2D> targets;
+    public void setPath(List<Vector2D> path) {
+        this.path = path;
+    }
 
     public AIManager getBrain() {
         return brain;
     }
 
-    public Buffer<Vector2D> getTargets() {
-        return targets;
-    }
-
     public NPC(EntityController entityController, SpriteSet spriteSet) {
         super(entityController, spriteSet);
-        this.targets = new Buffer<>();
         brain = new AIManager(this);
+        path = new ArrayList<>();
     }
 
     @Override
@@ -41,9 +43,19 @@ public class NPC extends Humanoid {
     }
 
     @Override
+    public void draw(Graphics g, Camera camera) {
+        super.draw(g, camera);
+        if(Settings.isDebugMode()) {
+            for(Vector2D v : path){
+                g.setColor(Color.BLUE);
+                g.fillRect(v.intX() - camera.getPosition().intX(), v.intY() - camera.getPosition().intY(), 48, 48);
+            }
+        }
+    }
+
+    @Override
     protected void handleCollision(GameObject other) {
-        if(other instanceof NPC && other != this
-                || other instanceof Player
+        if(other instanceof Player
                 || other instanceof Scenery && !((Scenery)other).isWalkable()){
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
         }

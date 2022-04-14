@@ -24,7 +24,7 @@ public class UITileMenu extends HorizontalContainer {
     private UIContainer getTileSheet(ContentManager content, String tileSheet) {
         UIContainer main = new HorizontalContainer();
         main.setMargin(new Spacing(0));
-        Tile tile = new Tile(content, tileSheet, true);
+        Tile tile = new Tile(content, tileSheet);
 
         int tilesX = tile.getTileSheet().getWidth(null) / Settings.getSpriteSize();
         int tilesY = tile.getTileSheet().getHeight(null) / Settings.getSpriteSize();

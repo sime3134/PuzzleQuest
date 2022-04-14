@@ -19,7 +19,9 @@ public class UISettingsContainer extends VerticalContainer {
     public UISettingsContainer(GameMap currentMap, ContentManager content) {
         setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
         addComponent(new UIMinimap(currentMap));
-        addComponent(new UICheckbox("GRID", Settings.getShouldRenderGrid()));
+        addComponent(new UICheckbox("GRID", Settings.getRenderGrid()));
+        addComponent(new UICheckbox("Col. box", Settings.getRenderCollisionBox()));
+        addComponent(new UICheckbox("Pathable", Settings.isPathable()));
         addComponent(new UIToolToggle(content.getImage("walkable"), new TileWalkabilityToggle(), 48, 48));
     }
 }

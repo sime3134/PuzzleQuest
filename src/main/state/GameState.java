@@ -6,10 +6,8 @@ import core.CollisionBox;
 import core.Vector2D;
 import entity.NPC;
 import entity.Player;
-import entity.SelectionCircle;
-import map.GameMap;
+import main.Game;
 import ui.*;
-import ui.clickable.UIButton;
 
 import java.awt.*;
 import java.security.SecureRandom;
@@ -21,10 +19,6 @@ import java.security.SecureRandom;
  */
 public class GameState extends State{
     private Player player;
-
-    public Vector2D getPlayerPosition() {
-        return player.getPosition();
-    }
 
     public GameState(){
         super();
@@ -39,15 +33,6 @@ public class GameState extends State{
         container.addComponent(new UIText("PuzzleQuest 2"));
         container.setBackgroundColor(new Color(0,0,0,0));
         uiContainers.add(container);
-
-//        UIContainer buttonContainer = new VerticalContainer();
-//        buttonContainer.setBackgroundColor(Color.DARK_GRAY);
-//        buttonContainer.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
-//        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 1 clicked!!!")));
-//        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 2 clicked!!!")));
-//        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 3 clicked!!!")));
-//        buttonContainer.addComponent(new UIButton("TEST", (state) -> System.out.println("button 4 clicked!!!")));
-//        uiContainers.add(buttonContainer);
     }
 
     private void initializeEntities() {
@@ -56,7 +41,12 @@ public class GameState extends State{
         gameObjects.add(player);
         camera.focusOn(player);
 
-        initializeNPCs(50);
+        initializeNPCs(20);
+    }
+
+    @Override
+    public void update(Game game) {
+        super.update(game);
     }
 
     private void initializeNPCs(int numberToAdd) {
@@ -66,7 +56,7 @@ public class GameState extends State{
             Vector2D spawnPosition;
 
             do{
-                spawnPosition = currentMap.getRandomPositionOnMap();
+                spawnPosition = currentMap.getRandomAvailablePositionOnMap();
             }while(!isValidSpawnPosition(spawnPosition));
 
             NPC npc = new NPC(new NPCController(),

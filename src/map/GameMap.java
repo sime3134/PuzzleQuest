@@ -5,7 +5,9 @@ import content.ContentManager;
 import core.CollisionBox;
 import core.Vector2D;
 import display.Camera;
+import entity.GameObject;
 import entity.Scenery;
+import entity.SelectionCircle;
 import settings.Settings;
 
 import java.awt.*;
@@ -20,6 +22,7 @@ public class GameMap implements Persistable {
 
     private Tile[][] tiles;
     private List<Scenery> sceneryList;
+    private List<GameObject> gameObjects;
 
     //region Getters and Setters (click to open)
 
@@ -44,9 +47,16 @@ public class GameMap implements Persistable {
         tiles[gridX][gridY] = tile;
     }
 
-    public Vector2D getRandomPositionOnMap() {
+    public Vector2D getRandomAvailablePositionOnMap() {
         double x = Math.random() * tiles.length * Settings.getSpriteSize();
         double y = Math.random() * tiles[0].length * Settings.getSpriteSize();
+        int gridX = (int) (x / Settings.getSpriteSize());
+        int gridY = (int) (y / Settings.getSpriteSize());
+
+        if(!tileIsAvailable(gridX, gridY)) {
+            return getRandomAvailablePositionOnMap();
+        }
+
         return new Vector2D(x, y);
     }
 
@@ -60,20 +70,22 @@ public class GameMap implements Persistable {
 
     //endregion
 
-    public GameMap(){
+    public GameMap(List<GameObject> gameObjects){
         sceneryList = new ArrayList<>();
+        this.gameObjects = gameObjects;
     }
 
-    public GameMap(int mapWidth, int mapHeight, ContentManager content) {
+    public GameMap(int mapWidth, int mapHeight, ContentManager content, List<GameObject> gameObjects) {
         tiles = new Tile[mapWidth][mapHeight];
         sceneryList = new ArrayList<>();
+        this.gameObjects = gameObjects;
         initializeTiles(content);
     }
 
     private void initializeTiles(ContentManager content) {
         for(int x = 0; x < tiles.length; x++){
             for(int y = 0; y < tiles[0].length; y++){
-                tiles[x][y] = new Tile(content, 501, "terrain", true);
+                tiles[x][y] = new Tile(content, 501, "terrain");
             }
         }
     }
@@ -86,7 +98,7 @@ public class GameMap implements Persistable {
 
         for(int x = gridX - 1; x < gridX + 2; x++){
             for(int y = gridY - 1; y < gridY + 2; y++){
-                if(isWithinBounds(x, y) && !getTile(x, y).isWalkable()){
+                if(isWithinBounds(x, y) && getTile(x, y).getCollisionBoxType() > 0){
                     CollisionBox gridCollisionBox = getGridCollisionBox(x, y);
 
                     if(collisionBox.collidingWith(gridCollisionBox)) {
@@ -100,12 +112,21 @@ public class GameMap implements Persistable {
     }
 
     private CollisionBox getGridCollisionBox(int x, int y) {
-        return new CollisionBox(new Rectangle(
-           x * Settings.getSpriteSize(),
-           y * Settings.getSpriteSize(),
-           Settings.getSpriteSize(),
-           Settings.getSpriteSize()
-        ));
+        if(getTile(x, y).getCollisionBoxType() == 1){
+            return new CollisionBox(new Rectangle(
+                    x * Settings.getSpriteSize(),
+                    y * Settings.getSpriteSize(),
+                    Settings.getSpriteSize(),
+                    Settings.getSpriteSize() / 3
+            ));
+        }else{
+            return new CollisionBox(new Rectangle(
+                    x * Settings.getSpriteSize(),
+                    y * Settings.getSpriteSize(),
+                    Settings.getSpriteSize(),
+                    Settings.getSpriteSize()
+            ));
+        }
     }
 
     public Tile getTile(int x, int y) {
@@ -133,17 +154,32 @@ public class GameMap implements Persistable {
 
                 g.drawImage(tiles[x][y].getSprite(), drawPositionX, drawPositionY, null);
 
-                if(Settings.getShouldRenderTileWalkability().getValue()){
-                    Color overlayColor = tiles[x][y].isWalkable()
-                            ? new Color(0, 255, 0, 85)
-                            : new Color(255, 0, 0, 85);
+                if(Settings.getRenderTileWalkability().getValue()){
+                    Color overlayColor = new Color(255, 0, 0, 85);
                     g.setColor(overlayColor);
+                    if(tiles[x][y].getCollisionBoxType() == 2) {
+                        g.fillRect(drawPositionX, drawPositionY, Settings.getSpriteSize(), Settings.getSpriteSize());
+                    }else if(tiles[x][y].getCollisionBoxType() == 1){
+                        g.fillRect(drawPositionX, drawPositionY, Settings.getSpriteSize(), Settings.getSpriteSize() / 3);
+                    }
+                }
+
+                if(Settings.isPathable().getValue()){
+
+                    if(!tileIsAvailable(x, y)) {
+                        Color overlayColor = new Color(255, 0, 0, 85);
+                        g.setColor(overlayColor);
+                    }else{
+                        Color overlayColor = new Color(0, 255, 0, 85);
+                        g.setColor(overlayColor);
+                    }
+
                     g.fillRect(drawPositionX, drawPositionY, Settings.getSpriteSize(), Settings.getSpriteSize());
                 }
             }
         }
 
-        if(Settings.getShouldRenderGrid().getValue()) {
+        if(Settings.getRenderGrid().getValue()) {
             g.setColor(Color.LIGHT_GRAY);
             for(int x = (int)startPosX; x < endPosX; x++){
                 g.drawLine(x * Settings.getSpriteSize() - camera.getPosition().intX(),
@@ -161,6 +197,25 @@ public class GameMap implements Persistable {
                 );
             }
         }
+
+    }
+
+    public boolean tileIsAvailable(int x, int y) {
+        return tiles[x][y].getCollisionBoxType() == 0 && !tileHasUnwalkableScenery(x, y) && !tileHasUnwalkableEntity(x, y);
+    }
+
+    public boolean tileHasUnwalkableScenery(int gridX, int gridY){
+        CollisionBox gridCollisionBox = getGridCollisionBox(gridX, gridY);
+        return sceneryList.stream()
+                .filter(scenery -> !scenery.isWalkable())
+                .anyMatch(scenery -> scenery.getExtendedCollisionBox().collidingWith(gridCollisionBox));
+    }
+
+    public boolean tileHasUnwalkableEntity(int gridX, int gridY){
+        CollisionBox gridCollisionBox = getGridCollisionBox(gridX, gridY);
+        return gameObjects.stream()
+                .filter(gameObject -> !(gameObject instanceof SelectionCircle))
+                .anyMatch(gameObject -> gameObject.getCollisionBox().collidingWith(gridCollisionBox));
     }
 
     /**

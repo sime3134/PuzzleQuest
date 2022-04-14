@@ -1,14 +1,10 @@
 package display;
 
-import entity.NPC;
 import entity.SelectionCircle;
 import main.state.State;
 import settings.Settings;
-import ui.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Simon Jern
@@ -25,7 +21,7 @@ public class Debug {
     }
 
     public void draw(State state, Graphics g){
-        if(Settings.isDebugMode() || Settings.getShouldRenderCollisionBox().getValue()){
+        if(Settings.isDebugMode() || Settings.getRenderCollisionBox().getValue()){
             drawCollisionBoxes(state, g);
         }
     }

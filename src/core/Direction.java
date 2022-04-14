@@ -16,7 +16,7 @@ public enum Direction {
         this.animationRow = animationRow;
     }
 
-    public static Direction fromMotion(Vector2D velocity){
+    public static Direction fromMotion(Vector2D velocity, Direction lastDirection){
         double x = velocity.getX();
         double y = velocity.getY();
 
@@ -27,8 +27,9 @@ public enum Direction {
         if(x < 0 && y > 0) return DOWN;
         if(x < 0 && y < 0) return UP;
         if(x > 0 && y < 0) return UP;
+        if(x > 0 && y > 0) return DOWN;
 
-        return DOWN;
+        return lastDirection;
     }
 
     public int getAnimationRow(){

@@ -17,26 +17,18 @@ public class Tile implements Persistable {
     private Image sprite;
     private int tileIndex;
     private String tileSheetName;
-    private boolean walkable;
+    private int collisionBoxType;
 
     public Image getSprite(){
         return sprite;
     }
 
     public Tile getCopy() {
-        return new Tile(tileSheet, tileIndex, tileSheetName, walkable);
+        return new Tile(tileSheet, tileIndex, tileSheetName);
     }
 
     public Image getTileSheet() {
         return tileSheet;
-    }
-
-    public int getTileIndex() {
-        return tileIndex;
-    }
-
-    public String getTileSheetName() {
-        return tileSheetName;
     }
 
     public void setTileIndex(int tileIndex) {
@@ -44,41 +36,41 @@ public class Tile implements Persistable {
         generateSprite();
     }
 
-    public boolean isWalkable() {
-        return walkable;
+    public int getCollisionBoxType() {
+        return collisionBoxType;
     }
 
-    public void setWalkable(boolean walkable) {
-        this.walkable = walkable;
+    public void setCollisionBoxType(int collisionBoxType) {
+        this.collisionBoxType = collisionBoxType;
     }
 
     public Tile() {
-        walkable = true;
+        collisionBoxType = 0;
     }
 
     /**
      * Constructor used to display tile sheet in tile editor.
      */
-    public Tile(ContentManager content, String tileSheetName, boolean walkable){
+    public Tile(ContentManager content, String tileSheetName){
         this.tileSheet = content.getImage(tileSheetName);
         this.tileSheetName = tileSheetName;
-        this.walkable = walkable;
+        this.collisionBoxType = 0;
         generateSprite();
     }
 
-    public Tile(ContentManager content, int tileIndex, String tileSheetName, boolean walkable){
+    public Tile(ContentManager content, int tileIndex, String tileSheetName){
         this.tileSheet = content.getImage(tileSheetName);
         this.tileIndex = tileIndex;
         this.tileSheetName = tileSheetName;
-        this.walkable = walkable;
+        this.collisionBoxType = 0;
         generateSprite();
     }
 
-    public Tile(Image tileSheet, int tileIndex, String tileSheetName, boolean walkable){
+    public Tile(Image tileSheet, int tileIndex, String tileSheetName){
         this.tileSheet = tileSheet;
         this.tileIndex = tileIndex;
         this.tileSheetName = tileSheetName;
-        this.walkable = walkable;
+        this.collisionBoxType = 0;
         generateSprite();
     }
 
@@ -111,7 +103,7 @@ public class Tile implements Persistable {
         stringBuilder.append(DELIMITER);
         stringBuilder.append(tileIndex);
         stringBuilder.append(DELIMITER);
-        stringBuilder.append(walkable);
+        stringBuilder.append(collisionBoxType);
         return stringBuilder.toString();
     }
 
@@ -123,6 +115,6 @@ public class Tile implements Persistable {
         String[] tokens = serializedData.split(DELIMITER);
         tileSheetName = tokens[1];
         tileIndex = Integer.parseInt(tokens[2]);
-        walkable = Boolean.parseBoolean(tokens[3]);
+        collisionBoxType = Integer.parseInt(tokens[3]);
     }
 }

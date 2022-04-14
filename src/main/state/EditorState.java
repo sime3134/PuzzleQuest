@@ -20,7 +20,7 @@ import ui.clickable.UIButton;
 public class EditorState extends State {
 
     public EditorState(){
-        currentMap = new GameMap(32, 32, content);
+        currentMap = new GameMap(32, 32, content, getGameObjects());
 
         setupMouseButtons();
 

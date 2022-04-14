@@ -5,7 +5,10 @@ import controller.NPCController;
 import core.Vector2D;
 import entity.NPC;
 import main.state.State;
-import utilities.Buffer;
+import map.PathFinder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Simon Jern
@@ -13,11 +16,13 @@ import utilities.Buffer;
  */
 public class Wander extends AIState{
 
-    Buffer<Vector2D> targets;
+    List<Vector2D> path;
+    private Vector2D target;
 
     public Wander(NPC currentCharacter, String lastState) {
         super(currentCharacter, lastState);
-        targets = currentCharacter.getTargets();
+        path = new ArrayList<>();
+        currentCharacter.setPath(path);
     }
 
     @Override
@@ -27,20 +32,32 @@ public class Wander extends AIState{
 
     @Override
     public void update(State state) {
-        if(targets.isEmpty()) {
-            targets.add(state.getCurrentMap().getRandomPositionOnMap());
+        if(target == null) {
+            List<Vector2D> foundPath = PathFinder.findPath(new Vector2D(
+                    currentCharacter.getCollisionBox().getBounds().getX(), currentCharacter.getCollisionBox().getBounds().getY()),
+                    state.getCurrentMap().getRandomAvailablePositionOnMap(), state.getCurrentMap());
+            if(!foundPath.isEmpty()){
+                target = foundPath.get(foundPath.size() - 1);
+                this.path.addAll(foundPath);
+            }
         }
 
         NPCController controller = (NPCController) currentCharacter.getController();
-        controller.moveToTarget(targets.peek(), currentCharacter.getPosition());
 
         if(arrivedAtTarget()) {
-            targets.get();
             controller.stop();
+        }
+
+        if(!path.isEmpty() && currentCharacter.getPosition().isInRangeOf(path.get(0))){
+            path.remove(0);
+        }
+
+        if(!path.isEmpty()){
+            controller.moveToTarget(path.get(0), currentCharacter.getPosition());
         }
     }
 
     private boolean arrivedAtTarget(){
-        return currentCharacter.getPosition().isInRangeOf(targets.peek());
+        return target != null && currentCharacter.getPosition().isInRangeOf(target);
     }
 }
