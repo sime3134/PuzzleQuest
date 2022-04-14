@@ -22,6 +22,8 @@ public abstract class UIContainer extends UIComponent {
     protected int fixedWidth;
     protected int fixedHeight;
 
+    protected boolean fixedPosition;
+
     protected Alignment alignment;
 
     protected List<UIComponent> children;
@@ -54,6 +56,10 @@ public abstract class UIContainer extends UIComponent {
         this.centerChildren = centerChildren;
     }
 
+    public void setFixedPosition(boolean fixedPosition) {
+        this.fixedPosition = fixedPosition;
+    }
+
     //endregion
 
     protected UIContainer(){
@@ -82,6 +88,7 @@ public abstract class UIContainer extends UIComponent {
     }
 
     protected void calculatePosition() {
+        if(!fixedPosition) {
             int x = padding.getLeft();
             if (alignment.getHorizontal().equals(Alignment.Horizontal.CENTER)) {
                 x = Settings.getScreenWidth() / 2 - width / 2;
@@ -102,6 +109,7 @@ public abstract class UIContainer extends UIComponent {
             if (parent == null) {
                 this.absolutePosition = new Vector2D(x, y);
             }
+        }
         calculateContentPosition();
     }
 
