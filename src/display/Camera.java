@@ -23,6 +23,8 @@ public class Camera {
 
     private Optional<GameObject> objectInFocus;
 
+    private GameObject lastFocusedObject;
+
     public Vector2D getPosition() {
         return position;
     }
@@ -33,10 +35,10 @@ public class Camera {
 
     private void setCurrentView() {
         currentView = new Rectangle(
-                position.intX(),
-                position.intY(),
-                windowWidth + Settings.getRenderMargin(),
-                windowHeight + Settings.getRenderMargin());
+                position.intX() - Settings.getRenderMargin(),
+                position.intY() - Settings.getRenderMargin(),
+                windowWidth + Settings.getRenderMargin() * 2,
+                windowHeight + Settings.getRenderMargin() * 2);
     }
 
     public Camera() {
@@ -44,11 +46,25 @@ public class Camera {
         this.windowWidth = Settings.getScreenWidth();
         this.windowHeight = Settings.getScreenHeight();
         this.objectInFocus = Optional.empty();
+        lastFocusedObject = null;
         setCurrentView();
     }
 
     public void focusOn(GameObject object){
         objectInFocus = Optional.of(object);
+    }
+
+    public void removeFocus(){
+        if(objectInFocus.isPresent()) {
+            lastFocusedObject = objectInFocus.get();
+            objectInFocus = Optional.empty();
+        }
+    }
+
+    public void resetLastFocus() {
+        if(lastFocusedObject != null) {
+            objectInFocus = Optional.of(lastFocusedObject);
+        }
     }
 
     public void update(GameMap currentMap){
@@ -87,6 +103,6 @@ public class Camera {
     public boolean isObjectInView(GameObject gameObject) {
         return currentView.intersects(
             gameObject.getCollisionBox().getBounds()
-            );
+        );
     }
 }

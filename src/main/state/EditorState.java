@@ -20,10 +20,12 @@ import ui.clickable.UIButton;
 public class EditorState extends State {
 
     public EditorState(){
-        currentMap = new GameMap(32, 32, content, getGameObjects());
+    }
 
+    @Override
+    public void prepare() {
+        newMap();
         setupMouseButtons();
-
         setupUI();
     }
 
@@ -46,7 +48,8 @@ public class EditorState extends State {
         UIButton mainMenuButton = new UIButton("main menu", game -> game.setCurrentState(new MainMenuState()));
         UIButton saveButton = new UIButton("save", game -> game.getCurrentState().saveMap());
         UIButton loadButton = new UIButton("load", game -> game.getCurrentState().loadMap());
-        UIButtonMenu buttonMenu = new UIButtonMenu(mainMenuButton, saveButton, loadButton);
+        UIButton newButton = new UIButton("new", game -> game.getCurrentState().newMap());
+        UIButtonMenu buttonMenu = new UIButtonMenu(mainMenuButton, saveButton, loadButton, newButton);
         uiContainers.add(buttonMenu);
     }
 }

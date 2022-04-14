@@ -47,9 +47,8 @@ public class MapIO {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            return new GameMap(32, 32, content, gameObjects);
         }
+
         return new GameMap(32, 32, content, gameObjects);
     }
 }

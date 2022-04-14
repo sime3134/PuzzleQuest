@@ -3,6 +3,7 @@ package main.state;
 import content.ContentManager;
 import core.CollisionBox;
 import core.Time;
+import core.Vector2D;
 import display.Camera;
 import entity.GameObject;
 import entity.Scenery;
@@ -118,16 +119,20 @@ public abstract class State {
                 .collect(Collectors.toList());
     }
 
-    protected void loadMap() {
+    public void loadMap() {
         currentMap = MapIO.load(content, gameObjects);
-        if (currentMap != null) {
-            gameObjects.addAll(currentMap.getSceneryList());
-        }
+        gameObjects.addAll(currentMap.getSceneryList());
     }
 
     public void saveMap(){
         currentMap.setSceneryList(getGameObjectsOfClass(Scenery.class));
         MapIO.save(currentMap);
+    }
+
+    protected void newMap() {
+        currentMap = new GameMap(32, 32, content, gameObjects);
+        gameObjects.clear();
+        currentMap.clearScenery();
     }
 
     public void spawn(GameObject gameObject){
@@ -139,4 +144,6 @@ public abstract class State {
         gameObjects.remove(gameObject);
         currentMap.getSceneryList().remove((Scenery) gameObject);
     }
+
+    public abstract void prepare();
 }

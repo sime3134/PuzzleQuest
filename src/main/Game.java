@@ -56,6 +56,8 @@ public class Game {
 
     public void setCurrentState(State newState) {
         this.currentState = newState;
+        this.currentState.loadMap();
+        this.currentState.prepare();
         Settings.reset();
     }
 }

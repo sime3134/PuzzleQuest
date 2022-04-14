@@ -61,11 +61,13 @@ public class UIMinimap extends UIClickable{
         gameObjects.forEach(gameObject -> {
             Vector2D positionWithOffset = gameObject.getPosition().getCopy();
             positionWithOffset.subtract(gameObject.getRenderOffset());
+            positionWithOffset.add(pixelOffset);
+            //System.out.println(gameObject.getRenderOffset().getX());
 
             g.drawImage(
                     getScaledSprite(gameObject.getSprite()),
-                    (int) Math.round(positionWithOffset.getX() / Settings.getSpriteSize() * spriteSizeOnMinimap),
-                    (int) Math.round(positionWithOffset.getY() / Settings.getSpriteSize() * spriteSizeOnMinimap),
+                    (int) Math.round(positionWithOffset.getX() / Settings.getSpriteSize() * spriteSizeOnMinimap + pixelOffset.getX()),
+                    (int) Math.round(positionWithOffset.getY() / Settings.getSpriteSize() * spriteSizeOnMinimap + pixelOffset.getY()),
                     null);
         });
 
@@ -132,11 +134,13 @@ public class UIMinimap extends UIClickable{
                         mousePosition.getY() / minimapRatio - cameraViewBounds.getHeight() / minimapRatio / 2
                 )
         );
+
+        game.getCurrentState().getCamera().removeFocus();
     }
 
     @Override
     public void onRelease(Game game) {
-
+        game.getCurrentState().getCamera().resetLastFocus();
     }
 
     @Override

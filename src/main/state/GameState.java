@@ -23,6 +23,11 @@ public class GameState extends State{
 
     public GameState(){
         super();
+    }
+
+    @Override
+    public void prepare() {
+        gameObjects.clear();
         loadMap();
         initializeEntities();
         initializeUI();

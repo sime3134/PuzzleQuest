@@ -1,6 +1,5 @@
 package display;
 
-import content.ContentManager;
 import editor.UISettingsContainer;
 import entity.SelectionCircle;
 import main.state.State;

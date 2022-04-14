@@ -25,6 +25,7 @@ public class PathFinder {
             }
         }
 
+        System.out.println(start.getY());
         Node startNode = nodeMap[start.gridX()][start.gridY()];
         Node targetNode = nodeMap[target.gridX()][target.gridY()];
 

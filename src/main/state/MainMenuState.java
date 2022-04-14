@@ -23,4 +23,9 @@ public class MainMenuState extends State{
 
         uiContainers.add(buttonMenu);
     }
+
+    @Override
+    public void prepare() {
+
+    }
 }

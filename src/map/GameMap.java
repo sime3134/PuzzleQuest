@@ -22,7 +22,7 @@ public class GameMap implements Persistable {
 
     private Tile[][] tiles;
     private List<Scenery> sceneryList;
-    private List<GameObject> gameObjects;
+    private final List<GameObject> gameObjects;
 
     //region Getters and Setters (click to open)
 
@@ -48,15 +48,14 @@ public class GameMap implements Persistable {
     }
 
     public Vector2D getRandomAvailablePositionOnMap() {
-        double x = Math.random() * tiles.length * Settings.getSpriteSize();
-        double y = Math.random() * tiles[0].length * Settings.getSpriteSize();
+        double x = Math.random() * (tiles.length - 1) * Settings.getSpriteSize();
+        double y = Math.random() * (tiles[0].length - 1) * Settings.getSpriteSize();
         int gridX = (int) (x / Settings.getSpriteSize());
         int gridY = (int) (y / Settings.getSpriteSize());
 
         if(!tileIsAvailable(gridX, gridY)) {
             return getRandomAvailablePositionOnMap();
         }
-
         return new Vector2D(x, y);
     }
 
@@ -295,5 +294,9 @@ public class GameMap implements Persistable {
                 sceneryList.add(scenery);
             }
         }
+    }
+
+    public void clearScenery() {
+        sceneryList.clear();
     }
 }

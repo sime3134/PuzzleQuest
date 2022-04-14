@@ -33,6 +33,7 @@ public class Wander extends AIState{
     @Override
     public void update(State state) {
         if(target == null) {
+            System.out.println(currentCharacter.getCollisionBox().getBounds().getY());
             List<Vector2D> foundPath = PathFinder.findPath(new Vector2D(
                     currentCharacter.getCollisionBox().getBounds().getX(), currentCharacter.getCollisionBox().getBounds().getY()),
                     state.getCurrentMap().getRandomAvailablePositionOnMap(), state.getCurrentMap());
