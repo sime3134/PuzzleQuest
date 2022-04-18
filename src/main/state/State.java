@@ -3,7 +3,6 @@ package main.state;
 import content.ContentManager;
 import core.CollisionBox;
 import core.Time;
-import core.Vector2D;
 import display.Camera;
 import entity.GameObject;
 import entity.Scenery;
@@ -13,7 +12,6 @@ import main.Game;
 import map.GameMap;
 import IO.MapIO;
 import ui.UIContainer;
-import ui.clickable.UIMinimap;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -88,7 +86,7 @@ public abstract class State {
     }
 
     public void draw(Graphics g){
-        currentMap.draw(g, camera);
+        currentMap.draw(g, camera, gameObjects);
         gameObjects.stream()
                 .filter(gameObject -> camera.isObjectInView(gameObject))
                 .forEach(gameObject -> renderGameObject(g, camera, gameObject));
@@ -120,7 +118,8 @@ public abstract class State {
     }
 
     public void loadMap() {
-        currentMap = MapIO.load(content, gameObjects);
+        gameObjects.clear();
+        currentMap = MapIO.load(content);
         gameObjects.addAll(currentMap.getSceneryList());
     }
 
@@ -129,10 +128,9 @@ public abstract class State {
         MapIO.save(currentMap);
     }
 
-    protected void newMap() {
-        currentMap = new GameMap(32, 32, content, gameObjects);
+    protected void createNewMap(int width, int height) {
         gameObjects.clear();
-        currentMap.clearScenery();
+        currentMap = new GameMap(width, height, content);
     }
 
     public void spawn(GameObject gameObject){
@@ -144,6 +142,4 @@ public abstract class State {
         gameObjects.remove(gameObject);
         currentMap.getSceneryList().remove((Scenery) gameObject);
     }
-
-    public abstract void prepare();
 }

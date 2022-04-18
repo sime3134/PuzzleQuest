@@ -3,6 +3,7 @@ package ui.clickable;
 import core.Vector2D;
 import display.Camera;
 import entity.GameObject;
+import entity.humanoid.Humanoid;
 import input.Input;
 import main.Game;
 import main.state.State;
@@ -58,11 +59,10 @@ public class UIMinimap extends UIClickable{
             }
         }
 
-        gameObjects.forEach(gameObject -> {
+        gameObjects.stream().filter(gameObject -> !(gameObject instanceof Humanoid)).forEach(gameObject -> {
             Vector2D positionWithOffset = gameObject.getPosition().getCopy();
             positionWithOffset.subtract(gameObject.getRenderOffset());
             positionWithOffset.add(pixelOffset);
-            //System.out.println(gameObject.getRenderOffset().getX());
 
             g.drawImage(
                     getScaledSprite(gameObject.getSprite()),

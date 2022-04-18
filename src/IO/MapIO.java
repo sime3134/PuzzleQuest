@@ -26,10 +26,10 @@ public class MapIO {
         }
     }
 
-    public static GameMap load(ContentManager content, List<GameObject> gameObjects){
+    public static GameMap load(ContentManager content){
         if(MapIO.class.getResource("/maps/map.pzq") != null) {
             try (BufferedReader reader = new BufferedReader(new FileReader(MapIO.class.getResource("/maps/map.pzq").getFile()))) {
-                GameMap gameMap = new GameMap(gameObjects);
+                GameMap gameMap = new GameMap();
 
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -49,6 +49,6 @@ public class MapIO {
             }
         }
 
-        return new GameMap(32, 32, content, gameObjects);
+        return new GameMap(32, 32, content);
     }
 }

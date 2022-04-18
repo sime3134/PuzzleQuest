@@ -22,10 +22,10 @@ public class PauseMenuState extends State{
         container.addComponent(title);
         uiContainers.add(container);
 
-        UIButton resumeGame = new UIButton("Resume Game", game -> game.setCurrentState(game.getGameState()));
-        UIButton saveGame = new UIButton("Save Game", game -> game.setCurrentState(game.getGameState()));
-        UIButton mainMenu = new UIButton("Main Menu", game -> game.setCurrentState(new MainMenuState()));
-        UIButton settings = new UIButton("Settings", game -> game.setCurrentState(new SettingsMenuState()));
+        UIButton resumeGame = new UIButton("Resume Game", game -> game.resumeGame());
+        UIButton saveGame = new UIButton("Save Game", game -> game.saveGame());
+        UIButton mainMenu = new UIButton("Main Menu", game -> game.goToMainMenu());
+        UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
 
         resumeGame.setBackgroundColor(Color.GRAY);
         resumeGame.setClickColor(Color.YELLOW);
@@ -47,15 +47,10 @@ public class PauseMenuState extends State{
         settings.setHoverColor(Color.lightGray);
         settings.setPadding(25);
 
-        VerticalUIButtonMenu pauseMenu = new VerticalUIButtonMenu(resumeGame, saveGame, mainMenu, settings);
+        VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings);
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
 
-
-    }
-
-    @Override
-    public void prepare() {
 
     }
 

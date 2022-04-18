@@ -1,12 +1,13 @@
 package map;
 
 import core.Vector2D;
+import entity.GameObject;
 
 import java.util.*;
 
 public class PathFinder {
 
-    public static List<Vector2D> findPath(Vector2D start, Vector2D target, GameMap map) {
+    public static List<Vector2D> findPath(List<GameObject> gameObjects, Vector2D start, Vector2D target, GameMap map) {
         final PriorityQueue<Node> open = new PriorityQueue<>();
         final Set<Node> closed = new HashSet<>();
         final Node[][] nodeMap = new Node[map.getTiles().length][map.getTiles()[0].length];
@@ -17,7 +18,7 @@ public class PathFinder {
                 int heuristic = Math.abs(x - target.gridX() + Math.abs(y - target.gridY()));
                 Node node = new Node(10, heuristic, x, y);
 
-                if(!map.tileIsAvailable(x, y)){
+                if(!map.tileIsAvailable(gameObjects, x, y)){
                     closed.add(node);
                 }
 

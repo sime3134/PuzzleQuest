@@ -20,11 +20,11 @@ public class MainMenuState extends State{
         container.addComponent(title);
         uiContainers.add(container);
 
-        UIButton newGame = new UIButton("New Game", game -> game.setCurrentState(game.getGameState()));
-        UIButton loadGame = new UIButton("Load Game", game -> game.setCurrentState(game.getGameState()));
-        UIButton settings = new UIButton("Settings", game -> game.setCurrentState(new SettingsMenuState()));
-        UIButton exitGame = new UIButton("Exit Game", game -> game.setCurrentState(game.getGameState()));
-        UIButton worldEditor = new UIButton("World Editor", game -> game.setCurrentState(game.getEditorState()));
+        UIButton newGame = new UIButton("New Game", game -> game.startNewGame());
+        UIButton loadGame = new UIButton("Load Game", game -> game.loadGame());
+        UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
+        UIButton exitGame = new UIButton("Exit Game", game -> System.exit(0));
+        UIButton worldEditor = new UIButton("World Editor", game -> game.goToWorldEditor());
 
         newGame.setBackgroundColor(Color.GRAY);
         newGame.setClickColor(Color.YELLOW);
@@ -51,7 +51,7 @@ public class MainMenuState extends State{
         worldEditor.setHoverColor(Color.lightGray);
         worldEditor.setPadding(25);
 
-        VerticalUIButtonMenu menu = new VerticalUIButtonMenu(newGame, loadGame, exitGame,settings, worldEditor);
+        VerticalContainer menu = new VerticalContainer(newGame, loadGame, exitGame, settings, worldEditor);
         menu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(menu);
         /*
@@ -78,10 +78,5 @@ public class MainMenuState extends State{
         UIContainer worldEditorButton = new UIButtonMenu(worldEditor);
         worldEditorButton.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.BOTTOM));
         uiContainers.add(worldEditorButton); */
-    }
-
-    @Override
-    public void prepare() {
-
     }
 }

@@ -21,11 +21,6 @@ public class GameState extends State{
 
     public GameState(){
         super();
-    }
-
-    @Override
-    public void prepare() {
-        gameObjects.clear();
         loadMap();
         initializeEntities();
         initializeUI();
@@ -34,11 +29,11 @@ public class GameState extends State{
     private void initializeUI() {
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        container.addComponent(new UIText("PuzzleQuest 2"));
+        container.addComponent(new UIText("PuzzleQuest 2.0"));
         container.setBackgroundColor(new Color(0,0,0,0));
 
-        UIButton pauseMenuButton = new UIButton("pause", game -> game.setCurrentState(new PauseMenuState()));
-        HorizontalUIButtonMenu buttonMenu = new HorizontalUIButtonMenu(pauseMenuButton);
+        UIButton pauseMenuButton = new UIButton("pause", game -> game.pauseGame());
+        HorizontalContainer buttonMenu = new HorizontalContainer(pauseMenuButton);
         uiContainers.add(buttonMenu);
 
         uiContainers.add(container);
@@ -59,7 +54,7 @@ public class GameState extends State{
 
             Vector2D spawnPosition;
 
-            spawnPosition = currentMap.getRandomAvailablePositionOnMap();
+            spawnPosition = currentMap.getRandomAvailablePositionOnMap(gameObjects);
 
             NPC npc = new NPC(new NPCController(),
                     content.getSpriteSet("villager" + randomizer.nextInt(5)));

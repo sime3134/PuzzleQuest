@@ -22,7 +22,6 @@ public class GameMap implements Persistable {
 
     private Tile[][] tiles;
     private List<Scenery> sceneryList;
-    private final List<GameObject> gameObjects;
 
     //region Getters and Setters (click to open)
 
@@ -47,14 +46,14 @@ public class GameMap implements Persistable {
         tiles[gridX][gridY] = tile;
     }
 
-    public Vector2D getRandomAvailablePositionOnMap() {
+    public Vector2D getRandomAvailablePositionOnMap(List<GameObject> gameObjects) {
         double x = Math.random() * (tiles.length - 1) * Settings.getSpriteSize();
         double y = Math.random() * (tiles[0].length - 1) * Settings.getSpriteSize();
         int gridX = (int) (x / Settings.getSpriteSize());
         int gridY = (int) (y / Settings.getSpriteSize());
 
-        if(!tileIsAvailable(gridX, gridY)) {
-            return getRandomAvailablePositionOnMap();
+        if(!tileIsAvailable(gameObjects, gridX, gridY)) {
+            return getRandomAvailablePositionOnMap(gameObjects);
         }
         return new Vector2D(x, y);
     }
@@ -69,15 +68,13 @@ public class GameMap implements Persistable {
 
     //endregion
 
-    public GameMap(List<GameObject> gameObjects){
+    public GameMap(){
         sceneryList = new ArrayList<>();
-        this.gameObjects = gameObjects;
     }
 
-    public GameMap(int mapWidth, int mapHeight, ContentManager content, List<GameObject> gameObjects) {
+    public GameMap(int mapWidth, int mapHeight, ContentManager content) {
         tiles = new Tile[mapWidth][mapHeight];
         sceneryList = new ArrayList<>();
-        this.gameObjects = gameObjects;
         initializeTiles(content);
     }
 
@@ -136,7 +133,7 @@ public class GameMap implements Persistable {
      * Draw map in view at the moment.
      * We add margins to make sure we don't miss any tiles.
      */
-    public void draw(Graphics g, Camera camera) {
+    public void draw(Graphics g, Camera camera, List<GameObject> gameObjects) {
         double startPosX = Math.max(0, camera.getPosition().getX() / Settings.getSpriteSize()); //left border of screen
         double endPosX = Math.min(tiles.length,
                 (camera.getPosition().getX() + Settings.getScreenWidth()) / Settings.getSpriteSize()
@@ -165,7 +162,7 @@ public class GameMap implements Persistable {
 
                 if(Settings.isPathable().getValue()){
 
-                    if(!tileIsAvailable(x, y)) {
+                    if(!tileIsAvailable(gameObjects, x, y)) {
                         Color overlayColor = new Color(255, 0, 0, 85);
                         g.setColor(overlayColor);
                     }else{
@@ -199,8 +196,8 @@ public class GameMap implements Persistable {
 
     }
 
-    public boolean tileIsAvailable(int x, int y) {
-        return tiles[x][y].getCollisionBoxType() == 0 && !tileHasUnwalkableScenery(x, y) && !tileHasUnwalkableEntity(x, y);
+    public boolean tileIsAvailable(List<GameObject> gameObjects, int x, int y) {
+        return tiles[x][y].getCollisionBoxType() == 0 && !tileHasUnwalkableScenery(x, y) && !tileHasUnwalkableEntity(gameObjects, x, y);
     }
 
     public boolean tileHasUnwalkableScenery(int gridX, int gridY){
@@ -210,7 +207,7 @@ public class GameMap implements Persistable {
                 .anyMatch(scenery -> scenery.getExtendedCollisionBox().collidingWith(gridCollisionBox));
     }
 
-    public boolean tileHasUnwalkableEntity(int gridX, int gridY){
+    public boolean tileHasUnwalkableEntity(List<GameObject> gameObjects, int gridX, int gridY){
         CollisionBox gridCollisionBox = getGridCollisionBox(gridX, gridY);
         return gameObjects.stream()
                 .filter(gameObject -> !(gameObject instanceof SelectionCircle))

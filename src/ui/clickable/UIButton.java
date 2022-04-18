@@ -121,10 +121,12 @@ public class UIButton extends UIClickable{
         buttonText.setFontSize(size);
     }
 
-    public void setWith(int width) {
+    @Override
+    public void setWidth(int width) {
         buttonContainer.setFixedWidth(width);
     }
 
+    @Override
     public void setHeight(int height) {
         buttonContainer.setFixedHeight(height);
     }

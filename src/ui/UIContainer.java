@@ -62,7 +62,7 @@ public abstract class UIContainer extends UIComponent {
 
     //endregion
 
-    protected UIContainer(){
+    protected UIContainer(UIComponent... components){
         super();
         alignment = new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP);
         centerChildren = false;
@@ -72,6 +72,10 @@ public abstract class UIContainer extends UIComponent {
         children = new ArrayList<>();
         calculateSize();
         calculatePosition();
+
+        for (UIComponent component : components) {
+            addComponent(component);
+        }
     }
 
     protected abstract int calculateContentWidth();

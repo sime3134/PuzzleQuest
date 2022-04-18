@@ -1,9 +1,9 @@
 package main.state;
 
-import core.Vector2D;
 import settings.Settings;
 import ui.*;
 import ui.clickable.UIButton;
+import ui.clickable.UICheckbox;
 
 import java.awt.*;
 
@@ -22,23 +22,10 @@ public class SettingsMenuState extends State{
         container.addComponent(title);
         uiContainers.add(container);
 
-        UIButton on = new UIButton("ON", game -> game.setCurrentState(game.getGameState()));
-        UIButton off = new UIButton("OFF", game -> game.setCurrentState(game.getGameState()));
-        UIButton increase = new UIButton("+", game -> game.setCurrentState(game.getGameState()));
-        UIButton decrease = new UIButton("-", game -> game.setCurrentState(game.getGameState()));
-        UIButton back = new UIButton("Back", game -> game.setCurrentState(new MainMenuState()));
-
-        on.setBackgroundColor(Color.GRAY);
-        on.setClickColor(Color.YELLOW);
-        on.setHoverColor(Color.lightGray);
-        on.setPadding(25);
-        on.setFontSize(20);
-
-        off.setBackgroundColor(Color.GRAY);
-        off.setClickColor(Color.YELLOW);
-        off.setHoverColor(Color.lightGray);
-        off.setPadding(25);
-        off.setFontSize(20);
+        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioMode());
+        UIButton increase = new UIButton("+", game -> Settings.increaseVolume());
+        UIButton decrease = new UIButton("-", game -> Settings.decreaseVolume());
+        UIButton back = new UIButton("Back", game -> game.goToLastState());
 
         increase.setBackgroundColor(Color.GRAY);
         increase.setClickColor(Color.YELLOW);
@@ -55,20 +42,16 @@ public class SettingsMenuState extends State{
         back.setBackgroundColor(Color.GRAY);
         back.setClickColor(Color.YELLOW);
         back.setHoverColor(Color.lightGray);
-        back.setWith(80);
+        back.setWidth(80);
 
-        VerticalUIButtonMenu settingsMenu = new VerticalUIButtonMenu(on, off, increase, decrease);
+        VerticalContainer settingsMenu = new VerticalContainer(audio, increase, decrease);
         settingsMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
+        settingsMenu.setCenterChildren(true);
         uiContainers.add(settingsMenu);
 
-        VerticalUIButtonMenu backButton = new VerticalUIButtonMenu(back);
+        VerticalContainer backButton = new VerticalContainer(back);
         backButton.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP));
         uiContainers.add(backButton);
-
-    }
-
-    @Override
-    public void prepare() {
 
     }
 }

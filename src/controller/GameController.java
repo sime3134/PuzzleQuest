@@ -1,6 +1,8 @@
 package controller;
 
 import input.Input;
+import main.Game;
+import main.state.PauseMenuState;
 import settings.Settings;
 
 import java.awt.event.KeyEvent;
@@ -17,7 +19,7 @@ public class GameController {
         this.input = Input.getInstance();
     }
 
-    public void update(){
+    public void update(Game game){
         if(input.isKeyPressed(KeyEvent.VK_F2)) {
             Settings.toggleDebugMode();
         }
@@ -29,6 +31,14 @@ public class GameController {
         }
         if(input.isKeyPressed(KeyEvent.VK_F8)) {
             Settings.increaseGameSpeedMultiplier();
+        }
+
+        if(input.isKeyPressed(KeyEvent.VK_ESCAPE)) {
+            if(game.getCurrentState() instanceof PauseMenuState){
+                game.resumeGame();
+            }else{
+                game.pauseGame();
+            }
         }
     }
 }

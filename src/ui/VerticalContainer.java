@@ -8,8 +8,8 @@ import core.Vector2D;
  */
 public class VerticalContainer extends UIContainer{
 
-    public VerticalContainer() {
-        super();
+    public VerticalContainer(UIComponent... components) {
+        super(components);
     }
 
     @Override

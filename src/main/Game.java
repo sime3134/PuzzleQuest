@@ -2,10 +2,7 @@ package main;
 
 import controller.GameController;
 import display.Debug;
-import main.state.EditorState;
-import main.state.GameState;
-import main.state.MainMenuState;
-import main.state.State;
+import main.state.*;
 import settings.Settings;
 
 import java.awt.*;
@@ -18,29 +15,20 @@ public class Game {
     private final Debug debug;
     GameController gameController;
 
-
     private State currentState;
+    private State lastState;
     protected State gameState;
     protected State editorState;
 
-    public State getGameState() {
-        return gameState;
-    }
-
-    public State getEditorState() {
-        return editorState;
-    }
-
     public Game(){
         currentState = new MainMenuState();
+        lastState = currentState;
         gameController = new GameController();
-        gameState = new GameState();
-        editorState = new EditorState();
         debug = new Debug(currentState);
     }
 
     public void update(){
-        gameController.update();
+        gameController.update(this);
         currentState.update(this);
         debug.update(currentState);
     }
@@ -54,10 +42,53 @@ public class Game {
         return currentState;
     }
 
-    public void setCurrentState(State newState) {
-        this.currentState = newState;
-        this.currentState.loadMap();
-        this.currentState.prepare();
+    public void resumeGame() {
+        lastState = currentState;
+
+        this.currentState = gameState;
+    }
+
+    public void saveGame() {
+        //TODO: implement
+    }
+
+    public void loadGame() {
+        //TODO: implement
+    }
+
+    public void goToMainMenu() {
+        lastState = currentState;
+        this.currentState = new MainMenuState();
         Settings.reset();
+    }
+
+
+    public void pauseGame() {
+        lastState = currentState;
+        this.currentState = new PauseMenuState();
+    }
+
+    public void goToSettingsMenu() {
+        lastState = currentState;
+        this.currentState = new SettingsMenuState();
+    }
+
+    public void startNewGame() {
+        lastState = currentState;
+        gameState = new GameState();
+        currentState = gameState;
+    }
+
+    public void goToWorldEditor() {
+        lastState = currentState;
+        if(editorState == null) {
+            editorState = new EditorState();
+        }
+
+        currentState = editorState;
+    }
+
+    public void goToLastState() {
+        currentState = lastState;
     }
 }
