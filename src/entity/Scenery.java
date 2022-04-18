@@ -18,11 +18,9 @@ public class Scenery extends GameObject implements Persistable {
     public Scenery() {}
 
     public Scenery(String name,
-                   int selectionCircleWidth, int selectionCircleHeight,
-                   int selectionCircleRenderXOffset, int selectionCircleRenderYOffset,
                    int collisionBoxWidth, int collisionBoxHeight,
-                   double renderOrderComparisonOffset,
                    Vector2D collisionBoxOffset,
+                   double renderOrderComparisonOffset,
                    boolean walkable,
                    ContentManager content) {
 
@@ -32,12 +30,38 @@ public class Scenery extends GameObject implements Persistable {
         this.renderOrderComparisonYOffset = renderOrderComparisonOffset;
         this.collisionBoxOffset = collisionBoxOffset;
         this.walkable = walkable;
-        this.selectionCircleWidth = selectionCircleWidth;
-        this.selectionCircleHeight = selectionCircleHeight;
-        this.selectionCircleRenderXOffset = selectionCircleRenderXOffset;
-        this.selectionCircleRenderYOffset = selectionCircleRenderYOffset;
         loadGraphics(content);
+        calculateSelectionCircle();
+    }
 
+    public Scenery(String name,
+                   boolean walkable,
+                   ContentManager content) {
+
+        this.name = name;
+        this.collisionBoxOffset = new Vector2D(0, 0);
+        this.walkable = walkable;
+        loadGraphics(content);
+        calculateSelectionCircle();
+        this.collisionBoxWidth = width;
+        this.collisionBoxHeight = height;
+        this.renderOrderComparisonYOffset = -height;
+    }
+
+    private void calculateSelectionCircle() {
+        double ratio = calculateWidthHeightRatio();
+        this.selectionCircleWidth = width + 10;
+        if(ratio > 1.2) {
+            this.selectionCircleHeight = height / 2;
+            this.selectionCircleRenderYOffset = this.selectionCircleHeight + 5;
+        }else{
+            this.selectionCircleHeight = height + 5;
+        }
+        this.selectionCircleRenderXOffset = -5;
+    }
+
+    private double calculateWidthHeightRatio() {
+        return (double) height / width;
     }
 
     public void loadGraphics(ContentManager content) {
@@ -57,6 +81,10 @@ public class Scenery extends GameObject implements Persistable {
                 getRenderPosition(camera).intX(),
                 getRenderPosition(camera).intY(),
                 null);
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

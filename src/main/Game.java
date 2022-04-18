@@ -88,6 +88,8 @@ public class Game {
         lastState = currentState;
         if(editorState == null) {
             editorState = new EditorState();
+        }else{
+            Settings.toggleDebugMode();
         }
 
         currentState = editorState;

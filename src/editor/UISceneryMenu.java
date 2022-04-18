@@ -8,35 +8,51 @@ import ui.HorizontalContainer;
 import ui.clickable.UIToolToggle;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UISceneryMenu extends HorizontalContainer {
     public UISceneryMenu(ContentManager content){
         backgroundColor = Color.DARK_GRAY;
 
-        addComponent(new UIToolToggle(content.getImage("tree1"),
-                new SceneryPlacer(
-                        new Scenery(
-                        "tree1",
-                        127, 77,
-                        10, 78,
-                        115, 40,
-                        60,
-                        new Vector2D(15, 80),
-                        false,
-                        content
-        )), 74, 74));
+        List<Scenery> sceneryToAdd = new ArrayList<>();
 
-        addComponent(new UIToolToggle(content.getImage("mini_tree1"),
-                new SceneryPlacer(
-                        new Scenery(
-                        "mini_tree1",
-                        50, 50,
-                        0, 50,
-                        40, 27,
-                        20,
-                        new Vector2D(5, 63),
-                        false,
-                        content
-        )), 37, 74));
+        sceneryToAdd.add(new Scenery(
+                "tree1",
+                115, 40,
+                new Vector2D(5, 80),
+                60,
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "small_tree1",
+                40, 27,
+                new Vector2D(5, 63),
+                20,
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "stump",
+                48, 30,
+                new Vector2D(0, 10),
+                0,
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "3_brown_shrooms",
+                true,
+                content
+        ));
+
+        sceneryToAdd.forEach(scenery -> {
+            addComponent(new UIToolToggle(content.getImage(scenery.getName()),
+                    new SceneryPlacer(scenery), scenery.getWidth() / 2, scenery.getHeight() / 2));
+        });
     }
 }

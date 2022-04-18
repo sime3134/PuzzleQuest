@@ -64,6 +64,10 @@ public abstract class Settings {
         DEBUG_MODE = !DEBUG_MODE;
     }
 
+    public static void setDebugMode(boolean mode) {
+        DEBUG_MODE = mode;
+    }
+
     public static double getGameSpeedMultiplier() {
         return GAME_SPEED_MULTIPLIER;
     }
@@ -116,6 +120,8 @@ public abstract class Settings {
         RENDER_TILE_WALKABILITY.setValue(false);
         PATHABLE.setValue(false);
         RENDER_PATHS.setValue(false);
+        DEBUG_MODE = false;
+        resetGameSpeedMultiplier();
     }
 
     //endregion

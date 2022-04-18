@@ -4,6 +4,7 @@ import content.ContentManager;
 import core.CollisionBox;
 import core.Time;
 import display.Camera;
+import editor.UISettingsContainer;
 import entity.GameObject;
 import entity.Scenery;
 import input.Input;
@@ -11,6 +12,7 @@ import input.mouse.MouseHandler;
 import main.Game;
 import map.GameMap;
 import IO.MapIO;
+import settings.Settings;
 import ui.UIContainer;
 
 import java.awt.*;
@@ -34,6 +36,7 @@ public abstract class State {
     protected GameMap currentMap;
     protected Time time;
     protected final List<GameObject> gameObjects;
+    private UIContainer debugSettingsContainer;
 
     //region Getters and Setters (click to view)
 
@@ -72,6 +75,12 @@ public abstract class State {
         time = new Time();
         gameObjects = new ArrayList<>();
         uiContainers = new ArrayList<>();
+        loadMap();
+        setupUI();
+    }
+
+    private void setupUI() {
+        debugSettingsContainer = new UISettingsContainer(currentMap, content);
     }
 
     public void update(Game game){
@@ -83,6 +92,10 @@ public abstract class State {
 
         updateObjectsDrawOrder();
         gameObjects.forEach(gameObject -> gameObject.update(this));
+
+        if(Settings.isDebugMode()){
+            debugSettingsContainer.update(this);
+        }
     }
 
     public void draw(Graphics g){
@@ -92,6 +105,10 @@ public abstract class State {
                 .forEach(gameObject -> renderGameObject(g, camera, gameObject));
         mouseHandler.draw(g);
         uiContainers.forEach(uiContainer -> uiContainer.draw(g));
+
+        if(Settings.isDebugMode()){
+            debugSettingsContainer.draw(g);
+        }
     }
 
     private void renderGameObject(Graphics g, Camera camera, GameObject gameObject) {

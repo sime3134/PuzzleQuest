@@ -1,14 +1,13 @@
 package main.state;
 
 import editor.UISceneryMenu;
-import editor.UISettingsContainer;
 import editor.UITileMenu;
 import input.mouse.action.CameraMovement;
 import input.mouse.action.ClearAction;
 import input.mouse.action.SceneryTool;
+import settings.Settings;
 import ui.Alignment;
 import ui.HorizontalContainer;
-import ui.UIContainer;
 import ui.UITabContainer;
 import ui.clickable.UIButton;
 
@@ -23,6 +22,7 @@ public class EditorState extends State {
         createNewMap(32, 32);
         setupMouseButtons();
         setupUI();
+        Settings.setDebugMode(true);
     }
 
     private void setupMouseButtons() {
@@ -32,9 +32,6 @@ public class EditorState extends State {
     }
 
     private void setupUI() {
-        UIContainer container = new UISettingsContainer(currentMap, content);
-        uiContainers.add(container);
-
         UITabContainer toolsContainer = new UITabContainer();
         toolsContainer.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.BOTTOM));
         toolsContainer.addTab("Scenery", new UISceneryMenu(content));

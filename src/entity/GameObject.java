@@ -74,10 +74,6 @@ public abstract class GameObject {
         return height;
     }
 
-    public void setParent(GameObject parent) {
-        this.parent = parent;
-    }
-
     public int getRenderOrder() {
         return renderOrder;
     }

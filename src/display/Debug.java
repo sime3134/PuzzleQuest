@@ -20,8 +20,6 @@ public class Debug {
 
     public Debug(State state){
         uiContainers = new ArrayList<>();
-        UIContainer container = new UISettingsContainer(state.getCurrentMap(), state.getContent());
-        uiContainers.add(container);
     }
 
     public void update(State state){
