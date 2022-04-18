@@ -16,11 +16,14 @@ import java.awt.image.BufferedImage;
 public class UICheckbox extends UIComponent {
 
     private final UIContainer container;
+    private final UIText text;
 
     public UICheckbox(String label, Setting<Boolean> setting) {
         this.container = new HorizontalContainer();
+        this.text = new UIText(label);
         container.addComponent(new Checkbox(setting));
-        container.addComponent(new UIText(label));
+        container.addComponent(text);
+        //container.addComponent(new UIText(label));
     }
 
     @Override
@@ -40,6 +43,10 @@ public class UICheckbox extends UIComponent {
     @Override
     public void draw(Graphics g) {
         container.draw(g);
+    }
+
+    public void setFontSize(int size) {
+        text.setFontSize(size);
     }
 
     private static class Checkbox extends UIClickable{

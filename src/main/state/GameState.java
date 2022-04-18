@@ -29,11 +29,12 @@ public class GameState extends State{
     private void initializeUI() {
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        container.addComponent(new UIText("PuzzleQuest 2.0"));
+        container.addComponent(new UIText("Puzzle Quest 2.0"));
         container.setBackgroundColor(new Color(0,0,0,0));
 
         UIButton pauseMenuButton = new UIButton("pause", game -> game.pauseGame());
         HorizontalContainer buttonMenu = new HorizontalContainer(pauseMenuButton);
+        pauseMenuButton.setWidth(70);
         uiContainers.add(buttonMenu);
 
         uiContainers.add(container);

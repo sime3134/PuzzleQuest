@@ -79,6 +79,11 @@ public class Game {
         currentState = gameState;
     }
 
+    public void enterUsername() {
+        lastState = currentState;
+        this.currentState = new SetupName();
+    }
+
     public void goToWorldEditor() {
         lastState = currentState;
         if(editorState == null) {
