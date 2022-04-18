@@ -17,8 +17,8 @@ public class Game {
 
     private State currentState;
     private State lastState;
-    protected State gameState;
-    protected State editorState;
+    protected GameState gameState;
+    protected EditorState editorState;
 
     public Game(){
         currentState = new MainMenuState();
@@ -65,12 +65,13 @@ public class Game {
 
     public void pauseGame() {
         lastState = currentState;
-        this.currentState = new PauseMenuState();
+        this.currentState = new PauseMenuState(gameState);
+        this.currentState.getCamera().setPosition(gameState.getCamera().getPosition());
     }
 
     public void goToSettingsMenu() {
         lastState = currentState;
-        this.currentState = new SettingsMenuState();
+        this.currentState = new SettingsMenuState(gameState);
     }
 
     public void startNewGame() {

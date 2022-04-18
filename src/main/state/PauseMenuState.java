@@ -1,18 +1,20 @@
 package main.state;
 
-import core.Vector2D;
-import settings.Settings;
 import ui.*;
 import ui.clickable.UIButton;
 
 import java.awt.*;
 
 /**
- * @author Johan Salomonsson
+ * @author Johan Salomonsson, Simon Jern
  */
 public class PauseMenuState extends State{
 
-    public PauseMenuState() {
+    private GameState gameState;
+
+    public PauseMenuState(GameState gameState) {
+        this.gameState = gameState;
+
         loadMap();
 
         UIContainer container = new HorizontalContainer();
@@ -51,7 +53,13 @@ public class PauseMenuState extends State{
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
 
-
     }
 
+    @Override
+    public void draw(Graphics g) {
+        currentMap.draw(g, camera, gameObjects);
+        gameState.getGameObjects().forEach(gameObject -> gameObject.draw(g, camera));
+        mouseHandler.draw(g);
+        uiContainers.forEach(uiContainer -> uiContainer.draw(g));
+    }
 }

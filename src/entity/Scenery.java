@@ -13,7 +13,6 @@ public class Scenery extends GameObject implements Persistable {
 
     private Image sprite;
     private String name;
-    private boolean walkable;
 
     public Scenery() {}
 
@@ -39,13 +38,17 @@ public class Scenery extends GameObject implements Persistable {
                    ContentManager content) {
 
         this.name = name;
-        this.collisionBoxOffset = new Vector2D(0, 0);
         this.walkable = walkable;
         loadGraphics(content);
         calculateSelectionCircle();
         this.collisionBoxWidth = width;
-        this.collisionBoxHeight = height;
-        this.renderOrderComparisonYOffset = -height;
+        this.collisionBoxHeight = height - height / 3;
+        this.collisionBoxOffset = new Vector2D(0, height / 3f);
+        if(walkable) {
+            this.renderOrderComparisonYOffset = -height;
+        }else{
+            this.renderOrderComparisonYOffset = height / 3f;
+        }
     }
 
     private void calculateSelectionCircle() {
@@ -134,10 +137,6 @@ public class Scenery extends GameObject implements Persistable {
 
     public Image getSprite() {
         return sprite;
-    }
-
-    public boolean isWalkable() {
-        return walkable;
     }
 
     @Override

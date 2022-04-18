@@ -63,6 +63,7 @@ public class UIToolToggle extends UIClickable{
             game.getCurrentState().getMouseHandler().switchLeftButtonAction(
                     game.getCurrentState().getMouseHandler().getLastLeftButtonAction()
             );
+            active = false;
         }
     }
 
@@ -83,7 +84,7 @@ public class UIToolToggle extends UIClickable{
         }
 
         if(hasFocus){
-            Image imageWithFocus =ImgUtils.createCompatibleImage(image.getWidth(), image.getHeight(), ImgUtils.ALPHA_OPAQUE);
+            Image imageWithFocus = ImgUtils.createCompatibleImage(image.getWidth(), image.getHeight(), ImgUtils.ALPHA_OPAQUE);
             Graphics2D g = (Graphics2D) imageWithFocus.getGraphics();
 
             g.drawImage(image.getSprite(), 0, 0, null);

@@ -212,6 +212,7 @@ public class GameMap implements Persistable {
         CollisionBox gridCollisionBox = getGridCollisionBox(gridX, gridY);
         return gameObjects.stream()
                 .filter(gameObject -> !(gameObject instanceof SelectionCircle))
+                .filter(gameObject -> !gameObject.isWalkable())
                 .anyMatch(gameObject -> gameObject.getCollisionBox().collidingWith(gridCollisionBox));
     }
 

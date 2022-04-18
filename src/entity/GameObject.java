@@ -23,6 +23,8 @@ public abstract class GameObject {
     protected int width;
     protected int height;
 
+    protected boolean walkable;
+
     protected int collisionBoxWidth;
     protected int collisionBoxHeight;
 
@@ -146,5 +148,9 @@ public abstract class GameObject {
 
     public void changePositionBy(Vector2D position){
         this.position.add(position);
+    }
+
+    public boolean isWalkable() {
+        return walkable;
     }
 }

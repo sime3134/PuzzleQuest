@@ -111,7 +111,7 @@ public abstract class State {
         }
     }
 
-    private void renderGameObject(Graphics g, Camera camera, GameObject gameObject) {
+    protected void renderGameObject(Graphics g, Camera camera, GameObject gameObject) {
         gameObject.getAttachments().forEach(attachment -> renderGameObject(g, camera, attachment));
 
         gameObject.draw(g, camera);

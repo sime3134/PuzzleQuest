@@ -12,7 +12,11 @@ import java.awt.*;
  */
 public class SettingsMenuState extends State{
 
-    public SettingsMenuState() {
+    private GameState gameState;
+
+    public SettingsMenuState(GameState gameState) {
+        this.gameState = gameState;
+
         loadMap();
 
         UIContainer container = new VerticalContainer();
@@ -57,5 +61,16 @@ public class SettingsMenuState extends State{
         backButton.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP));
         uiContainers.add(backButton);
 
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        currentMap.draw(g, camera, gameObjects);
+        gameObjects.forEach(gameObject -> gameObject.draw(g, camera));
+        if(gameState != null) {
+            gameState.getGameObjects().forEach(gameObject -> gameObject.draw(g, camera));
+        }
+        mouseHandler.draw(g);
+        uiContainers.forEach(uiContainer -> uiContainer.draw(g));
     }
 }
