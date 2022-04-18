@@ -46,9 +46,13 @@ public class NPC extends Humanoid {
     public void draw(Graphics g, Camera camera) {
         super.draw(g, camera);
         if(Settings.getRenderPaths().getValue()) {
+            int i = 0;
             for(Vector2D v : path){
+                i++;
                 g.setColor(Color.BLUE);
                 g.fillRect(v.intX() - camera.getPosition().intX(), v.intY() - camera.getPosition().intY(), 48, 48);
+                g.setColor(Color.WHITE);
+                g.drawString(Integer.toString(i), v.intX() - camera.getPosition().intX() + 8, v.intY() - camera.getPosition().intY() + 5);
             }
         }
     }

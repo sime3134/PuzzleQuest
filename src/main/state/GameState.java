@@ -52,9 +52,9 @@ public class GameState extends State{
         SecureRandom randomizer = new SecureRandom();
         for(int i = 0; i < numberToAdd; i++){
 
-            Vector2D spawnPosition;
+            Vector2D spawnPosition = currentMap.getRandomAvailablePositionOnMap(gameObjects);
 
-            spawnPosition = currentMap.getRandomAvailablePositionOnMap(gameObjects);
+            System.out.println(spawnPosition.getX() + "     " + spawnPosition.getY());
 
             NPC npc = new NPC(new NPCController(),
                     content.getSpriteSet("villager" + randomizer.nextInt(5)));

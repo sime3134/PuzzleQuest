@@ -24,8 +24,8 @@ public class AIManager {
 
     public AIManager(NPC entity) {
         this.entity = entity;
-        lastState = "choose_next_action";
-        transitionTo("choose_next_action", entity);
+        lastState = "wander";
+        transitionTo("wander", entity);
     }
 
     public void update(State state){

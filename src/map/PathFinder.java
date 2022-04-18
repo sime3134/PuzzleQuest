@@ -7,6 +7,8 @@ import java.util.*;
 
 public class PathFinder {
 
+    private PathFinder(){}
+
     public static List<Vector2D> findPath(List<GameObject> gameObjects, Vector2D start, Vector2D target, GameMap map) {
         final PriorityQueue<Node> open = new PriorityQueue<>();
         final Set<Node> closed = new HashSet<>();
@@ -26,7 +28,6 @@ public class PathFinder {
             }
         }
 
-        System.out.println(start.getY());
         Node startNode = nodeMap[start.gridX()][start.gridY()];
         Node targetNode = nodeMap[target.gridX()][target.gridY()];
 

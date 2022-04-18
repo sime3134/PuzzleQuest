@@ -55,7 +55,8 @@ public class GameMap implements Persistable {
         if(!tileIsAvailable(gameObjects, gridX, gridY)) {
             return getRandomAvailablePositionOnMap(gameObjects);
         }
-        return new Vector2D(x, y);
+
+        return new Vector2D(gridX * Settings.getSpriteSize(), gridY * Settings.getSpriteSize());
     }
 
     public List<Scenery> getSceneryList() {
@@ -291,9 +292,5 @@ public class GameMap implements Persistable {
                 sceneryList.add(scenery);
             }
         }
-    }
-
-    public void clearScenery() {
-        sceneryList.clear();
     }
 }

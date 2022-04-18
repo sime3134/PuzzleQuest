@@ -27,15 +27,14 @@ public class Wander extends AIState{
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("choose_next_action", ((state, currentCharacter) -> arrivedAtTarget()));
+        return new AITransition("wander", ((state, currentCharacter) -> arrivedAtTarget()));
     }
 
     @Override
     public void update(State state) {
         if(target == null) {
-            System.out.println(currentCharacter.getCollisionBox().getBounds().getY());
-            List<Vector2D> foundPath = PathFinder.findPath(state.getGameObjects(), new Vector2D(
-                    currentCharacter.getCollisionBox().getBounds().getX(), currentCharacter.getCollisionBox().getBounds().getY()),
+            List<Vector2D> foundPath = PathFinder.findPath(state.getGameObjects(),
+                    currentCharacter.getCollisionBoxGridPosition(),
                     state.getCurrentMap().getRandomAvailablePositionOnMap(state.getGameObjects()), state.getCurrentMap());
             if(!foundPath.isEmpty()){
                 target = foundPath.get(foundPath.size() - 1);

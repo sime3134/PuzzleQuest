@@ -44,9 +44,18 @@ public class Vector2D implements Persistable {
         return (int) (y / Settings.getSpriteSize());
     }
 
+    public Vector2D grid() {
+        return new Vector2D(gridX(), gridY());
+    }
+
     public static Vector2D ofGridPosition(int gridX, int gridY){
         return new Vector2D(gridX * Settings.getSpriteSize(),
                 gridY * Settings.getSpriteSize());
+    }
+
+    public static Vector2D ofGridPosition(Vector2D grid){
+        return new Vector2D(grid.intX() * Settings.getSpriteSize(),
+                grid.intY() * Settings.getSpriteSize());
     }
 
     public Vector2D(double x, double y){

@@ -130,6 +130,18 @@ public abstract class MovingEntity extends GameObject {
         );
     }
 
+    public CollisionBox getStaticCollisionBox() {
+        Vector2D positionWithVelocity = getPosition().getCopy();
+        positionWithVelocity.add(velocity);
+
+        return CollisionBox.of(
+                new Vector2D(positionWithVelocity.intX() + collisionBoxWidth / 2f,
+                        positionWithVelocity.intY() + collisionBoxHeight / 2f + 11f),
+                collisionBoxWidth,
+                collisionBoxHeight
+        );
+    }
+
     public boolean willCollideX(CollisionBox otherBox) {
         Vector2D positionWithXApplied = getPosition().getCopy();
 
@@ -159,5 +171,10 @@ public abstract class MovingEntity extends GameObject {
         double dotProduct = Vector2D.dotProduct(otherEntityDirection, directionVector);
 
         return dotProduct > 0;
+    }
+
+    public Vector2D getCollisionBoxGridPosition() {
+        Vector2D grid = new Vector2D(getCollisionBox().getBounds().getX(), getCollisionBox().getBounds().getY()).grid();
+        return Vector2D.ofGridPosition(grid);
     }
 }
