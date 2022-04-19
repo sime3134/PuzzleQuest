@@ -1,6 +1,7 @@
 # PuzzleQuest
 
-- Move the player with WASD. 
+- Move the player with WASD.
+- Pause the game with ESC.
 - Display the debug mode with F2.
 - Speed up the game with F8.
 - Slow down with F6.
