@@ -12,6 +12,8 @@ public class Vector2D implements Persistable {
     private double x;
     private double y;
 
+    //region Getters & Setters (click to view)
+
     public double getX() {
         return x;
     }
@@ -48,6 +50,12 @@ public class Vector2D implements Persistable {
         return new Vector2D(gridX(), gridY());
     }
 
+    public Vector2D getCopy() {
+        return new Vector2D(x, y);
+    }
+
+    //endregion
+
     public static Vector2D ofGridPosition(int gridX, int gridY){
         return new Vector2D(gridX * Settings.getSpriteSize(),
                 gridY * Settings.getSpriteSize());
@@ -78,10 +86,6 @@ public class Vector2D implements Persistable {
             return Math.abs(x - position.getX()) < Settings.getProximityRange() && Math.abs(y - position.getY()) < Settings.getProximityRange();
         }
         return false;
-    }
-
-    public Vector2D getCopy() {
-        return new Vector2D(x, y);
     }
 
     public Vector2D directionBetweenPositions(Vector2D other){

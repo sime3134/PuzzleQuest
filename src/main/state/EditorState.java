@@ -5,6 +5,7 @@ import editor.UITileMenu;
 import input.mouse.action.CameraMovement;
 import input.mouse.action.ClearAction;
 import input.mouse.action.SceneryTool;
+import main.Game;
 import settings.Settings;
 import ui.Alignment;
 import ui.HorizontalContainer;
@@ -21,7 +22,6 @@ public class EditorState extends State {
         super();
         createNewMap(32, 32);
         setupMouseButtons();
-        setupUI();
         Settings.setDebugMode(true);
     }
 
@@ -31,7 +31,9 @@ public class EditorState extends State {
         mouseHandler.setRightButtonAction(new ClearAction());
     }
 
-    private void setupUI() {
+    @Override
+    protected void setupUI() {
+        super.setupUI();
         UITabContainer toolsContainer = new UITabContainer();
         toolsContainer.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.BOTTOM));
         toolsContainer.addTab("Scenery", new UISceneryMenu(content));
@@ -41,12 +43,17 @@ public class EditorState extends State {
         UIButton mainMenuButton = new UIButton("main menu", game -> game.goToMainMenu());
         UIButton saveButton = new UIButton("save", game -> game.getCurrentState().saveMap());
         UIButton loadButton = new UIButton("load", game -> game.getCurrentState().loadMap());
-        UIButton newButton = new UIButton("new", game -> game.getCurrentState().createNewMap(32, 32));
+        UIButton newButton = new UIButton("new", game -> game.getCurrentState().createNewMap(64, 64));
         HorizontalContainer buttonMenu = new HorizontalContainer(mainMenuButton, saveButton, loadButton, newButton);
         mainMenuButton.setWidth(180);
         loadButton.setWidth(180);
         saveButton.setWidth(180);
         newButton.setWidth(180);
         uiContainers.add(buttonMenu);
+    }
+
+    @Override
+    public void escapeButtonPressed(Game game) {
+
     }
 }

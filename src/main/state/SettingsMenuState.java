@@ -1,5 +1,6 @@
 package main.state;
 
+import main.Game;
 import settings.Settings;
 import ui.*;
 import ui.clickable.UIButton;
@@ -12,13 +13,17 @@ import java.awt.*;
  */
 public class SettingsMenuState extends State{
 
-    private GameState gameState;
+    private final GameState gameState;
 
     public SettingsMenuState(GameState gameState) {
+        super();
         this.gameState = gameState;
-
         loadMap();
+    }
 
+    @Override
+    protected void setupUI() {
+        super.setupUI();
         UIContainer container = new VerticalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         UIText title = new UIText("Settings");
@@ -34,6 +39,7 @@ public class SettingsMenuState extends State{
 
         audioTxt.setFontSize(20);
         audio.setFontSize(20);
+        audioTxt.getPadding().setBottom(20);
 
         increase.setBackgroundColor(Color.GRAY);
         increase.setClickColor(Color.YELLOW);
@@ -60,7 +66,6 @@ public class SettingsMenuState extends State{
         VerticalContainer backButton = new VerticalContainer(back);
         backButton.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP));
         uiContainers.add(backButton);
-
     }
 
     @Override
@@ -72,5 +77,10 @@ public class SettingsMenuState extends State{
         }
         mouseHandler.draw(g);
         uiContainers.forEach(uiContainer -> uiContainer.draw(g));
+    }
+
+    @Override
+    public void escapeButtonPressed(Game game) {
+        game.goToLastState();
     }
 }

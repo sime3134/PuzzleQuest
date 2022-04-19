@@ -11,6 +11,8 @@ public class Spacing {
     private int bottom;
     private int left;
 
+    //region Getters & Setters (click to view)
+
     public int getTop() {
         return top;
     }
@@ -26,6 +28,24 @@ public class Spacing {
     public int getLeft() {
         return left;
     }
+
+    public void setTop(int top) {
+        this.top = top;
+    }
+
+    public void setRight(int right) {
+        this.right = right;
+    }
+
+    public void setBottom(int bottom) {
+        this.bottom = bottom;
+    }
+
+    public void setLeft(int left) {
+        this.left = left;
+    }
+
+    //endregion
 
     public Spacing(int spacing){
         this(spacing, spacing);

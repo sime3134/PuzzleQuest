@@ -79,7 +79,7 @@ public abstract class State {
         setupUI();
     }
 
-    private void setupUI() {
+    protected void setupUI() {
         debugSettingsContainer = new UISettingsContainer(currentMap, content);
     }
 
@@ -159,4 +159,6 @@ public abstract class State {
         gameObjects.remove(gameObject);
         currentMap.getSceneryList().remove((Scenery) gameObject);
     }
+
+    public abstract void escapeButtonPressed(Game game);
 }

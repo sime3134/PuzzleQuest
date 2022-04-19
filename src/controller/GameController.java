@@ -34,11 +34,7 @@ public class GameController {
         }
 
         if(input.isKeyPressed(KeyEvent.VK_ESCAPE)) {
-            if(game.getCurrentState() instanceof PauseMenuState){
-                game.resumeGame();
-            }else{
-                game.pauseGame();
-            }
+            game.getCurrentState().escapeButtonPressed(game);
         }
     }
 }

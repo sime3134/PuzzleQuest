@@ -5,6 +5,7 @@ import controller.PlayerController;
 import core.Vector2D;
 import entity.NPC;
 import entity.Player;
+import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
 
@@ -23,10 +24,12 @@ public class GameState extends State{
         super();
         loadMap();
         initializeEntities();
-        initializeUI();
     }
 
-    private void initializeUI() {
+    @Override
+    protected void setupUI() {
+        super.setupUI();
+
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         container.addComponent(new UIText("Puzzle Quest 2.0"));
@@ -40,11 +43,21 @@ public class GameState extends State{
         uiContainers.add(container);
     }
 
+    @Override
+    public void escapeButtonPressed(Game game) {
+        game.pauseGame();
+    }
+
     private void initializeEntities() {
         player = new Player(PlayerController.getInstance(),
                 content.getSpriteSet("player"));
+        NPC npc = new NPC(new NPCController(),
+                content.getSpriteSet("villager1"));
+
+        npc.setPosition(currentMap.getRandomAvailablePositionOnMap(gameObjects));
+        gameObjects.add(npc);
         gameObjects.add(player);
-        camera.focusOn(player);
+        camera.focusOn(npc);
 
         initializeNPCs(20);
     }

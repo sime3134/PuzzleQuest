@@ -32,7 +32,7 @@ public abstract class Settings {
 
     private static final Setting<Boolean> AUDIO_MODE = new Setting<>(true);
 
-    private static final Setting<Integer> VOLUME = new Setting<>(100);
+    private static final Setting<Float> VOLUME = new Setting<>(1f);
 
     //region Getters and Setters (click to view)
 
@@ -100,18 +100,18 @@ public abstract class Settings {
 
     public static Setting<Boolean> getAudioMode() { return AUDIO_MODE; }
 
-    public static Setting<Integer> getVolume() {
+    public static Setting<Float> getVolume() {
         return VOLUME;
     }
 
     public static void increaseVolume() {
-        if(VOLUME.getValue() < 101)
-            VOLUME.setValue(VOLUME.getValue() + 1);
+        if(VOLUME.getValue() < 1f)
+            VOLUME.setValue(VOLUME.getValue() + 0.05f);
     }
 
     public static void decreaseVolume() {
-        if(VOLUME.getValue() > 0)
-            VOLUME.setValue(VOLUME.getValue() - 1);
+        if(VOLUME.getValue() > 0.1f)
+            VOLUME.setValue(VOLUME.getValue() - 0.05f);
     }
 
     public static void reset() {

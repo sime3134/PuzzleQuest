@@ -1,5 +1,6 @@
 package main;
 
+import audio.AudioPlayer;
 import controller.GameController;
 import display.Debug;
 import main.state.*;
@@ -15,6 +16,8 @@ public class Game {
     private final Debug debug;
     GameController gameController;
 
+    protected AudioPlayer audioPlayer;
+
     private State currentState;
     private State lastState;
     protected GameState gameState;
@@ -25,12 +28,15 @@ public class Game {
         lastState = currentState;
         gameController = new GameController();
         debug = new Debug(currentState);
+        audioPlayer = new AudioPlayer();
+        audioPlayer.playMusic("menu.wav");
     }
 
     public void update(){
         gameController.update(this);
         currentState.update(this);
         debug.update(currentState);
+        audioPlayer.update();
     }
 
     public void draw(Graphics g){
@@ -44,7 +50,6 @@ public class Game {
 
     public void resumeGame() {
         lastState = currentState;
-
         this.currentState = gameState;
     }
 
@@ -60,6 +65,7 @@ public class Game {
         lastState = currentState;
         this.currentState = new MainMenuState();
         Settings.reset();
+        audioPlayer.playMusic("menu.wav");
     }
 
 
@@ -78,11 +84,12 @@ public class Game {
         lastState = currentState;
         gameState = new GameState();
         currentState = gameState;
+        audioPlayer.playMusic("suburbs.wav");
     }
 
     public void enterUsername() {
         lastState = currentState;
-        this.currentState = new SetupName();
+        this.currentState = new SetupNameState();
     }
 
     public void goToWorldEditor() {

@@ -1,5 +1,6 @@
 package main.state;
 
+import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
 
@@ -10,13 +11,17 @@ import java.awt.*;
  */
 public class PauseMenuState extends State{
 
-    private GameState gameState;
+    private final GameState gameState;
 
     public PauseMenuState(GameState gameState) {
+        super();
         this.gameState = gameState;
-
         loadMap();
+    }
 
+    @Override
+    protected void setupUI() {
+        super.setupUI();
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         UIText title = new UIText("Puzzle Quest 2.0");
@@ -52,7 +57,6 @@ public class PauseMenuState extends State{
         VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings);
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
-
     }
 
     @Override
@@ -61,5 +65,10 @@ public class PauseMenuState extends State{
         gameState.getGameObjects().forEach(gameObject -> gameObject.draw(g, camera));
         mouseHandler.draw(g);
         uiContainers.forEach(uiContainer -> uiContainer.draw(g));
+    }
+
+    @Override
+    public void escapeButtonPressed(Game game) {
+        game.resumeGame();
     }
 }
