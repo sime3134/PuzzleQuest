@@ -18,7 +18,7 @@ public class PathFinder {
         for(int x = 0; x < nodeMap.length; x++) {
             for(int y = 0; y < nodeMap[0].length; y++) {
                 int heuristic = Math.abs(x - target.gridX() + Math.abs(y - target.gridY()));
-                Node node = new Node(10, heuristic, x, y);
+                Node node = new Node(map.getTile(x, y).getMoveCost(), heuristic, x, y);
 
                 if(!map.tileIsAvailable(gameObjects, x, y)){
                     closed.add(node);

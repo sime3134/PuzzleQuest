@@ -27,6 +27,7 @@ public class TilePlacer extends MouseAction{
         if(game.getCurrentState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
             game.getCurrentState().getCurrentMap().setTile(currentGridX, currentGridY, tile.getCopy());
         }
+        System.out.println(tile.getTileSheetName() + "    " + tile.getTileIndex());
     }
 
     @Override

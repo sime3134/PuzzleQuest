@@ -6,6 +6,8 @@ import ui.clickable.UIClickable;
 import ui.clickable.UIHideButton;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class UITabContainer extends VerticalContainer{
 
@@ -15,7 +17,7 @@ public class UITabContainer extends VerticalContainer{
 
     public UITabContainer() {
         tabContainer = new HorizontalContainer();
-        contentContainer = new VerticalContainer();
+        contentContainer = new HorizontalContainer();
 
         setMargin(new Spacing(0));
 
@@ -34,7 +36,7 @@ public class UITabContainer extends VerticalContainer{
         tabContainer.addComponent(new UIHideButton(this, contentContainer));
     }
 
-    public void addTab(String labelText, UIContainer contents) {
+    public void addTab(String labelText, UIContainer... contents) {
         UITab uiTab = new UITab(this, labelText, contents);
         tabContainer.addComponent(uiTab);
 
@@ -46,7 +48,11 @@ public class UITabContainer extends VerticalContainer{
     private void activateTab(UITab uiTab) {
         activeTab = uiTab;
         contentContainer.clear();
-        contentContainer.addComponent(uiTab.getContents());
+        uiTab.getContents().forEach(contentBox -> {
+            contentBox.setMargin(new Spacing(0));
+            contentBox.setPadding(new Spacing(0));
+            contentContainer.addComponent(contentBox);
+        });
     }
 
     public UITab getActiveTab() {
@@ -58,14 +64,11 @@ public class UITabContainer extends VerticalContainer{
         private final UITabContainer parent;
         private final UIContainer label;
         private final UIText labelText;
-        private final UIContainer contents;
+        private final List<UIContainer> contents;
 
-        public UITab(UITabContainer parent, String labelText, UIContainer contents) {
+        public UITab(UITabContainer parent, String labelText, UIContainer... contents) {
             this.parent = parent;
-            this.contents = contents;
-
-            contents.setMargin(new Spacing(0));
-            contents.setPadding(new Spacing(0));
+            this.contents = Arrays.stream(contents).toList();
 
             this.label = new HorizontalContainer();
             this.labelText = new UIText(labelText);
@@ -128,7 +131,7 @@ public class UITabContainer extends VerticalContainer{
             );
         }
 
-        public UIComponent getContents() {
+        public List<UIContainer> getContents() {
             return contents;
         }
     }

@@ -57,7 +57,7 @@ public class GameState extends State{
         npc.setPosition(currentMap.getRandomAvailablePositionOnMap(gameObjects));
         gameObjects.add(npc);
         gameObjects.add(player);
-        camera.focusOn(npc);
+        camera.focusOn(player);
 
         initializeNPCs(20);
     }
@@ -67,8 +67,6 @@ public class GameState extends State{
         for(int i = 0; i < numberToAdd; i++){
 
             Vector2D spawnPosition = currentMap.getRandomAvailablePositionOnMap(gameObjects);
-
-            System.out.println(spawnPosition.getX() + "     " + spawnPosition.getY());
 
             NPC npc = new NPC(new NPCController(),
                     content.getSpriteSet("villager" + randomizer.nextInt(5)));

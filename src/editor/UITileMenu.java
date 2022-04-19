@@ -17,7 +17,23 @@ public class UITileMenu extends HorizontalContainer {
         setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.BOTTOM));
 
         UITabContainer tileContainer = new UITabContainer();
-        tileContainer.addTab("terrain", getTileSheet(content, "terrain"));
+        tileContainer.addTab("grass",
+                getTileSheet(content, "grass1"),
+                getTileSheet(content, "grass2"),
+                getTileSheet(content, "dirt"));
+
+        tileContainer.addTab("lakes",
+                getTileSheet(content, "lake1"),
+                getTileSheet(content, "lake2"),
+                getTileSheet(content, "dirt"));
+
+        tileContainer.addTab("mountains",
+                getTileSheet(content, "mountain1"),
+                getTileSheet(content, "mountain2"),
+                getTileSheet(content, "mountain3"),
+                getTileSheet(content, "mountain4"),
+                getTileSheet(content, "dirt"));
+
         addComponent(tileContainer);
     }
 

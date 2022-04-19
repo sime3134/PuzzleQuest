@@ -117,4 +117,16 @@ public class Tile implements Persistable {
         tileIndex = Integer.parseInt(tokens[2]);
         collisionBoxType = Integer.parseInt(tokens[3]);
     }
+
+    public int getMoveCost() {
+        return tileSheetName.equals("dirt") ? 5 : 150;
+    }
+
+    public int getTileIndex() {
+        return tileIndex;
+    }
+
+    public String getTileSheetName() {
+        return tileSheetName;
+    }
 }
