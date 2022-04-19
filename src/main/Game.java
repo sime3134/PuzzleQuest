@@ -8,7 +8,7 @@ import settings.Settings;
 import java.awt.*;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * Main class for the game controlling the current state of the game.
  */
 public class Game {
