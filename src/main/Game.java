@@ -106,4 +106,12 @@ public class Game {
     public void goToLastState() {
         currentState = lastState;
     }
+
+    public void toggleAudio() {
+        if(Settings.getAudioMode().getValue()){
+            audioPlayer.playLastMusic();
+        }else{
+            audioPlayer.clear();
+        }
+    }
 }

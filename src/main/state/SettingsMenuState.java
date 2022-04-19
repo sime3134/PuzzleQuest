@@ -32,7 +32,7 @@ public class SettingsMenuState extends State{
         uiContainers.add(container);
 
         UIText audioTxt= new UIText("Audio");
-        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioMode());
+        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioMode(), game -> game.toggleAudio());
         UIButton increase = new UIButton("+", game -> Settings.increaseVolume());
         UIButton decrease = new UIButton("-", game -> Settings.decreaseVolume());
         UIButton back = new UIButton("Back", game -> game.goToLastState());

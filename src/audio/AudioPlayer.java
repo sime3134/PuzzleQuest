@@ -11,6 +11,7 @@ import java.util.Map;
 public class AudioPlayer {
 
     private final Map<String, AudioClip> audioClips;
+    private String lastPlayedMusicFileName;
 
     public AudioPlayer() {
         audioClips = new HashMap<>();
@@ -28,13 +29,29 @@ public class AudioPlayer {
     }
 
     public void playMusic(String fileName) {
-        if(!audioClips.containsKey(fileName)) {
-            clear();
-            final Clip clip = getClip(fileName);
-            final AudioClip audioClip = new AudioClip(clip, false);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            audioClip.setVolume(Settings.getVolume().getValue());
-            audioClips.put(fileName, audioClip);
+        if(Settings.getAudioMode().getValue()) {
+            if (!audioClips.containsKey(fileName)) {
+                clear();
+                final Clip clip = getClip(fileName);
+                final AudioClip audioClip = new AudioClip(clip, false);
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                audioClip.setVolume(Settings.getVolume().getValue());
+                audioClips.put(fileName, audioClip);
+                lastPlayedMusicFileName = fileName;
+            }
+        }
+    }
+
+    public void playLastMusic() {
+        if(Settings.getAudioMode().getValue()) {
+            if (!audioClips.containsKey(lastPlayedMusicFileName)) {
+                clear();
+                final Clip clip = getClip(lastPlayedMusicFileName);
+                final AudioClip audioClip = new AudioClip(clip, false);
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                audioClip.setVolume(Settings.getVolume().getValue());
+                audioClips.put(lastPlayedMusicFileName, audioClip);
+            }
         }
     }
 

@@ -18,12 +18,18 @@ public class UICheckbox extends UIComponent {
     private final UIContainer container;
     private final UIText text;
 
+
     public UICheckbox(String label, Setting<Boolean> setting) {
         this.container = new HorizontalContainer();
         this.text = new UIText(label);
         container.addComponent(new Checkbox(setting));
         container.addComponent(text);
-        //container.addComponent(new UIText(label));
+    }
+    public UICheckbox(String label, Setting<Boolean> setting, ClickAction clickAction) {
+        this.container = new HorizontalContainer();
+        this.text = new UIText(label);
+        container.addComponent(new Checkbox(setting, clickAction));
+        container.addComponent(text);
     }
 
     @Override
@@ -51,11 +57,18 @@ public class UICheckbox extends UIComponent {
 
     private static class Checkbox extends UIClickable{
 
-        private Setting<Boolean> setting;
+        private final Setting<Boolean> setting;
         private Color color;
+        private ClickAction clickAction;
+
 
         private Checkbox(Setting<Boolean> setting) {
+            this(setting, null);
+        }
+
+        private Checkbox(Setting<Boolean> setting, ClickAction clickAction) {
             this.setting = setting;
+            this.clickAction = clickAction;
             width = 20;
             height = 20;
             color = Color.GRAY;
@@ -94,6 +107,9 @@ public class UICheckbox extends UIComponent {
         public void onClick(Game game) {
             if(hasFocus) {
                 setting.setValue(!setting.getValue());
+            }
+            if(clickAction != null){
+                clickAction.execute(game);
             }
         }
 

@@ -8,7 +8,7 @@ import javax.sound.sampled.FloatControl;
 public class AudioClip {
 
     private final Clip clip;
-    private boolean soundEffect;
+    private final boolean soundEffect;
 
     public boolean hasFinishedPlaying() {
         return !clip.isRunning();
@@ -33,7 +33,6 @@ public class AudioClip {
         float range = control.getMaximum() - control.getMinimum();
         float gain = (range * volume) + control.getMinimum();
 
-        System.out.println(gain);
         control.setValue(gain);
     }
 
