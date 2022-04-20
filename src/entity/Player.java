@@ -1,6 +1,5 @@
 package entity;
 
-import ai.state.Wander;
 import content.SpriteSet;
 import controller.EntityController;
 import core.Vector2D;
@@ -8,7 +7,6 @@ import entity.humanoid.Humanoid;
 import main.state.State;
 import settings.Settings;
 
-import java.awt.*;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -39,7 +37,7 @@ public class Player extends Humanoid {
 
     private void handlePlayerSpecificInput(){
         if(getController().requestedAction() && target != null){
-            target.getBrain().setCurrentAIState(new Wander(target, "ignore"));
+            target.getBrain().transitionTo("wander", target);
         }
     }
 
