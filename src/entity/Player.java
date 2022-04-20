@@ -35,8 +35,8 @@ public class Player extends Humanoid {
         handlePlayerSpecificInput();
     }
 
-    private void handlePlayerSpecificInput(){
-        if(getController().requestedAction() && target != null){
+    private void handlePlayerSpecificInput() {
+        if(getController().requestedAction() && target != null) {
             target.getBrain().transitionTo("wander", target);
         }
     }
@@ -46,15 +46,15 @@ public class Player extends Humanoid {
 
         if(closestNPC.isPresent()){
             NPC npc = closestNPC.get();
-            if(!npc.equals(target)){
-                if(target != null){
+            if(!npc.equals(target)) {
+                if(target != null) {
                     target.detach(selectionCircle);
                 }
                 npc.attach(selectionCircle);
                 target = npc;
             }
-        }else{
-            if(target != null){
+        }else {
+            if(target != null) {
                 target.detach(selectionCircle);
                 target = null;
             }
@@ -71,7 +71,7 @@ public class Player extends Humanoid {
     @Override
     protected void handleCollision(GameObject other) {
         if(other instanceof NPC
-                || other instanceof Scenery && !((Scenery)other).isWalkable()) {
+                || other instanceof Scenery && !other.isWalkable()) {
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
         }
     }

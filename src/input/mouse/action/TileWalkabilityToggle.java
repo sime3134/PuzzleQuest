@@ -47,7 +47,7 @@ public class TileWalkabilityToggle extends MouseAction{
 
     @Override
     public void update(State state) {
-        Settings.getRenderTileWalkability().setValue(true);
+        Settings.getRenderTileWalkable().setValue(true);
     }
 
     @Override
@@ -61,6 +61,6 @@ public class TileWalkabilityToggle extends MouseAction{
 
     @Override
     public void cleanUp() {
-        Settings.getRenderTileWalkability().setValue(false);
+        Settings.getRenderTileWalkable().setValue(false);
     }
 }

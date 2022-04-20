@@ -7,7 +7,8 @@ import ui.clickable.UIButton;
 import java.awt.*;
 
 /**
- * @author Johan Salomonsson, Simon Jern
+ * @author Johan Salomonsson, Sara Persson, Simon Jern
+ * The menu that you access by pausing the game.
  */
 public class PauseMenuState extends State{
 

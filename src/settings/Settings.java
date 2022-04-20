@@ -6,7 +6,7 @@ package settings;
  */
 public abstract class Settings {
 
-    private Settings(){}
+    private Settings() {}
 
     private static final int SPRITE_SIZE = 48;
 
@@ -24,13 +24,13 @@ public abstract class Settings {
 
     private static final Setting<Boolean> RENDER_COLLISION_BOX = new Setting<>(false);
 
-    private static final Setting<Boolean> RENDER_TILE_WALKABILITY = new Setting<>(false);
+    private static final Setting<Boolean> RENDER_TILE_WALKABLE = new Setting<>(false);
 
-    private static final Setting<Boolean> PATHABLE = new Setting<>(false);
+    private static final Setting<Boolean> RENDER_TILE_PATHABLE = new Setting<>(false);
 
     private static final Setting<Boolean> RENDER_PATHS = new Setting<>(false);
 
-    private static final Setting<Boolean> AUDIO_MODE = new Setting<>(true);
+    private static final Setting<Boolean> AUDIO_ON = new Setting<>(true);
 
     private static final Setting<Float> VOLUME = new Setting<>(1f);
 
@@ -92,13 +92,13 @@ public abstract class Settings {
 
     public static Setting<Boolean> getRenderCollisionBox() { return RENDER_COLLISION_BOX; }
 
-    public static Setting<Boolean> getRenderTileWalkability() { return RENDER_TILE_WALKABILITY; }
+    public static Setting<Boolean> getRenderTileWalkable() { return RENDER_TILE_WALKABLE; }
 
-    public static Setting<Boolean> isPathable() { return PATHABLE; }
+    public static Setting<Boolean> isPathable() { return RENDER_TILE_PATHABLE; }
 
     public static Setting<Boolean> getRenderPaths() { return RENDER_PATHS; }
 
-    public static Setting<Boolean> getAudioMode() { return AUDIO_MODE; }
+    public static Setting<Boolean> getAudioOn() { return AUDIO_ON; }
 
     public static Setting<Float> getVolume() {
         return VOLUME;
@@ -117,8 +117,8 @@ public abstract class Settings {
     public static void reset() {
         RENDER_GRID.setValue(false);
         RENDER_COLLISION_BOX.setValue(false);
-        RENDER_TILE_WALKABILITY.setValue(false);
-        PATHABLE.setValue(false);
+        RENDER_TILE_WALKABLE.setValue(false);
+        RENDER_TILE_PATHABLE.setValue(false);
         RENDER_PATHS.setValue(false);
         DEBUG_MODE = false;
         resetGameSpeedMultiplier();

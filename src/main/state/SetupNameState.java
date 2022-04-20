@@ -9,6 +9,11 @@ import ui.clickable.UIButton;
 
 import java.awt.*;
 
+/**
+ * @Author Johan Salomonsson
+ * Menu that lets you enter a username before the game starts.
+ * Not finished.
+ */
 public class SetupNameState extends State{
 
     public SetupNameState() {

@@ -151,7 +151,7 @@ public class GameMap implements Persistable {
 
                 g.drawImage(tiles[x][y].getSprite(), drawPositionX, drawPositionY, null);
 
-                if(Settings.getRenderTileWalkability().getValue()){
+                if(Settings.getRenderTileWalkable().getValue()){
                     Color overlayColor = new Color(255, 0, 0, 85);
                     g.setColor(overlayColor);
                     if(tiles[x][y].getCollisionBoxType() == 2) {

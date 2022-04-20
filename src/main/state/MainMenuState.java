@@ -7,7 +7,8 @@ import ui.clickable.UIButton;
 import java.awt.*;
 
 /**
- * @author Johan Salomonsson
+ * @author Johan Salomonsson, Sara Persson
+ * The main applications main menu.
  */
 public class MainMenuState extends State{
 
