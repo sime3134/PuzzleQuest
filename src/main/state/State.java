@@ -79,7 +79,7 @@ public abstract class State {
 
     //endregion
 
-    protected State(){
+    protected State() {
         input = Input.getInstance();
         mouseHandler = new MouseHandler();
         content = new ContentManager();
@@ -96,7 +96,7 @@ public abstract class State {
         debugSettingsContainer = new UISettingsContainer(currentMap, content);
     }
 
-    public void update(Game game){
+    public void update(Game game) {
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(currentMap);
 
@@ -111,7 +111,7 @@ public abstract class State {
         }
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
         currentMap.draw(g, camera, gameObjects);
         gameObjects.stream()
                 .filter(gameObject -> camera.isObjectInView(gameObject))
@@ -126,7 +126,6 @@ public abstract class State {
 
     protected void renderGameObject(Graphics g, Camera camera, GameObject gameObject) {
         gameObject.getAttachments().forEach(attachment -> renderGameObject(g, camera, attachment));
-
         gameObject.draw(g, camera);
     }
 
@@ -135,7 +134,8 @@ public abstract class State {
      * feeling of depth.
      */
     private void updateObjectsDrawOrder() {
-        gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(gameObject -> gameObject.getRenderOrderComparisonYPosition()));
+        gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(
+                gameObject -> gameObject.getRenderOrderComparisonYPosition()));
     }
 
     public void loadMap() {
@@ -144,7 +144,7 @@ public abstract class State {
         gameObjects.addAll(currentMap.getSceneryList());
     }
 
-    public void saveMap(){
+    public void saveMap() {
         currentMap.setSceneryList(getGameObjectsOfClass(Scenery.class));
         MapIO.save(currentMap);
     }
@@ -154,7 +154,7 @@ public abstract class State {
         currentMap = new GameMap(width, height, content);
     }
 
-    public void spawn(GameObject gameObject){
+    public void spawn(GameObject gameObject) {
         gameObjects.add(gameObject);
         currentMap.getSceneryList().add((Scenery) gameObject);
     }

@@ -36,14 +36,14 @@ public class Game {
         audioPlayer.playMusic("menu.wav");
     }
 
-    public void update(){
+    public void update() {
         gameController.update(this);
         currentState.update(this);
         debug.update(currentState);
         audioPlayer.update();
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics g) {
         currentState.draw(g);
         debug.draw(currentState, g);
     }
@@ -67,7 +67,6 @@ public class Game {
         Settings.reset();
         audioPlayer.playMusic("menu.wav");
     }
-
 
     public void pauseGame() {
         lastState = currentState;
@@ -108,7 +107,7 @@ public class Game {
     }
 
     public void toggleAudio() {
-        if(Settings.getAudioMode().getValue()){
+        if(Settings.getAudioOn().getValue()){
             audioPlayer.playLastMusic();
         }else{
             audioPlayer.clear();

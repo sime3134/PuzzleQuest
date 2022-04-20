@@ -9,7 +9,8 @@ import ui.clickable.UICheckbox;
 import java.awt.*;
 
 /**
- * @Author Johan Salomonsson
+ * @Author Johan Salomonsson, Sara Persson
+ * Menu for settings.
  */
 public class SettingsMenuState extends State{
 
@@ -32,7 +33,7 @@ public class SettingsMenuState extends State{
         uiContainers.add(container);
 
         UIText audioTxt= new UIText("Audio");
-        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioMode(), game -> game.toggleAudio());
+        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioOn(), game -> game.toggleAudio());
         UIButton increase = new UIButton("+", game -> Settings.increaseVolume());
         UIButton decrease = new UIButton("-", game -> Settings.decreaseVolume());
         UIButton back = new UIButton("Back", game -> game.goToLastState());

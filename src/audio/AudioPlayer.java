@@ -29,7 +29,7 @@ public class AudioPlayer {
     }
 
     public void playMusic(String fileName) {
-        if(Settings.getAudioMode().getValue()) {
+        if(Settings.getAudioOn().getValue()) {
             if (!audioClips.containsKey(fileName)) {
                 clear();
                 final Clip clip = getClip(fileName);
@@ -43,7 +43,7 @@ public class AudioPlayer {
     }
 
     public void playLastMusic() {
-        if(Settings.getAudioMode().getValue()) {
+        if(Settings.getAudioOn().getValue()) {
             if (!audioClips.containsKey(lastPlayedMusicFileName)) {
                 clear();
                 final Clip clip = getClip(lastPlayedMusicFileName);

@@ -51,14 +51,14 @@ public class AnimationManager {
      * Updates the animation depending on the direction that the entity is facing.
      * @param direction the direction that the entity is currently facing.
      */
-    public void update(Direction direction){
+    public void update(Direction direction) {
         currentFrameTime++;
         directionIndex = direction.getAnimationRow();
-        if(currentFrameTime >= updatesPerFrame){
+        if(currentFrameTime >= updatesPerFrame) {
             currentFrameTime = 0;
             frameIndex++;
 
-            if(frameIndex >= currentAnimationSheet.getWidth() / spriteWidth){
+            if(frameIndex >= currentAnimationSheet.getWidth() / spriteWidth) {
                 frameIndex = 0;
             }
         }

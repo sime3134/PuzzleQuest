@@ -75,29 +75,30 @@ public class Vector2D implements Persistable {
                 grid.intY() * Settings.getSpriteSize());
     }
 
-    public Vector2D(double x, double y){
+    public Vector2D(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public void add(Vector2D vectorToAdd){
+    public void add(Vector2D vectorToAdd) {
         x += vectorToAdd.getX();
         y += vectorToAdd.getY();
     }
 
-    public void subtract(Vector2D vectorToAdd){
+    public void subtract(Vector2D vectorToAdd) {
         x -= vectorToAdd.getX();
         y -= vectorToAdd.getY();
     }
 
     public boolean isInRangeOf(Vector2D position) {
         if(position != null) {
-            return Math.abs(x - position.getX()) < Settings.getProximityRange() && Math.abs(y - position.getY()) < Settings.getProximityRange();
+            return Math.abs(x - position.getX()) < Settings.getProximityRange()
+                    && Math.abs(y - position.getY()) < Settings.getProximityRange();
         }
         return false;
     }
 
-    public Vector2D directionBetweenPositions(Vector2D other){
+    public Vector2D directionBetweenPositions(Vector2D other) {
         Vector2D direction = new Vector2D(x - other.getX(), y - other.getY());
         direction.normalize();
 
@@ -113,10 +114,10 @@ public class Vector2D implements Persistable {
     }
 
     public void reset(boolean resetX, boolean resetY) {
-        if(resetX){
+        if(resetX) {
             x = 0;
         }
-        if(resetY){
+        if(resetY) {
             y = 0;
         }
     }
@@ -131,15 +132,15 @@ public class Vector2D implements Persistable {
      */
     public void normalize() {
         double length = Math.sqrt(x * x + y * y);
-        if(x != 0){
+        if(x != 0) {
             x = x / length;
         }
-        if(y != 0){
+        if(y != 0) {
             y = y / length;
         }
     }
 
-    public double distanceTo(Vector2D otherPosition){
+    public double distanceTo(Vector2D otherPosition) {
         double deltaX = this.getX() - otherPosition.getX();
         double deltaY = this.getY() - otherPosition.getY();
 
