@@ -1,5 +1,6 @@
 package main.state;
 
+import IO.MapIO;
 import content.ContentManager;
 import core.CollisionBox;
 import core.Time;
@@ -11,7 +12,6 @@ import input.Input;
 import input.mouse.MouseHandler;
 import main.Game;
 import map.GameMap;
-import IO.MapIO;
 import settings.Settings;
 import ui.UIContainer;
 
@@ -62,6 +62,19 @@ public abstract class State {
 
     public ContentManager getContent() {
         return content;
+    }
+
+    public List<GameObject> getCollidingBoxes(CollisionBox box) {
+        return gameObjects.stream()
+                .filter(other -> other.collidingWith(box))
+                .toList();
+    }
+
+    public <T extends GameObject> List<T> getGameObjectsOfClass(Class<T> clazz) {
+        return gameObjects.stream()
+                .filter(clazz::isInstance)
+                .map(gameObject -> (T) gameObject)
+                .collect(Collectors.toList());
     }
 
     //endregion
@@ -117,21 +130,12 @@ public abstract class State {
         gameObject.draw(g, camera);
     }
 
-    public List<GameObject> getCollidingBoxes(CollisionBox box) {
-        return gameObjects.stream()
-                .filter(other -> other.collidingWith(box))
-                .toList();
-    }
-
+    /**
+     * Updates in which order gameObjects should be rendered on the screen to give a correct
+     * feeling of depth.
+     */
     private void updateObjectsDrawOrder() {
         gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(gameObject -> gameObject.getRenderOrderComparisonYPosition()));
-    }
-
-    public <T extends GameObject> List<T> getGameObjectsOfClass(Class<T> clazz) {
-        return gameObjects.stream()
-                .filter(clazz::isInstance)
-                .map(gameObject -> (T) gameObject)
-                .collect(Collectors.toList());
     }
 
     public void loadMap() {
@@ -157,7 +161,7 @@ public abstract class State {
 
     public void despawn(GameObject gameObject) {
         gameObjects.remove(gameObject);
-        currentMap.getSceneryList().remove((Scenery) gameObject);
+        currentMap.getSceneryList().remove((Scenery)gameObject);
     }
 
     public abstract void escapeButtonPressed(Game game);

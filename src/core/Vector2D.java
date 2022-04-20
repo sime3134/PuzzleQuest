@@ -56,11 +56,20 @@ public class Vector2D implements Persistable {
 
     //endregion
 
+    /**
+     * @param gridX x position of the grid square.
+     * @param gridY y position of the grid square.
+     * @return the position of a grid square.
+     */
     public static Vector2D ofGridPosition(int gridX, int gridY){
         return new Vector2D(gridX * Settings.getSpriteSize(),
                 gridY * Settings.getSpriteSize());
     }
 
+    /**
+     * @param grid x and y of a grid square.
+     * @return the position of a grid square.
+     */
     public static Vector2D ofGridPosition(Vector2D grid){
         return new Vector2D(grid.intX() * Settings.getSpriteSize(),
                 grid.intY() * Settings.getSpriteSize());
@@ -95,6 +104,10 @@ public class Vector2D implements Persistable {
         return direction;
     }
 
+    /**
+     * Apply the directional growth of one vector to another.
+     * @return How much stronger we've made the original vector (positive, negative, or zero).
+     */
     public static double dotProduct(Vector2D v1, Vector2D v2) {
         return v1.getX() * v2.getX() + v1.getY() * v2.getY();
     }
@@ -113,6 +126,9 @@ public class Vector2D implements Persistable {
         y *= i;
     }
 
+    /**
+     * Gets the direction of a vector without taking regard to the length of it.
+     */
     public void normalize() {
         double length = Math.sqrt(x * x + y * y);
         if(x != 0){
@@ -130,11 +146,18 @@ public class Vector2D implements Persistable {
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
+    /**
+     * @return The data of the vector in a saveable format.
+     */
     @Override
     public String serialize() {
         return String.format("%d|%d", intX(), intY());
     }
 
+    /**
+     * Restores a vector from saved data.
+     * @param serializedData the vector data read from a source.
+     */
     @Override
     public void applySerializedData(String serializedData) {
         String[] tokens = serializedData.split("\\|");

@@ -23,6 +23,10 @@ public class Game {
     protected GameState gameState;
     protected EditorState editorState;
 
+    public State getCurrentState() {
+        return currentState;
+    }
+
     public Game(){
         currentState = new MainMenuState();
         lastState = currentState;
@@ -42,10 +46,6 @@ public class Game {
     public void draw(Graphics g){
         currentState.draw(g);
         debug.draw(currentState, g);
-    }
-
-    public State getCurrentState() {
-        return currentState;
     }
 
     public void resumeGame() {

@@ -22,18 +22,6 @@ public class AnimationManager {
     private final int spriteWidth;
     private final int spriteHeight;
 
-    public AnimationManager(SpriteSet spriteSet, int spriteWidth, int spriteHeight) {
-        this.spriteSet = spriteSet;
-        this.updatesPerFrame = 15;
-        this.frameIndex = 0;
-        this.currentFrameTime = 0;
-        this.directionIndex = 0;
-        this.currentAnimationName = "";
-        this.spriteWidth = spriteWidth;
-        this.spriteHeight = spriteHeight;
-        playAnimation("stand");
-    }
-
     /**
      * @return the Image that should currently be drawn to the game. It cuts out a part of the bigger spritesheet
      * depending on where in the animation we currently are.
@@ -45,6 +33,18 @@ public class AnimationManager {
                 spriteWidth,
                 spriteHeight
         );
+    }
+
+    public AnimationManager(SpriteSet spriteSet, int spriteWidth, int spriteHeight) {
+        this.spriteSet = spriteSet;
+        this.updatesPerFrame = 15;
+        this.frameIndex = 0;
+        this.currentFrameTime = 0;
+        this.directionIndex = 0;
+        this.currentAnimationName = "";
+        this.spriteWidth = spriteWidth;
+        this.spriteHeight = spriteHeight;
+        playAnimation("stand");
     }
 
     /**

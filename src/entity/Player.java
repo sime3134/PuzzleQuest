@@ -12,7 +12,7 @@ import java.util.Optional;
 
 /**
  * @author Simon Jern
- * The player of the game.
+ * The playable main chatacter in the game.
  */
 public class Player extends Humanoid {
 
@@ -35,12 +35,19 @@ public class Player extends Humanoid {
         handlePlayerSpecificInput();
     }
 
+    /**
+     * Check if the player has made any input except base input like
+     * movement and reacts to the input accordingly.
+     */
     private void handlePlayerSpecificInput(){
         if(getController().requestedAction() && target != null){
             target.getBrain().transitionTo("wander", target);
         }
     }
 
+    /**
+     * Sets and removes the current target of the player.
+     */
     private void handleTarget(State state) {
         Optional<NPC> closestNPC = findClosestNPC(state);
 

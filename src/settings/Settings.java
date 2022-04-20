@@ -114,6 +114,8 @@ public abstract class Settings {
             VOLUME.setValue(VOLUME.getValue() - 0.05f);
     }
 
+    //endregion
+
     public static void reset() {
         RENDER_GRID.setValue(false);
         RENDER_COLLISION_BOX.setValue(false);
@@ -123,6 +125,4 @@ public abstract class Settings {
         DEBUG_MODE = false;
         resetGameSpeedMultiplier();
     }
-
-    //endregion
 }

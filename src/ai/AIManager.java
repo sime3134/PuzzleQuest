@@ -34,17 +34,12 @@ public class AIManager {
 
     public void transitionTo(String nextState, NPC currentCharacter) {
         switch (nextState) {
-            case "choose_next_action" -> {
-                currentAIState = new ChooseNextAction(currentCharacter, lastState);
-            }
-            case "wander" -> {
-                currentAIState = new Wander(currentCharacter, lastState);
-            }
+            case "choose_next_action" -> currentAIState = new ChooseNextAction(currentCharacter, lastState);
+            case "wander" -> currentAIState = new Wander(currentCharacter, lastState);
             case "stand" -> currentAIState = new Stand(currentCharacter, lastState);
-            default -> {
-                System.out.println("Wrong value");
-            }
+            default -> System.out.println("Wrong value");
         }
+
         lastState = nextState;
     }
 }
