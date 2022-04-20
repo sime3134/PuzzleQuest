@@ -198,7 +198,7 @@ public class GameMap implements Persistable {
     }
 
     public boolean tileIsAvailable(List<GameObject> gameObjects, int x, int y) {
-        return tiles[x][y].getCollisionBoxType() == 0 && !tileHasUnwalkableScenery(x, y) && !tileHasUnwalkableEntity(gameObjects, x, y);
+        return tiles[x][y].getCollisionBoxType() == 0 && !tileHasUnwalkableScenery(x, y);
     }
 
     public boolean tileHasUnwalkableScenery(int gridX, int gridY){

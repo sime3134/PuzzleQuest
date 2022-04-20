@@ -51,11 +51,7 @@ public class GameState extends State{
     private void initializeEntities() {
         player = new Player(PlayerController.getInstance(),
                 content.getSpriteSet("player"));
-        NPC npc = new NPC(new NPCController(),
-                content.getSpriteSet("villager1"));
 
-        npc.setPosition(currentMap.getRandomAvailablePositionOnMap(gameObjects));
-        gameObjects.add(npc);
         gameObjects.add(player);
         camera.focusOn(player);
 

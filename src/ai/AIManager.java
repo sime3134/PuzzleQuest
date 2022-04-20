@@ -18,10 +18,6 @@ public class AIManager {
         return currentAIState;
     }
 
-    public void setCurrentAIState(AIState currentAIState) {
-        this.currentAIState = currentAIState;
-    }
-
     public AIManager(NPC entity) {
         this.entity = entity;
         lastState = "wander";
@@ -36,18 +32,17 @@ public class AIManager {
         }
     }
 
-    private void transitionTo(String nextState, NPC currentCharacter) {
+    public void transitionTo(String nextState, NPC currentCharacter) {
         switch (nextState) {
             case "choose_next_action" -> {
                 currentAIState = new ChooseNextAction(currentCharacter, lastState);
-                return;
             }
             case "wander" -> {
                 currentAIState = new Wander(currentCharacter, lastState);
-                return;
             }
+            case "stand" -> currentAIState = new Stand(currentCharacter, lastState);
             default -> {
-                currentAIState = new Stand(currentCharacter, lastState);
+                System.out.println("Wrong value");
             }
         }
         lastState = nextState;

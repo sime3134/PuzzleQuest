@@ -25,7 +25,7 @@ public class ChooseNextAction extends AIState{
         }else if(num > 14) {
             return new AITransition("wander", (state, currentCharacter) -> true);
         }else {
-            return new AITransition("choose_next_action", (state, currentCharacter1) -> true);
+            return new AITransition("choose_next_action", (state, currentCharacter) -> true);
         }
     }
 

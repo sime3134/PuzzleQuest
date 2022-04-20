@@ -27,7 +27,7 @@ public class Wander extends AIState{
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("choose_next_state", ((state, currentCharacter) -> arrivedAtTarget()));
+        return new AITransition("choose_next_action", ((state, currentCharacter) -> arrivedAtTarget()));
     }
 
     @Override
