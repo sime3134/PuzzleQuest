@@ -1,6 +1,7 @@
 package entity;
 
 import core.CollisionBox;
+import core.Direction;
 import core.Vector2D;
 import display.Camera;
 import main.state.State;
@@ -76,6 +77,14 @@ public abstract class GameObject {
         return height;
     }
 
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public int getRenderOrder() {
         return renderOrder;
     }
@@ -125,6 +134,8 @@ public abstract class GameObject {
 
     public abstract CollisionBox getCollisionBox();
 
+    public abstract CollisionBox getStaticCollisionBox();
+
     public boolean collidingWith(CollisionBox box){
         return getCollisionBox().collidingWith(box);
     }
@@ -153,4 +164,41 @@ public abstract class GameObject {
     public boolean isWalkable() {
         return walkable;
     }
+
+    public Direction getDirectionInRelationToGameObject(GameObject otherObject) {
+
+        if(getStaticCollisionBox().getBounds().getX() > otherObject.getStaticCollisionBox().getBounds().getX()
+                + otherObject.collisionBoxWidth - 2
+                && getStaticCollisionBox().getCenterPosition().getY() > otherObject.getStaticCollisionBox().getBounds().getY()
+                && getStaticCollisionBox().getCenterPosition().getY() < otherObject.getStaticCollisionBox().getBounds().getY()
+                + otherObject.collisionBoxHeight){
+
+            return Direction.RIGHT;
+
+        }else if(getStaticCollisionBox().getBounds().getX() + collisionBoxWidth < otherObject.getStaticCollisionBox().getBounds().getX() + 2
+                && getStaticCollisionBox().getCenterPosition().getY() > otherObject.getStaticCollisionBox().getBounds().getY()
+                && getStaticCollisionBox().getCenterPosition().getY() < otherObject.getStaticCollisionBox().getBounds().getY()
+                + otherObject.collisionBoxHeight){
+
+            return Direction.LEFT;
+
+        }else if(getStaticCollisionBox().getBounds().getY() + collisionBoxHeight < otherObject.getStaticCollisionBox().getBounds().getY() + 2
+                && getStaticCollisionBox().getCenterPosition().getX() > otherObject.getStaticCollisionBox().getBounds().getX()
+                && getStaticCollisionBox().getCenterPosition().getX() < otherObject.getStaticCollisionBox().getBounds().getX()
+                + otherObject.collisionBoxWidth){
+
+            return Direction.UP;
+
+        }else if(getStaticCollisionBox().getBounds().getY() > otherObject.getStaticCollisionBox().getBounds().getY()
+                + otherObject.collisionBoxHeight - 2
+                && getStaticCollisionBox().getCenterPosition().getX() > otherObject.getStaticCollisionBox().getBounds().getX()
+                && getStaticCollisionBox().getCenterPosition().getX() < otherObject.getStaticCollisionBox().getBounds().getX()
+                + otherObject.collisionBoxWidth){
+
+            return Direction.DOWN;
+        }
+
+        return Direction.NULL;
+    }
+    protected abstract void executePlayerAction(State state);
 }

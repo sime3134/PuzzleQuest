@@ -64,4 +64,14 @@ public class SelectionCircle extends GameObject{
         renderedPosition.add(renderOffset);
         return CollisionBox.of(renderedPosition, collisionBoxWidth, collisionBoxHeight);
     }
+
+    @Override
+    public CollisionBox getStaticCollisionBox() {
+        return getCollisionBox();
+    }
+
+    @Override
+    protected void executePlayerAction(State state) {
+
+    }
 }

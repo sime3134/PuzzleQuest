@@ -2,9 +2,9 @@ package entity.humanoid;
 
 import content.SpriteSet;
 import controller.EntityController;
+import core.Vector2D;
 import entity.GameObject;
 import entity.MovingEntity;
-import main.state.State;
 
 /**
  * @author Simon Jern
@@ -16,11 +16,11 @@ public abstract class Humanoid extends MovingEntity {
         super(entityController, spriteSet);
         this.collisionBoxWidth = 24;
         this.collisionBoxHeight = 24;
-    }
-
-    @Override
-    public void update(State state){
-        super.update(state);
+        this.collisionBoxOffset = new Vector2D(collisionBoxWidth / 2f, collisionBoxHeight / 2f + 11f);
+        this.selectionCircleWidth = 38;
+        this.selectionCircleHeight = 22;
+        this.selectionCircleRenderXOffset = 5;
+        this.selectionCircleRenderYOffset = (int) (selectionCircleHeight + 9f);
     }
 
     @Override

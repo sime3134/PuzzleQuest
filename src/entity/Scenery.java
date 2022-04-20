@@ -102,6 +102,16 @@ public class Scenery extends GameObject implements Persistable {
         );
     }
 
+    @Override
+    public CollisionBox getStaticCollisionBox() {
+        return getCollisionBox();
+    }
+
+    @Override
+    protected void executePlayerAction(State state) {
+        sprite = state.getContent().getImage("bush");
+    }
+
     public CollisionBox getExtendedCollisionBox() {
         Vector2D position = getPosition().getCopy();
 

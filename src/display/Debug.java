@@ -1,6 +1,5 @@
 package display;
 
-import editor.UISettingsContainer;
 import entity.SelectionCircle;
 import main.state.State;
 import settings.Settings;
@@ -42,7 +41,7 @@ public class Debug {
         state.getGameObjects().stream()
                 .filter(gameObject -> camera.isObjectInView(gameObject)
                         && !(gameObject instanceof SelectionCircle))
-                .map(gameObject -> gameObject.getCollisionBox())
+                .map(gameObject -> gameObject.getStaticCollisionBox())
                 .forEach(collisionBox -> collisionBox.draw(g, camera));
     }
 }

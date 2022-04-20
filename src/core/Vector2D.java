@@ -98,11 +98,8 @@ public class Vector2D implements Persistable {
         return false;
     }
 
-    public Vector2D directionBetweenPositions(Vector2D other) {
-        Vector2D direction = new Vector2D(x - other.getX(), y - other.getY());
-        direction.normalize();
-
-        return direction;
+    public Vector2D distanceBetweenPositions(Vector2D other) {
+        return new Vector2D(x - other.getX(), y - other.getY());
     }
 
     /**
@@ -147,6 +144,11 @@ public class Vector2D implements Persistable {
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
+    public void makeAbsolute(){
+        x = Math.abs(x);
+        y = Math.abs(y);
+    }
+
     /**
      * @return The data of the vector in a saveable format.
      */
@@ -164,5 +166,10 @@ public class Vector2D implements Persistable {
         String[] tokens = serializedData.split("\\|");
         x = Double.parseDouble(tokens[0]);
         y = Double.parseDouble(tokens[1]);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("x: %s, y: %s", x, y);
     }
 }

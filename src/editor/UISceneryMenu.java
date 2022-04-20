@@ -101,8 +101,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "tree1",
-                115, 40,
-                new Vector2D(5, 80),
+                113, 40,
+                new Vector2D(0, 80),
                 60,
                 false,
                 content

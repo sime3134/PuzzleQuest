@@ -2,10 +2,10 @@ package entity;
 
 import content.SpriteSet;
 import controller.EntityController;
+import core.Direction;
 import core.Vector2D;
 import entity.humanoid.Humanoid;
 import main.state.State;
-import settings.Settings;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -16,15 +16,13 @@ import java.util.Optional;
  */
 public class Player extends Humanoid {
 
-    private NPC target;
-    private final double targetRange;
+    private GameObject target;
     private final SelectionCircle selectionCircle;
 
     public Player(EntityController entityController, SpriteSet spriteSet){
         super(entityController, spriteSet);
         this.selectionCircle = new SelectionCircle(38, 22);
         this.selectionCircle.setRenderOffset(new Vector2D(5, selectionCircle.getHeight() + 9f));
-        this.targetRange = Settings.getSpriteSize();
     }
 
     @Override
@@ -32,16 +30,21 @@ public class Player extends Humanoid {
         super.update(state);
 
         handleTarget(state);
-        handlePlayerSpecificInput();
+        handlePlayerSpecificInput(state);
+    }
+
+    @Override
+    protected void executePlayerAction(State state) {
+
     }
 
     /**
      * Check if the player has made any input except base input like
      * movement and reacts to the input accordingly.
      */
-    private void handlePlayerSpecificInput(){
+    private void handlePlayerSpecificInput(State state){
         if(getController().requestedAction() && target != null){
-            target.getBrain().transitionTo("wander", target);
+            target.executePlayerAction(state);
         }
     }
 
@@ -49,16 +52,20 @@ public class Player extends Humanoid {
      * Sets and removes the current target of the player.
      */
     private void handleTarget(State state) {
-        Optional<NPC> closestNPC = findClosestNPC(state);
+        Optional<GameObject> closestGameObject = findClosestGameObject(state);
 
-        if(closestNPC.isPresent()){
-            NPC npc = closestNPC.get();
-            if(!npc.equals(target)) {
+        if(closestGameObject.isPresent()){
+            GameObject gameObject = closestGameObject.get();
+            if(!gameObject.equals(target)) {
                 if(target != null) {
                     target.detach(selectionCircle);
                 }
-                npc.attach(selectionCircle);
-                target = npc;
+                selectionCircle.setWidth(gameObject.getSelectionCircleWidth());
+                selectionCircle.setHeight(gameObject.getSelectionCircleHeight());
+                selectionCircle.setRenderOffset(new Vector2D(gameObject.getSelectionCircleRenderXOffset(),
+                        gameObject.getSelectionCircleRenderYOffset()));
+                gameObject.attach(selectionCircle);
+                target = gameObject;
             }
         }else {
             if(target != null) {
@@ -68,12 +75,40 @@ public class Player extends Humanoid {
         }
     }
 
-    private Optional<NPC> findClosestNPC(State state) {
-        return state.getGameObjectsOfClass(NPC.class).stream()
-                .filter(npc -> getPosition().distanceTo(npc.getPosition()) < targetRange)
-                .filter(npc -> isFacing(npc.getPosition()))
-                .min(Comparator.comparingDouble(npc -> position.distanceTo(npc.getPosition())));
+    private Optional<GameObject> findClosestGameObject(State state) {
+        return state.getGameObjectsOfClass(GameObject.class).stream()
+                .filter(gameObject -> !(gameObject instanceof SelectionCircle) && !(gameObject instanceof Player))
+                .filter(gameObject -> checkDistance(gameObject))
+                .filter(gameObject -> isFacing(gameObject))
+                .min(Comparator.comparingDouble(gameObject -> getStaticCollisionBox().getCenterPosition()
+                        .distanceTo(gameObject.getStaticCollisionBox().getCenterPosition())));
     }
+
+    private boolean checkDistance(GameObject gameObject) {
+        Vector2D targetRange =
+                new Vector2D(getStaticCollisionBox().getBounds().getWidth() / 2
+                        + gameObject.getStaticCollisionBox().getBounds().getWidth() / 2 + 10,
+                        getStaticCollisionBox().getBounds().getHeight() / 2
+                                + gameObject.getStaticCollisionBox().getBounds().getHeight() / 2 + 10);
+
+        Vector2D distance = getStaticCollisionBox().getCenterPosition()
+                .distanceBetweenPositions(gameObject.getStaticCollisionBox().getCenterPosition());
+
+        distance.makeAbsolute();
+
+        return distance.getX() < targetRange.getX() && distance.getY() < targetRange.getY();
+    }
+
+    private double getTargetRange(GameObject gameObject) {
+        Direction directionOfObject = getDirectionInRelationToGameObject(gameObject);
+
+        return switch (directionOfObject) {
+            case RIGHT, LEFT -> getStaticCollisionBox().getBounds().getWidth() / 2 + gameObject.getStaticCollisionBox().getBounds().getWidth() / 2 + 10;
+            case UP, DOWN -> getStaticCollisionBox().getBounds().getHeight() / 2 + gameObject.getStaticCollisionBox().getBounds().getHeight() / 2 + 10;
+            default -> 0;
+        };
+    }
+
 
     @Override
     protected void handleCollision(GameObject other) {

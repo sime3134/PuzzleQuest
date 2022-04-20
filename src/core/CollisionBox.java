@@ -15,6 +15,9 @@ public class CollisionBox {
         return bounds;
     }
 
+    public Vector2D getCenterPosition() { return new Vector2D(bounds.getX() + bounds.getWidth() / 2,
+            bounds.getY() + bounds.getHeight() / 2); }
+
     public CollisionBox(Rectangle bounds) {
         this.bounds = bounds;
     }
@@ -30,6 +33,11 @@ public class CollisionBox {
                 bounds.y - camera.getPosition().intY(),
                 bounds.width,
                 bounds.height);
+        graphics.drawRect(
+                getCenterPosition().intX() - camera.getPosition().intX(),
+                getCenterPosition().intY() - camera.getPosition().intY(),
+                2,
+                2);
     }
 
     public static CollisionBox of(Vector2D position, int width, int height){

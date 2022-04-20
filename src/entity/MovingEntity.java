@@ -85,7 +85,6 @@ public abstract class MovingEntity extends GameObject {
         direction = Direction.fromMotion(velocity, direction);
         if(isMoving()) {
             directionVector = velocity.getCopy();
-            directionVector.normalize();
         }
     }
 
@@ -123,20 +122,17 @@ public abstract class MovingEntity extends GameObject {
         positionWithVelocity.add(velocity);
 
         return CollisionBox.of(
-                new Vector2D(positionWithVelocity.intX() + collisionBoxWidth / 2f,
-                positionWithVelocity.intY() + collisionBoxHeight / 2f + 11f),
+                new Vector2D(positionWithVelocity.getX() + collisionBoxOffset.getX(),
+                positionWithVelocity.getY() + collisionBoxOffset.getY()),
                 collisionBoxWidth,
                 collisionBoxHeight
         );
     }
 
     public CollisionBox getStaticCollisionBox() {
-        Vector2D positionWithVelocity = getPosition().getCopy();
-        positionWithVelocity.add(velocity);
-
         return CollisionBox.of(
-                new Vector2D(positionWithVelocity.intX() + collisionBoxWidth / 2f,
-                        positionWithVelocity.intY() + collisionBoxHeight / 2f + 11f),
+                new Vector2D(getPosition().getX() + collisionBoxOffset.getX(),
+                        getPosition().getY() + collisionBoxOffset.getY()),
                 collisionBoxWidth,
                 collisionBoxHeight
         );
@@ -147,8 +143,8 @@ public abstract class MovingEntity extends GameObject {
 
         positionWithXApplied.add(new Vector2D(velocity.getX(),0));
         return CollisionBox.of(
-                new Vector2D(positionWithXApplied.intX() + collisionBoxWidth / 2f,
-                        getPosition().intY() + collisionBoxHeight / 2f + 11f),
+                new Vector2D(positionWithXApplied.intX() + collisionBoxOffset.getX(),
+                        getPosition().intY() + collisionBoxOffset.getY()),
                 collisionBoxWidth,
                 collisionBoxHeight
         ).collidingWith(otherBox);
@@ -160,17 +156,16 @@ public abstract class MovingEntity extends GameObject {
         positionWithYApplied.add(new Vector2D(0, velocity.getY()));
 
         return CollisionBox.of(
-                new Vector2D(getPosition().intX() + collisionBoxWidth / 2f,
-                        positionWithYApplied.intY() + collisionBoxHeight / 2f + 11f),
+                new Vector2D(getPosition().getX() + collisionBoxOffset.getX(),
+                        positionWithYApplied.getY() + collisionBoxOffset.getY()),
                 collisionBoxWidth,
                 collisionBoxHeight
         ).collidingWith(otherBox);
     }
-    public boolean isFacing(Vector2D position){
-        Vector2D otherEntityDirection = position.directionBetweenPositions(getPosition());
-        double dotProduct = Vector2D.dotProduct(otherEntityDirection, directionVector);
+    public boolean isFacing(GameObject object){
+        Direction objectDirectionInRelationToPlayer = getDirectionInRelationToGameObject(object);
 
-        return dotProduct > 0;
+        return objectDirectionInRelationToPlayer == Direction.opposite(direction);
     }
 
     public Vector2D getCollisionBoxGridPosition() {

@@ -8,7 +8,9 @@ public enum Direction {
     DOWN(0),
     LEFT(1),
     RIGHT(2),
-    UP(3);
+    UP(3),
+
+    NULL(4);
 
     private final int animationRow;
 
@@ -30,6 +32,16 @@ public enum Direction {
         if(x > 0 && y > 0) return DOWN;
 
         return lastDirection;
+    }
+
+    public static Direction opposite(Direction direction) {
+        return switch(direction){
+            case DOWN -> UP;
+            case LEFT -> RIGHT;
+            case RIGHT -> LEFT;
+            case UP -> DOWN;
+            case NULL -> NULL;
+        };
     }
 
     public int getAnimationRow(){

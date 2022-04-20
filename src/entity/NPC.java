@@ -58,6 +58,11 @@ public class NPC extends Humanoid {
     }
 
     @Override
+    protected void executePlayerAction(State state) {
+        brain.transitionTo("wander", this);
+    }
+
+    @Override
     protected void handleCollision(GameObject other) {
         if(other instanceof Player
                 || other instanceof Scenery && !((Scenery)other).isWalkable()){
