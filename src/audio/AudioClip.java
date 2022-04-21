@@ -5,6 +5,9 @@ import settings.Settings;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
+    //Author Shukri Mohamad
+
+
 public class AudioClip {
 
     private final Clip clip;

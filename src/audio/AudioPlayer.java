@@ -10,6 +10,8 @@ import java.util.Map;
 
 public class AudioPlayer {
 
+    //Author Shukri Mohamad
+
     private final Map<String, AudioClip> audioClips;
     private String lastPlayedMusicFileName;
 
