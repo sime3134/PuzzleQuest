@@ -5,6 +5,10 @@ import entity.GameObject;
 
 import java.util.*;
 
+/**
+ * @author Simon Jern
+ * Implements a* search algorithm to find the best walkable path to a target.
+ */
 public class PathFinder {
 
     private PathFinder(){}

@@ -14,7 +14,6 @@ import java.util.Map;
  * Used to load different content to the game. For example spritesheets, tiles and music.
  */
 public class ContentManager {
-
     private final Map<String, SpriteSet> spriteSets;
     private final Map<String, Image> images;
     private Font font;

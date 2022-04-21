@@ -11,6 +11,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Menu in the world editor that displays placeable scenery.
+ */
 public class UISceneryMenu extends HorizontalContainer {
     public UISceneryMenu(ContentManager content){
         super();

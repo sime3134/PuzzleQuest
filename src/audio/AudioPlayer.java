@@ -8,9 +8,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Simon Jern, Shukri Mohamed
+ * Handles the playing and pausing of music and soundeffects in the game.
+ */
 public class AudioPlayer {
-
-    //Author Shukri Mohamad
 
     private final Map<String, AudioClip> audioClips;
     private String lastPlayedMusicFileName;

@@ -9,6 +9,10 @@ import ui.UIImage;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * Tool to place scenery on a game map.
+ */
 public class SceneryPlacer extends MouseAction{
 
     private final Scenery scenery;

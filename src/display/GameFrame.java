@@ -19,7 +19,7 @@ public class GameFrame extends JFrame {
 
     public GameFrame(Game game) {
         this.game = game;
-        setTitle("PuzzleQuest");
+        setTitle("PuzzleQuest 2.0");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 

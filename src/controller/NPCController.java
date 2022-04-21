@@ -8,7 +8,6 @@ import settings.Settings;
  * Implements controller for NPCs.
  */
 public class NPCController implements EntityController {
-
     private boolean up;
     private boolean down;
     private boolean left;

@@ -5,6 +5,10 @@ import utilities.ImgUtils;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * Implements the UI dividing content.
+ */
 public class UIHorizontalDivider extends UIComponent{
 
     private Image sprite;

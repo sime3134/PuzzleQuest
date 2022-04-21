@@ -9,6 +9,10 @@ import main.state.State;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * Implements world objects that are not tiles and will be displayed on top of the tiles.
+ */
 public class Scenery extends GameObject implements Persistable {
 
     private Image sprite;

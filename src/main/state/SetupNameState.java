@@ -10,7 +10,7 @@ import ui.clickable.UIButton;
 import java.awt.*;
 
 /**
- * @Author Johan Salomonsson
+ * @author Johan Salomonsson
  * Menu that lets you enter a username before the game starts.
  * Not finished.
  */

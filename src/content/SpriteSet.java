@@ -9,8 +9,7 @@ import java.util.Map;
  * A sprite set contains all animations for an entity, for example walking and standing animations.
  */
 public class SpriteSet {
-
-    private Map<String, Image> animationSheets;
+    private final Map<String, Image> animationSheets;
 
     public SpriteSet(){
         this.animationSheets = new HashMap<>();

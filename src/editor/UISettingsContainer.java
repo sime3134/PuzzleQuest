@@ -1,7 +1,7 @@
 package editor;
 
 import content.ContentManager;
-import input.mouse.action.TileWalkabilityToggle;
+import input.mouse.action.TileWalkableToggle;
 import map.GameMap;
 import settings.Settings;
 import ui.Alignment;
@@ -23,6 +23,6 @@ public class UISettingsContainer extends VerticalContainer {
         addComponent(new UICheckbox("Col. box", Settings.getRenderCollisionBox()));
         addComponent(new UICheckbox("Pathable", Settings.isPathable()));
         addComponent(new UICheckbox("Paths", Settings.getRenderPaths()));
-        addComponent(new UIToolToggle(content.getImage("walkable"), new TileWalkabilityToggle(), 48, 48));
+        addComponent(new UIToolToggle(content.getImage("walkable"), new TileWalkableToggle(), 48, 48));
     }
 }

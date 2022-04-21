@@ -14,6 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author Simon Jern
+ * Tool to move and delete scenery on the game map.
+ */
 public class SceneryTool extends MouseAction{
 
     private Vector2D dragPosition;

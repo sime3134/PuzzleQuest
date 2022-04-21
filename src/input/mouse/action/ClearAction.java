@@ -6,6 +6,10 @@ import ui.UIImage;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * Clears any active tool.
+ */
 public class ClearAction extends MouseAction{
     @Override
     public void onClick(Game game) {

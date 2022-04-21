@@ -15,7 +15,7 @@ public class CollisionBox {
         return bounds;
     }
 
-    public Vector2D getCenterPosition() { return new Vector2D(bounds.getX() + bounds.getWidth() / 2,
+    public Vector2D getCenter() { return new Vector2D(bounds.getX() + bounds.getWidth() / 2,
             bounds.getY() + bounds.getHeight() / 2); }
 
     public CollisionBox(Rectangle bounds) {
@@ -34,12 +34,18 @@ public class CollisionBox {
                 bounds.width,
                 bounds.height);
         graphics.drawRect(
-                getCenterPosition().intX() - camera.getPosition().intX(),
-                getCenterPosition().intY() - camera.getPosition().intY(),
+                getCenter().intX() - camera.getPosition().intX(),
+                getCenter().intY() - camera.getPosition().intY(),
                 2,
                 2);
     }
 
+    /**
+     * @param position position of the top left corner of the rectangle to create
+     * @param width width of the rectangle
+     * @param height height of the rectangle
+     * @return a rectangle with the proportions above
+     */
     public static CollisionBox of(Vector2D position, int width, int height){
         return new CollisionBox(
                 new Rectangle(

@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 /**
  * @author Simon Jern
- * Handles keyboard input.
+ * Handles input from mouse and keyboard.
  */
 public class Input implements KeyListener, MouseListener, MouseMotionListener {
 

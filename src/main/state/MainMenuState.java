@@ -12,7 +12,6 @@ import java.awt.*;
  */
 public class MainMenuState extends State{
 
-
     public MainMenuState(){
         super();
     }

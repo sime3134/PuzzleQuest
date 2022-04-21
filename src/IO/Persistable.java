@@ -1,5 +1,9 @@
 package IO;
 
+/**
+ * @author Simon Jern
+ * Interface for classes that should be able to save and load data to file.
+ */
 public interface Persistable {
 
     String DELIMITER = ":";

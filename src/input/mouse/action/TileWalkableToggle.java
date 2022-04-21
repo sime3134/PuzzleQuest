@@ -10,7 +10,10 @@ import ui.UIImage;
 
 import java.awt.*;
 
-public class TileWalkabilityToggle extends MouseAction{
+/**
+ * Tool to toggle if tiles should be walkable or not.
+ */
+public class TileWalkableToggle extends MouseAction{
 
     @Override
     public void onClick(Game game) {

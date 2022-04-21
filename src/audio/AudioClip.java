@@ -5,9 +5,10 @@ import settings.Settings;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-    //Author Shukri Mohamad
-
-
+/**
+ * @author Simon Jern, Shukri Mohamed
+ * Implements music and soundeffects for the game
+ */
 public class AudioClip {
 
     private final Clip clip;

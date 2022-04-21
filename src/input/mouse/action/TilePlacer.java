@@ -10,6 +10,10 @@ import ui.UIImage;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * Tool to place tiles on the game map.
+ */
 public class TilePlacer extends MouseAction{
 
     private final Tile tile;

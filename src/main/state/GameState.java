@@ -18,6 +18,7 @@ import java.security.SecureRandom;
  * methods but instead pair together several components of the game such as the player, NPCs, content etc.
  */
 public class GameState extends State{
+
     private Player player;
 
     public GameState(){

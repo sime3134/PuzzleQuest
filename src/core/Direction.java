@@ -34,6 +34,9 @@ public enum Direction {
         return lastDirection;
     }
 
+    /**
+     * @return the opposite of the given direction
+     */
     public static Direction opposite(Direction direction) {
         return switch(direction){
             case DOWN -> UP;

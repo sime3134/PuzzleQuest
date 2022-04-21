@@ -42,6 +42,8 @@ public abstract class GameObject {
     protected int selectionCircleRenderXOffset;
     protected int selectionCircleRenderYOffset;
 
+    //region Getters & Setters (click to view)
+
     public void setRenderOffset(Vector2D renderOffset) {
         this.renderOffset = renderOffset;
     }
@@ -67,6 +69,10 @@ public abstract class GameObject {
         return new Vector2D(
                 getPosition().getX() - camera.getPosition().getX() + renderOffset.getX(),
                 getPosition().getY() - camera.getPosition().getY() + renderOffset.getY());
+    }
+
+    public boolean isWalkable() {
+        return walkable;
     }
 
     public int getWidth() {
@@ -108,6 +114,8 @@ public abstract class GameObject {
     public int getSelectionCircleRenderYOffset() {
         return selectionCircleRenderYOffset;
     }
+
+    //endregion
 
     protected GameObject(){
         this.position = new Vector2D(0,0);
@@ -161,38 +169,34 @@ public abstract class GameObject {
         this.position.add(position);
     }
 
-    public boolean isWalkable() {
-        return walkable;
-    }
-
     public Direction getDirectionInRelationToGameObject(GameObject otherObject) {
 
         if(getStaticCollisionBox().getBounds().getX() > otherObject.getStaticCollisionBox().getBounds().getX()
                 + otherObject.collisionBoxWidth - 2
-                && getStaticCollisionBox().getCenterPosition().getY() > otherObject.getStaticCollisionBox().getBounds().getY()
-                && getStaticCollisionBox().getCenterPosition().getY() < otherObject.getStaticCollisionBox().getBounds().getY()
+                && getStaticCollisionBox().getCenter().getY() > otherObject.getStaticCollisionBox().getBounds().getY()
+                && getStaticCollisionBox().getCenter().getY() < otherObject.getStaticCollisionBox().getBounds().getY()
                 + otherObject.collisionBoxHeight){
 
             return Direction.RIGHT;
 
         }else if(getStaticCollisionBox().getBounds().getX() + collisionBoxWidth < otherObject.getStaticCollisionBox().getBounds().getX() + 2
-                && getStaticCollisionBox().getCenterPosition().getY() > otherObject.getStaticCollisionBox().getBounds().getY()
-                && getStaticCollisionBox().getCenterPosition().getY() < otherObject.getStaticCollisionBox().getBounds().getY()
+                && getStaticCollisionBox().getCenter().getY() > otherObject.getStaticCollisionBox().getBounds().getY()
+                && getStaticCollisionBox().getCenter().getY() < otherObject.getStaticCollisionBox().getBounds().getY()
                 + otherObject.collisionBoxHeight){
 
             return Direction.LEFT;
 
         }else if(getStaticCollisionBox().getBounds().getY() + collisionBoxHeight < otherObject.getStaticCollisionBox().getBounds().getY() + 2
-                && getStaticCollisionBox().getCenterPosition().getX() > otherObject.getStaticCollisionBox().getBounds().getX()
-                && getStaticCollisionBox().getCenterPosition().getX() < otherObject.getStaticCollisionBox().getBounds().getX()
+                && getStaticCollisionBox().getCenter().getX() > otherObject.getStaticCollisionBox().getBounds().getX()
+                && getStaticCollisionBox().getCenter().getX() < otherObject.getStaticCollisionBox().getBounds().getX()
                 + otherObject.collisionBoxWidth){
 
             return Direction.UP;
 
         }else if(getStaticCollisionBox().getBounds().getY() > otherObject.getStaticCollisionBox().getBounds().getY()
                 + otherObject.collisionBoxHeight - 2
-                && getStaticCollisionBox().getCenterPosition().getX() > otherObject.getStaticCollisionBox().getBounds().getX()
-                && getStaticCollisionBox().getCenterPosition().getX() < otherObject.getStaticCollisionBox().getBounds().getX()
+                && getStaticCollisionBox().getCenter().getX() > otherObject.getStaticCollisionBox().getBounds().getX()
+                && getStaticCollisionBox().getCenter().getX() < otherObject.getStaticCollisionBox().getBounds().getX()
                 + otherObject.collisionBoxWidth){
 
             return Direction.DOWN;
@@ -200,5 +204,9 @@ public abstract class GameObject {
 
         return Direction.NULL;
     }
+
+    /**
+     * Implements what should happen when the player interacts with this object.
+     */
     protected abstract void executePlayerAction(State state);
 }

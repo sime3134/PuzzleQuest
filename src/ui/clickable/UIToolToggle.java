@@ -9,6 +9,10 @@ import utilities.ImgUtils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * @author Simon Jern
+ * Implements the UI for a clickable component that will toggle the use of a tool.
+ */
 public class UIToolToggle extends UIClickable{
 
     private final UIImage image;

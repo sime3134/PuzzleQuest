@@ -1,14 +1,15 @@
 package IO;
 
 import content.ContentManager;
-import entity.GameObject;
-import main.Game;
 import map.GameMap;
 
 import java.io.*;
 import java.net.URL;
-import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Implements loading and saving of game maps from files.
+ */
 public class MapIO {
 
     public static void save(GameMap gameMap){

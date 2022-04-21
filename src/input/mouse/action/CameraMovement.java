@@ -8,6 +8,10 @@ import ui.UIImage;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * Tool for moving the camera through the minimap.
+ */
 public class CameraMovement extends MouseAction {
     private Vector2D dragPosition;
 

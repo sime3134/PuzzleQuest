@@ -29,6 +29,11 @@ public abstract class MovingEntity extends GameObject {
         return entityController;
     }
 
+    @Override
+    public Image getSprite() {
+        return animationManager.getSprite();
+    }
+
     protected MovingEntity(EntityController entityController, SpriteSet spriteSet) {
         super();
         this.entityController = entityController;
@@ -50,11 +55,6 @@ public abstract class MovingEntity extends GameObject {
         decideAnimation();
 
         position.add(velocity);
-    }
-
-    @Override
-    public Image getSprite() {
-        return animationManager.getSprite();
     }
 
     @Override

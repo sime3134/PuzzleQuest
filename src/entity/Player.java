@@ -80,8 +80,8 @@ public class Player extends Humanoid {
                 .filter(gameObject -> !(gameObject instanceof SelectionCircle) && !(gameObject instanceof Player))
                 .filter(gameObject -> checkDistance(gameObject))
                 .filter(gameObject -> isFacing(gameObject))
-                .min(Comparator.comparingDouble(gameObject -> getStaticCollisionBox().getCenterPosition()
-                        .distanceTo(gameObject.getStaticCollisionBox().getCenterPosition())));
+                .min(Comparator.comparingDouble(gameObject -> getStaticCollisionBox().getCenter()
+                        .distanceTo(gameObject.getStaticCollisionBox().getCenter())));
     }
 
     private boolean checkDistance(GameObject gameObject) {
@@ -91,8 +91,8 @@ public class Player extends Humanoid {
                         getStaticCollisionBox().getBounds().getHeight() / 2
                                 + gameObject.getStaticCollisionBox().getBounds().getHeight() / 2 + 10);
 
-        Vector2D distance = getStaticCollisionBox().getCenterPosition()
-                .distanceBetweenPositions(gameObject.getStaticCollisionBox().getCenterPosition());
+        Vector2D distance = getStaticCollisionBox().getCenter()
+                .distanceBetweenPositions(gameObject.getStaticCollisionBox().getCenter());
 
         distance.makeAbsolute();
 

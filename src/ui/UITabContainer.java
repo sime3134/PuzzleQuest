@@ -9,6 +9,10 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Implements the UI for a container with tabs.
+ */
 public class UITabContainer extends VerticalContainer{
 
     private final UIContainer tabContainer;

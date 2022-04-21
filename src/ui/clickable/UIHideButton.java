@@ -7,6 +7,10 @@ import ui.UIContainer;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * Implements the UI for a button to hide content.
+ */
 public class UIHideButton extends UIButton{
 
     private final UIContainer parentContainer;
