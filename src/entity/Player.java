@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.Optional;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Erik Larsson
  * The playable main chatacter in the game.
  */
 public class Player extends Humanoid {

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Erik Larsson
  * The core class for all entities in the game.
  */
 public abstract class GameObject {

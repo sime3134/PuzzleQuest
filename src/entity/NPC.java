@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Erik Larsson
  * Implements living entities that are not controlled by the player.
  */
 public class NPC extends Humanoid {
