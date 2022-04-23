@@ -88,7 +88,7 @@ public abstract class State {
         time = new Time();
         gameObjects = new ArrayList<>();
         uiContainers = new ArrayList<>();
-        loadMap();
+        loadMap("map", false);
         setupUI();
     }
 
@@ -138,15 +138,19 @@ public abstract class State {
                 gameObject -> gameObject.getRenderOrderComparisonYPosition()));
     }
 
-    public void loadMap() {
+    public void loadMap(String nameOrPath, boolean path) {
         gameObjects.clear();
-        currentMap = MapIO.load(content);
+        if(path) {
+            currentMap = MapIO.loadFromPath(content, nameOrPath);
+        }else{
+            currentMap = MapIO.loadFromName(content, nameOrPath);
+        }
         gameObjects.addAll(currentMap.getSceneryList());
     }
 
-    public void saveMap() {
+    public void saveMap(String filePath) {
         currentMap.setSceneryList(getGameObjectsOfClass(Scenery.class));
-        MapIO.save(currentMap);
+        MapIO.save(currentMap, filePath);
     }
 
     protected void createNewMap(int width, int height) {

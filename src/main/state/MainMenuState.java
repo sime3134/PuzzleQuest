@@ -1,6 +1,8 @@
 package main.state;
 
+import core.Vector2D;
 import main.Game;
+import settings.Settings;
 import ui.*;
 import ui.clickable.UIButton;
 
@@ -60,6 +62,15 @@ public class MainMenuState extends State{
         VerticalContainer menu = new VerticalContainer(newGame, loadGame, settings, worldEditor, exitGame);
         menu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(menu);
+    }
+
+    @Override
+    public void update(Game game) {
+        super.update(game);
+        Vector2D centerPosition = new Vector2D(currentMap.getWidth() / 2f, currentMap.getHeight() / 2f);
+        centerPosition.subtract(new Vector2D(Settings.getScreenWidth() / 2f, Settings.getScreenHeight() / 2f));
+
+        camera.setPosition(centerPosition);
     }
 
     @Override

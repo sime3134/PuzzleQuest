@@ -19,7 +19,7 @@ public class SettingsMenuState extends State{
     public SettingsMenuState(GameState gameState) {
         super();
         this.gameState = gameState;
-        loadMap();
+        loadMap("map", false);
     }
 
     @Override

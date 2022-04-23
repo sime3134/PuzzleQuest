@@ -17,7 +17,7 @@ public class PauseMenuState extends State{
     public PauseMenuState(GameState gameState) {
         super();
         this.gameState = gameState;
-        loadMap();
+        loadMap("map", false);
     }
 
     @Override

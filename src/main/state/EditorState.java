@@ -12,14 +12,24 @@ import ui.HorizontalContainer;
 import ui.UITabContainer;
 import ui.clickable.UIButton;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+
 /**
  * @author Simon Jern
  * Implements a state for editing and saving new maps.
  */
 public class EditorState extends State {
 
+    private final JFileChooser fileChooser;
+
     public EditorState(){
         super();
+        fileChooser = new JFileChooser();
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Game map", "pzq"));
+        fileChooser.setCurrentDirectory(new File(getClass().getResource("/").getFile()));
         createNewMap(32, 32);
         setupMouseButtons();
         Settings.setDebugMode(true);
@@ -41,8 +51,8 @@ public class EditorState extends State {
         uiContainers.add(toolsContainer);
 
         UIButton mainMenuButton = new UIButton("main menu", game -> game.goToMainMenu());
-        UIButton saveButton = new UIButton("save", game -> game.getCurrentState().saveMap());
-        UIButton loadButton = new UIButton("load", game -> game.getCurrentState().loadMap());
+        UIButton saveButton = new UIButton("save", game -> displaySaveDialog());
+        UIButton loadButton = new UIButton("load", game -> displayLoadDialog());
         UIButton newButton = new UIButton("new", game -> game.getCurrentState().createNewMap(64, 64));
         HorizontalContainer buttonMenu = new HorizontalContainer(mainMenuButton, saveButton, loadButton, newButton);
         mainMenuButton.setWidth(180);
@@ -50,6 +60,22 @@ public class EditorState extends State {
         saveButton.setWidth(180);
         newButton.setWidth(180);
         uiContainers.add(buttonMenu);
+    }
+
+    private void displayLoadDialog() {
+        final int fileChosen = fileChooser.showOpenDialog(new JFrame());
+
+        if(fileChosen == JFileChooser.APPROVE_OPTION){
+            loadMap(fileChooser.getSelectedFile().getPath(), true);
+        }
+    }
+
+    private void displaySaveDialog(){
+        final int fileChosen = fileChooser.showSaveDialog(new JFrame());
+
+        if(fileChosen == JFileChooser.APPROVE_OPTION){
+            saveMap(fileChooser.getSelectedFile().toString());
+        }
     }
 
     @Override

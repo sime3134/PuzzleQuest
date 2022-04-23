@@ -23,7 +23,7 @@ public class GameState extends State{
 
     public GameState(){
         super();
-        loadMap();
+        loadMap("map", false);
         initializeEntities();
     }
 
