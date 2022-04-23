@@ -21,9 +21,9 @@ public class GameLoop implements Runnable {
     private int ups;
 
 
-    public GameLoop(Game game, GameFrame gameFrame){
+    public GameLoop(Game game){
         this.game = game;
-        this.gameFrame = gameFrame;
+        this.gameFrame = game.getGameFrame();
     }
 
     public void start(){

@@ -6,6 +6,8 @@ import settings.Settings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferStrategy;
 
 /**
@@ -21,10 +23,12 @@ public class GameFrame extends JFrame {
         this.game = game;
         setTitle("PuzzleQuest 2.0");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
+
+        addListener();
 
         canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(Settings.getScreenWidth(), Settings.getScreenHeight()));
+        setPreferredSize(new Dimension(Settings.getScreenWidth(), Settings.getScreenHeight()));
+        canvas.setPreferredSize(getContentPane().getPreferredSize());
         canvas.setFocusable(false);
         canvas.addMouseListener(Input.getInstance());
         canvas.addMouseMotionListener(Input.getInstance());
@@ -38,6 +42,18 @@ public class GameFrame extends JFrame {
         setVisible(true);
     }
 
+    private void addListener() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setPreferredSize(e.getComponent().getSize());
+                pack();
+                Settings.setScreenSize(getContentPane().getWidth(), getContentPane().getHeight());
+                canvas.setPreferredSize(getContentPane().getPreferredSize());
+            }
+        });
+    }
+
     public void draw(){
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         Graphics graphics = bufferStrategy.getDrawGraphics();
@@ -49,5 +65,22 @@ public class GameFrame extends JFrame {
 
         graphics.dispose();
         bufferStrategy.show();
+    }
+
+    public void toggleFullScreen() {
+        if(Settings.getFullScreenSetting().getValue()){
+            setSize(Toolkit.getDefaultToolkit().getScreenSize());
+            dispose();
+            setUndecorated(true);
+        }else{
+            setSize(new Dimension(1100, 700));
+            dispose();
+            setUndecorated(false);
+        }
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        Settings.setScreenSize(getContentPane().getWidth(), getContentPane().getHeight());
+        canvas.setPreferredSize(getContentPane().getPreferredSize());
     }
 }

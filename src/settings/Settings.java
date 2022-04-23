@@ -10,8 +10,8 @@ public abstract class Settings {
 
     private static final int SPRITE_SIZE = 48;
 
-    private static final int SCREEN_WIDTH = 1100;
-    private static final int SCREEN_HEIGHT = 600;
+    private static int SCREEN_WIDTH = 1100;
+    private static int SCREEN_HEIGHT = 700;
 
     private static final int PROXIMITY_RANGE = 2;
     private static final int RENDER_MARGIN = 2 * SPRITE_SIZE;
@@ -33,6 +33,8 @@ public abstract class Settings {
     private static final Setting<Boolean> AUDIO_ON = new Setting<>(true);
 
     private static final Setting<Float> VOLUME = new Setting<>(1f);
+
+    private static final Setting<Boolean> FULLSCREEN = new Setting<>(false);
 
     //region Getters and Setters (click to view)
 
@@ -104,6 +106,8 @@ public abstract class Settings {
         return VOLUME;
     }
 
+    public static Setting<Boolean> getFullScreenSetting() { return FULLSCREEN; }
+
     public static void increaseVolume() {
         if(VOLUME.getValue() < 1f)
             VOLUME.setValue(VOLUME.getValue() + 0.05f);
@@ -125,4 +129,10 @@ public abstract class Settings {
         DEBUG_MODE = false;
         resetGameSpeedMultiplier();
     }
+
+    public static void setScreenSize(int width, int height) {
+        SCREEN_WIDTH = width;
+        SCREEN_HEIGHT = height;
+    }
+
 }

@@ -3,6 +3,7 @@ package main;
 import audio.AudioPlayer;
 import controller.GameController;
 import display.Debug;
+import display.GameFrame;
 import main.state.*;
 import settings.Settings;
 
@@ -13,6 +14,9 @@ import java.awt.*;
  * Main class for the game controlling the current state of the game.
  */
 public class Game {
+
+    GameFrame gameFrame;
+
     private final Debug debug;
     GameController gameController;
 
@@ -27,6 +31,10 @@ public class Game {
         return currentState;
     }
 
+    public GameFrame getGameFrame() {
+        return gameFrame;
+    }
+
     public Game(){
         currentState = new MainMenuState();
         lastState = currentState;
@@ -34,6 +42,7 @@ public class Game {
         debug = new Debug(currentState);
         audioPlayer = new AudioPlayer();
         audioPlayer.playMusic("menu.wav");
+        gameFrame = new GameFrame(this);
     }
 
     public void update() {
@@ -113,4 +122,10 @@ public class Game {
             audioPlayer.clear();
         }
     }
+
+    public void setFullScreen() {
+        gameFrame.toggleFullScreen();
+    }
+
+
 }

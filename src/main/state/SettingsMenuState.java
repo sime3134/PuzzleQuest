@@ -38,7 +38,7 @@ public class SettingsMenuState extends State{
         UIButton decrease = new UIButton("-", game -> Settings.decreaseVolume());
         UIButton back = new UIButton("Back", game -> game.goToLastState());
 
-        audioTxt.setFontSize(20);
+        audioTxt.setFontSize(30);
         audio.setFontSize(20);
         audioTxt.getPadding().setBottom(20);
 
@@ -54,12 +54,22 @@ public class SettingsMenuState extends State{
         decrease.setPadding(10);
         decrease.setFontSize(30);
 
+        UIText displayText = new UIText("Display");
+        UICheckbox fullscreen = new UICheckbox("Fullscreen", Settings.getFullScreenSetting(),
+                game -> game.setFullScreen());
+
+        displayText.setFontSize(30);
+        fullscreen.setFontSize(20);
+        displayText.getPadding().setBottom(20);
+        displayText.getPadding().setTop(20);
+
         back.setBackgroundColor(Color.GRAY);
         back.setClickColor(Color.YELLOW);
         back.setHoverColor(Color.lightGray);
         back.setWidth(80);
 
-        VerticalContainer settingsMenu = new VerticalContainer(audioTxt, audio, increase, decrease);
+        VerticalContainer settingsMenu = new VerticalContainer(audioTxt, audio, increase, decrease, displayText,
+                fullscreen);
         settingsMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         settingsMenu.setCenterChildren(true);
         uiContainers.add(settingsMenu);

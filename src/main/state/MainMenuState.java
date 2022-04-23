@@ -57,7 +57,7 @@ public class MainMenuState extends State{
         worldEditor.setHoverColor(Color.lightGray);
         worldEditor.setPadding(25);
 
-        VerticalContainer menu = new VerticalContainer(newGame, loadGame, exitGame, settings, worldEditor);
+        VerticalContainer menu = new VerticalContainer(newGame, loadGame, settings, worldEditor, exitGame);
         menu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(menu);
     }
