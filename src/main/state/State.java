@@ -98,6 +98,7 @@ public abstract class State {
     }
 
     public void update(Game game) {
+        currentMap.update(camera);
         uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(currentMap);
 

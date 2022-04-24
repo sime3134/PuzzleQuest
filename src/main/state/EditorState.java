@@ -1,5 +1,6 @@
 package main.state;
 
+import editor.UIAnimatedTileMenu;
 import editor.UISceneryMenu;
 import editor.UITileMenu;
 import input.mouse.action.CameraMovement;
@@ -49,6 +50,7 @@ public class EditorState extends State {
         toolsContainer.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.BOTTOM));
         toolsContainer.addTab("Scenery", new UISceneryMenu(content));
         toolsContainer.addTab("Tiles", new UITileMenu(content));
+        toolsContainer.addTab("Animated", new UIAnimatedTileMenu(content));
         uiContainers.add(toolsContainer);
 
         UIButton mainMenuButton = new UIButton("main menu", game -> game.goToMainMenu());

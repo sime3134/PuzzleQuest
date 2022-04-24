@@ -35,7 +35,7 @@ public class AnimationManager {
         );
     }
 
-    public AnimationManager(SpriteSet spriteSet, int spriteWidth, int spriteHeight) {
+    public AnimationManager(SpriteSet spriteSet, int spriteWidth, int spriteHeight, String startingSheet) {
         this.spriteSet = spriteSet;
         this.updatesPerFrame = 15;
         this.frameIndex = 0;
@@ -44,7 +44,7 @@ public class AnimationManager {
         this.currentAnimationName = "";
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
-        playAnimation("stand");
+        playAnimation(startingSheet);
     }
 
     /**
@@ -54,6 +54,19 @@ public class AnimationManager {
     public void update(Direction direction) {
         currentFrameTime++;
         directionIndex = direction.getAnimationRow();
+        if(currentFrameTime >= updatesPerFrame) {
+            currentFrameTime = 0;
+            frameIndex++;
+
+            if(frameIndex >= currentAnimationSheet.getWidth() / spriteWidth) {
+                frameIndex = 0;
+            }
+        }
+    }
+
+    public void update() {
+        currentFrameTime++;
+        directionIndex = 0;
         if(currentFrameTime >= updatesPerFrame) {
             currentFrameTime = 0;
             frameIndex++;
@@ -74,5 +87,9 @@ public class AnimationManager {
             currentAnimationName = name;
             frameIndex = 0;
         }
+    }
+
+    public AnimationManager getCopy(String startingSheet) {
+        return new AnimationManager(spriteSet, spriteWidth, spriteHeight, startingSheet);
     }
 }

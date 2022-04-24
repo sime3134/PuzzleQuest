@@ -1,6 +1,7 @@
 package ui;
 
 import core.Vector2D;
+import main.Game;
 
 /**
  * @author Simon Jern

@@ -32,7 +32,7 @@ public abstract class Settings {
 
     private static final Setting<Boolean> AUDIO_ON = new Setting<>(true);
 
-    private static final Setting<Float> VOLUME = new Setting<>(1f);
+    private static final Setting<Float> VOLUME = new Setting<>(0.8f);
 
     private static final Setting<Boolean> FULLSCREEN = new Setting<>(false);
 

@@ -15,17 +15,21 @@ import java.util.Map;
  */
 public class ContentManager {
     private final Map<String, SpriteSet> spriteSets;
+
+    private final Map<String, SpriteSet> animatedTileSets;
     private final Map<String, Image> images;
     private Font font;
 
     public ContentManager(){
         spriteSets = new HashMap<>();
+        animatedTileSets = new HashMap<>();
         images = new HashMap<>();
     }
 
     public void loadContent() {
         loadSpriteSets("/sprites/gameObjects");
         loadImages("/sprites/tiles");
+        loadAnimatedTileSets("/sprites/animatedTiles");
         loadImages("/sprites/scenery");
         loadImages("/sprites/icons");
         loadFont("/font/joystix.ttf");
@@ -69,6 +73,19 @@ public class ContentManager {
             spriteSets.put(folderName, spriteSet);
         }}
 
+    private void loadAnimatedTileSets(String filePath) {
+        String[] imagesInFolder = getImagesInFolder(filePath);
+
+        for(String fileName : imagesInFolder){
+            String fileNameWithoutExtension = fileName.substring(0, fileName.length() - 4);
+            SpriteSet spriteSet = new SpriteSet();
+
+            spriteSet.addSheet(fileNameWithoutExtension,
+                    ImgUtils.loadImage(filePath + "/" + fileName));
+            animatedTileSets.put(fileNameWithoutExtension, spriteSet);
+        }
+    }
+
     private String[] getImagesInFolder(String basePath) {
         URL resource = ContentManager.class.getResource(basePath);
         File file = new File(resource.getFile());
@@ -87,5 +104,9 @@ public class ContentManager {
 
     public Image getImage(String name) {
         return images.get(name);
+    }
+
+    public SpriteSet getAnimatedTileSheet(String name) {
+        return animatedTileSets.get(name);
     }
 }

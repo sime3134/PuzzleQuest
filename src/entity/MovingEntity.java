@@ -41,7 +41,7 @@ public abstract class MovingEntity extends GameObject {
         this.speed = 4;
         this.direction = Direction.DOWN;
         this.directionVector = new Vector2D(0,0);
-        animationManager = new AnimationManager(spriteSet, getWidth(), getHeight());
+        animationManager = new AnimationManager(spriteSet, getWidth(), getHeight(), "stand");
     }
 
     @Override

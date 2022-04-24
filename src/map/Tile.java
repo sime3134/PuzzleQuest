@@ -13,11 +13,11 @@ import java.awt.image.BufferedImage;
  */
 public class Tile implements Persistable {
 
-    private Image tileSheet;
-    private Image sprite;
-    private int tileIndex;
-    private String tileSheetName;
-    private int collisionBoxType;
+    protected Image tileSheet;
+    protected Image sprite;
+    protected int tileIndex;
+    protected String tileSheetName;
+    protected int collisionBoxType;
 
     public Image getSprite(){
         return sprite;
@@ -77,7 +77,7 @@ public class Tile implements Persistable {
     /**
      * Cuts out a part of a tile sheet to use as this tiles graphic.
      */
-    private void generateSprite() {
+    protected void generateSprite() {
         sprite = ((BufferedImage)tileSheet).getSubimage(
                 (tileIndex / (tileSheet.getWidth(null) / Settings.getSpriteSize())) * Settings.getSpriteSize(),
                 (tileIndex % (tileSheet.getWidth(null) / Settings.getSpriteSize())) * Settings.getSpriteSize(),
@@ -128,5 +128,12 @@ public class Tile implements Persistable {
 
     public String getTileSheetName() {
         return tileSheetName;
+    }
+
+    public void draw(Graphics g, int posX, int posY) {
+        g.drawImage(getSprite(), posX, posY, null);
+    }
+
+    public void update() {
     }
 }
