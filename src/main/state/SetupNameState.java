@@ -57,6 +57,12 @@ public class SetupNameState extends State{
     }
 
     @Override
+    public void update(Game game) {
+        super.update(game);
+        centerCameraOnMap();
+    }
+
+    @Override
     public void escapeButtonPressed(Game game) {
         game.goToLastState();
     }

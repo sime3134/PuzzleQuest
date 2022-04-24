@@ -70,12 +70,13 @@ public abstract class UIContainer extends UIComponent {
         margin = new Spacing(5);
         padding = new Spacing(5);
         children = new ArrayList<>();
-        calculateSize();
         calculatePosition();
 
         for (UIComponent component : components) {
             addComponent(component);
         }
+
+        calculateSize();
     }
 
     protected abstract int calculateContentWidth();
@@ -130,6 +131,7 @@ public abstract class UIContainer extends UIComponent {
     public void addComponent(UIComponent uiComponent){
         children.add(uiComponent);
         uiComponent.setParent(this);
+        calculateSize();
     }
 
     @Override

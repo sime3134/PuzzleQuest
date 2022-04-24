@@ -33,6 +33,7 @@ public class EditorState extends State {
         createNewMap(32, 32);
         setupMouseButtons();
         Settings.setDebugMode(true);
+        centerCameraOnMap();
     }
 
     private void setupMouseButtons() {

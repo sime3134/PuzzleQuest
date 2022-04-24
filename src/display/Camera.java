@@ -16,8 +16,6 @@ import java.util.Optional;
 public class Camera {
 
     private Vector2D position;
-    private final int windowWidth;
-    private final int windowHeight;
 
     private Rectangle currentView;
 
@@ -37,14 +35,12 @@ public class Camera {
         currentView = new Rectangle(
                 position.intX() - Settings.getRenderMargin(),
                 position.intY() - Settings.getRenderMargin(),
-                windowWidth + Settings.getRenderMargin() * 2,
-                windowHeight + Settings.getRenderMargin() * 2);
+                Settings.getScreenWidth() + Settings.getRenderMargin() * 2,
+                Settings.getScreenHeight() + Settings.getRenderMargin() * 2);
     }
 
     public Camera() {
         position = new Vector2D(0,0);
-        this.windowWidth = Settings.getScreenWidth();
-        this.windowHeight = Settings.getScreenHeight();
         this.objectInFocus = Optional.empty();
         lastFocusedObject = null;
         setCurrentView();
@@ -71,8 +67,8 @@ public class Camera {
         if(objectInFocus.isPresent()){
             Vector2D objectPosition = objectInFocus.get().getPosition();
 
-            position.setX(objectPosition.getX() - windowWidth / 2f);
-            position.setY(objectPosition.getY() - windowHeight / 2f);
+            position.setX(objectPosition.getX() - Settings.getScreenWidth() / 2f);
+            position.setY(objectPosition.getY() - Settings.getScreenHeight() / 2f);
 
             clamp(currentMap);
         }
@@ -89,11 +85,11 @@ public class Camera {
         if(position.getY() < 0){
             position.setY(0);
         }
-        if(position.getX() + windowWidth > currentMap.getWidth()){
-            position.setX(currentMap.getWidth() - (double)windowWidth);
+        if(position.getX() + Settings.getScreenWidth() > currentMap.getWidth()){
+            position.setX(currentMap.getWidth() - (double)Settings.getScreenWidth());
         }
-        if(position.getY() + windowHeight > currentMap.getHeight()){
-            position.setY(currentMap.getHeight() - (double)windowHeight);
+        if(position.getY() + Settings.getScreenHeight() > currentMap.getHeight()){
+            position.setY(currentMap.getHeight() - (double)Settings.getScreenHeight());
         }
     }
 

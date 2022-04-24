@@ -12,10 +12,18 @@ import java.io.*;
 public class MapIO {
 
     public static void save(GameMap gameMap, String filePath){
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".pzq"))){
-            writer.write(gameMap.serialize());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(filePath.contains(".pzq")) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+                writer.write(gameMap.serialize());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".pzq"))) {
+                writer.write(gameMap.serialize());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
