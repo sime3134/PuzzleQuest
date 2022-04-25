@@ -29,7 +29,7 @@ public class EditorState extends State {
         super();
         fileChooser = new JFileChooser();
         fileChooser.setAcceptAllFileFilterUsed(false);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Game map", "pzq"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Game map", "txt"));
         fileChooser.setCurrentDirectory(new File(getClass().getResource("/").getFile()));
         createNewMap(32, 32);
         setupMouseButtons();
