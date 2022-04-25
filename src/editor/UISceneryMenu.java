@@ -659,20 +659,26 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "empty_well",
+                96,82,
+                new Vector2D(0,14),
+                20,
                 false,
                 content
         ));
 
         sceneryToAdd.add(new Scenery(
                 "well",
+                96,82,
+                new Vector2D(0,14),
+                20,
                 false,
                 content
         ));
 
         sceneryToAdd.add(new Scenery(
                 "well_with_roof",
-                138,144,
-                new Vector2D(0,0),
+                130,74,
+                new Vector2D(4,70),
                 20,
                 false,
                 content
