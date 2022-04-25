@@ -27,6 +27,7 @@ public class ImgUtils {
 
             Graphics2D g = compatibleImage.createGraphics();
             g.drawImage(imageFromDisk, 0, 0, null);
+            g.dispose();
             return compatibleImage;
         }catch(Exception e){
             e.printStackTrace();

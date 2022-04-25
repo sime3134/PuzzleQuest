@@ -17,7 +17,6 @@ import java.awt.*;
 public class SetupNameState extends State{
 
     public SetupNameState() {
-        loadMap("map", false);
     }
 
     @Override

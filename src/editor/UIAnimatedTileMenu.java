@@ -10,7 +10,7 @@ import java.awt.*;
 
 /**
  * @author Simon Jern
- * Menu in the world editor to display placeable tiles.
+ * Menu in the world editor to display placeable animated tiles.
  */
 public class UIAnimatedTileMenu extends HorizontalContainer {
 
@@ -21,7 +21,8 @@ public class UIAnimatedTileMenu extends HorizontalContainer {
 
         UITabContainer tileContainer = new UITabContainer();
         tileContainer.addTab("water/mountain1",
-                getColumn(content, "water_left_bottom1"));
+                getColumn(content, "water_left_bottom1"),
+                getColumn(content, "fireplace"));
 
         addComponent(tileContainer);
     }

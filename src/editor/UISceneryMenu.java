@@ -25,7 +25,42 @@ public class UISceneryMenu extends HorizontalContainer {
         tabContainer.addTab("Man Made", getManMadeSceneryContainer(content));
         tabContainer.addTab("Doors/Widow", getDoorAndWindowSceneryContainer(content));
         tabContainer.addTab("Sign/Symbols", getSignsSymbolContainer(content));
+        tabContainer.addTab("Buildings", getBuildingSymbolContainer(content));
         addComponent(tabContainer);
+    }
+
+    private UIContainer getBuildingSymbolContainer(ContentManager content) {
+        List<Scenery> sceneryToAdd = new ArrayList<>();
+
+        sceneryToAdd.add(new Scenery(
+                "house",
+                288, 200,
+                new Vector2D(0, 160),
+                160,
+                false,
+                content
+        ));
+
+        UIContainer main = new HorizontalContainer();
+        main.setMargin(new Spacing(0));
+
+        UIContainer column = new VerticalContainer();
+        column.setMargin(new Spacing(0));
+        column.setPadding(new Spacing(0));
+
+        main.addComponent(column);
+
+        for (Scenery scenery : sceneryToAdd) {
+            column.addComponent(new UIToolToggle(content.getImage(scenery.getName()),
+                    new SceneryPlacer(scenery), scenery.getWidth() / 2, scenery.getHeight() / 2));
+
+            if (column.getHeight() > 140) {
+                column = new VerticalContainer();
+                main.addComponent(column);
+            }
+        }
+
+        return main;
     }
 
     private UIContainer getNatureSceneryContainer(ContentManager content) {

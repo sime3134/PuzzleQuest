@@ -6,6 +6,7 @@ import core.Vector2D;
 import entity.NPC;
 import entity.Player;
 import main.Game;
+import map.GameMap;
 import ui.*;
 import ui.clickable.UIButton;
 
@@ -20,6 +21,7 @@ import java.security.SecureRandom;
 public class GameState extends State{
 
     private Player player;
+    private GameMap[][] worldMap;
 
     public GameState(){
         super();

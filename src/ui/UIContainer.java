@@ -18,6 +18,7 @@ public abstract class UIContainer extends UIComponent {
     protected boolean centerChildren;
 
     protected Color backgroundColor;
+    protected Color borderColor;
 
     protected int fixedWidth;
     protected int fixedHeight;
@@ -47,6 +48,10 @@ public abstract class UIContainer extends UIComponent {
         this.backgroundColor = color;
     }
 
+    public void setBorderColor(Color borderColor) {
+        this.borderColor = borderColor;
+    }
+
     @Override
     public Image getSprite() {
         return sprite;
@@ -67,6 +72,7 @@ public abstract class UIContainer extends UIComponent {
         alignment = new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP);
         centerChildren = false;
         backgroundColor = new Color(0, 0, 0, 0);
+        borderColor = new Color(0, 0, 0, 0);
         margin = new Spacing(5);
         padding = new Spacing(5);
         children = new ArrayList<>();
@@ -124,6 +130,9 @@ public abstract class UIContainer extends UIComponent {
 
         graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, width, height);
+        graphics.setColor(borderColor);
+        graphics.setStroke(new BasicStroke(3));
+        graphics.drawRect(0, 0, width, height);
 
         graphics.dispose();
     }

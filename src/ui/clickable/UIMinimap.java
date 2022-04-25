@@ -82,8 +82,7 @@ public class UIMinimap extends UIClickable{
         int scaledWidth = (int)Math.round(sprite.getWidth(null) * minimapRatio);
         int scaledHeight = (int)Math.round(sprite.getHeight(null) * minimapRatio);
 
-        Image scaledSprite = sprite.getScaledInstance(scaledWidth, scaledHeight, 0
-        );
+        Image scaledSprite = sprite.getScaledInstance(scaledWidth, scaledHeight, 0);
         cachedScaledImages.put(sprite, scaledSprite);
 
         return scaledSprite;

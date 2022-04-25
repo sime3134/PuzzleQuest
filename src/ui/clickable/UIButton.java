@@ -24,6 +24,8 @@ public class UIButton extends UIClickable{
     private Color hoverColor;
     private Color clickColor;
 
+    private Color borderColor;
+
     public UIButton(String buttonText, ClickAction clickAction) {
         this.buttonText = new UIText(buttonText);
         this.clickAction = clickAction;
@@ -32,6 +34,7 @@ public class UIButton extends UIClickable{
         backgroundColor = Color.GRAY;
         hoverColor = Color.LIGHT_GRAY;
         clickColor = Color.DARK_GRAY;
+        borderColor = Color.BLACK;
 
         buttonContainer = new VerticalContainer();
         buttonContainer.setCenterChildren(true);
@@ -46,6 +49,7 @@ public class UIButton extends UIClickable{
         width = buttonContainer.getWidth();
         height = buttonContainer.getHeight();
 
+        buttonContainer.setBorderColor(borderColor);
         buttonContainer.setBackgroundColor(backgroundColor);
 
         if(hasFocus){
@@ -105,6 +109,10 @@ public class UIButton extends UIClickable{
 
     public void setClickColor(Color clickColor) {
         this.clickColor = clickColor;
+    }
+
+    public void setBorderColor(Color borderColor) {
+        this.borderColor = borderColor;
     }
 
     @Override
