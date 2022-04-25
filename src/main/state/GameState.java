@@ -25,7 +25,7 @@ public class GameState extends State{
 
     public GameState(){
         super();
-        loadMap("maze", false);
+        loadMap("map", false);
         initializeEntities();
     }
 
