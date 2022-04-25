@@ -26,11 +26,11 @@ public class GameMap implements Persistable {
     //region Getters and Setters (click to open)
 
     public int getWidth() {
-        return tiles.length * Settings.getSpriteSize();
+        return tiles.length * Settings.getTileSize();
     }
 
     public int getHeight() {
-        return tiles[0].length * Settings.getSpriteSize();
+        return tiles[0].length * Settings.getTileSize();
     }
 
     public Tile[][] getTiles() {
@@ -47,16 +47,16 @@ public class GameMap implements Persistable {
     }
 
     public Vector2D getRandomAvailablePositionOnMap(List<GameObject> gameObjects) {
-        double x = Math.random() * (tiles.length - 1) * Settings.getSpriteSize();
-        double y = Math.random() * (tiles[0].length - 1) * Settings.getSpriteSize();
-        int gridX = (int) (x / Settings.getSpriteSize());
-        int gridY = (int) (y / Settings.getSpriteSize());
+        double x = Math.random() * (tiles.length - 1) * Settings.getTileSize();
+        double y = Math.random() * (tiles[0].length - 1) * Settings.getTileSize();
+        int gridX = (int) (x / Settings.getTileSize());
+        int gridY = (int) (y / Settings.getTileSize());
 
         if (!tileIsAvailable(gameObjects, gridX, gridY)) {
             return getRandomAvailablePositionOnMap(gameObjects);
         }
 
-        return new Vector2D(gridX * Settings.getSpriteSize(), gridY * Settings.getSpriteSize());
+        return new Vector2D(gridX * Settings.getTileSize(), gridY * Settings.getTileSize());
     }
 
     public List<Scenery> getSceneryList() {
@@ -88,8 +88,8 @@ public class GameMap implements Persistable {
     }
 
     public List<CollisionBox> getCollidingUnwalkableTileBoxes(CollisionBox collisionBox) {
-        int gridX = (int) (collisionBox.getBounds().getX() / Settings.getSpriteSize());
-        int gridY = (int) (collisionBox.getBounds().getY() / Settings.getSpriteSize());
+        int gridX = (int) (collisionBox.getBounds().getX() / Settings.getTileSize());
+        int gridY = (int) (collisionBox.getBounds().getY() / Settings.getTileSize());
 
         List<CollisionBox> collidingUnwalkableTileBoxes = new ArrayList<>();
 
@@ -111,17 +111,17 @@ public class GameMap implements Persistable {
     private CollisionBox getGridCollisionBox(int x, int y) {
         if (getTile(x, y).getCollisionBoxType() == 1) {
             return new CollisionBox(new Rectangle(
-                    x * Settings.getSpriteSize(),
-                    y * Settings.getSpriteSize(),
-                    Settings.getSpriteSize(),
-                    Settings.getSpriteSize() / 3
+                    x * Settings.getTileSize(),
+                    y * Settings.getTileSize(),
+                    Settings.getTileSize(),
+                    Settings.getTileSize() / 3
             ));
         } else {
             return new CollisionBox(new Rectangle(
-                    x * Settings.getSpriteSize(),
-                    y * Settings.getSpriteSize(),
-                    Settings.getSpriteSize(),
-                    Settings.getSpriteSize()
+                    x * Settings.getTileSize(),
+                    y * Settings.getTileSize(),
+                    Settings.getTileSize(),
+                    Settings.getTileSize()
             ));
         }
     }
@@ -135,19 +135,19 @@ public class GameMap implements Persistable {
      * We add margins to make sure we don't miss any tiles.
      */
     public void draw(Graphics g, Camera camera, List<GameObject> gameObjects) {
-        double startPosX = Math.max(0, camera.getPosition().getX() / Settings.getSpriteSize()); //left border of screen
+        double startPosX = Math.max(0, camera.getPosition().getX() / Settings.getTileSize()); //left border of screen
         double endPosX = Math.min(tiles.length,
-                (camera.getPosition().getX() + Settings.getScreenWidth()) / Settings.getSpriteSize()
+                (camera.getPosition().getX() + Settings.getScreenWidth()) / Settings.getTileSize()
                         + Settings.getRenderMargin()); //right border of screen
-        double startPosY = Math.max(0, camera.getPosition().getY() / Settings.getSpriteSize()); //top of screen
+        double startPosY = Math.max(0, camera.getPosition().getY() / Settings.getTileSize()); //top of screen
         double endPosY = Math.min(tiles[0].length,
-                (camera.getPosition().getY() + Settings.getScreenHeight()) / Settings.getSpriteSize()
+                (camera.getPosition().getY() + Settings.getScreenHeight()) / Settings.getTileSize()
                         + Settings.getRenderMargin()); //bottom of screen
 
         for (int x = (int) startPosX; x < (int) endPosX; x++) {
             for (int y = (int) startPosY; y < (int) endPosY; y++) {
-                int drawPositionX = x * Settings.getSpriteSize() - camera.getPosition().intX();
-                int drawPositionY = y * Settings.getSpriteSize() - camera.getPosition().intY();
+                int drawPositionX = x * Settings.getTileSize() - camera.getPosition().intX();
+                int drawPositionY = y * Settings.getTileSize() - camera.getPosition().intY();
 
                 tiles[x][y].draw(g, drawPositionX, drawPositionY);
 
@@ -155,9 +155,9 @@ public class GameMap implements Persistable {
                     Color overlayColor = new Color(255, 0, 0, 85);
                     g.setColor(overlayColor);
                     if (tiles[x][y].getCollisionBoxType() == 2) {
-                        g.fillRect(drawPositionX, drawPositionY, Settings.getSpriteSize(), Settings.getSpriteSize());
+                        g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize());
                     } else if (tiles[x][y].getCollisionBoxType() == 1) {
-                        g.fillRect(drawPositionX, drawPositionY, Settings.getSpriteSize(), Settings.getSpriteSize() / 3);
+                        g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize() / 3);
                     }
                 }
 
@@ -171,7 +171,7 @@ public class GameMap implements Persistable {
                         g.setColor(overlayColor);
                     }
 
-                    g.fillRect(drawPositionX, drawPositionY, Settings.getSpriteSize(), Settings.getSpriteSize());
+                    g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize());
                 }
             }
         }
@@ -179,18 +179,18 @@ public class GameMap implements Persistable {
         if (Settings.getRenderGrid().getValue()) {
             g.setColor(Color.LIGHT_GRAY);
             for (int x = (int) startPosX; x < endPosX; x++) {
-                g.drawLine(x * Settings.getSpriteSize() - camera.getPosition().intX(),
-                        (int) startPosY * Settings.getSpriteSize() - camera.getPosition().intY(),
-                        x * Settings.getSpriteSize() - camera.getPosition().intX(),
-                        (int) endPosY * Settings.getSpriteSize() - camera.getPosition().intY()
+                g.drawLine(x * Settings.getTileSize() - camera.getPosition().intX(),
+                        (int) startPosY * Settings.getTileSize() - camera.getPosition().intY(),
+                        x * Settings.getTileSize() - camera.getPosition().intX(),
+                        (int) endPosY * Settings.getTileSize() - camera.getPosition().intY()
                 );
             }
 
             for (int y = (int) startPosY; y < endPosY; y++) {
-                g.drawLine((int) startPosX * Settings.getSpriteSize() - camera.getPosition().intX(),
-                        y * Settings.getSpriteSize() - camera.getPosition().intY(),
-                        (int) endPosX * Settings.getSpriteSize() - camera.getPosition().intX(),
-                        y * Settings.getSpriteSize() - camera.getPosition().intY()
+                g.drawLine((int) startPosX * Settings.getTileSize() - camera.getPosition().intX(),
+                        y * Settings.getTileSize() - camera.getPosition().intY(),
+                        (int) endPosX * Settings.getTileSize() - camera.getPosition().intX(),
+                        y * Settings.getTileSize() - camera.getPosition().intY()
                 );
             }
         }
@@ -302,13 +302,13 @@ public class GameMap implements Persistable {
     }
 
     public void update(Camera camera) {
-        double startPosX = Math.max(0, camera.getPosition().getX() / Settings.getSpriteSize()); //left border of screen
+        double startPosX = Math.max(0, camera.getPosition().getX() / Settings.getTileSize()); //left border of screen
         double endPosX = Math.min(tiles.length,
-                (camera.getPosition().getX() + Settings.getScreenWidth()) / Settings.getSpriteSize()
+                (camera.getPosition().getX() + Settings.getScreenWidth()) / Settings.getTileSize()
                         + Settings.getRenderMargin()); //right border of screen
-        double startPosY = Math.max(0, camera.getPosition().getY() / Settings.getSpriteSize()); //top of screen
+        double startPosY = Math.max(0, camera.getPosition().getY() / Settings.getTileSize()); //top of screen
         double endPosY = Math.min(tiles[0].length,
-                (camera.getPosition().getY() + Settings.getScreenHeight()) / Settings.getSpriteSize()
+                (camera.getPosition().getY() + Settings.getScreenHeight()) / Settings.getTileSize()
                         + Settings.getRenderMargin()); //bottom of screen
 
         for (int x = (int) startPosX; x < (int) endPosX; x++) {

@@ -28,8 +28,8 @@ public class AnimatedTile extends Tile{
         this.tileSheet = content.getAnimatedTileSheet(tileSheetName).get(tileSheetName);
         this.tileSheetName = tileSheetName;
         this.collisionBoxType = 0;
-        animationManager = new AnimationManager(content.getAnimatedTileSheet(tileSheetName), Settings.getSpriteSize(),
-                Settings.getSpriteSize(), tileSheetName);
+        animationManager = new AnimationManager(content.getAnimatedTileSheet(tileSheetName), Settings.getTileSize(),
+                Settings.getTileSize(), tileSheetName);
         generateSprite();
     }
 
@@ -46,16 +46,16 @@ public class AnimatedTile extends Tile{
     protected void generateSprite() {
         sprite = ((BufferedImage)tileSheet).getSubimage(
                 0,0,
-                Settings.getSpriteSize(),
-                Settings.getSpriteSize()
+                Settings.getTileSize(),
+                Settings.getTileSize()
         );
     }
 
     @Override
     public void reloadGraphics(ContentManager content) {
         tileSheet = content.getAnimatedTileSheet(tileSheetName).get(tileSheetName);
-        animationManager = new AnimationManager(content.getAnimatedTileSheet(tileSheetName), Settings.getSpriteSize(),
-                Settings.getSpriteSize(), tileSheetName);
+        animationManager = new AnimationManager(content.getAnimatedTileSheet(tileSheetName), Settings.getTileSize(),
+                Settings.getTileSize(), tileSheetName);
         generateSprite();
     }
 

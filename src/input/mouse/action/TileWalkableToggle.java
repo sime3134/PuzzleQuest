@@ -23,8 +23,8 @@ public class TileWalkableToggle extends MouseAction{
         Vector2D mousePosition = input.getMousePosition().getCopy();
         mousePosition.add(state.getCamera().getPosition());
 
-        int gridX = mousePosition.intX() / Settings.getSpriteSize();
-        int gridY = mousePosition.intY() / Settings.getSpriteSize();
+        int gridX = mousePosition.intX() / Settings.getTileSize();
+        int gridY = mousePosition.intY() / Settings.getTileSize();
 
         if(state.getCurrentMap().isWithinBounds(gridX, gridY)){
             Tile tile = state.getCurrentMap().getTile(gridX, gridY);

@@ -2,6 +2,7 @@ package map;
 
 import IO.Persistable;
 import content.ContentManager;
+import settings.Settings;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -78,13 +79,11 @@ public class Tile implements Persistable {
      */
     protected void generateSprite() {
         sprite = ((BufferedImage)tileSheet).getSubimage(
-                (tileIndex / (tileSheet.getWidth(null) / 48)) * 48,
-                (tileIndex % (tileSheet.getWidth(null) / 48)) * 48,
-                48,
-                48
+                (tileIndex / (tileSheet.getWidth(null) / Settings.getTileSize())) * Settings.getTileSize(),
+                (tileIndex % (tileSheet.getWidth(null) / Settings.getTileSize())) * Settings.getTileSize(),
+                Settings.getTileSize(),
+                Settings.getTileSize()
         );
-
-        //sprite = sprite.getScaledInstance(sprite.getWidth(null) * 2, sprite.getHeight(null) * 2, 0);
     }
 
     public void reloadGraphics(ContentManager content){

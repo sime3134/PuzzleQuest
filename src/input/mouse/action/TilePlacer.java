@@ -64,12 +64,12 @@ public class TilePlacer extends MouseAction{
         Vector2D mousePosition = Input.getInstance().getMousePosition().getCopy();
         mousePosition.add(state.getCamera().getPosition());
 
-        currentGridX = mousePosition.intX() / Settings.getSpriteSize();
-        currentGridY = mousePosition.intY() / Settings.getSpriteSize();
+        currentGridX = mousePosition.intX() / Settings.getTileSize();
+        currentGridY = mousePosition.intY() / Settings.getTileSize();
 
         mousePosition.subtract(new Vector2D(
-                mousePosition.intX() % Settings.getSpriteSize(),
-                mousePosition.intY() % Settings.getSpriteSize()));
+                mousePosition.intX() % Settings.getTileSize(),
+                mousePosition.intY() % Settings.getTileSize()));
         mousePosition.subtract(state.getCamera().getPosition());
 
         previewImage.setAbsolutePosition(mousePosition);

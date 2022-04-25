@@ -120,8 +120,8 @@ public abstract class GameObject {
     protected GameObject(){
         this.position = new Vector2D(0,0);
         this.renderOffset = new Vector2D(0,0);
-        this.width = Settings.getSpriteSize();
-        this.height = Settings.getSpriteSize();
+        this.width = Settings.getTileSize();
+        this.height = Settings.getTileSize();
         this.collisionBoxWidth = 0;
         this.collisionBoxHeight = 0;
         this.collisionBoxOffset = new Vector2D(0,0);

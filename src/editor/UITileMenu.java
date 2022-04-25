@@ -46,8 +46,8 @@ public class UITileMenu extends HorizontalContainer {
         main.setMargin(new Spacing(0));
         Tile tile = new Tile(content, tileSheet);
 
-        int tilesX = tile.getTileSheet().getWidth(null) / Settings.getSpriteSize();
-        int tilesY = tile.getTileSheet().getHeight(null) / Settings.getSpriteSize();
+        int tilesX = tile.getTileSheet().getWidth(null) / Settings.getTileSize();
+        int tilesY = tile.getTileSheet().getHeight(null) / Settings.getTileSize();
 
         for(int x = 0; x < tilesX; x++){
             UIContainer column = new VerticalContainer();

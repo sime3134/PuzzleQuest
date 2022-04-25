@@ -8,13 +8,13 @@ public abstract class Settings {
 
     private Settings() {}
 
-    private static final int SPRITE_SIZE = 48;
+    private static final int TILE_SIZE = 48;
 
     private static int SCREEN_WIDTH = 1100;
     private static int SCREEN_HEIGHT = 700;
 
     private static final int PROXIMITY_RANGE = 2;
-    private static final int RENDER_MARGIN = 2 * SPRITE_SIZE;
+    private static final int RENDER_MARGIN = 2 * TILE_SIZE;
 
     private static boolean DEBUG_MODE = false;
 
@@ -38,8 +38,8 @@ public abstract class Settings {
 
     //region Getters and Setters (click to view)
 
-    public static int getSpriteSize() {
-        return SPRITE_SIZE;
+    public static int getTileSize() {
+        return TILE_SIZE;
     }
 
     public static int getScreenWidth() {

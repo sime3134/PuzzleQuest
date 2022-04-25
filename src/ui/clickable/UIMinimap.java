@@ -66,8 +66,8 @@ public class UIMinimap extends UIClickable{
 
             g.drawImage(
                     getScaledSprite(gameObject.getSprite()),
-                    (int) Math.round(positionWithOffset.getX() / Settings.getSpriteSize() * spriteSizeOnMinimap + pixelOffset.getX()),
-                    (int) Math.round(positionWithOffset.getY() / Settings.getSpriteSize() * spriteSizeOnMinimap + pixelOffset.getY()),
+                    (int) Math.round(positionWithOffset.getX() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getX()),
+                    (int) Math.round(positionWithOffset.getY() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getY()),
                     null);
         });
 
@@ -94,7 +94,7 @@ public class UIMinimap extends UIClickable{
                 height / (double) gameMap.getHeight()
         );
 
-        spriteSizeOnMinimap = (int) Math.round(Settings.getSpriteSize() * minimapRatio);
+        spriteSizeOnMinimap = (int) Math.round(Settings.getTileSize() * minimapRatio);
 
         pixelOffset = new Vector2D(
                 (getWidth() - gameMap.getTiles().length * spriteSizeOnMinimap) / 2f,

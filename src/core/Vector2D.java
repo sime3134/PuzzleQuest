@@ -39,11 +39,11 @@ public class Vector2D implements Persistable {
     }
 
     public int gridX(){
-        return (int) (x / Settings.getSpriteSize());
+        return (int) (x / Settings.getTileSize());
     }
 
     public int gridY(){
-        return (int) (y / Settings.getSpriteSize());
+        return (int) (y / Settings.getTileSize());
     }
 
     public Vector2D grid() {
@@ -62,8 +62,8 @@ public class Vector2D implements Persistable {
      * @return the position of a grid square.
      */
     public static Vector2D ofGridPosition(int gridX, int gridY){
-        return new Vector2D(gridX * Settings.getSpriteSize(),
-                gridY * Settings.getSpriteSize());
+        return new Vector2D(gridX * Settings.getTileSize(),
+                gridY * Settings.getTileSize());
     }
 
     /**
@@ -71,8 +71,8 @@ public class Vector2D implements Persistable {
      * @return the position of a grid square.
      */
     public static Vector2D ofGridPosition(Vector2D grid){
-        return new Vector2D(grid.intX() * Settings.getSpriteSize(),
-                grid.intY() * Settings.getSpriteSize());
+        return new Vector2D(grid.intX() * Settings.getTileSize(),
+                grid.intY() * Settings.getTileSize());
     }
 
     public Vector2D(double x, double y) {
