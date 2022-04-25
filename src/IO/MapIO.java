@@ -12,14 +12,14 @@ import java.io.*;
 public class MapIO {
 
     public static void save(GameMap gameMap, String filePath){
-        if(filePath.contains(".pzq")) {
+        if(filePath.contains(".txt")) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
                 writer.write(gameMap.serialize());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }else{
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".pzq"))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".txt"))) {
                 writer.write(gameMap.serialize());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -28,9 +28,9 @@ public class MapIO {
     }
 
     public static GameMap loadFromName(ContentManager content, String mapName) {
-        if (MapIO.class.getResource("/maps/" + mapName + ".pzq") != null) {
+        if (MapIO.class.getResource("/maps/" + mapName + ".txt") != null) {
             try (BufferedReader reader = new BufferedReader(new FileReader(MapIO.class.getResource("/maps/"
-                    + mapName + ".pzq").getFile()))) {
+                    + mapName + ".txt").getFile()))) {
                 GameMap gameMap = new GameMap();
 
                 StringBuilder sb = new StringBuilder();
