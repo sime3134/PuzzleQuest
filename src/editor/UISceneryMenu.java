@@ -580,8 +580,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "bench",
-                78, 60,
-                new Vector2D(0, 0),
+                78, 40,
+                new Vector2D(0, 20),
                 20,
                 false,
                 content
@@ -589,8 +589,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "bench2",
-                36, 96,
-                new Vector2D(0, 0),
+                36, 76,
+                new Vector2D(0, 20),
                 20,
                 false,
                 content
@@ -598,8 +598,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "bench3",
-                36, 96,
-                new Vector2D(0, 0),
+                36, 76,
+                new Vector2D(0, 20),
                 20,
                 false,
                 content
@@ -607,8 +607,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "bench4",
-                78, 42,
-                new Vector2D(0, 0),
+                78, 35,
+                new Vector2D(0, 7),
                 20,
                 false,
                 content
@@ -616,12 +616,18 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "board",
+                84,35,
+                new Vector2D(0,43),
+                20,
                 false,
                 content
         ));
 
         sceneryToAdd.add(new Scenery(
                 "board2",
+                84,35,
+                new Vector2D(0,43),
+                20,
                 false,
                 content
         ));
@@ -676,8 +682,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "double_pole",
-                36,144,
-                new Vector2D(0,0),
+                36,50,
+                new Vector2D(0,94),
                 20,
                 false,
                 content
@@ -685,8 +691,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "double_pole2",
-                36,144,
-                new Vector2D(0,0),
+                36,50,
+                new Vector2D(0,94),
                 20,
                 false,
                 content
@@ -748,8 +754,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "large_pole",
-                18,144,
-                new Vector2D(0,0),
+                18,50,
+                new Vector2D(0,94),
                 20,
                 false,
                 content
@@ -757,8 +763,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "large_pole2",
-                18,144,
-                new Vector2D(0,0),
+                18,50,
+                new Vector2D(0,94),
                 20,
                 false,
                 content
@@ -766,8 +772,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "light",
-                30,81,
-                new Vector2D(0,0),
+                16,41,
+                new Vector2D(7,40),
                 20,
                 false,
                 content
@@ -775,8 +781,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "lit_light",
-                30,81,
-                new Vector2D(0,0),
+                16,41,
+                new Vector2D(7,40),
                 20,
                 false,
                 content
@@ -805,6 +811,9 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "opening",
+                96,50,
+                new Vector2D(0,46),
+                20,
                 false,
                 content
         ));
@@ -835,8 +844,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "rip",
-                42, 49,
-                new Vector2D(0,0),
+                40, 24,
+                new Vector2D(1,25),
                 20,
                 false,
                 content
@@ -844,17 +853,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "rip2",
-                42, 49,
-                new Vector2D(0,0),
-                20,
-                false,
-                content
-        ));
-
-        sceneryToAdd.add(new Scenery(
-                "rip2",
-                45, 33,
-                new Vector2D(0,0),
+                40, 24,
+                new Vector2D(1,25),
                 20,
                 false,
                 content
@@ -862,8 +862,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "small_pole",
-                18, 117,
-                new Vector2D(0,0),
+                18, 60,
+                new Vector2D(0,57),
                 20,
                 false,
                 content
@@ -871,8 +871,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "small_pole2",
-                18, 117,
-                new Vector2D(0,0),
+                18, 60,
+                new Vector2D(0,57),
                 20,
                 false,
                 content
@@ -880,8 +880,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "statue",
-                48, 93,
-                new Vector2D(0,0),
+                48, 43,
+                new Vector2D(0,50),
                 20,
                 false,
                 content
@@ -889,8 +889,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "statue2",
-                48, 96,
-                new Vector2D(0,0),
+                48, 43,
+                new Vector2D(0,50),
                 20,
                 false,
                 content
@@ -898,8 +898,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "table",
-                48, 144,
-                new Vector2D(0,0),
+                48, 130,
+                new Vector2D(0,14),
                 20,
                 false,
                 content
@@ -919,8 +919,8 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "table4",
-                144, 48,
-                new Vector2D(0,0),
+                144, 40,
+                new Vector2D(0,8),
                 20,
                 false,
                 content
@@ -973,12 +973,18 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "blue_open_door",
+                48,18,
+                new Vector2D(0,0),
+                20,
                 false,
                 content
         ));
 
         sceneryToAdd.add(new Scenery(
                 "blue_open_door2",
+                48,18,
+                new Vector2D(0,0),
+                20,
                 false,
                 content
         ));
@@ -1003,18 +1009,18 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "open_door",
+                48,18,
+                new Vector2D(0,0),
+                20,
                 false,
                 content
         ));
 
         sceneryToAdd.add(new Scenery(
                 "open_door2",
-                false,
-                content
-        ));
-
-        sceneryToAdd.add(new Scenery(
-                "door",
+                48,18,
+                new Vector2D(0,0),
+                20,
                 false,
                 content
         ));
@@ -1039,12 +1045,18 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "orangeish_open_door",
+                48,18,
+                new Vector2D(0,0),
+                20,
                 false,
                 content
         ));
 
         sceneryToAdd.add(new Scenery(
                 "orangeish_open_door2",
+                48,18,
+                new Vector2D(0,0),
+                20,
                 false,
                 content
         ));
@@ -1069,12 +1081,18 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "pink_open_door",
+                48,18,
+                new Vector2D(0,0),
+                20,
                 false,
                 content
         ));
 
         sceneryToAdd.add(new Scenery(
                 "pink_open_door2",
+                48,18,
+                new Vector2D(0,0),
+                20,
                 false,
                 content
         ));
