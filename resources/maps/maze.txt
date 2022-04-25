@@ -127,3 +127,12 @@ Scenery:small_tree_with_fruit:2402|2383:48:99:0|0:20.0:5|63:40:27:false:58:49:-5
 Scenery:rocks2_v2:2522|2466:42:42:0|0:-42.0:0|14:42:28:true:52:47:-5:0:
 Scenery:bush2_with_fruit:2579|2433:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 Scenery:rocks2:2519|2514:45:45:0|0:-45.0:0|15:45:30:true:55:50:-5:0:
+Scenery:small_tree_with_fruit:4560|4088:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree_with_fruit:4562|4131:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree_with_fruit:4563|4179:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree_with_fruit:4561|4223:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree_with_fruit:4561|4275:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree_with_fruit:4560|4334:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree_with_fruit:4561|4381:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree_with_fruit:4562|4445:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree_with_fruit:4557|4509:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
