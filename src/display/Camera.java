@@ -1,5 +1,6 @@
 package display;
 
+import core.CollisionBox;
 import core.Vector2D;
 import entity.GameObject;
 import map.GameMap;
@@ -33,10 +34,10 @@ public class Camera {
 
     private void setCurrentView() {
         currentView = new Rectangle(
-                position.intX() - Settings.getRenderMargin(),
-                position.intY() - Settings.getRenderMargin(),
-                Settings.getScreenWidth() + Settings.getRenderMargin() * 2,
-                Settings.getScreenHeight() + Settings.getRenderMargin() * 2);
+                position.intX(),
+                position.intY(),
+                Settings.getScreenWidth(),
+                Settings.getScreenHeight());
     }
 
     public Camera() {
@@ -98,7 +99,7 @@ public class Camera {
      */
     public boolean isObjectInView(GameObject gameObject) {
         return currentView.intersects(
-            gameObject.getCollisionBox().getBounds()
+                CollisionBox.of(gameObject.getPosition(), gameObject.getWidth(), gameObject.getHeight()).getBounds()
         );
     }
 }

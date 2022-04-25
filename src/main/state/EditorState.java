@@ -31,7 +31,7 @@ public class EditorState extends State {
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Game map", "txt"));
         fileChooser.setCurrentDirectory(new File(getClass().getResource("/").getFile()));
-        createNewMap(32, 32);
+        createNewMap(64, 64);
         setupMouseButtons();
         Settings.setDebugMode(true);
         centerCameraOnMap();

@@ -25,7 +25,7 @@ public class GameState extends State{
 
     public GameState(){
         super();
-        loadMap("map", false);
+        loadMap("village_test", false);
         initializeEntities();
     }
 

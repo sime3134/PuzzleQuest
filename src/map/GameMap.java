@@ -152,49 +152,60 @@ public class GameMap implements Persistable {
                 tiles[x][y].draw(g, drawPositionX, drawPositionY);
 
                 if (Settings.getRenderTileWalkable().getValue()) {
-                    Color overlayColor = new Color(255, 0, 0, 85);
-                    g.setColor(overlayColor);
-                    if (tiles[x][y].getCollisionBoxType() == 2) {
-                        g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize());
-                    } else if (tiles[x][y].getCollisionBoxType() == 1) {
-                        g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize() / 3);
-                    }
+                    drawWalkable(g, x, y, drawPositionX, drawPositionY);
                 }
 
                 if (Settings.isPathable().getValue()) {
-
-                    if (!tileIsAvailable(gameObjects, x, y)) {
-                        Color overlayColor = new Color(255, 0, 0, 85);
-                        g.setColor(overlayColor);
-                    } else {
-                        Color overlayColor = new Color(0, 255, 0, 85);
-                        g.setColor(overlayColor);
-                    }
-
-                    g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize());
+                    drawPathable(g, gameObjects, x, y, drawPositionX, drawPositionY);
                 }
             }
         }
 
         if (Settings.getRenderGrid().getValue()) {
-            g.setColor(Color.LIGHT_GRAY);
-            for (int x = (int) startPosX; x < endPosX; x++) {
-                g.drawLine(x * Settings.getTileSize() - camera.getPosition().intX(),
-                        (int) startPosY * Settings.getTileSize() - camera.getPosition().intY(),
-                        x * Settings.getTileSize() - camera.getPosition().intX(),
-                        (int) endPosY * Settings.getTileSize() - camera.getPosition().intY()
-                );
-            }
-
-            for (int y = (int) startPosY; y < endPosY; y++) {
-                g.drawLine((int) startPosX * Settings.getTileSize() - camera.getPosition().intX(),
-                        y * Settings.getTileSize() - camera.getPosition().intY(),
-                        (int) endPosX * Settings.getTileSize() - camera.getPosition().intX(),
-                        y * Settings.getTileSize() - camera.getPosition().intY()
-                );
-            }
+            drawGrid(g, camera, (int) startPosX, (int) endPosX, (int) startPosY, (int) endPosY);
         }
 
+    }
+
+    private void drawGrid(Graphics g, Camera camera, int startPosX, int endPosX, int startPosY, int endPosY) {
+        g.setColor(Color.LIGHT_GRAY);
+        for (int x = startPosX; x < endPosX; x++) {
+            g.drawLine(x * Settings.getTileSize() - camera.getPosition().intX(),
+                    startPosY * Settings.getTileSize() - camera.getPosition().intY(),
+                    x * Settings.getTileSize() - camera.getPosition().intX(),
+                    endPosY * Settings.getTileSize() - camera.getPosition().intY()
+            );
+        }
+
+        for (int y = startPosY; y < endPosY; y++) {
+            g.drawLine(startPosX * Settings.getTileSize() - camera.getPosition().intX(),
+                    y * Settings.getTileSize() - camera.getPosition().intY(),
+                    (int) endPosX * Settings.getTileSize() - camera.getPosition().intX(),
+                    y * Settings.getTileSize() - camera.getPosition().intY()
+            );
+        }
+    }
+
+    private void drawWalkable(Graphics g, int x, int y, int drawPositionX, int drawPositionY) {
+        Color overlayColor = new Color(255, 0, 0, 85);
+        g.setColor(overlayColor);
+        if (tiles[x][y].getCollisionBoxType() == 2) {
+            g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize());
+        } else if (tiles[x][y].getCollisionBoxType() == 1) {
+            g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize() / 3);
+        }
+    }
+
+    private void drawPathable(Graphics g, List<GameObject> gameObjects, int x, int y, int drawPositionX, int drawPositionY) {
+        if (!tileIsAvailable(gameObjects, x, y)) {
+            Color overlayColor = new Color(255, 0, 0, 85);
+            g.setColor(overlayColor);
+        } else {
+            Color overlayColor = new Color(0, 255, 0, 85);
+            g.setColor(overlayColor);
+        }
+
+        g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize());
     }
 
     public boolean tileIsAvailable(List<GameObject> gameObjects, int x, int y) {
