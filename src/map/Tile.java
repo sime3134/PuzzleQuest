@@ -119,7 +119,7 @@ public class Tile implements Persistable {
     }
 
     public int getMoveCost() {
-        return tileSheetName.equals("dirt") ? 5 : 150;
+        return tileSheetName.equals("paths") || tileSheetName.equals("borders") ? 5 : 150;
     }
 
     public int getTileIndex() {

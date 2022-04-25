@@ -58,7 +58,7 @@ public class SetupNameState extends State{
     @Override
     public void update(Game game) {
         super.update(game);
-        centerCameraOnMap();
+        camera.centerOnMap(currentMap);
     }
 
     @Override

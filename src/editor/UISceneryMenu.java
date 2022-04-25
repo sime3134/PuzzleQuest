@@ -225,7 +225,7 @@ public class UISceneryMenu extends HorizontalContainer {
 
         for (Scenery scenery : sceneryToAdd) {
             column.addComponent(new UIToolToggle(content.getImage(scenery.getName()),
-                    new SceneryPlacer(scenery), scenery.getWidth() / 2, scenery.getHeight() / 2));
+                    new SceneryPlacer(scenery), scenery.getWidth() / 3, scenery.getHeight() / 3));
 
             if (column.getHeight() > 140) {
                 column = new VerticalContainer();
@@ -755,7 +755,7 @@ public class UISceneryMenu extends HorizontalContainer {
 
         for (Scenery scenery : sceneryToAdd) {
             column.addComponent(new UIToolToggle(content.getImage(scenery.getName()),
-                    new SceneryPlacer(scenery), scenery.getWidth() / 2, scenery.getHeight() / 2));
+                    new SceneryPlacer(scenery), scenery.getWidth() / 4, scenery.getHeight() / 4));
 
             if (column.getHeight() > 140) {
                 column = new VerticalContainer();
@@ -768,6 +768,24 @@ public class UISceneryMenu extends HorizontalContainer {
 
     private UIContainer getNatureSceneryContainer(ContentManager content) {
         List<Scenery> sceneryToAdd = new ArrayList<>();
+
+        sceneryToAdd.add(new Scenery(
+                "carrot1",
+                true,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "pumpkin2",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "turnip",
+                false,
+                content
+        ));
 
         sceneryToAdd.add(new Scenery(
                 "3_brown_shrooms",

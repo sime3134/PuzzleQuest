@@ -64,6 +64,13 @@ public class Camera {
         }
     }
 
+    public void centerOnMap(GameMap map){
+        Vector2D centerPosition = new Vector2D(map.getWidth() / 2f, map.getHeight() / 2f);
+        centerPosition.subtract(new Vector2D(Settings.getScreenWidth() / 2f, Settings.getScreenHeight() / 2f));
+
+        setPosition(centerPosition);
+    }
+
     public void update(GameMap currentMap){
         if(objectInFocus.isPresent()){
             Vector2D objectPosition = objectInFocus.get().getPosition();

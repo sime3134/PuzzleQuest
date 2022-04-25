@@ -4,7 +4,6 @@ import IO.MapIO;
 import content.ContentManager;
 import core.CollisionBox;
 import core.Time;
-import core.Vector2D;
 import display.Camera;
 import editor.UISettingsContainer;
 import entity.GameObject;
@@ -148,6 +147,7 @@ public abstract class State {
             currentMap = MapIO.loadFromName(content, nameOrPath);
         }
         gameObjects.addAll(currentMap.getSceneryList());
+        camera.centerOnMap(currentMap);
     }
 
     public void saveMap(String filePath) {
@@ -168,13 +168,6 @@ public abstract class State {
     public void despawn(GameObject gameObject) {
         gameObjects.remove(gameObject);
         currentMap.getSceneryList().remove((Scenery)gameObject);
-    }
-
-    public void centerCameraOnMap(){
-        Vector2D centerPosition = new Vector2D(currentMap.getWidth() / 2f, currentMap.getHeight() / 2f);
-        centerPosition.subtract(new Vector2D(Settings.getScreenWidth() / 2f, Settings.getScreenHeight() / 2f));
-
-        camera.setPosition(centerPosition);
     }
 
     public abstract void escapeButtonPressed(Game game);

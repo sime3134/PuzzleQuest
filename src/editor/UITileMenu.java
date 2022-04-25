@@ -23,26 +23,30 @@ public class UITileMenu extends HorizontalContainer {
         UITabContainer tileContainer = new UITabContainer();
         tileContainer.addTab("grass",
                 getTileSheet(content, "grass1"),
-                getTileSheet(content, "grass2"),
-                getTileSheet(content, "dirt"));
+                getTileSheet(content, "grass2"));
 
         tileContainer.addTab("lakes",
                 getTileSheet(content, "lake1"),
                 getTileSheet(content, "lake2"),
-                getTileSheet(content, "dirt"));
+                getTileSheet(content, "aquatic_plant"));
 
         tileContainer.addTab("mountains",
                 getTileSheet(content, "mountain1"),
                 getTileSheet(content, "mountain2"),
                 getTileSheet(content, "mountain3"),
-                getTileSheet(content, "mountain4"),
-                getTileSheet(content, "dirt"));
+                getTileSheet(content, "mountain4"));
 
-        tileContainer.addTab("town",
-                getTileSheet(content, "town1"),
-                getTileSheet(content, "town2"),
-                getTileSheet(content, "town3"),
-                getTileSheet(content, "town4"));
+        tileContainer.addTab("wall/stair",
+                getTileSheet(content, "town"));
+
+        tileContainer.addTab("farm",
+                getTileSheet(content, "farm"));
+
+        tileContainer.addTab("borders",
+                getTileSheet(content, "borders"));
+
+        tileContainer.addTab("paths",
+                getTileSheet(content, "paths"));
 
         addComponent(tileContainer);
     }

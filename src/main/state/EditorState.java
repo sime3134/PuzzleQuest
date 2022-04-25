@@ -34,7 +34,7 @@ public class EditorState extends State {
         createNewMap(64, 64);
         setupMouseButtons();
         Settings.setDebugMode(true);
-        centerCameraOnMap();
+        camera.centerOnMap(currentMap);
     }
 
     private void setupMouseButtons() {
