@@ -38,6 +38,12 @@ public class UITileMenu extends HorizontalContainer {
                 getTileSheet(content, "mountain4"),
                 getTileSheet(content, "dirt"));
 
+        tileContainer.addTab("town",
+                getTileSheet(content, "town1"),
+                getTileSheet(content, "town2"),
+                getTileSheet(content, "town3"),
+                getTileSheet(content, "town4"));
+
         addComponent(tileContainer);
     }
 

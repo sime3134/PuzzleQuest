@@ -1270,7 +1270,7 @@ public class UISceneryMenu extends HorizontalContainer {
 
         return main;
     }
-    
+
     private UIContainer getManMadeSceneryContainer(ContentManager content) {
         List<Scenery> sceneryToAdd = new ArrayList<>();
 
