@@ -21,7 +21,7 @@ public class MainMenuState extends State{
         super.setupUI();
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        UIText title = new UIText("Puzzle Quest 10.0");
+        UIText title = new UIText("Puzzle Quest 2.0");
         title.setFontSize(28);
         container.addComponent(title);
         uiContainers.add(container);
