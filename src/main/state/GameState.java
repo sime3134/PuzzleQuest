@@ -32,18 +32,8 @@ public class GameState extends State{
 
     private Vector2D worldMapPosition;
 
-    public Vector2D getWorldMapPosition() {
-        return worldMapPosition;
-    }
-
-    public void setWorldMapPosition(Vector2D worldMapPosition, Direction direction) {
+    public void setWorldMapPosition(Vector2D worldMapPosition) {
         this.worldMapPosition = worldMapPosition;
-        loadMap(worldMap[worldMapPosition.intX()][worldMapPosition.intY()], false);
-        //gameObjects.add(player);
-
-        switch(direction){
-            case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
-        }
     }
 
     public GameState(){
@@ -63,11 +53,26 @@ public class GameState extends State{
     private void handleWorldMapLocation() {
         Direction direction = player.findDirectionToMapBorder(this);
 
-        switch (direction) {
-            case RIGHT -> worldMapPosition.setX(worldMapPosition.intX() + 1);
-            case LEFT -> worldMapPosition.setX(worldMapPosition.intX() - 1);
-            case UP -> worldMapPosition.setY(worldMapPosition.intY() - 1);
-            case DOWN -> worldMapPosition.setY(worldMapPosition.intY() + 1);
+        System.out.println(direction);
+
+        if(direction != Direction.NULL) {
+
+            Vector2D directionValue = Direction.directionToVelocity(direction);
+
+            setWorldMapPosition(new Vector2D(worldMapPosition.intX() + directionValue.intX(),
+                    worldMapPosition.intY() + directionValue.intY()));
+
+            loadMap(worldMap[worldMapPosition.intX()]
+                    [worldMapPosition.intY()], false);
+
+            switch (direction) {
+                case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
+                case LEFT -> player.setPosition(new Vector2D(currentMap.getWidth() - player.getWidth(),
+                        player.getPosition().getY()));
+                case UP -> player.setPosition(new Vector2D(
+                        player.getPosition().getX(), currentMap.getHeight() - player.getHeight()));
+                case DOWN -> player.setPosition(new Vector2D(player.getPosition().getX(), 0));
+            }
         }
     }
 
@@ -96,6 +101,7 @@ public class GameState extends State{
     private void initializeEntities() {
         player = new Player(PlayerController.getInstance(),
                 content.getSpriteSet("player"));
+        player.setPosition(new Vector2D(5,5));
 
         gameObjects.add(player);
         camera.focusOn(player);

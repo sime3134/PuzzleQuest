@@ -7,6 +7,7 @@ import core.Time;
 import display.Camera;
 import editor.UISettingsContainer;
 import entity.GameObject;
+import entity.Player;
 import entity.Scenery;
 import input.Input;
 import input.mouse.MouseHandler;
@@ -140,13 +141,13 @@ public abstract class State {
     }
 
     public void loadMap(String nameOrPath, boolean path) {
-        //gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
+        gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
         if(path) {
             currentMap = MapIO.loadFromPath(content, nameOrPath);
         }else {
             currentMap = MapIO.loadFromName(content, nameOrPath);
         }
-        //gameObjects.addAll(currentMap.getSceneryList());
+        gameObjects.addAll(currentMap.getSceneryList());
         camera.centerOnMap(currentMap);
     }
 
