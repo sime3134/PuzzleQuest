@@ -748,7 +748,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "house2",
                 288, 150,
                 new Vector2D(0, 162),
-                160,
+                250,
                 false,
                 content
         ));
@@ -784,7 +784,43 @@ public class UISceneryMenu extends HorizontalContainer {
                 "house6",
                 287, 95,
                 new Vector2D(0, 210),
-                170,
+                180,
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "house7",
+                144, 80,
+                new Vector2D(0, 115),
+                210,
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "house8",
+                288, 150,
+                new Vector2D(0, 155),
+                210,
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "house9",
+                138, 115,
+                new Vector2D(0, 80),
+                120,
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "house10",
+                288, 164,
+                new Vector2D(0, 100),
+                200,
                 false,
                 content
         ));

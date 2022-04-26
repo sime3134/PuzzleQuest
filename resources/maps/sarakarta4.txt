@@ -66,4 +66,14 @@ Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:
 Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,
 
 ###
-Scenery:house6:1384|1245:287:304:0|0:170.0:0|210:287:95:false:297:309:-5:0:
+Scenery:house:1501|1174:288:360:0|0:160.0:0|160:288:200:false:298:180:-5:185:
+Scenery:house10:1051|1204:288:264:0|0:200.0:0|100:288:164:false:298:269:-5:0:
+Scenery:house2:2031|1172:288:312:0|0:250.0:0|162:288:150:false:298:317:-5:0:
+Scenery:house1:1051|1610:288:462:0|0:160.0:0|162:288:300:false:298:231:-5:236:
+Scenery:house4:2426|1580:288:312:0|0:220.0:0|200:288:112:false:298:317:-5:0:
+Scenery:house3:1620|1613:545:348:0|0:200.0:0|200:545:148:false:555:353:-5:0:
+Scenery:house6:1095|2129:287:304:0|0:180.0:0|210:287:95:false:297:309:-5:0:
+Scenery:house5:670|2167:240:240:0|0:145.0:0|145:240:95:false:250:245:-5:0:
+Scenery:house10:1872|2172:288:264:0|0:200.0:0|100:288:164:false:298:269:-5:0:
+Scenery:house8:2259|2190:288:305:0|0:210.0:0|155:288:150:false:298:310:-5:0:
+Scenery:house7:1563|2239:144:192:0|0:210.0:0|115:144:80:false:154:96:-5:101:
