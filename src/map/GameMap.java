@@ -23,6 +23,8 @@ public class GameMap implements Persistable {
     private Tile[][] tiles;
     private List<Scenery> sceneryList;
 
+    private String name;
+
     //region Getters and Setters (click to open)
 
     public int getWidth() {
@@ -67,10 +69,15 @@ public class GameMap implements Persistable {
         this.sceneryList = sceneryList;
     }
 
+    public String getName() {
+        return name;
+    }
+
     //endregion
 
-    public GameMap() {
+    public GameMap(String name) {
         sceneryList = new ArrayList<>();
+        this.name = name;
     }
 
     public GameMap(int mapWidth, int mapHeight, ContentManager content) {

@@ -23,6 +23,7 @@ public class GameFrame extends JFrame {
         this.game = game;
         setTitle("PuzzleQuest 2.0");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         addListener();
 
@@ -71,11 +72,9 @@ public class GameFrame extends JFrame {
         if(Settings.getFullScreenSetting().getValue()){
             setSize(Toolkit.getDefaultToolkit().getScreenSize());
             dispose();
-            setUndecorated(true);
         }else{
             setSize(new Dimension(1100, 700));
             dispose();
-            setUndecorated(false);
         }
         pack();
         setLocationRelativeTo(null);

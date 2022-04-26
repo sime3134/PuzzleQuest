@@ -140,13 +140,13 @@ public abstract class State {
     }
 
     public void loadMap(String nameOrPath, boolean path) {
-        gameObjects.clear();
+        //gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
         if(path) {
             currentMap = MapIO.loadFromPath(content, nameOrPath);
-        }else{
+        }else {
             currentMap = MapIO.loadFromName(content, nameOrPath);
         }
-        gameObjects.addAll(currentMap.getSceneryList());
+        //gameObjects.addAll(currentMap.getSceneryList());
         camera.centerOnMap(currentMap);
     }
 

@@ -31,7 +31,7 @@ public class MapIO {
         if (MapIO.class.getResource("/maps/" + mapName + ".txt") != null) {
             try (BufferedReader reader = new BufferedReader(new FileReader(MapIO.class.getResource("/maps/"
                     + mapName + ".txt").getFile()))) {
-                GameMap gameMap = new GameMap();
+                GameMap gameMap = new GameMap(mapName);
 
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -58,7 +58,7 @@ public class MapIO {
         File file = new File(nameOrPath);
         if (file.isFile()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(nameOrPath))) {
-                GameMap gameMap = new GameMap();
+                GameMap gameMap = new GameMap(file.getName());
 
                 StringBuilder sb = new StringBuilder();
                 String line;

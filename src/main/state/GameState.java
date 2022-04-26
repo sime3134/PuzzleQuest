@@ -2,12 +2,15 @@ package main.state;
 
 import controller.NPCController;
 import controller.PlayerController;
+import core.Direction;
 import core.Vector2D;
 import entity.NPC;
 import entity.Player;
 import main.Game;
-import map.GameMap;
-import ui.*;
+import ui.Alignment;
+import ui.HorizontalContainer;
+import ui.UIContainer;
+import ui.UIText;
 import ui.clickable.UIButton;
 
 import java.awt.*;
@@ -21,12 +24,51 @@ import java.security.SecureRandom;
 public class GameState extends State{
 
     private Player player;
-    private GameMap[][] worldMap;
+
+    private String[][] worldMap = {
+            {"village_test", "maze"},
+            {"main_menu_map", "map"}
+    };
+
+    private Vector2D worldMapPosition;
+
+    public Vector2D getWorldMapPosition() {
+        return worldMapPosition;
+    }
+
+    public void setWorldMapPosition(Vector2D worldMapPosition, Direction direction) {
+        this.worldMapPosition = worldMapPosition;
+        loadMap(worldMap[worldMapPosition.intX()][worldMapPosition.intY()], false);
+        //gameObjects.add(player);
+
+        switch(direction){
+            case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
+        }
+    }
 
     public GameState(){
         super();
-        loadMap("village_test", false);
+        worldMapPosition = new Vector2D(0,0);
+        loadMap(worldMap[worldMapPosition.intX()][worldMapPosition.intY()], false);
         initializeEntities();
+    }
+
+    @Override
+    public void update(Game game) {
+        super.update(game);
+
+        handleWorldMapLocation();
+    }
+
+    private void handleWorldMapLocation() {
+        Direction direction = player.findDirectionToMapBorder(this);
+
+        switch (direction) {
+            case RIGHT -> worldMapPosition.setX(worldMapPosition.intX() + 1);
+            case LEFT -> worldMapPosition.setX(worldMapPosition.intX() - 1);
+            case UP -> worldMapPosition.setY(worldMapPosition.intY() - 1);
+            case DOWN -> worldMapPosition.setY(worldMapPosition.intY() + 1);
+        }
     }
 
     @Override

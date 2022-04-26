@@ -33,6 +33,28 @@ public class Player extends Humanoid {
         handlePlayerSpecificInput(state);
     }
 
+    public Direction findDirectionToMapBorder(State state) {
+        if(getPosition().distanceBetweenPositions(new Vector2D(state.getCurrentMap().getWidth(), 0)).getX() < 5
+        && getPosition().distanceBetweenPositions(new Vector2D(state.getCurrentMap().getWidth(), 0)).getX() > -5){
+            return Direction.RIGHT;
+        }else if(new Vector2D(getPosition().getX() + getWidth(), 0)
+                .distanceBetweenPositions(new Vector2D(0, 0)).getX() < 5
+        && new Vector2D(getPosition().getX() + getWidth(), 0)
+                .distanceBetweenPositions(new Vector2D(0, 0)).getX() > -5){
+            return Direction.LEFT;
+        }else if(getPosition().distanceBetweenPositions(new Vector2D(0, state.getCurrentMap().getHeight())).getY() < 5
+        && getPosition().distanceBetweenPositions(new Vector2D(0, state.getCurrentMap().getHeight())).getY() > -5){
+            return Direction.DOWN;
+        }else if(new Vector2D(0, getPosition().getY() + getHeight())
+                .distanceBetweenPositions(new Vector2D(0, 0)).getY() < 5
+        && new Vector2D(0, getPosition().getY() + getHeight())
+                .distanceBetweenPositions(new Vector2D(0, 0)).getY() > -5){
+            return Direction.UP;
+        }
+
+        return Direction.NULL;
+    }
+
     @Override
     protected void executePlayerAction(State state) {
 
@@ -99,20 +121,9 @@ public class Player extends Humanoid {
         return distance.getX() < targetRange.getX() && distance.getY() < targetRange.getY();
     }
 
-    private double getTargetRange(GameObject gameObject) {
-        Direction directionOfObject = getDirectionInRelationToGameObject(gameObject);
-
-        return switch (directionOfObject) {
-            case RIGHT, LEFT -> getStaticCollisionBox().getBounds().getWidth() / 2 + gameObject.getStaticCollisionBox().getBounds().getWidth() / 2 + 10;
-            case UP, DOWN -> getStaticCollisionBox().getBounds().getHeight() / 2 + gameObject.getStaticCollisionBox().getBounds().getHeight() / 2 + 10;
-            default -> 0;
-        };
-    }
-
-
     @Override
     protected void handleCollision(GameObject other) {
-        if(other instanceof NPC
+        if (other instanceof NPC
                 || other instanceof Scenery && !other.isWalkable()) {
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
         }
