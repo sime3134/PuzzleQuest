@@ -26,9 +26,9 @@ public class GameState extends State{
     private Player player;
 
     private String[][] worldMap = {
-            {"village_test", "maze"},
+            {"sarakarta4", "maze"},
             {"main_menu_map", "map"},
-            {"sarakarta4"}
+            {"village_test"}
     };
 
     private Vector2D worldMapPosition;
