@@ -782,9 +782,9 @@ public class UISceneryMenu extends HorizontalContainer {
 
         sceneryToAdd.add(new Scenery(
                 "house6",
-                287, 130,
-                new Vector2D(0, 200),
-                145,
+                287, 95,
+                new Vector2D(0, 210),
+                170,
                 false,
                 content
         ));
