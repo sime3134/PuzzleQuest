@@ -51,12 +51,12 @@ public enum Direction {
         return this.animationRow;
     }
 
-    public static Vector2D directionToVelocity(Direction direction){
+    public static Vector2D toVelocity(Direction direction){
         return switch(direction){
-            case DOWN -> new Vector2D(0, 1);
-            case LEFT -> new Vector2D(-1, 0);
-            case RIGHT -> new Vector2D(1, 0);
-            case UP -> new Vector2D(0, -1);
+            case DOWN -> new Vector2D(1, 0);
+            case LEFT -> new Vector2D(0, -1);
+            case RIGHT -> new Vector2D(0, 1);
+            case UP -> new Vector2D(-1, 0);
             case NULL -> null;
         };
     }

@@ -54,26 +54,69 @@ public class GameState extends State{
     private void handleWorldMapLocation() {
         Direction direction = player.findDirectionToMapBorder(this);
 
-        System.out.println(direction);
+        if (direction != Direction.NULL) {
 
-        if(direction != Direction.NULL) {
+            Vector2D directionValue = Direction.toVelocity(direction);
 
-            Vector2D directionValue = Direction.directionToVelocity(direction);
+            if (worldMapPosition.intX() + directionValue.intX() < worldMap[0].length
+                    && worldMapPosition.intX() + directionValue.intX() >= 0
+                    && worldMapPosition.intY() + directionValue.intY() < worldMap.length
+                    && worldMapPosition.intY() + directionValue.intY() >= 0) {
 
-            setWorldMapPosition(new Vector2D(worldMapPosition.intX() + directionValue.intX(),
-                    worldMapPosition.intY() + directionValue.intY()));
+                worldMapPosition = new Vector2D(worldMapPosition.intX() + directionValue.intX(),
+                        worldMapPosition.intY() + directionValue.intY());
 
-            loadMap(worldMap[worldMapPosition.intX()]
-                    [worldMapPosition.intY()], false);
+                loadMap(worldMap[worldMapPosition.intX()]
+                        [worldMapPosition.intY()], false);
 
-            switch (direction) {
-                case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
-                case LEFT -> player.setPosition(new Vector2D(currentMap.getWidth() - player.getWidth(),
-                        player.getPosition().getY()));
-                case UP -> player.setPosition(new Vector2D(
-                        player.getPosition().getX(), currentMap.getHeight() - player.getHeight()));
-                case DOWN -> player.setPosition(new Vector2D(player.getPosition().getX(), 0));
+                switch (direction) {
+                    case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
+                    case LEFT -> player.setPosition(new Vector2D(currentMap.getWidth() - player.getWidth(),
+                            player.getPosition().getY()));
+                    case UP -> player.setPosition(new Vector2D(player.getPosition().getX(),
+                            currentMap.getHeight() - player.getHeight()));
+                    case DOWN -> player.setPosition(new Vector2D(player.getPosition().getX(), 0));
+                }
             }
+        }
+    }
+
+    /**
+     * Not used at the moment but saved for future use.
+     */
+    private Vector2D calculatePositionOnNewMap(Direction direction, double oldMapWidth, double oldMapHeight) {
+        double heightRatio = calculateMapHeightRatio(oldMapHeight);
+        double widthRatio = calculateMapWidthRatio(oldMapWidth);
+
+        return switch (direction) {
+            case RIGHT -> new Vector2D(0, player.getPosition().getY() * heightRatio);
+            case LEFT -> new Vector2D(currentMap.getWidth() - player.getWidth(), player.getPosition().getY() * heightRatio);
+            case UP -> new Vector2D(player.getPosition().getX() * widthRatio,
+                        currentMap.getHeight() - player.getHeight());
+            case DOWN -> new Vector2D(player.getPosition().getX() * widthRatio, 0);
+            case NULL -> null;
+        };
+    }
+
+    private double calculateMapWidthRatio(double oldMapWidth) {
+        double biggestMapWidth = Math.max(oldMapWidth, currentMap.getWidth());
+        double smallestMapWidth = Math.min(oldMapWidth, currentMap.getWidth());
+
+        if(biggestMapWidth == oldMapWidth){
+            return smallestMapWidth / biggestMapWidth;
+        }else{
+            return biggestMapWidth / smallestMapWidth;
+        }
+    }
+
+    private double calculateMapHeightRatio(double oldMapHeight) {
+        double biggestMapHeight = Math.max(oldMapHeight, currentMap.getHeight());
+        double smallestMapHeight = Math.min(oldMapHeight, currentMap.getHeight());
+
+        if(biggestMapHeight == oldMapHeight){
+            return smallestMapHeight / biggestMapHeight;
+        }else{
+            return biggestMapHeight / smallestMapHeight;
         }
     }
 

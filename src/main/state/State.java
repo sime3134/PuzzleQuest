@@ -90,6 +90,7 @@ public abstract class State {
         gameObjects = new ArrayList<>();
         uiContainers = new ArrayList<>();
         loadMap("main_menu_map", false);
+        camera.centerOnMap(currentMap);
         setupUI();
     }
 
@@ -148,7 +149,6 @@ public abstract class State {
             currentMap = MapIO.loadFromName(content, nameOrPath);
         }
         gameObjects.addAll(currentMap.getSceneryList());
-        camera.centerOnMap(currentMap);
     }
 
     public void saveMap(String filePath) {
