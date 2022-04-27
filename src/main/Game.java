@@ -35,6 +35,10 @@ public class Game {
         return gameFrame;
     }
 
+    public GameState getGameState() {
+        return gameState;
+    }
+
     public Game(){
         currentState = new MainMenuState();
         lastState = currentState;
@@ -127,5 +131,7 @@ public class Game {
         gameFrame.toggleFullScreen();
     }
 
-
+    public void showDialog(String text) {
+        System.out.println(text);
+    }
 }

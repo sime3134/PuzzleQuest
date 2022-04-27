@@ -7,6 +7,9 @@ import core.Vector2D;
 import entity.NPC;
 import entity.Player;
 import main.Game;
+import story.Quest;
+import story.QuestManager;
+import story.quests.GoToTwoPositions;
 import ui.Alignment;
 import ui.HorizontalContainer;
 import ui.UIContainer;
@@ -17,7 +20,7 @@ import java.awt.*;
 import java.security.SecureRandom;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * The class containing all the front logic for the game. This class should not contain any complicated or overly long
  * methods but instead pair together several components of the game such as the player, NPCs, content etc.
  */
@@ -25,23 +28,33 @@ public class GameState extends State{
 
     private Player player;
 
+    private QuestManager quests;
+
+    private boolean repeatMaps;
+
     private String[][] worldMap = {
-            {"sarakarta4", "maze"},
+            {"village_test", "maze"},
             {"main_menu_map", "map"},
-            {"village_test"}
+            {"sarakarta"}
     };
 
     private Vector2D worldMapPosition;
 
-    public void setWorldMapPosition(Vector2D worldMapPosition) {
-        this.worldMapPosition = worldMapPosition;
+    public Player getPlayer() {
+        return player;
     }
 
     public GameState(){
         super();
+        quests = new QuestManager();
         worldMapPosition = new Vector2D(0,0);
         loadMap(worldMap[worldMapPosition.intX()][worldMapPosition.intY()], false);
         initializeEntities();
+        NPC npc = new NPC(new NPCController(), content.getSpriteSet("villager1"));
+        Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
+        npc.addQuest(goToTwoPositions);
+        quests.addQuest(goToTwoPositions);
+        gameObjects.add(npc);
     }
 
     @Override
@@ -49,6 +62,7 @@ public class GameState extends State{
         super.update(game);
 
         handleWorldMapLocation();
+        quests.update(game);
     }
 
     private void handleWorldMapLocation() {
@@ -58,26 +72,36 @@ public class GameState extends State{
 
             Vector2D directionValue = Direction.toVelocity(direction);
 
-            if (worldMapPosition.intX() + directionValue.intX() < worldMap[0].length
-                    && worldMapPosition.intX() + directionValue.intX() >= 0
-                    && worldMapPosition.intY() + directionValue.intY() < worldMap.length
-                    && worldMapPosition.intY() + directionValue.intY() >= 0) {
+            if (!repeatMaps) {
 
-                worldMapPosition = new Vector2D(worldMapPosition.intX() + directionValue.intX(),
-                        worldMapPosition.intY() + directionValue.intY());
+                if (worldMapPosition.intX() + directionValue.intX() < worldMap.length
+                        && worldMapPosition.intX() + directionValue.intX() >= 0
+                        && worldMapPosition.intY() + directionValue.intY() < worldMap[0].length
+                        && worldMapPosition.intY() + directionValue.intY() >= 0) {
 
-                loadMap(worldMap[worldMapPosition.intX()]
-                        [worldMapPosition.intY()], false);
+                    worldMapPosition = new Vector2D(worldMapPosition.intX() + directionValue.intX(),
+                            worldMapPosition.intY() + directionValue.intY());
 
-                switch (direction) {
-                    case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
-                    case LEFT -> player.setPosition(new Vector2D(currentMap.getWidth() - player.getWidth(),
-                            player.getPosition().getY()));
-                    case UP -> player.setPosition(new Vector2D(player.getPosition().getX(),
-                            currentMap.getHeight() - player.getHeight()));
-                    case DOWN -> player.setPosition(new Vector2D(player.getPosition().getX(), 0));
+                        loadMap(worldMap[worldMapPosition.intX()]
+                                [worldMapPosition.intY()], false);
+
+                    setPositionFromDirectionToMapBorder(direction);
                 }
+            }else{
+                loadMap(worldMap[0][0], false);
+                setPositionFromDirectionToMapBorder(direction);
             }
+        }
+    }
+
+    private void setPositionFromDirectionToMapBorder(Direction direction) {
+        switch (direction) {
+            case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
+            case LEFT -> player.setPosition(new Vector2D(currentMap.getWidth() - player.getWidth(),
+                    player.getPosition().getY()));
+            case UP -> player.setPosition(new Vector2D(player.getPosition().getX(),
+                    currentMap.getHeight() - player.getHeight()));
+            case DOWN -> player.setPosition(new Vector2D(player.getPosition().getX(), 0));
         }
     }
 
@@ -145,12 +169,12 @@ public class GameState extends State{
     private void initializeEntities() {
         player = new Player(PlayerController.getInstance(),
                 content.getSpriteSet("player"));
-        player.setPosition(new Vector2D(5,5));
+        player.setPosition(new Vector2D(50,50));
 
         gameObjects.add(player);
         camera.focusOn(player);
 
-        initializeNPCs(20);
+        //initializeNPCs(20);
     }
 
     private void initializeNPCs(int numberToAdd) {
@@ -165,5 +189,9 @@ public class GameState extends State{
             gameObjects.add(npc);
 
         }
+    }
+
+    public void startAvailableQuest() {
+
     }
 }

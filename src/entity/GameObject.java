@@ -6,6 +6,7 @@ import core.Vector2D;
 import display.Camera;
 import main.state.State;
 import settings.Settings;
+import story.Quest;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public abstract class GameObject {
 
     protected Vector2D position;
     protected Vector2D renderOffset;
+
     protected int width;
     protected int height;
 
@@ -41,6 +43,8 @@ public abstract class GameObject {
     protected int selectionCircleHeight;
     protected int selectionCircleRenderXOffset;
     protected int selectionCircleRenderYOffset;
+
+    protected List<Quest> quests;
 
     //region Getters & Setters (click to view)
 
@@ -132,6 +136,7 @@ public abstract class GameObject {
         this.selectionCircleRenderXOffset = 0;
         this.selectionCircleRenderYOffset = 0;
         attachments = new ArrayList<>();
+        quests = new ArrayList<>();
     }
 
     public abstract void update(State state);
@@ -209,4 +214,8 @@ public abstract class GameObject {
      * Implements what should happen when the player interacts with this object.
      */
     protected abstract void executePlayerAction(State state);
+
+    public void addQuest(Quest quest) {
+        quests.add(quest);
+    }
 }

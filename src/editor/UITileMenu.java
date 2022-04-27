@@ -10,7 +10,7 @@ import ui.clickable.UIToolToggle;
 import java.awt.*;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * Menu in the world editor to display placeable tiles.
  */
 public class UITileMenu extends HorizontalContainer {

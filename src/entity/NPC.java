@@ -10,8 +10,8 @@ import main.state.State;
 import settings.Settings;
 
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Simon Jern, Erik Larsson
@@ -59,7 +59,14 @@ public class NPC extends Humanoid {
 
     @Override
     protected void executePlayerAction(State state) {
-        brain.transitionTo("wander", this);
+        startAvailableQuest();
+    }
+
+    private void startAvailableQuest() {
+        //Should filter through and find quests possible to do
+        if(!quests.isEmpty()){
+            quests.get(0).initialize();
+        }
     }
 
     @Override

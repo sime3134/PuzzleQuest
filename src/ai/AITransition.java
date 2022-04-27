@@ -6,10 +6,20 @@ import main.state.State;
 /**
  * @author Simon Jern
  * Implements a transition between two AI states.
- * @param nextState the state to transfer to.
- * @param condition the condition for moving to the next state.
  */
-public record AITransition(String nextState, AICondition condition) {
+public final class AITransition {
+    private final String nextState;
+    private final AICondition condition;
+
+    /**
+     * @param nextState the state to transfer to.
+     * @param condition the condition for moving to the next state.
+     */
+    public AITransition(String nextState, AICondition condition) {
+        this.nextState = nextState;
+        this.condition = condition;
+    }
+
     public String getNextState() {
         return nextState;
     }
@@ -17,4 +27,6 @@ public record AITransition(String nextState, AICondition condition) {
     public boolean shouldTransition(State state, NPC currentCharacter) {
         return condition.isMet(state, currentCharacter);
     }
+
+
 }

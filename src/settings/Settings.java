@@ -13,7 +13,7 @@ public abstract class Settings {
     private static int SCREEN_WIDTH = 1100;
     private static int SCREEN_HEIGHT = 700;
 
-    private static final int PROXIMITY_RANGE = 2;
+    private static final int PROXIMITY_RANGE = 50;
     private static final int RENDER_MARGIN = 2 * TILE_SIZE;
 
     private static boolean DEBUG_MODE = false;

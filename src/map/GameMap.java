@@ -157,6 +157,9 @@ public class GameMap implements Persistable {
                 int drawPositionY = y * Settings.getTileSize() - camera.getPosition().intY();
 
                 tiles[x][y].draw(g, drawPositionX, drawPositionY);
+                if(Settings.getRenderGrid().getValue()) {
+                    g.drawString(x + ", " + y, drawPositionX, drawPositionY + 10);
+                }
 
                 if (Settings.getRenderTileWalkable().getValue()) {
                     drawWalkable(g, x, y, drawPositionX, drawPositionY);
