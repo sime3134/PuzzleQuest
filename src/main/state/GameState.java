@@ -33,10 +33,10 @@ public class GameState extends State{
     private boolean repeatMaps;
 
     private String[][] worldMap = {
-            {"map1", "maze", "village_test"},
-            {"map6", "map7", "map"},
-            {"map11", "map12", "map13"},
-            {"map16", "map", "map"}
+            {"map1", "maze", "village_test", "map"},
+            {"map6", "map7", "map8", "map9"},
+            {"map11", "map12", "map13","map"},
+            {"map16ErikLarsson", "map17ErikLarsson", "map", "map"}
     };
 
     private Vector2D worldMapPosition;
@@ -170,7 +170,7 @@ public class GameState extends State{
     private void initializeEntities() {
         player = new Player(PlayerController.getInstance(),
                 content.getSpriteSet("player"));
-        player.setPosition(new Vector2D(500,500));
+        player.setPosition(new Vector2D(1300,1000));
 
         gameObjects.add(player);
         camera.focusOn(player);
