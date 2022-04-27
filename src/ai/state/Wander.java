@@ -33,8 +33,7 @@ public class Wander extends AIState{
     @Override
     public void update(State state) {
         if(target == null) {
-            List<Vector2D> foundPath = PathFinder.findPath(state.getGameObjects(),
-                    currentCharacter.getCollisionBoxGridPosition(),
+            List<Vector2D> foundPath = PathFinder.findPath(currentCharacter.getCollisionBoxGridPosition(),
                     state.getCurrentMap().getRandomAvailablePositionOnMap(state.getGameObjects()), state.getCurrentMap());
             if(!foundPath.isEmpty()){
                 target = foundPath.get(foundPath.size() - 1);

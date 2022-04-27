@@ -54,7 +54,7 @@ public class GameMap implements Persistable {
         int gridX = (int) (x / Settings.getTileSize());
         int gridY = (int) (y / Settings.getTileSize());
 
-        if (!tileIsAvailable(gameObjects, gridX, gridY)) {
+        if (!tileIsAvailable(gridX, gridY)) {
             return getRandomAvailablePositionOnMap(gameObjects);
         }
 
@@ -166,7 +166,7 @@ public class GameMap implements Persistable {
                 }
 
                 if (Settings.isPathable().getValue()) {
-                    drawPathable(g, gameObjects, x, y, drawPositionX, drawPositionY);
+                    drawPathable(g, x, y, drawPositionX, drawPositionY);
                 }
             }
         }
@@ -190,7 +190,7 @@ public class GameMap implements Persistable {
         for (int y = startPosY; y < endPosY; y++) {
             g.drawLine(startPosX * Settings.getTileSize() - camera.getPosition().intX(),
                     y * Settings.getTileSize() - camera.getPosition().intY(),
-                    (int) endPosX * Settings.getTileSize() - camera.getPosition().intX(),
+                     endPosX * Settings.getTileSize() - camera.getPosition().intX(),
                     y * Settings.getTileSize() - camera.getPosition().intY()
             );
         }
@@ -206,8 +206,8 @@ public class GameMap implements Persistable {
         }
     }
 
-    private void drawPathable(Graphics g, List<GameObject> gameObjects, int x, int y, int drawPositionX, int drawPositionY) {
-        if (!tileIsAvailable(gameObjects, x, y)) {
+    private void drawPathable(Graphics g, int x, int y, int drawPositionX, int drawPositionY) {
+        if (!tileIsAvailable(x, y)) {
             Color overlayColor = new Color(255, 0, 0, 85);
             g.setColor(overlayColor);
         } else {
@@ -218,7 +218,7 @@ public class GameMap implements Persistable {
         g.fillRect(drawPositionX, drawPositionY, Settings.getTileSize(), Settings.getTileSize());
     }
 
-    public boolean tileIsAvailable(List<GameObject> gameObjects, int x, int y) {
+    public boolean tileIsAvailable(int x, int y) {
         return tiles[x][y].getCollisionBoxType() == 0 && !tileHasUnwalkableScenery(x, y);
     }
 
