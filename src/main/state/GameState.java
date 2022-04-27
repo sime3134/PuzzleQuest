@@ -33,7 +33,7 @@ public class GameState extends State{
     private boolean repeatMaps;
 
     private String[][] worldMap = {
-            {"village_test", "maze"},
+            {"test", "maze"},
             {"main_menu_map", "map"},
             {"sarakarta"}
     };

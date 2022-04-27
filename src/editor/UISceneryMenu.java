@@ -1374,6 +1374,39 @@ public class UISceneryMenu extends HorizontalContainer {
         List<Scenery> sceneryToAdd = new ArrayList<>();
 
         sceneryToAdd.add(new Scenery(
+                "bridge",
+                true,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "bridge2",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "bridge3",
+                144, 36,
+                new Vector2D(0, 0),
+                20,
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "bridge4",
+                true,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "bridge5",
+                true,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
                 "barrel",
                 false,
                 content
