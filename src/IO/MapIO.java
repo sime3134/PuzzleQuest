@@ -51,7 +51,7 @@ public class MapIO {
             }
         }
 
-        return new GameMap(32, 32, content);
+        return new GameMap(64, 64, content);
     }
 
     public static GameMap loadFromPath(ContentManager content, String nameOrPath) {
@@ -78,6 +78,6 @@ public class MapIO {
             }
         }
 
-        return new GameMap(32, 32, content);
+        return new GameMap(64, 64, content);
     }
 }
