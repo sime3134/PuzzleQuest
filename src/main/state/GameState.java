@@ -33,10 +33,11 @@ public class GameState extends State{
     private boolean repeatMaps;
 
     private String[][] worldMap = {
-            {"map1", "maze", "village_test"},
-            {"map6", "map7", "map"},
-            {"map11", "map12", "map13"},
-            {"map16", "map", "map"}
+            {"map1", "map2", "map3", "map4", "map5"},
+            {"map6", "map7", "map8", "map9", "map10"},
+            {"map11", "map12", "map13", "map14", "map15"},
+            {"map16", "map17", "map18", "map19", "map20"},
+            {"map21", "map22", "map23", "map24", "map25"}
     };
 
     private Vector2D worldMapPosition;
