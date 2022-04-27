@@ -176,7 +176,7 @@ public class GameState extends State{
         gameObjects.add(player);
         camera.focusOn(player);
 
-        //initializeNPCs(20);
+        initializeNPCs(20);
     }
 
     private void initializeNPCs(int numberToAdd) {
@@ -187,7 +187,7 @@ public class GameState extends State{
 
             NPC npc = new NPC(new NPCController(),
                     content.getSpriteSet("villager" + randomizer.nextInt(5)));
-            npc.setPosition(spawnPosition);
+            npc.setPosition(new Vector2D(1400, 1000));
             gameObjects.add(npc);
 
         }
