@@ -141,7 +141,7 @@ public class GameMap implements Persistable {
      * Draw map in view at the moment.
      * We add margins to make sure we don't miss any tiles.
      */
-    public void draw(Graphics g, Camera camera, List<GameObject> gameObjects) {
+    public void draw(Graphics g, Camera camera) {
         double startPosX = Math.max(0, camera.getPosition().getX() / Settings.getTileSize()); //left border of screen
         double endPosX = Math.min(tiles.length,
                 (camera.getPosition().getX() + Settings.getScreenWidth()) / Settings.getTileSize()
@@ -157,6 +157,7 @@ public class GameMap implements Persistable {
                 int drawPositionY = y * Settings.getTileSize() - camera.getPosition().intY();
 
                 tiles[x][y].draw(g, drawPositionX, drawPositionY);
+
                 if(Settings.getRenderGrid().getValue()) {
                     g.drawString(x + ", " + y, drawPositionX, drawPositionY + 10);
                 }

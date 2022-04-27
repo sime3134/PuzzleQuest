@@ -61,7 +61,7 @@ public class PauseMenuState extends State{
 
     @Override
     public void draw(Graphics g) {
-        gameState.currentMap.draw(g, camera, gameObjects);
+        gameState.currentMap.draw(g, camera);
         gameState.getGameObjects().forEach(gameObject -> gameObject.draw(g, camera));
         mouseHandler.draw(g);
         uiContainers.forEach(uiContainer -> uiContainer.draw(g));

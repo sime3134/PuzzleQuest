@@ -11,7 +11,6 @@ import java.awt.*;
  * The applications main menu.
  */
 public class MainMenuState extends State{
-
     public MainMenuState(){
         super();
     }

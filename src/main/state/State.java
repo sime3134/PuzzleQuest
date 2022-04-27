@@ -115,7 +115,7 @@ public abstract class State {
     }
 
     public void draw(Graphics g) {
-        currentMap.draw(g, camera, gameObjects);
+        currentMap.draw(g, camera);
         gameObjects.stream()
                 .filter(gameObject -> camera.isObjectInView(gameObject))
                 .forEach(gameObject -> renderGameObject(g, camera, gameObject));

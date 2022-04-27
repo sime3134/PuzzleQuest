@@ -58,11 +58,8 @@ public class AnimatedTile extends Tile{
                 Settings.getTileSize(), tileSheetName);
         generateSprite();
     }
-
-    @Override
     public void update() {
         super.update();
-        generateSprite();
         animationManager.update();
         animationManager.playAnimation(tileSheetName);
     }

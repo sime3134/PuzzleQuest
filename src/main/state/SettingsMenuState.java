@@ -80,7 +80,7 @@ public class SettingsMenuState extends State{
 
     @Override
     public void draw(Graphics g) {
-        currentMap.draw(g, camera, gameObjects);
+        currentMap.draw(g, camera);
         gameObjects.forEach(gameObject -> gameObject.draw(g, camera));
         if(gameState != null) {
             gameState.getGameObjects().forEach(gameObject -> gameObject.draw(g, camera));
