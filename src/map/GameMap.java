@@ -219,14 +219,19 @@ public class GameMap implements Persistable {
     }
 
     public boolean tileIsAvailable(int x, int y) {
-        return tiles[x][y].getCollisionBoxType() == 0 && !tileHasUnwalkableScenery(x, y);
+        return !tileHasCollisionBox(x, y) && !tileHasUnwalkableScenery(x, y);
+    }
+
+    private boolean tileHasCollisionBox(int x, int y) {
+        return tiles[x][y].getCollisionBoxType() == 1 || tiles[x][y].getCollisionBoxType() == 2;
     }
 
     public boolean tileHasUnwalkableScenery(int gridX, int gridY) {
         CollisionBox gridCollisionBox = getGridCollisionBox(gridX, gridY);
         return sceneryList.stream()
                 .filter(scenery -> !scenery.isWalkable())
-                .anyMatch(scenery -> scenery.getExtendedCollisionBox().collidingWith(gridCollisionBox));
+                .anyMatch(scenery -> scenery.getCollisionBox().collidingWith(gridCollisionBox));
+        //TODO: Better with getExtendedCollisionBox()?
     }
 
     public boolean tileHasUnwalkableEntity(List<GameObject> gameObjects, int gridX, int gridY) {

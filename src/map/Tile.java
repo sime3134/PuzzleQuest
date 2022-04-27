@@ -119,7 +119,21 @@ public class Tile implements Persistable {
     }
 
     public int getMoveCost() {
-        return tileSheetName.equals("paths") || tileSheetName.equals("borders") ? 5 : 150;
+        return tileSheetName.equals("paths")
+                || tileSheetName.equals("borders")
+                || tileSheetName.equals("grass1") && tileIsGrassBorder()
+                || tileSheetName.equals("grass2") && tileIsGrassBorder() ? 5 : 150;
+    }
+
+    private boolean tileIsGrassBorder() {
+        boolean notGrassBorder = tileIndex == 40
+                || tileIndex == 41 || tileIndex == 42
+                || tileIndex == 48 || tileIndex == 49
+                || tileIndex == 50 || tileIndex == 56
+                || tileIndex == 57 || tileIndex == 58
+                || tileIndex == 59 || tileIndex == 60;
+
+        return !notGrassBorder;
     }
 
     public int getTileIndex() {
