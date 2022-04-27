@@ -171,7 +171,7 @@ public class GameState extends State{
     private void initializeEntities() {
         player = new Player(PlayerController.getInstance(),
                 content.getSpriteSet("player"));
-        player.setPosition(new Vector2D(500,500));
+        player.setPosition(new Vector2D(1300,1000));
 
         gameObjects.add(player);
         camera.focusOn(player);
