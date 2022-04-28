@@ -1707,7 +1707,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "small_pole",
                 18, 60,
                 new Vector2D(0,57),
-                60,
+                50,
                 false,
                 content
         ));
@@ -1716,7 +1716,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "small_pole2",
                 18, 60,
                 new Vector2D(0,57),
-                20,
+                50,
                 false,
                 content
         ));
