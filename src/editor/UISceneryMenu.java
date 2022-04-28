@@ -1527,7 +1527,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "double_pole",
                 36,50,
                 new Vector2D(0,94),
-                20,
+                50,
                 false,
                 content
         ));
@@ -1536,7 +1536,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "double_pole2",
                 36,50,
                 new Vector2D(0,94),
-                20,
+                50,
                 false,
                 content
         ));
@@ -1599,7 +1599,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "large_pole",
                 18,50,
                 new Vector2D(0,94),
-                20,
+                50,
                 false,
                 content
         ));
@@ -1608,7 +1608,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "large_pole2",
                 18,50,
                 new Vector2D(0,94),
-                20,
+                50,
                 false,
                 content
         ));
@@ -1707,7 +1707,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "small_pole",
                 18, 60,
                 new Vector2D(0,57),
-                20,
+                60,
                 false,
                 content
         ));
@@ -2354,7 +2354,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "green_banner",
                 48, 87,
                 new Vector2D(0, 0),
-                20,
+                60,
                 true,
                 content
         ));
@@ -2402,7 +2402,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "purple_banner",
                 48, 87,
                 new Vector2D(0,0),
-                20,
+                200,
                 true,
                 content
         ));
