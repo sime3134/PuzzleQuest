@@ -16,6 +16,7 @@ import main.state.*;
 import map.GameMap;
 import map.MapManager;
 import settings.Settings;
+import utilities.WorldMapDrawer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -102,6 +103,14 @@ public class Game {
 
     public void setFullScreen() {
         gameFrame.toggleFullScreen();
+    }
+
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public MapManager getMapManager() {
+        return maps;
     }
 
     //endregion
@@ -253,10 +262,6 @@ public class Game {
     private void updateObjectsDrawOrder() {
         gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(
                 gameObject -> gameObject.getRenderOrderComparisonYPosition()));
-    }
-
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
     }
 
     public void addGameObject(GameObject gameObject) {

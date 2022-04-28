@@ -8,8 +8,10 @@ import entity.Scenery;
 import main.Game;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class MapManager {
 
@@ -67,5 +69,15 @@ public class MapManager {
 
     public void draw(Graphics g, Camera camera) {
         currentMap.draw(g, camera);
+    }
+
+    public List<GameMap> getWorldMap() {
+        List<GameMap> worldMaps = new ArrayList<>();
+
+        for(int i = 1; i < 26; i++){
+            worldMaps.add(maps.get("map" + i));
+        }
+
+        return worldMaps;
     }
 }

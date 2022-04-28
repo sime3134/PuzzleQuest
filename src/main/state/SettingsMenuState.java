@@ -2,26 +2,21 @@ package main.state;
 
 import main.Game;
 import settings.Settings;
-import ui.Alignment;
-import ui.UIContainer;
-import ui.UIText;
-import ui.VerticalContainer;
+import ui.*;
 import ui.clickable.UIButton;
 import ui.clickable.UICheckbox;
+import utilities.WorldMapDrawer;
 
 import java.awt.*;
 
 /**
- * @Author Johan Salomonsson, Sara Persson
+ * @Author Johan Salomonsson, Sara Persson, Simon Jern
  * Menu for settings.
  */
 public class SettingsMenuState extends State{
 
-    private final GameState gameState;
-
     public SettingsMenuState(Game game) {
         super(game);
-        this.gameState = game.getGameState();
     }
 
     @Override
@@ -39,6 +34,8 @@ public class SettingsMenuState extends State{
         UIButton increase = new UIButton("+", () -> Settings.increaseVolume());
         UIButton decrease = new UIButton("-", () -> Settings.decreaseVolume());
         UIButton back = new UIButton("Back", () -> game.goToLastState());
+        UIButton saveMap = new UIButton("Save world map to file",
+                () -> WorldMapDrawer.generateFullWorldMap(game.getMapManager().getWorldMap(), 1280, 5));
 
         audioTxt.setFontSize(30);
         audio.setFontSize(20);
@@ -70,13 +67,17 @@ public class SettingsMenuState extends State{
         back.setHoverColor(Color.lightGray);
         back.setWidth(80);
 
+        saveMap.setBackgroundColor(Color.GRAY);
+        saveMap.setClickColor(Color.YELLOW);
+        saveMap.setHoverColor(Color.lightGray);
+
         VerticalContainer settingsMenu = new VerticalContainer(audioTxt, audio, increase, decrease, displayText,
                 fullscreen);
         settingsMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         settingsMenu.setCenterChildren(true);
         uiContainers.add(settingsMenu);
 
-        VerticalContainer backButton = new VerticalContainer(back);
+        HorizontalContainer backButton = new HorizontalContainer(back, saveMap);
         backButton.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP));
         uiContainers.add(backButton);
     }

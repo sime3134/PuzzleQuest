@@ -63,7 +63,6 @@ public class MapIO {
             }
         }
 
-        System.out.println(maps.keySet());
         return maps;
     }
 
