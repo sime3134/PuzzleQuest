@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class State {
 
     protected List<UIContainer> uiContainers;
-    protected static MouseHandler mouseHandler = new MouseHandler();
+    protected MouseHandler mouseHandler = new MouseHandler();
     private UIContainer debugSettingsContainer;
 
     //region Getters and Setters (click to view)
