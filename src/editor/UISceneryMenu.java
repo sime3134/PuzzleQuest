@@ -825,6 +825,15 @@ public class UISceneryMenu extends HorizontalContainer {
                 content
         ));
 
+        sceneryToAdd.add(new Scenery(
+                "castle",
+                955, 327,
+                new Vector2D(10, 200),
+                200,
+                false,
+                content
+        ));
+
         UIContainer main = new HorizontalContainer();
         main.setMargin(new Spacing(0));
 
