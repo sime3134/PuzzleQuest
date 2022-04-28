@@ -793,7 +793,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "house7",
                 144, 80,
                 new Vector2D(0, 115),
-                210,
+                150,
                 false,
                 content
         ));
