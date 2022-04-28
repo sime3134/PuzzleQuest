@@ -6,7 +6,7 @@ import controller.EntityController;
 import core.Vector2D;
 import display.Camera;
 import entity.humanoid.Humanoid;
-import main.state.State;
+import main.Game;
 import settings.Settings;
 
 import java.awt.*;
@@ -37,9 +37,9 @@ public class NPC extends Humanoid {
     }
 
     @Override
-    public void update(State state){
-        super.update(state);
-        brain.update(state);
+    public void update(Game game){
+        super.update(game);
+        brain.update(game);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class NPC extends Humanoid {
     }
 
     @Override
-    protected void executePlayerAction(State state) {
+    protected void executePlayerAction(Game game) {
         startAvailableQuest();
     }
 

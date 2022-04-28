@@ -2,7 +2,6 @@ package ui.clickable;
 
 import input.mouse.action.MouseAction;
 import main.Game;
-import main.state.State;
 import ui.UIImage;
 import utilities.ImgUtils;
 
@@ -52,10 +51,10 @@ public class UIToolToggle extends UIClickable{
     }
 
     @Override
-    public void update(State state) {
-        super.update(state);
-        if(state.getMouseHandler().getLeftButtonAction() != null){
-            active = state.getMouseHandler().getLeftButtonAction().equals(mouseAction);
+    public void update(Game game) {
+        super.update(game);
+        if(game.getCurrentState().getMouseHandler().getLeftButtonAction() != null){
+            active = game.getCurrentState().getMouseHandler().getLeftButtonAction().equals(mouseAction);
         }
     }
 

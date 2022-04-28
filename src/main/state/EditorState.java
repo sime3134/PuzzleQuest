@@ -1,5 +1,6 @@
 package main.state;
 
+import content.ContentManager;
 import editor.UIAnimatedTileMenu;
 import editor.UISceneryMenu;
 import editor.UITileMenu;
@@ -25,8 +26,8 @@ public class EditorState extends State {
 
     private final JFileChooser fileChooser;
 
-    public EditorState(){
-        super();
+    public EditorState(ContentManager content){
+        super(content);
         fileChooser = new JFileChooser();
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Game map", "txt"));

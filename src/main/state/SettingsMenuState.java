@@ -1,8 +1,12 @@
 package main.state;
 
+import content.ContentManager;
 import main.Game;
 import settings.Settings;
-import ui.*;
+import ui.Alignment;
+import ui.UIContainer;
+import ui.UIText;
+import ui.VerticalContainer;
 import ui.clickable.UIButton;
 import ui.clickable.UICheckbox;
 
@@ -16,8 +20,8 @@ public class SettingsMenuState extends State{
 
     private final GameState gameState;
 
-    public SettingsMenuState(GameState gameState) {
-        super();
+    public SettingsMenuState(ContentManager content, GameState gameState) {
+        super(content);
         this.gameState = gameState;
     }
 

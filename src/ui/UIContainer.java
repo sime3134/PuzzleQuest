@@ -1,7 +1,7 @@
 package ui;
 
 import core.Vector2D;
-import main.state.State;
+import main.Game;
 import settings.Settings;
 import utilities.ImgUtils;
 
@@ -144,12 +144,12 @@ public abstract class UIContainer extends UIComponent {
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game game) {
         calculateSize();
         calculatePosition();
-        children.forEach(component -> component.update(state));
+        children.forEach(component -> component.update(game));
 
-        if(state.getTime().secondsDividableBy(0.1)){
+        if(game.getTime().secondsDividableBy(0.1)){
             createUiSprite();
         }
     }

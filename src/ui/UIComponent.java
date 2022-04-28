@@ -1,7 +1,7 @@
 package ui;
 
 import core.Vector2D;
-import main.state.State;
+import main.Game;
 
 import java.awt.*;
 
@@ -102,6 +102,6 @@ public abstract class UIComponent {
         this.padding = new Spacing(0);
     }
 
-    public abstract void update(State state);
+    public abstract void update(Game game);
     public abstract void draw(Graphics g);
 }

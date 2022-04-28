@@ -4,7 +4,7 @@ import core.CollisionBox;
 import core.Direction;
 import core.Vector2D;
 import display.Camera;
-import main.state.State;
+import main.Game;
 import settings.Settings;
 import story.Quest;
 
@@ -139,7 +139,7 @@ public abstract class GameObject {
         quests = new ArrayList<>();
     }
 
-    public abstract void update(State state);
+    public abstract void update(Game state);
 
     public abstract void draw(Graphics g, Camera camera);
 
@@ -213,7 +213,7 @@ public abstract class GameObject {
     /**
      * Implements what should happen when the player interacts with this object.
      */
-    protected abstract void executePlayerAction(State state);
+    protected abstract void executePlayerAction(Game game);
 
     public void addQuest(Quest quest) {
         quests.add(quest);

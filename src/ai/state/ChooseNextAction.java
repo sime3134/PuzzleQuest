@@ -2,7 +2,7 @@ package ai.state;
 
 import ai.AITransition;
 import entity.NPC;
-import main.state.State;
+import main.Game;
 
 import java.security.SecureRandom;
 
@@ -30,5 +30,5 @@ public class ChooseNextAction extends AIState{
     }
 
     @Override
-    public void update(State state) {}
+    public void update(Game game) {}
 }

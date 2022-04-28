@@ -1,7 +1,9 @@
 package main;
 
 import audio.AudioPlayer;
+import content.ContentManager;
 import controller.GameController;
+import core.Time;
 import display.Debug;
 import display.GameFrame;
 import main.state.*;
@@ -15,12 +17,17 @@ import java.awt.*;
  */
 public class Game {
 
+    ContentManager content;
+
     GameFrame gameFrame;
 
     private final Debug debug;
     GameController gameController;
 
     protected AudioPlayer audioPlayer;
+
+
+    private Time time;
 
     private State currentState;
     private State lastState;
@@ -39,8 +46,15 @@ public class Game {
         return gameState;
     }
 
+    public ContentManager getContent() {
+        return content;
+    }
+
     public Game(){
-        currentState = new MainMenuState();
+        content = new ContentManager();
+        time = new Time();
+        content.loadContent();
+        currentState = new MainMenuState(content);
         lastState = currentState;
         gameController = new GameController();
         debug = new Debug(currentState);
@@ -52,7 +66,8 @@ public class Game {
     public void update() {
         gameController.update(this);
         currentState.update(this);
-        debug.update(currentState);
+        time.update();
+        debug.update(this);
         audioPlayer.update();
     }
 
@@ -76,38 +91,38 @@ public class Game {
 
     public void goToMainMenu() {
         lastState = currentState;
-        this.currentState = new MainMenuState();
+        this.currentState = new MainMenuState(content);
         Settings.reset();
         audioPlayer.playMusic("menu.wav");
     }
 
     public void pauseGame() {
         lastState = currentState;
-        this.currentState = new PauseMenuState(gameState);
+        this.currentState = new PauseMenuState(content, gameState);
         this.currentState.getCamera().setPosition(gameState.getCamera().getPosition());
     }
 
     public void goToSettingsMenu() {
         lastState = currentState;
-        this.currentState = new SettingsMenuState(gameState);
+        this.currentState = new SettingsMenuState(content, gameState);
     }
 
     public void startNewGame() {
         lastState = currentState;
-        gameState = new GameState();
+        gameState = new GameState(content);
         currentState = gameState;
         audioPlayer.playMusic("suburbs.wav");
     }
 
     public void enterUsername() {
         lastState = currentState;
-        this.currentState = new SetupNameState();
+        this.currentState = new SetupNameState(content);
     }
 
     public void goToWorldEditor() {
         lastState = currentState;
         if(editorState == null) {
-            editorState = new EditorState();
+            editorState = new EditorState(content);
         }else{
             Settings.toggleDebugMode();
         }
@@ -133,5 +148,9 @@ public class Game {
 
     public void showDialog(String text) {
         System.out.println(text);
+    }
+
+    public Time getTime() {
+        return time;
     }
 }

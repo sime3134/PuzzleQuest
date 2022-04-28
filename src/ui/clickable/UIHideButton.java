@@ -1,7 +1,6 @@
 package ui.clickable;
 
 import main.Game;
-import main.state.State;
 import ui.UIComponent;
 import ui.UIContainer;
 
@@ -35,8 +34,8 @@ public class UIHideButton extends UIButton{
     }
 
     @Override
-    public void update(State state) {
-        super.update(state);
+    public void update(Game game) {
+        super.update(game);
         buttonText.setText("↓");
 
         if(!parentContainer.hasComponent(componentToHide)){

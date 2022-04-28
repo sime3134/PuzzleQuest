@@ -1,8 +1,7 @@
 package ui;
 
 import entity.NPC;
-import main.state.State;
-import settings.Settings;
+import main.Game;
 
 /**
  * @author Simon Jern
@@ -18,8 +17,8 @@ public class RelativeUIText extends UIText{
     }
 
     @Override
-    public void update(State state){
-        super.update(state);
+    public void update(Game game){
+        super.update(game);
         if(obj instanceof NPC npc) {
             text = npc.getBrain().getCurrentAIState().getClass().getSimpleName();
         }

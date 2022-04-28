@@ -1,5 +1,6 @@
 package main.state;
 
+import content.ContentManager;
 import main.Game;
 import ui.Alignment;
 import ui.UIContainer;
@@ -16,7 +17,8 @@ import java.awt.*;
  */
 public class SetupNameState extends State{
 
-    public SetupNameState() {
+    public SetupNameState(ContentManager content) {
+        super(content);
     }
 
     @Override

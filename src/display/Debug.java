@@ -1,6 +1,7 @@
 package display;
 
 import entity.SelectionCircle;
+import main.Game;
 import main.state.State;
 import settings.Settings;
 import ui.UIContainer;
@@ -21,9 +22,9 @@ public class Debug {
         uiContainers = new ArrayList<>();
     }
 
-    public void update(State state){
+    public void update(Game game){
         if(Settings.isDebugMode()) {
-            uiContainers.forEach(container -> container.update(state));
+            uiContainers.forEach(container -> container.update(game));
         }
     }
 

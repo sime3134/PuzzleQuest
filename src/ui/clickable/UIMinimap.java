@@ -6,7 +6,6 @@ import entity.GameObject;
 import entity.humanoid.Humanoid;
 import input.Input;
 import main.Game;
-import main.state.State;
 import map.GameMap;
 import settings.Settings;
 import utilities.ImgUtils;
@@ -143,14 +142,14 @@ public class UIMinimap extends UIClickable{
     }
 
     @Override
-    public void update(State state) {
-        super.update(state);
+    public void update(Game game) {
+        super.update(game);
 
-        if(state.getTime().secondsDividableBy(0.25)){
-            calculateRatio(state.getCurrentMap());
-            generateMap(state.getCurrentMap(), state.getGameObjects());
+        if(game.getTime().secondsDividableBy(0.25)){
+            calculateRatio(game.getCurrentState().getCurrentMap());
+            generateMap(game.getCurrentState().getCurrentMap(), game.getCurrentState().getGameObjects());
         }
-        Camera camera = state.getCamera();
+        Camera camera = game.getCurrentState().getCamera();
         cameraViewBounds = new Rectangle(
                 (int) (camera.getPosition().getX() * minimapRatio + pixelOffset.getX()),
                 (int) (camera.getPosition().getY() * minimapRatio + pixelOffset.getY()),

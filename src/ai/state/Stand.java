@@ -2,7 +2,7 @@ package ai.state;
 
 import ai.AITransition;
 import entity.NPC;
-import main.state.State;
+import main.Game;
 
 /**
  * @author Simon Jern
@@ -17,10 +17,11 @@ public class Stand extends AIState {
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("choose_next_action", ((state, currentCharacter) -> numberOfUpdatesWaiting >= state.getTime().getUpdatesFromSeconds(3)));
+        return new AITransition("choose_next_action",
+                ((game, currentCharacter) -> numberOfUpdatesWaiting >= game.getTime().getUpdatesFromSeconds(3)));
     }
 
-    public void update(State state) {
+    public void update(Game game) {
         numberOfUpdatesWaiting++;
     }
 }

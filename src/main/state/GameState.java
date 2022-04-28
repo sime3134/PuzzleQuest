@@ -1,5 +1,6 @@
 package main.state;
 
+import content.ContentManager;
 import controller.NPCController;
 import controller.PlayerController;
 import core.Direction;
@@ -46,8 +47,8 @@ public class GameState extends State{
         return player;
     }
 
-    public GameState(){
-        super();
+    public GameState(ContentManager content){
+        super(content);
         quests = new QuestManager();
         worldMapPosition = new Vector2D(0,0);
         loadMap(worldMap[worldMapPosition.intX()][worldMapPosition.intY()], false);
@@ -87,16 +88,16 @@ public class GameState extends State{
                         loadMap(worldMap[worldMapPosition.intX()]
                                 [worldMapPosition.intY()], false);
 
-                    setPositionFromDirectionToMapBorder(direction);
+                    setPlayerPositionFromDirectionToMapBorder(direction);
                 }
             }else{
                 loadMap(worldMap[0][0], false);
-                setPositionFromDirectionToMapBorder(direction);
+                setPlayerPositionFromDirectionToMapBorder(direction);
             }
         }
     }
 
-    private void setPositionFromDirectionToMapBorder(Direction direction) {
+    private void setPlayerPositionFromDirectionToMapBorder(Direction direction) {
         switch (direction) {
             case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
             case LEFT -> player.setPosition(new Vector2D(currentMap.getWidth() - player.getWidth(),

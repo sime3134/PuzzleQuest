@@ -5,7 +5,7 @@ import content.ContentManager;
 import core.CollisionBox;
 import core.Vector2D;
 import display.Camera;
-import main.state.State;
+import main.Game;
 
 import java.awt.*;
 
@@ -78,7 +78,7 @@ public class Scenery extends GameObject implements Persistable {
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game state) {
 
     }
 
@@ -112,8 +112,8 @@ public class Scenery extends GameObject implements Persistable {
     }
 
     @Override
-    protected void executePlayerAction(State state) {
-        sprite = state.getContent().getImage("bush");
+    protected void executePlayerAction(Game game) {
+        sprite = game.getContent().getImage("bush");
     }
 
     public CollisionBox getExtendedCollisionBox() {

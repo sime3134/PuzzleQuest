@@ -1,7 +1,7 @@
 package ai;
 
 import entity.NPC;
-import main.state.State;
+import main.Game;
 
 /**
  * @author Simon Jern
@@ -24,8 +24,8 @@ public final class AITransition {
         return nextState;
     }
 
-    public boolean shouldTransition(State state, NPC currentCharacter) {
-        return condition.isMet(state, currentCharacter);
+    public boolean shouldTransition(Game game, NPC currentCharacter) {
+        return condition.isMet(game, currentCharacter);
     }
 
 

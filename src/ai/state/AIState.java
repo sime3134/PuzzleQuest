@@ -2,6 +2,7 @@ package ai.state;
 
 import ai.AITransition;
 import entity.NPC;
+import main.Game;
 import main.state.State;
 
 /**
@@ -21,10 +22,10 @@ public abstract class AIState {
     }
 
     protected abstract AITransition initializeTransition();
-    public abstract void update(State state);
+    public abstract void update(Game game);
 
-    public boolean shouldTransition(State state) {
-        return transition.shouldTransition(state, currentCharacter);
+    public boolean shouldTransition(Game game) {
+        return transition.shouldTransition(game, currentCharacter);
     }
 
     public String getNextState(){

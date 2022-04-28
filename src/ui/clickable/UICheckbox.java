@@ -1,7 +1,6 @@
 package ui.clickable;
 
 import main.Game;
-import main.state.State;
 import settings.Setting;
 import ui.*;
 import utilities.ImgUtils;
@@ -38,8 +37,8 @@ public class UICheckbox extends UIComponent {
     }
 
     @Override
-    public void update(State state) {
-        container.update(state);
+    public void update(Game game) {
+        container.update(game);
         width = container.getWidth();
         height = container.getHeight();
         container.setParent(parent);
@@ -76,8 +75,8 @@ public class UICheckbox extends UIComponent {
         }
 
         @Override
-        public void update(State state) {
-            super.update(state);
+        public void update(Game game) {
+            super.update(game);
             color = setting.getValue() ? Color.WHITE : Color.LIGHT_GRAY;
 
             if(hasFocus) {

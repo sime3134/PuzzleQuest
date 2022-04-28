@@ -1,8 +1,11 @@
 package ai;
 
-import ai.state.*;
+import ai.state.AIState;
+import ai.state.ChooseNextAction;
+import ai.state.Stand;
+import ai.state.Wander;
 import entity.NPC;
-import main.state.State;
+import main.Game;
 
 /**
  * @author Simon Jern
@@ -24,10 +27,10 @@ public class AIManager {
         transitionTo("wander", entity);
     }
 
-    public void update(State state){
-        currentAIState.update(state);
+    public void update(Game game){
+        currentAIState.update(game);
 
-        if(currentAIState.shouldTransition(state)){
+        if(currentAIState.shouldTransition(game)){
             transitionTo(currentAIState.getNextState(), entity);
         }
     }

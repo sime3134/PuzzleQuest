@@ -7,7 +7,7 @@ import core.CollisionBox;
 import core.Direction;
 import core.Vector2D;
 import display.Camera;
-import main.state.State;
+import main.Game;
 
 import java.awt.*;
 
@@ -45,11 +45,11 @@ public abstract class MovingEntity extends GameObject {
     }
 
     @Override
-    public void update(State state){
+    public void update(Game game){
         handleMovement();
         animationManager.update(direction);
-        checkForCollisions(state);
-        checkForTileCollisions(state);
+        checkForCollisions(game);
+        checkForTileCollisions(game);
         updateDirection();
         animationManager.playAnimation(decideAnimation());
         decideAnimation();
@@ -65,12 +65,12 @@ public abstract class MovingEntity extends GameObject {
                 null);
     }
 
-    private void checkForCollisions(State state) {
-        state.getCollidingBoxes(getCollisionBox()).forEach(this::handleCollision);
+    private void checkForCollisions(Game game) {
+        game.getCurrentState().getCollidingBoxes(getCollisionBox()).forEach(this::handleCollision);
     }
 
-    private void checkForTileCollisions(State state) {
-        state.getCurrentMap().getCollidingUnwalkableTileBoxes(getCollisionBox())
+    private void checkForTileCollisions(Game game) {
+        game.getCurrentState().getCurrentMap().getCollidingUnwalkableTileBoxes(getCollisionBox())
                 .forEach(tileCollisionBox -> velocity.reset(willCollideX(tileCollisionBox), willCollideY(tileCollisionBox)));
     }
 

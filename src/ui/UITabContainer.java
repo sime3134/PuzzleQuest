@@ -1,7 +1,6 @@
 package ui;
 
 import main.Game;
-import main.state.State;
 import ui.clickable.UIClickable;
 import ui.clickable.UIHideButton;
 
@@ -81,9 +80,9 @@ public class UITabContainer extends VerticalContainer{
         }
 
         @Override
-        public void update(State state) {
-            super.update(state);
-            label.update(state);
+        public void update(Game game) {
+            super.update(game);
+            label.update(game);
             width = label.getWidth();
             height = label.getHeight();
 

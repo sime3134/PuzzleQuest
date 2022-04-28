@@ -1,6 +1,6 @@
 package ui;
 
-import main.state.State;
+import main.Game;
 import utilities.ImgUtils;
 
 import java.awt.*;
@@ -37,7 +37,7 @@ public class UIHorizontalDivider extends UIComponent{
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game game) {
 
     }
 

@@ -3,7 +3,6 @@ package main.state;
 import IO.MapIO;
 import content.ContentManager;
 import core.CollisionBox;
-import core.Time;
 import display.Camera;
 import editor.UISettingsContainer;
 import entity.GameObject;
@@ -30,12 +29,12 @@ public abstract class State {
 
     protected List<UIContainer> uiContainers;
 
-    protected Camera camera;
     protected ContentManager content;
-    protected Input input;
-    protected MouseHandler mouseHandler;
+
+    protected static Camera camera = new Camera();
+    protected static Input input = Input.getInstance();
+    protected static MouseHandler mouseHandler = new MouseHandler();
     protected GameMap currentMap;
-    protected Time time;
     protected final List<GameObject> gameObjects;
     private UIContainer debugSettingsContainer;
 
@@ -57,14 +56,6 @@ public abstract class State {
         return mouseHandler;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public ContentManager getContent() {
-        return content;
-    }
-
     public List<GameObject> getCollidingBoxes(CollisionBox box) {
         return gameObjects.stream()
                 .filter(other -> other.collidingWith(box))
@@ -80,13 +71,8 @@ public abstract class State {
 
     //endregion
 
-    protected State() {
-        input = Input.getInstance();
-        mouseHandler = new MouseHandler();
-        content = new ContentManager();
-        content.loadContent();
-        camera = new Camera();
-        time = new Time();
+    protected State(ContentManager content) {
+        this.content = content;
         gameObjects = new ArrayList<>();
         uiContainers = new ArrayList<>();
         loadMap("main_menu_map", false);
@@ -99,18 +85,17 @@ public abstract class State {
     }
 
     public void update(Game game) {
-        currentMap.update(camera);
-        uiContainers.forEach(uiContainer -> uiContainer.update(this));
         camera.update(currentMap);
+        currentMap.update(camera);
+        uiContainers.forEach(uiContainer -> uiContainer.update(game));
 
-        time.update();
         mouseHandler.update(game);
 
         updateObjectsDrawOrder();
-        gameObjects.forEach(gameObject -> gameObject.update(this));
+        gameObjects.forEach(gameObject -> gameObject.update(game));
 
         if(Settings.isDebugMode()){
-            debugSettingsContainer.update(this);
+            debugSettingsContainer.update(game);
         }
     }
 

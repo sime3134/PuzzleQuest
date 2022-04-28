@@ -1,6 +1,6 @@
 package ui;
 
-import main.state.State;
+import main.Game;
 
 import java.awt.*;
 
@@ -33,6 +33,6 @@ public class UIImage extends UIComponent {
         );
     }
     @Override
-    public void update(State state) {}
+    public void update(Game game) {}
 
 }

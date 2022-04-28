@@ -1,5 +1,6 @@
 package main.state;
 
+import content.ContentManager;
 import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
@@ -11,8 +12,8 @@ import java.awt.*;
  * The applications main menu.
  */
 public class MainMenuState extends State{
-    public MainMenuState(){
-        super();
+    public MainMenuState(ContentManager content){
+        super(content);
     }
 
     @Override

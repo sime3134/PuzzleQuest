@@ -5,6 +5,7 @@ import controller.EntityController;
 import core.Direction;
 import core.Vector2D;
 import entity.humanoid.Humanoid;
+import main.Game;
 import main.state.State;
 
 import java.util.Comparator;
@@ -26,37 +27,41 @@ public class Player extends Humanoid {
     }
 
     @Override
-    public void update(State state) {
-        super.update(state);
+    public void update(Game game) {
+        super.update(game);
 
-        handleTarget(state);
-        handlePlayerSpecificInput(state);
+        handleTarget(game);
+        handlePlayerSpecificInput(game);
     }
 
     public Direction findDirectionToMapBorder(State state) {
-        if(getPosition().distanceBetweenPositions(new Vector2D(state.getCurrentMap().getWidth(), 0)).getX() < 5
-        && getPosition().distanceBetweenPositions(new Vector2D(state.getCurrentMap().getWidth(), 0)).getX() > -5){
+        if(getPosition().distanceBetweenPositions(new Vector2D(state.getCurrentMap().getWidth(), 0)).getX() < 30
+        && getPosition().distanceBetweenPositions(new Vector2D(state.getCurrentMap().getWidth(), 0)).getX() > -30){
             return Direction.RIGHT;
+
         }else if(new Vector2D(getPosition().getX() + getWidth(), 0)
-                .distanceBetweenPositions(new Vector2D(0, 0)).getX() < 5
+                .distanceBetweenPositions(new Vector2D(0, 0)).getX() < 30
         && new Vector2D(getPosition().getX() + getWidth(), 0)
-                .distanceBetweenPositions(new Vector2D(0, 0)).getX() > -5){
+                .distanceBetweenPositions(new Vector2D(0, 0)).getX() > -30){
             return Direction.LEFT;
-        }else if(getPosition().distanceBetweenPositions(new Vector2D(0, state.getCurrentMap().getHeight())).getY() < 5
-        && getPosition().distanceBetweenPositions(new Vector2D(0, state.getCurrentMap().getHeight())).getY() > -5){
+
+        }else if(getPosition().distanceBetweenPositions(new Vector2D(0, state.getCurrentMap().getHeight())).getY() < 30
+        && getPosition().distanceBetweenPositions(new Vector2D(0, state.getCurrentMap().getHeight())).getY() > -30){
             return Direction.DOWN;
+
         }else if(new Vector2D(0, getPosition().getY() + getHeight())
-                .distanceBetweenPositions(new Vector2D(0, 0)).getY() < 5
+                .distanceBetweenPositions(new Vector2D(0, 0)).getY() < 30
         && new Vector2D(0, getPosition().getY() + getHeight())
-                .distanceBetweenPositions(new Vector2D(0, 0)).getY() > -5){
+                .distanceBetweenPositions(new Vector2D(0, 0)).getY() > -30){
             return Direction.UP;
+
         }
 
         return Direction.NULL;
     }
 
     @Override
-    protected void executePlayerAction(State state) {
+    protected void executePlayerAction(Game game) {
 
     }
 
@@ -64,17 +69,17 @@ public class Player extends Humanoid {
      * Check if the player has made any input except base input like
      * movement and reacts to the input accordingly.
      */
-    private void handlePlayerSpecificInput(State state){
+    private void handlePlayerSpecificInput(Game game){
         if(getController().requestedAction() && target != null){
-            target.executePlayerAction(state);
+            target.executePlayerAction(game);
         }
     }
 
     /**
      * Sets and removes the current target of the player.
      */
-    private void handleTarget(State state) {
-        Optional<GameObject> closestGameObject = findClosestGameObject(state);
+    private void handleTarget(Game game) {
+        Optional<GameObject> closestGameObject = findClosestGameObject(game);
 
         if(closestGameObject.isPresent()){
             GameObject gameObject = closestGameObject.get();
@@ -97,8 +102,8 @@ public class Player extends Humanoid {
         }
     }
 
-    private Optional<GameObject> findClosestGameObject(State state) {
-        return state.getGameObjectsOfClass(GameObject.class).stream()
+    private Optional<GameObject> findClosestGameObject(Game game) {
+        return game.getCurrentState().getGameObjectsOfClass(GameObject.class).stream()
                 .filter(gameObject -> !(gameObject instanceof SelectionCircle) && !(gameObject instanceof Player))
                 .filter(gameObject -> checkDistance(gameObject))
                 .filter(gameObject -> isFacing(gameObject))

@@ -3,7 +3,7 @@ package entity;
 import core.CollisionBox;
 import core.Vector2D;
 import display.Camera;
-import main.state.State;
+import main.Game;
 import utilities.ImgUtils;
 
 import java.awt.*;
@@ -43,7 +43,7 @@ public class SelectionCircle extends GameObject{
     }
 
     @Override
-    public void update(State state) {}
+    public void update(Game state) {}
 
     @Override
     public void draw(Graphics g, Camera camera) {
@@ -71,7 +71,7 @@ public class SelectionCircle extends GameObject{
     }
 
     @Override
-    protected void executePlayerAction(State state) {
+    protected void executePlayerAction(Game game) {
 
     }
 }

@@ -4,7 +4,7 @@ import ai.AITransition;
 import controller.NPCController;
 import core.Vector2D;
 import entity.NPC;
-import main.state.State;
+import main.Game;
 import map.PathFinder;
 
 import java.util.ArrayList;
@@ -31,10 +31,11 @@ public class Wander extends AIState{
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game game) {
         if(target == null) {
             List<Vector2D> foundPath = PathFinder.findPath(currentCharacter.getCollisionBoxGridPosition(),
-                    state.getCurrentMap().getRandomAvailablePositionOnMap(state.getGameObjects()), state.getCurrentMap());
+                    game.getCurrentState().getCurrentMap().getRandomAvailablePositionOnMap(game.getCurrentState().getGameObjects()),
+                    game.getCurrentState().getCurrentMap());
             if(!foundPath.isEmpty()){
                 target = foundPath.get(foundPath.size() - 1);
                 this.path.addAll(foundPath);

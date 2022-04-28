@@ -1,7 +1,6 @@
 package ui.clickable;
 
 import main.Game;
-import main.state.State;
 import ui.Spacing;
 import ui.UIContainer;
 import ui.UIText;
@@ -43,9 +42,9 @@ public class UIButton extends UIClickable{
     }
 
     @Override
-    public void update(State state) {
-        super.update(state);
-        buttonContainer.update(state);
+    public void update(Game game) {
+        super.update(game);
+        buttonContainer.update(game);
         width = buttonContainer.getWidth();
         height = buttonContainer.getHeight();
 

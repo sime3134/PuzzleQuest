@@ -1,5 +1,6 @@
 package main.state;
 
+import content.ContentManager;
 import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
@@ -14,8 +15,8 @@ public class PauseMenuState extends State{
 
     private final GameState gameState;
 
-    public PauseMenuState(GameState gameState) {
-        super();
+    public PauseMenuState(ContentManager content, GameState gameState) {
+        super(content);
         this.gameState = gameState;
     }
 
