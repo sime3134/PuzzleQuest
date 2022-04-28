@@ -1769,7 +1769,83 @@ public class UISceneryMenu extends HorizontalContainer {
                 content
         ));
 
+        sceneryToAdd.add(new Scenery(
+                "fence_top_left",
+                false,
+                content
+        ));
 
+        sceneryToAdd.add(new Scenery(
+                "fence_middle_vertical",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "fence_bottom_left",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "fence_middle_horizontal",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "fence_top_right",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "fence_bottom_right",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "stone_fence_top_left",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "stone_fence_vertical",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "stone_fence_bottom_left",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "stone_fence_horizontal",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "stone_fence_horizontal2",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "stone_fence_top_right",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
+                "stone_fence_bottom_right",
+                false,
+                content
+        ));
 
         UIContainer main = new HorizontalContainer();
         main.setMargin(new Spacing(0));
