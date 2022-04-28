@@ -1,6 +1,5 @@
 package main.state;
 
-import content.ContentManager;
 import editor.UIAnimatedTileMenu;
 import editor.UISceneryMenu;
 import editor.UITileMenu;
@@ -26,16 +25,16 @@ public class EditorState extends State {
 
     private final JFileChooser fileChooser;
 
-    public EditorState(ContentManager content){
-        super(content);
+    public EditorState(Game game){
+        super(game);
         fileChooser = new JFileChooser();
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Game map", "txt"));
         fileChooser.setCurrentDirectory(new File(getClass().getResource("/").getFile()));
-        createNewMap(64, 64);
+        game.createNewMap(64, 64, game.getContent());
         setupMouseButtons();
         Settings.setDebugMode(true);
-        camera.centerOnMap(currentMap);
+        game.getCamera().centerOnMap(game.getCurrentMap());
     }
 
     private void setupMouseButtons() {
@@ -45,19 +44,19 @@ public class EditorState extends State {
     }
 
     @Override
-    protected void setupUI() {
-        super.setupUI();
+    protected void setupUI(Game game) {
+        super.setupUI(game);
         UITabContainer toolsContainer = new UITabContainer();
         toolsContainer.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.BOTTOM));
-        toolsContainer.addTab("Scenery", new UISceneryMenu(content));
-        toolsContainer.addTab("Tiles", new UITileMenu(content));
-        toolsContainer.addTab("Animated", new UIAnimatedTileMenu(content));
+        toolsContainer.addTab("Scenery", new UISceneryMenu(game.getContent()));
+        toolsContainer.addTab("Tiles", new UITileMenu(game.getContent()));
+        toolsContainer.addTab("Animated", new UIAnimatedTileMenu(game.getContent()));
         uiContainers.add(toolsContainer);
 
-        UIButton mainMenuButton = new UIButton("main menu", game -> game.goToMainMenu());
-        UIButton saveButton = new UIButton("save", game -> displaySaveDialog());
-        UIButton loadButton = new UIButton("load", game -> displayLoadDialog());
-        UIButton newButton = new UIButton("new", game -> game.getCurrentState().createNewMap(64, 64));
+        UIButton mainMenuButton = new UIButton("main menu", () -> game.goToMainMenu());
+        UIButton saveButton = new UIButton("save", () -> displaySaveDialog(game));
+        UIButton loadButton = new UIButton("load", () -> displayLoadDialog(game));
+        UIButton newButton = new UIButton("new", () -> game.createNewMap(64, 64, game.getContent()));
         HorizontalContainer buttonMenu = new HorizontalContainer(mainMenuButton, saveButton, loadButton, newButton);
         mainMenuButton.setWidth(180);
         loadButton.setWidth(180);
@@ -66,19 +65,19 @@ public class EditorState extends State {
         uiContainers.add(buttonMenu);
     }
 
-    private void displayLoadDialog() {
+    private void displayLoadDialog(Game game) {
         final int fileChosen = fileChooser.showOpenDialog(new JFrame());
 
         if(fileChosen == JFileChooser.APPROVE_OPTION){
-            loadMap(fileChooser.getSelectedFile().getPath(), true);
+            game.loadMap(fileChooser.getSelectedFile().getPath(), true);
         }
     }
 
-    private void displaySaveDialog(){
+    private void displaySaveDialog(Game game){
         final int fileChosen = fileChooser.showSaveDialog(new JFrame());
 
         if(fileChosen == JFileChooser.APPROVE_OPTION){
-            saveMap(fileChooser.getSelectedFile().toString());
+            game.saveMap(fileChooser.getSelectedFile().toString());
         }
     }
 

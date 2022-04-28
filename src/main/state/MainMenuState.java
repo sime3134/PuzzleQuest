@@ -1,6 +1,5 @@
 package main.state;
 
-import content.ContentManager;
 import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
@@ -12,13 +11,15 @@ import java.awt.*;
  * The applications main menu.
  */
 public class MainMenuState extends State{
-    public MainMenuState(ContentManager content){
-        super(content);
+
+    public MainMenuState(Game game) {
+        super(game);
+        game.loadMap("main_menu_map", false);
     }
 
     @Override
-    protected void setupUI() {
-        super.setupUI();
+    protected void setupUI(Game game) {
+        super.setupUI(game);
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         UIText title = new UIText("Puzzle Quest 2.0");
@@ -26,11 +27,11 @@ public class MainMenuState extends State{
         container.addComponent(title);
         uiContainers.add(container);
 
-        UIButton newGame = new UIButton("New Game", game -> game.enterUsername());
-        UIButton loadGame = new UIButton("Load Game", game -> game.loadGame());
-        UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
-        UIButton exitGame = new UIButton("Exit Game", game -> System.exit(0));
-        UIButton worldEditor = new UIButton("World Editor", game -> game.goToWorldEditor());
+        UIButton newGame = new UIButton("New Game", () -> game.enterUsername());
+        UIButton loadGame = new UIButton("Load Game", () -> game.loadGame());
+        UIButton settings = new UIButton("Settings", () -> game.goToSettingsMenu());
+        UIButton exitGame = new UIButton("Exit Game", () -> System.exit(0));
+        UIButton worldEditor = new UIButton("World Editor", () -> game.goToWorldEditor());
 
         newGame.setBackgroundColor(Color.GRAY);
         newGame.setClickColor(Color.YELLOW);
@@ -65,7 +66,7 @@ public class MainMenuState extends State{
     @Override
     public void update(Game game) {
         super.update(game);
-        camera.centerOnMap(currentMap);
+        game.getCamera().centerOnMap(game.getCurrentMap());
     }
 
     @Override

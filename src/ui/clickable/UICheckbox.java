@@ -108,7 +108,7 @@ public class UICheckbox extends UIComponent {
                 setting.setValue(!setting.getValue());
             }
             if(clickAction != null){
-                clickAction.execute(game);
+                clickAction.execute();
             }
         }
 

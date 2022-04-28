@@ -3,7 +3,6 @@ package input.mouse.action;
 import core.Vector2D;
 import input.Input;
 import main.Game;
-import main.state.State;
 import map.Tile;
 import settings.Settings;
 import ui.UIImage;
@@ -18,16 +17,15 @@ public class TileWalkableToggle extends MouseAction{
     @Override
     public void onClick(Game game) {
         Input input = Input.getInstance();
-        State state = game.getCurrentState();
 
         Vector2D mousePosition = input.getMousePosition().getCopy();
-        mousePosition.add(state.getCamera().getPosition());
+        mousePosition.add(game.getCamera().getPosition());
 
         int gridX = mousePosition.intX() / Settings.getTileSize();
         int gridY = mousePosition.intY() / Settings.getTileSize();
 
-        if(state.getCurrentMap().isWithinBounds(gridX, gridY)){
-            Tile tile = state.getCurrentMap().getTile(gridX, gridY);
+        if(game.getCurrentMap().isWithinBounds(gridX, gridY)){
+            Tile tile = game.getCurrentMap().getTile(gridX, gridY);
             if(tile.getCollisionBoxType() == 0){
                 tile.setCollisionBoxType(1);
             }else if(tile.getCollisionBoxType() == 1){
@@ -49,7 +47,7 @@ public class TileWalkableToggle extends MouseAction{
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game game) {
         Settings.getRenderTileWalkable().setValue(true);
     }
 

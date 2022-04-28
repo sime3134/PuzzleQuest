@@ -1,6 +1,5 @@
 package main.state;
 
-import content.ContentManager;
 import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
@@ -15,14 +14,14 @@ public class PauseMenuState extends State{
 
     private final GameState gameState;
 
-    public PauseMenuState(ContentManager content, GameState gameState) {
-        super(content);
-        this.gameState = gameState;
+    public PauseMenuState(Game game) {
+        super(game);
+        this.gameState = game.getGameState();
     }
 
     @Override
-    protected void setupUI() {
-        super.setupUI();
+    protected void setupUI(Game game) {
+        super.setupUI(game);
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         UIText title = new UIText("Puzzle Quest 2.0");
@@ -30,10 +29,10 @@ public class PauseMenuState extends State{
         container.addComponent(title);
         uiContainers.add(container);
 
-        UIButton resumeGame = new UIButton("Resume Game", game -> game.resumeGame());
-        UIButton saveGame = new UIButton("Save Game", game -> game.saveGame());
-        UIButton mainMenu = new UIButton("Main Menu", game -> game.goToMainMenu());
-        UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
+        UIButton resumeGame = new UIButton("Resume Game", () -> game.resumeGame());
+        UIButton saveGame = new UIButton("Save Game", () -> game.saveGame());
+        UIButton mainMenu = new UIButton("Main Menu", () -> game.goToMainMenu());
+        UIButton settings = new UIButton("Settings", () -> game.goToSettingsMenu());
 
         resumeGame.setBackgroundColor(Color.GRAY);
         resumeGame.setClickColor(Color.YELLOW);
@@ -58,14 +57,6 @@ public class PauseMenuState extends State{
         VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings);
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
-    }
-
-    @Override
-    public void draw(Graphics g) {
-        gameState.currentMap.draw(g, camera);
-        gameState.getGameObjects().forEach(gameObject -> gameObject.draw(g, camera));
-        mouseHandler.draw(g);
-        uiContainers.forEach(uiContainer -> uiContainer.draw(g));
     }
 
     @Override

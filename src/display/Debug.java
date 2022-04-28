@@ -28,21 +28,20 @@ public class Debug {
         }
     }
 
-    public void draw(State state, Graphics g){
+    public void draw(Game game, Graphics g){
         if(Settings.getRenderCollisionBox().getValue()){
-            drawCollisionBoxes(state, g);
+            drawCollisionBoxes(game, g);
         }
         if(Settings.isDebugMode()) {
             uiContainers.forEach(container -> container.draw(g));
         }
     }
 
-    private void drawCollisionBoxes(State state, Graphics g) {
-        Camera camera = state.getCamera();
-        state.getGameObjects().stream()
-                .filter(gameObject -> camera.isObjectInView(gameObject)
+    private void drawCollisionBoxes(Game game, Graphics g) {
+        game.getGameObjects().stream()
+                .filter(gameObject -> game.getCamera().isObjectInView(gameObject)
                         && !(gameObject instanceof SelectionCircle))
                 .map(gameObject -> gameObject.getStaticCollisionBox())
-                .forEach(collisionBox -> collisionBox.draw(g, camera));
+                .forEach(collisionBox -> collisionBox.draw(g, game.getCamera()));
     }
 }

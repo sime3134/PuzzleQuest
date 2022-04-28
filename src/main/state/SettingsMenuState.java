@@ -1,6 +1,5 @@
 package main.state;
 
-import content.ContentManager;
 import main.Game;
 import settings.Settings;
 import ui.Alignment;
@@ -20,14 +19,14 @@ public class SettingsMenuState extends State{
 
     private final GameState gameState;
 
-    public SettingsMenuState(ContentManager content, GameState gameState) {
-        super(content);
-        this.gameState = gameState;
+    public SettingsMenuState(Game game) {
+        super(game);
+        this.gameState = game.getGameState();
     }
 
     @Override
-    protected void setupUI() {
-        super.setupUI();
+    protected void setupUI(Game game) {
+        super.setupUI(game);
         UIContainer container = new VerticalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         UIText title = new UIText("Settings");
@@ -36,10 +35,10 @@ public class SettingsMenuState extends State{
         uiContainers.add(container);
 
         UIText audioTxt= new UIText("Audio");
-        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioOn(), game -> game.toggleAudio());
-        UIButton increase = new UIButton("+", game -> Settings.increaseVolume());
-        UIButton decrease = new UIButton("-", game -> Settings.decreaseVolume());
-        UIButton back = new UIButton("Back", game -> game.goToLastState());
+        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioOn(), () -> game.toggleAudio());
+        UIButton increase = new UIButton("+", () -> Settings.increaseVolume());
+        UIButton decrease = new UIButton("-", () -> Settings.decreaseVolume());
+        UIButton back = new UIButton("Back", () -> game.goToLastState());
 
         audioTxt.setFontSize(30);
         audio.setFontSize(20);
@@ -59,7 +58,7 @@ public class SettingsMenuState extends State{
 
         UIText displayText = new UIText("Display");
         UICheckbox fullscreen = new UICheckbox("Fullscreen", Settings.getFullScreenSetting(),
-                game -> game.setFullScreen());
+                () -> game.setFullScreen());
 
         displayText.setFontSize(30);
         fullscreen.setFontSize(20);
@@ -80,17 +79,6 @@ public class SettingsMenuState extends State{
         VerticalContainer backButton = new VerticalContainer(back);
         backButton.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.TOP));
         uiContainers.add(backButton);
-    }
-
-    @Override
-    public void draw(Graphics g) {
-        currentMap.draw(g, camera);
-        gameObjects.forEach(gameObject -> gameObject.draw(g, camera));
-        if(gameState != null) {
-            gameState.getGameObjects().forEach(gameObject -> gameObject.draw(g, camera));
-        }
-        mouseHandler.draw(g);
-        uiContainers.forEach(uiContainer -> uiContainer.draw(g));
     }
 
     @Override

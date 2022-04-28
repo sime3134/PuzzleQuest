@@ -126,19 +126,19 @@ public class UIMinimap extends UIClickable{
         mousePosition.subtract(absolutePosition);
         mousePosition.subtract(pixelOffset);
 
-        game.getCurrentState().getCamera().setPosition(
+        game.getCamera().setPosition(
                 new Vector2D(
                         mousePosition.getX() / minimapRatio - cameraViewBounds.getWidth() / minimapRatio / 2,
                         mousePosition.getY() / minimapRatio - cameraViewBounds.getHeight() / minimapRatio / 2
                 )
         );
 
-        game.getCurrentState().getCamera().removeFocus();
+        game.getCamera().removeFocus();
     }
 
     @Override
     public void onRelease(Game game) {
-        game.getCurrentState().getCamera().resetLastFocus();
+        game.getCamera().resetLastFocus();
     }
 
     @Override
@@ -146,10 +146,10 @@ public class UIMinimap extends UIClickable{
         super.update(game);
 
         if(game.getTime().secondsDividableBy(0.25)){
-            calculateRatio(game.getCurrentState().getCurrentMap());
-            generateMap(game.getCurrentState().getCurrentMap(), game.getCurrentState().getGameObjects());
+            calculateRatio(game.getCurrentMap());
+            generateMap(game.getCurrentMap(), game.getGameObjects());
         }
-        Camera camera = game.getCurrentState().getCamera();
+        Camera camera = game.getCamera();
         cameraViewBounds = new Rectangle(
                 (int) (camera.getPosition().getX() * minimapRatio + pixelOffset.getX()),
                 (int) (camera.getPosition().getY() * minimapRatio + pixelOffset.getY()),

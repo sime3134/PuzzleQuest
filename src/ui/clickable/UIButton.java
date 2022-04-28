@@ -63,7 +63,7 @@ public class UIButton extends UIClickable{
     @Override
     public void onClick(Game game) {
         if(hasFocus) {
-            clickAction.execute(game);
+            clickAction.execute();
         }
     }
 

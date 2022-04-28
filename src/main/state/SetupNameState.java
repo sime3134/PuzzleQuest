@@ -1,6 +1,5 @@
 package main.state;
 
-import content.ContentManager;
 import main.Game;
 import ui.Alignment;
 import ui.UIContainer;
@@ -17,13 +16,13 @@ import java.awt.*;
  */
 public class SetupNameState extends State{
 
-    public SetupNameState(ContentManager content) {
-        super(content);
+    public SetupNameState(Game game) {
+        super(game);
     }
 
     @Override
-    protected void setupUI() {
-        super.setupUI();
+    protected void setupUI(Game game) {
+        super.setupUI(game);
 
         UIContainer container = new VerticalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
@@ -35,8 +34,8 @@ public class SetupNameState extends State{
         UIText enterName = new UIText("Enter your character's name");
         enterName.setFontSize(24);
         UIText nameRules = new UIText("3-10 characters");
-        UIButton startGame = new UIButton("Start Game", game -> game.startNewGame());
-        UIButton back = new UIButton("Back", game -> game.goToLastState());
+        UIButton startGame = new UIButton("Start Game", () -> game.startNewGame());
+        UIButton back = new UIButton("Back", () -> game.goToLastState());
 
         startGame.setBackgroundColor(Color.GRAY);
         startGame.setClickColor(Color.YELLOW);
@@ -60,7 +59,7 @@ public class SetupNameState extends State{
     @Override
     public void update(Game game) {
         super.update(game);
-        camera.centerOnMap(currentMap);
+        game.getCamera().centerOnMap(game.getCurrentMap());
     }
 
     @Override

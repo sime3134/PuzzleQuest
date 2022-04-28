@@ -1,7 +1,6 @@
 package input.mouse.action;
 
 import main.Game;
-import main.state.State;
 import ui.UIImage;
 
 import java.awt.*;
@@ -27,7 +26,7 @@ public class ClearAction extends MouseAction{
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game game) {
 
     }
 

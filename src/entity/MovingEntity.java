@@ -66,11 +66,11 @@ public abstract class MovingEntity extends GameObject {
     }
 
     private void checkForCollisions(Game game) {
-        game.getCurrentState().getCollidingBoxes(getCollisionBox()).forEach(this::handleCollision);
+        game.getCollidingBoxes(getCollisionBox()).forEach(this::handleCollision);
     }
 
     private void checkForTileCollisions(Game game) {
-        game.getCurrentState().getCurrentMap().getCollidingUnwalkableTileBoxes(getCollisionBox())
+        game.getCurrentMap().getCollidingUnwalkableTileBoxes(getCollisionBox())
                 .forEach(tileCollisionBox -> velocity.reset(willCollideX(tileCollisionBox), willCollideY(tileCollisionBox)));
     }
 

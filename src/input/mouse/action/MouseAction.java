@@ -1,7 +1,7 @@
 package input.mouse.action;
 
 import input.mouse.MouseConsumer;
-import main.state.State;
+import main.Game;
 import ui.UIImage;
 
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public abstract class MouseAction implements MouseConsumer {
 
-    public abstract void update(State state);
+    public abstract void update(Game game);
     public abstract void draw(Graphics g);
     public abstract UIImage getSprite();
     public abstract void cleanUp();

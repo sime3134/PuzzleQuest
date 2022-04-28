@@ -3,7 +3,6 @@ package input.mouse.action;
 import core.Vector2D;
 import input.Input;
 import main.Game;
-import main.state.State;
 import map.AnimatedTile;
 import map.Tile;
 import settings.Settings;
@@ -29,13 +28,13 @@ public class TilePlacer extends MouseAction{
 
     @Override
     public void onClick(Game game) {
-        if(game.getCurrentState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
+        if(game.getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
             Tile newTile = tile.getCopy();
             if(newTile instanceof AnimatedTile animatedTile){
                 animatedTile.setAnimationManager(((AnimatedTile)tile).getAnimationManager().getCopy(animatedTile.getTileSheetName()));
-                game.getCurrentState().getCurrentMap().setTile(currentGridX, currentGridY, animatedTile);
+                game.getCurrentMap().setTile(currentGridX, currentGridY, animatedTile);
             }else{
-                game.getCurrentState().getCurrentMap().setTile(currentGridX, currentGridY, newTile);
+                game.getCurrentMap().setTile(currentGridX, currentGridY, newTile);
             }
         }
         System.out.println("TilePlacer class: Placed tile: " + tile.getTileSheetName() + "    " + tile.getTileIndex());
@@ -43,13 +42,13 @@ public class TilePlacer extends MouseAction{
 
     @Override
     public void onDrag(Game game) {
-        if(game.getCurrentState().getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
+        if(game.getCurrentMap().isWithinBounds(currentGridX, currentGridY)){
             Tile newTile = tile.getCopy();
             if(newTile instanceof AnimatedTile animatedTile){
                 animatedTile.setAnimationManager(((AnimatedTile)tile).getAnimationManager().getCopy(animatedTile.getTileSheetName()));
-                game.getCurrentState().getCurrentMap().setTile(currentGridX, currentGridY, animatedTile);
+                game.getCurrentMap().setTile(currentGridX, currentGridY, animatedTile);
             }else{
-                game.getCurrentState().getCurrentMap().setTile(currentGridX, currentGridY, newTile);
+                game.getCurrentMap().setTile(currentGridX, currentGridY, newTile);
             }
         }
     }
@@ -60,9 +59,9 @@ public class TilePlacer extends MouseAction{
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game game) {
         Vector2D mousePosition = Input.getInstance().getMousePosition().getCopy();
-        mousePosition.add(state.getCamera().getPosition());
+        mousePosition.add(game.getCamera().getPosition());
 
         currentGridX = mousePosition.intX() / Settings.getTileSize();
         currentGridY = mousePosition.intY() / Settings.getTileSize();
@@ -70,7 +69,7 @@ public class TilePlacer extends MouseAction{
         mousePosition.subtract(new Vector2D(
                 mousePosition.intX() % Settings.getTileSize(),
                 mousePosition.intY() % Settings.getTileSize()));
-        mousePosition.subtract(state.getCamera().getPosition());
+        mousePosition.subtract(game.getCamera().getPosition());
 
         previewImage.setAbsolutePosition(mousePosition);
     }

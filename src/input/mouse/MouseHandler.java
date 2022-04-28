@@ -32,7 +32,7 @@ public class MouseHandler {
 
     private void handleWheelButton(Game game) {
         if(wheelButtonAction != null){
-            wheelButtonAction.update(game.getCurrentState());
+            wheelButtonAction.update(game);
             Input input = Input.getInstance();
 
             if(input.isWheelMouseClicked()){
@@ -51,7 +51,7 @@ public class MouseHandler {
 
     private void handleRightButton(Game game) {
         if(rightButtonAction != null){
-            rightButtonAction.update(game.getCurrentState());
+            rightButtonAction.update(game);
             Input input = Input.getInstance();
 
             if(input.isRightMouseClicked()){
@@ -72,7 +72,7 @@ public class MouseHandler {
     private void handleLeftButton(Game game) {
         if(leftButtonAction != null){
             setCurrentConsumer(leftButtonAction);
-            leftButtonAction.update(game.getCurrentState());
+            leftButtonAction.update(game);
         }
     }
 

@@ -3,7 +3,6 @@ package input.mouse.action;
 import core.Vector2D;
 import input.Input;
 import main.Game;
-import main.state.State;
 import ui.UIImage;
 
 import java.awt.*;
@@ -26,9 +25,9 @@ public class CameraMovement extends MouseAction {
 
         if (dragPosition != null) {
             dragPosition.subtract(input.getMousePosition());
-            Vector2D cameraPosition = game.getCurrentState().getCamera().getPosition().getCopy();
+            Vector2D cameraPosition = game.getCamera().getPosition().getCopy();
             cameraPosition.add(dragPosition);
-            game.getCurrentState().getCamera().setPosition(cameraPosition);
+            game.getCamera().setPosition(cameraPosition);
         }
         dragPosition = input.getMousePosition().getCopy();
     }
@@ -39,7 +38,7 @@ public class CameraMovement extends MouseAction {
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game game) {
 
     }
 

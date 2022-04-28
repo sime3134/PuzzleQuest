@@ -45,9 +45,9 @@ public class SceneryTool extends MouseAction{
             }
 
             Vector2D mousePosition = input.getMousePosition().getCopy();
-            mousePosition.add(state.getCamera().getPosition());
+            mousePosition.add(game.getCamera().getPosition());
 
-            state.getGameObjectsOfClass(Scenery.class).stream()
+            game.getGameObjectsOfClass(Scenery.class).stream()
                     .filter(scenery -> scenery.getCollisionBox().getBounds().contains(mousePosition.intX(), mousePosition.intY()))
                     .forEach(collidingScenery -> select(collidingScenery));
         } else {
@@ -63,10 +63,10 @@ public class SceneryTool extends MouseAction{
     }
 
     @Override
-    public void update(State state) {
+    public void update(Game game) {
         Input input = Input.getInstance();
         if(input.isKeyPressed(KeyEvent.VK_DELETE)){
-            selectedScenery.forEach(scenery -> state.despawn(scenery));
+            selectedScenery.forEach(scenery -> game.despawn(scenery));
         }
 
         if(!input.isLeftMousePressed()){
