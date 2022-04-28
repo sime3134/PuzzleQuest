@@ -51,7 +51,7 @@ public class GameState extends State{
         super(game);
         quests = new QuestManager();
         worldMapPosition = new Vector2D(0,0);
-        game.loadMap(worldMap[worldMapPosition.intX()][worldMapPosition.intY()], false);
+        game.loadMap(worldMap[worldMapPosition.intX()][worldMapPosition.intY()]);
         initializeEntities(game);
         NPC npc = new NPC(new NPCController(), game.getContent().getSpriteSet("villager1"));
         Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
@@ -86,12 +86,12 @@ public class GameState extends State{
                             worldMapPosition.intY() + directionValue.intY());
 
                         game.loadMap(worldMap[worldMapPosition.intX()]
-                                [worldMapPosition.intY()], false);
+                                [worldMapPosition.intY()]);
 
                     setPlayerPositionFromDirectionToMapBorder(game, direction);
                 }
             }else{
-                game.loadMap(worldMap[0][0], false);
+                game.loadMap(worldMap[0][0]);
                 setPlayerPositionFromDirectionToMapBorder(game, direction);
             }
         }

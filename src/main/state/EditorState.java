@@ -69,7 +69,7 @@ public class EditorState extends State {
         final int fileChosen = fileChooser.showOpenDialog(new JFrame());
 
         if(fileChosen == JFileChooser.APPROVE_OPTION){
-            game.loadMap(fileChooser.getSelectedFile().getPath(), true);
+            game.loadMapFromPath(fileChooser.getSelectedFile().getPath());
         }
     }
 

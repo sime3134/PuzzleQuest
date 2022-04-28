@@ -14,6 +14,7 @@ import entity.Player;
 import entity.Scenery;
 import main.state.*;
 import map.GameMap;
+import map.MapManager;
 import settings.Settings;
 
 import java.awt.*;
@@ -33,7 +34,7 @@ public class Game {
     private final GameFrame gameFrame;
 
     private final Debug debug;
-    GameController gameController;
+    private final GameController gameController;
 
     private final AudioPlayer audioPlayer;
 
@@ -45,9 +46,10 @@ public class Game {
     private GameState gameState;
     private EditorState editorState;
 
-    private GameMap currentMap;
-
     private final List<GameObject> gameObjects;
+    private final MapManager maps;
+
+    //region Getters & Setters (Click to view)
 
     public State getCurrentState() {
         return currentState;
@@ -70,7 +72,7 @@ public class Game {
     }
 
     public GameMap getCurrentMap() {
-        return currentMap;
+        return maps.getCurrent();
     }
 
     public void toggleAudio() {
@@ -102,13 +104,17 @@ public class Game {
         gameFrame.toggleFullScreen();
     }
 
+    //endregion
+
     public Game(){
         gameObjects = new ArrayList<>();
         content = new ContentManager();
+        content.loadContent();
+        maps = new MapManager();
+        maps.loadAll(content, "/maps");
         camera = new Camera();
         time = new Time();
-        content.loadContent();
-        loadMap("main_menu_map", false);
+        loadMap("main_menu_map");
         currentState = new MainMenuState(this);
         lastState = currentState;
         gameController = new GameController();
@@ -120,8 +126,8 @@ public class Game {
 
     public void update() {
         gameController.update(this);
-        camera.update(currentMap);
-        currentMap.update(camera);
+        camera.update(maps.getCurrent());
+        maps.update(camera);
         currentState.update(this);
         updateObjectsDrawOrder();
         if(!(currentState instanceof PauseMenuState)) {
@@ -133,7 +139,7 @@ public class Game {
     }
 
     public void draw(Graphics g) {
-        currentMap.draw(g, camera);
+        maps.draw(g, camera);
         gameObjects.stream()
                 .filter(gameObject -> camera.isObjectInView(gameObject))
                 .forEach(gameObject -> renderGameObject(g, camera, gameObject));
@@ -207,35 +213,37 @@ public class Game {
         System.out.println(text);
     }
 
-    public void loadMap(String nameOrPath, boolean path) {
+    public void loadMapFromPath(String path) {
         gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
-        if(path) {
-            currentMap = MapIO.loadFromPath(content, nameOrPath);
-        }else {
-            currentMap = MapIO.loadFromName(content, nameOrPath);
-        }
-        gameObjects.addAll(currentMap.getSceneryList());
+        maps.setCurrent(MapIO.loadFromPath(content ,path));
+        gameObjects.addAll(maps.getCurrent().getSceneryList());
+    }
+
+    public void loadMap(String name) {
+        gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
+        maps.setCurrent(maps.getByName(name));
+        gameObjects.addAll(maps.getCurrent().getSceneryList());
     }
 
     public void saveMap(String filePath) {
-        currentMap.setSceneryList(getGameObjectsOfClass(Scenery.class));
-        MapIO.save(currentMap, filePath);
+        maps.getCurrent().setSceneryList(getGameObjectsOfClass(Scenery.class));
+        MapIO.save(maps.getCurrent(), filePath);
     }
 
 
     public void createNewMap(int width, int height, ContentManager content) {
         gameObjects.clear();
-        currentMap = new GameMap(width, height, content);
+        maps.setCurrent(new GameMap(width, height, content));
     }
 
     public void spawn(GameObject gameObject) {
         gameObjects.add(gameObject);
-        currentMap.getSceneryList().add((Scenery) gameObject);
+        maps.getCurrent().getSceneryList().add((Scenery) gameObject);
     }
 
     public void despawn(GameObject gameObject) {
         gameObjects.remove(gameObject);
-        currentMap.getSceneryList().remove((Scenery)gameObject);
+        maps.getCurrent().getSceneryList().remove((Scenery)gameObject);
     }
 
     /**

@@ -4,6 +4,9 @@ import content.ContentManager;
 import map.GameMap;
 
 import java.io.*;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Simon Jern
@@ -25,6 +28,43 @@ public class MapIO {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static Map<String, GameMap> loadAllMaps(ContentManager content, String basePath) {
+        Map<String, GameMap> maps = new HashMap();
+
+        if (MapIO.class.getResource(basePath) != null) {
+            URL resource = MapIO.class.getResource(basePath);
+            File file = new File(resource.getFile());
+            String[] mapPaths = file.list((current, name) -> new File(current, name).isFile());
+
+            for(String fileName : mapPaths) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(MapIO.class.getResource(basePath + "/" + fileName).getFile()))) {
+
+                    String fileNameWithoutExtension = fileName.substring(0, fileName.length() - 4);
+                    GameMap gameMap = new GameMap(fileNameWithoutExtension);
+
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(System.lineSeparator());
+                        sb.append(line);
+                    }
+
+                    gameMap.applySerializedData(sb.toString());
+
+                    gameMap.reloadGraphics(content);
+
+                    maps.put(fileNameWithoutExtension, gameMap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        System.out.println(maps.keySet());
+        return maps;
     }
 
     public static GameMap loadFromName(ContentManager content, String mapName) {

@@ -14,7 +14,7 @@ public class MainMenuState extends State{
 
     public MainMenuState(Game game) {
         super(game);
-        game.loadMap("main_menu_map", false);
+        game.loadMap("main_menu_map");
     }
 
     @Override
