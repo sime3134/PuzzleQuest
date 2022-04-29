@@ -12,11 +12,8 @@ import java.awt.*;
  */
 public class PauseMenuState extends State{
 
-    private final GameState gameState;
-
     public PauseMenuState(Game game) {
         super(game);
-        this.gameState = game.getGameState();
     }
 
     @Override
