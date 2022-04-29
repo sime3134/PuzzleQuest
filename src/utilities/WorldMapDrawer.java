@@ -55,16 +55,16 @@ public class WorldMapDrawer {
         g.dispose();
     }
 
-    public static void generateMap(GameMap gameMap, int imageSize) {
+    public static void generateMap(GameMap gameMap, int imageSize, String mapName) {
         BufferedImage mapImage = (BufferedImage) ImgUtils.createCompatibleImage(imageSize, imageSize,
                 ImgUtils.ALPHA_BIT_MASKED);
         Graphics2D g = mapImage.createGraphics();
 
-        double minimapRatio = calculateRatio(gameMap, gameMap.getWidth());
+        double minimapRatio = calculateRatio(gameMap, imageSize);
 
         int spriteSizeOnMinimap = (int) Math.round(Settings.getTileSize() * minimapRatio);
 
-        Vector2D pixelOffset = calculatePixelOffset(gameMap.getWidth(), gameMap, spriteSizeOnMinimap);
+        Vector2D pixelOffset = calculatePixelOffset(imageSize, gameMap, spriteSizeOnMinimap);
 
         for(int x = 0; x < gameMap.getTiles().length; x++){
             for(int y = 0; y < gameMap.getTiles()[0].length; y++){
@@ -77,21 +77,21 @@ public class WorldMapDrawer {
             }
         }
 
-        List<Scenery> scenery = gameMap.getSceneryList();
+        List<Scenery> sceneries = gameMap.getSceneryList();
 
-        scenery.stream().forEach(gameObject -> {
-            Vector2D positionWithOffset = gameObject.getPosition().getCopy();
-            positionWithOffset.subtract(gameObject.getRenderOffset());
+        sceneries.stream().forEach(scenery -> {
+            Vector2D positionWithOffset = scenery.getPosition().getCopy();
+            positionWithOffset.subtract(scenery.getRenderOffset());
             positionWithOffset.add(pixelOffset);
 
             g.drawImage(
-                    getScaledSprite(gameObject.getSprite(), minimapRatio),
+                    getScaledSprite(scenery.getSprite(), minimapRatio),
                     (int) Math.round(positionWithOffset.getX() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getX()),
                     (int) Math.round(positionWithOffset.getY() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getY()),
                     null);
         });
 
-        saveToFile(mapImage, "./one_map.png");
+        saveToFile(mapImage, "./" + mapName.substring(0, mapName.length() - 4) + ".png");
 
         g.dispose();
     }

@@ -15,7 +15,6 @@ public class MainMenuState extends State{
     public MainMenuState(Game game) {
         super(game);
         game.loadMap("main_menu_map");
-        //WorldMapDrawer.generateMap(game.getMapManager().getByName("maze"), 2304);
     }
 
     @Override

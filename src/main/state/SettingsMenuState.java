@@ -35,7 +35,7 @@ public class SettingsMenuState extends State{
         UIButton decrease = new UIButton("-", () -> Settings.decreaseVolume());
         UIButton back = new UIButton("Back", () -> game.goToLastState());
         UIButton saveMap = new UIButton("Save world map to file",
-                () -> WorldMapDrawer.generateFullWorldMap(game.getMapManager().getWorldMap(), 2560, 5));
+                () -> WorldMapDrawer.generateFullWorldMap(game.getMapManager().getWorldMap(), 30720, 5));
 
         audioTxt.setFontSize(30);
         audio.setFontSize(20);

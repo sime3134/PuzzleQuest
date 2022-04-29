@@ -12,6 +12,7 @@ import ui.Alignment;
 import ui.HorizontalContainer;
 import ui.UITabContainer;
 import ui.clickable.UIButton;
+import utilities.WorldMapDrawer;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -57,11 +58,15 @@ public class EditorState extends State {
         UIButton saveButton = new UIButton("save", () -> displaySaveDialog(game));
         UIButton loadButton = new UIButton("load", () -> displayLoadDialog(game));
         UIButton newButton = new UIButton("new", () -> game.createNewMap(64, 64, game.getContent()));
-        HorizontalContainer buttonMenu = new HorizontalContainer(mainMenuButton, saveButton, loadButton, newButton);
+        UIButton pngButton = new UIButton("PNG",
+                () -> WorldMapDrawer.generateMap(game.getCurrentMap(), 2304, game.getCurrentMap().getName()));
+        HorizontalContainer buttonMenu = new HorizontalContainer(mainMenuButton, pngButton, saveButton,
+                loadButton, newButton);
         mainMenuButton.setWidth(180);
         loadButton.setWidth(180);
         saveButton.setWidth(180);
         newButton.setWidth(180);
+        pngButton.setWidth(180);
         uiContainers.add(buttonMenu);
     }
 
