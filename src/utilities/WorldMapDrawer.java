@@ -50,14 +50,55 @@ public class WorldMapDrawer {
         }
 
 
-        saveToFile(mapImage);
+        saveToFile(mapImage, "./world_map.png");
 
         g.dispose();
     }
 
-    private static void saveToFile(BufferedImage mapImage) {
+    public static void generateMap(GameMap gameMap, int imageSize) {
+        BufferedImage mapImage = (BufferedImage) ImgUtils.createCompatibleImage(imageSize, imageSize,
+                ImgUtils.ALPHA_BIT_MASKED);
+        Graphics2D g = mapImage.createGraphics();
+
+        double minimapRatio = calculateRatio(gameMap, gameMap.getWidth());
+
+        int spriteSizeOnMinimap = (int) Math.round(Settings.getTileSize() * minimapRatio);
+
+        Vector2D pixelOffset = calculatePixelOffset(gameMap.getWidth(), gameMap, spriteSizeOnMinimap);
+
+        for(int x = 0; x < gameMap.getTiles().length; x++){
+            for(int y = 0; y < gameMap.getTiles()[0].length; y++){
+                g.drawImage(
+                        getScaledSprite(gameMap.getTiles()[x][y].getSprite(), minimapRatio),
+                        x * spriteSizeOnMinimap + (imageSize - gameMap.getTiles().length * spriteSizeOnMinimap) / 2,
+                        y * spriteSizeOnMinimap + (imageSize - gameMap.getTiles()[0].length * spriteSizeOnMinimap) / 2,
+                        null
+                );
+            }
+        }
+
+        List<Scenery> scenery = gameMap.getSceneryList();
+
+        scenery.stream().forEach(gameObject -> {
+            Vector2D positionWithOffset = gameObject.getPosition().getCopy();
+            positionWithOffset.subtract(gameObject.getRenderOffset());
+            positionWithOffset.add(pixelOffset);
+
+            g.drawImage(
+                    getScaledSprite(gameObject.getSprite(), minimapRatio),
+                    (int) Math.round(positionWithOffset.getX() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getX()),
+                    (int) Math.round(positionWithOffset.getY() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getY()),
+                    null);
+        });
+
+        saveToFile(mapImage, "./one_map.png");
+
+        g.dispose();
+    }
+
+    private static void saveToFile(BufferedImage mapImage, String path) {
         try {
-            ImageIO.write(mapImage, "png", new File("./world_map.png"));
+            ImageIO.write(mapImage, "png", new File(path));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

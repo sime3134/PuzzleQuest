@@ -3,6 +3,7 @@ package main.state;
 import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
+import utilities.WorldMapDrawer;
 
 import java.awt.*;
 
@@ -15,6 +16,7 @@ public class MainMenuState extends State{
     public MainMenuState(Game game) {
         super(game);
         game.loadMap("main_menu_map");
+        WorldMapDrawer.
     }
 
     @Override
