@@ -5,7 +5,6 @@ import content.SpriteSet;
 import controller.EntityController;
 import core.Vector2D;
 import display.Camera;
-import entity.humanoid.Humanoid;
 import main.Game;
 import settings.Settings;
 
@@ -30,8 +29,8 @@ public class NPC extends Humanoid {
         return brain;
     }
 
-    public NPC(EntityController entityController, SpriteSet spriteSet) {
-        super(entityController, spriteSet);
+    public NPC(EntityController entityController, SpriteSet spriteSet, String name) {
+        super(entityController, spriteSet, name);
         brain = new AIManager(this);
         path = new ArrayList<>();
     }

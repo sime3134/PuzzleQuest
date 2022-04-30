@@ -1,5 +1,6 @@
 package main.state;
 
+import IO.Persistable;
 import controller.NPCController;
 import controller.PlayerController;
 import core.Direction;
@@ -25,16 +26,15 @@ import java.security.SecureRandom;
  * The class containing all the front logic for the game. This class should not contain any complicated or overly long
  * methods but instead pair together several components of the game such as the player, NPCs, content etc.
  */
-public class GameState extends State{
+public class GameState extends State implements Persistable {
 
     private Player player;
 
-    private QuestManager quests;
+    private final QuestManager quests;
 
     private boolean repeatMaps;
 
     private String[][] worldMap = {
-
 
             {"map1", "map2", "map3", "map4", "map5"},
             {"map6", "map7", "map8", "map9", "map10"},
@@ -43,8 +43,6 @@ public class GameState extends State{
             {"map21", "map22", "map23", "map24", "map25"}
     };
 
-    private Vector2D worldMapPosition;
-
     public Player getPlayer() {
         return player;
     }
@@ -52,10 +50,13 @@ public class GameState extends State{
     public GameState(Game game){
         super(game);
         quests = new QuestManager();
-        worldMapPosition = new Vector2D(0,0);
-        game.loadMap(worldMap[worldMapPosition.intX()][worldMapPosition.intY()]);
         initializeEntities(game);
-        NPC npc = new NPC(new NPCController(), game.getContent().getSpriteSet("villager1"));
+        game.loadMap(worldMap[player.getWorldMapPosition().intX()][player.getWorldMapPosition().intY()]);
+        initializeQuests(game);
+    }
+
+    private void initializeQuests(Game game) {
+        NPC npc = new NPC(new NPCController(), game.getContent().getSpriteSet("villager1"), "default");
         Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
         npc.addQuest(goToTwoPositions);
         quests.addQuest(goToTwoPositions);
@@ -79,16 +80,16 @@ public class GameState extends State{
 
             if (!repeatMaps) {
 
-                if (worldMapPosition.intX() + directionValue.intX() < worldMap.length
-                        && worldMapPosition.intX() + directionValue.intX() >= 0
-                        && worldMapPosition.intY() + directionValue.intY() < worldMap[0].length
-                        && worldMapPosition.intY() + directionValue.intY() >= 0) {
+                if (player.getWorldMapPosition().intX() + directionValue.intX() < worldMap.length
+                        && player.getWorldMapPosition().intX() + directionValue.intX() >= 0
+                        && player.getWorldMapPosition().intY() + directionValue.intY() < worldMap[0].length
+                        && player.getWorldMapPosition().intY() + directionValue.intY() >= 0) {
 
-                    worldMapPosition = new Vector2D(worldMapPosition.intX() + directionValue.intX(),
-                            worldMapPosition.intY() + directionValue.intY());
+                    player.setWorldMapPosition(new Vector2D(player.getWorldMapPosition().intX() + directionValue.intX(),
+                            player.getWorldMapPosition().intY() + directionValue.intY()));
 
-                        game.loadMap(worldMap[worldMapPosition.intX()]
-                                [worldMapPosition.intY()]);
+                        game.loadMap(worldMap[player.getWorldMapPosition().intX()]
+                                [player.getWorldMapPosition().intY()]);
 
                     setPlayerPositionFromDirectionToMapBorder(game, direction);
                 }
@@ -175,8 +176,8 @@ public class GameState extends State{
 
     private void initializeEntities(Game game) {
         player = new Player(PlayerController.getInstance(),
-                game.getContent().getSpriteSet("player"));
-        player.setPosition(new Vector2D(200,200));
+                game.getContent().getSpriteSet("player"), "PlayerName");
+        player.setPosition(new Vector2D(2200,1500));
 
         game.getGameObjects().add(player);
         game.getCamera().focusOn(player);
@@ -191,14 +192,27 @@ public class GameState extends State{
             Vector2D spawnPosition = game.getCurrentMap().getRandomAvailablePositionOnMap(game.getGameObjects());
 
             NPC npc = new NPC(new NPCController(),
-                    game.getContent().getSpriteSet("villager" + randomizer.nextInt(5)));
+                    game.getContent().getSpriteSet("villager" + randomizer.nextInt(5)), "default");
             npc.setPosition(new Vector2D(1400, 1000));
             game.addGameObject(npc);
 
         }
     }
 
-    public void startAvailableQuest() {
+    @Override
+    public String serialize() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getClass().getSimpleName())
+                .append(SECTION_DELIMETER)
+                .append(player.serialize())
+                .append(SECTION_DELIMETER);
+
+        //TODO: Save all NPC on all maps
+        return sb.toString();
+    }
+
+    @Override
+    public void applySerializedData(String toString) {
 
     }
 }

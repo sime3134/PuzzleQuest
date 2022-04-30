@@ -61,7 +61,7 @@ public class ContentManager {
         String[] folderNames = getFolderNames(filePath);
 
         for(String folderName : folderNames){
-            SpriteSet spriteSet = new SpriteSet();
+            SpriteSet spriteSet = new SpriteSet(folderName);
             String pathToFolder = filePath + "/" + folderName;
             String[] sheetsInFolder = getImagesInFolder(pathToFolder);
 
@@ -78,7 +78,7 @@ public class ContentManager {
 
         for(String fileName : imagesInFolder){
             String fileNameWithoutExtension = fileName.substring(0, fileName.length() - 4);
-            SpriteSet spriteSet = new SpriteSet();
+            SpriteSet spriteSet = new SpriteSet(fileName);
 
             spriteSet.addSheet(fileNameWithoutExtension,
                     ImgUtils.loadImage(filePath + "/" + fileName));
