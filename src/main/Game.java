@@ -47,6 +47,8 @@ public class Game {
     private GameState gameState;
     private EditorState editorState;
 
+    private SettingsMenuState settingsState;
+
     private final List<GameObject> gameObjects;
     private final MapManager maps;
 
@@ -126,6 +128,7 @@ public class Game {
         loadMap("main_menu_map");
         currentState = new MainMenuState(this);
         lastState = currentState;
+        settingsState = new SettingsMenuState(this);
         gameController = new GameController();
         debug = new Debug(currentState);
         audioPlayer = new AudioPlayer();
@@ -188,7 +191,7 @@ public class Game {
 
     public void goToSettingsMenu() {
         lastState = currentState;
-        this.currentState = new SettingsMenuState(this);
+        this.currentState = settingsState;
     }
 
     public void startNewGame() {
