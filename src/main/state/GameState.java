@@ -16,6 +16,7 @@ import ui.HorizontalContainer;
 import ui.UIContainer;
 import ui.UIText;
 import ui.clickable.UIButton;
+import utilities.SplashScreen;
 
 import java.awt.*;
 import java.security.SecureRandom;
@@ -60,6 +61,7 @@ public class GameState extends State{
         npc.addQuest(goToTwoPositions);
         quests.addQuest(goToTwoPositions);
         game.addGameObject(npc);
+        SplashScreen splashScreen = new SplashScreen();
     }
 
     @Override

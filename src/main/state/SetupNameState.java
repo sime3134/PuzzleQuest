@@ -6,6 +6,7 @@ import ui.UIContainer;
 import ui.UIText;
 import ui.VerticalContainer;
 import ui.clickable.UIButton;
+import utilities.SplashScreen;
 
 import java.awt.*;
 
