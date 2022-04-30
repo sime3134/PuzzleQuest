@@ -1,6 +1,7 @@
 package main;
 
 import IO.MapIO;
+import IO.ProgressIO;
 import audio.AudioPlayer;
 import content.ContentManager;
 import controller.GameController;
@@ -16,7 +17,6 @@ import main.state.*;
 import map.GameMap;
 import map.MapManager;
 import settings.Settings;
-import utilities.WorldMapDrawer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -167,7 +167,7 @@ public class Game {
     }
 
     public void saveGame() {
-        //TODO: implement
+        ProgressIO.save(gameState,"./save_file.txt");
     }
 
     public void loadGame() {

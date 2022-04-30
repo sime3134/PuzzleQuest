@@ -35,6 +35,10 @@ public class AnimationManager {
         );
     }
 
+    public SpriteSet getSpriteSet() {
+        return spriteSet;
+    }
+
     public AnimationManager(SpriteSet spriteSet, int spriteWidth, int spriteHeight, String startingSheet) {
         this.spriteSet = spriteSet;
         this.updatesPerFrame = 15;

@@ -96,15 +96,15 @@ public class Tile implements Persistable {
      */
     @Override
     public String serialize() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.getClass().getSimpleName());
-        stringBuilder.append(DELIMITER);
-        stringBuilder.append(tileSheetName);
-        stringBuilder.append(DELIMITER);
-        stringBuilder.append(tileIndex);
-        stringBuilder.append(DELIMITER);
-        stringBuilder.append(collisionBoxType);
-        return stringBuilder.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getClass().getSimpleName());
+        sb.append(DELIMITER);
+        sb.append(tileSheetName);
+        sb.append(DELIMITER);
+        sb.append(tileIndex);
+        sb.append(DELIMITER);
+        sb.append(collisionBoxType);
+        return sb.toString();
     }
 
     /**

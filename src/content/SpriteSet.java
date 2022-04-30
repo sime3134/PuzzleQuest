@@ -11,8 +11,15 @@ import java.util.Map;
 public class SpriteSet {
     private final Map<String, Image> animationSheets;
 
-    public SpriteSet(){
+    private final String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public SpriteSet(String name){
         this.animationSheets = new HashMap<>();
+        this.name = name;
     }
 
     public void addSheet(String name, Image animationSheet){

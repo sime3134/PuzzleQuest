@@ -12,6 +12,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Implements tools for saving one or several maps to a png file.
+ */
 public class WorldMapDrawer {
 
     private WorldMapDrawer() {

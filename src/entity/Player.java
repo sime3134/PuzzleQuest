@@ -4,7 +4,6 @@ import content.SpriteSet;
 import controller.EntityController;
 import core.Direction;
 import core.Vector2D;
-import entity.humanoid.Humanoid;
 import main.Game;
 import map.GameMap;
 
@@ -20,8 +19,8 @@ public class Player extends Humanoid {
     private GameObject target;
     private final SelectionCircle selectionCircle;
 
-    public Player(EntityController entityController, SpriteSet spriteSet){
-        super(entityController, spriteSet);
+    public Player(EntityController entityController, SpriteSet spriteSet, String name){
+        super(entityController, spriteSet, name);
         this.selectionCircle = new SelectionCircle(38, 22);
         this.selectionCircle.setRenderOffset(new Vector2D(5, selectionCircle.getHeight() + 9f));
     }
