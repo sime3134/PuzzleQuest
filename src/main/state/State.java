@@ -30,8 +30,6 @@ public abstract class State {
         setupUI(game);
     }
 
-    public abstract void initialize(Game game);
-
     protected void setupUI(Game game) {
     }
 

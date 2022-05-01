@@ -20,11 +20,6 @@ public class SettingsMenuState extends State{
     }
 
     @Override
-    public void initialize(Game game) {
-
-    }
-
-    @Override
     protected void setupUI(Game game) {
         super.setupUI(game);
         UIContainer container = new VerticalContainer();

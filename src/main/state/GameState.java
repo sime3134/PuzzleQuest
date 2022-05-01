@@ -53,16 +53,11 @@ public class GameState extends State implements Persistable {
     public GameState(Game game){
         super(game);
         quests = new QuestManager();
+        initializeQuests(game);
         player = new Player(PlayerController.getInstance(),
                 game.getContent().getSpriteSet("player"), "PlayerName");
 
         player.setPosition(new Vector2D(2200,1500));
-    }
-
-    @Override
-    public void initialize(Game game) {
-        game.getCamera().focusOn(player);
-        initializeQuests(game);
     }
 
     public void initializeQuests(Game game) {

@@ -6,7 +6,6 @@ import ui.UIContainer;
 import ui.UIText;
 import ui.VerticalContainer;
 import ui.clickable.UIButton;
-import utilities.SplashScreen;
 
 import java.awt.*;
 
@@ -19,11 +18,6 @@ public class SetupNameState extends State{
 
     public SetupNameState(Game game) {
         super(game);
-    }
-
-    @Override
-    public void initialize(Game game) {
-
     }
 
     @Override

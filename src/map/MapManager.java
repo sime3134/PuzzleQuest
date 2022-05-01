@@ -80,9 +80,4 @@ public class MapManager {
 
         return worldMaps;
     }
-
-    public void initialize(Game game) {
-        game.addGameObject(game.getGameState().getPlayer());
-        game.updateObjectsDrawOrder();
-    }
 }

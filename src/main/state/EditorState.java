@@ -34,10 +34,6 @@ public class EditorState extends State {
         setupMouseButtons();
     }
 
-    @Override
-    public void initialize(Game game) {
-    }
-
     private void setupMouseButtons() {
         mouseHandler.setWheelButtonAction(new CameraMovement());
         mouseHandler.switchLeftButtonAction(new SceneryTool());

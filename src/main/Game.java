@@ -133,7 +133,6 @@ public class Game {
         audioPlayer = new AudioPlayer();
         audioPlayer.playMusic("menu.wav");
         goToMainMenu();
-        maps.initialize(this);
         debugSettingsContainer = new UISettingsContainer(maps.getCurrent(), content);
         gameFrame = new GameFrame(this);
     }
@@ -169,17 +168,16 @@ public class Game {
     public void draw(Graphics g) {
         maps.draw(g, camera);
 
-        if(Settings.isDebugMode()){
-            debug.draw(this, g);
-            debugSettingsContainer.draw(g);
-        }
-
         gameObjects.stream()
                 .filter(gameObject -> camera.isObjectInView(gameObject))
                 .forEach(gameObject -> renderGameObject(g, camera, gameObject));
 
-
         stateManager.draw(g);
+
+        if(Settings.isDebugMode()){
+            debug.draw(this, g);
+            debugSettingsContainer.draw(g);
+        }
     }
 
     private void renderGameObject(Graphics g, Camera camera, GameObject gameObject) {
@@ -200,8 +198,11 @@ public class Game {
     }
 
     public void goToMainMenu() {
-        stateManager.goToMainMenuState(this);
+        gameObjects.clear();
+        camera.removeFocus();
         loadMap("main_menu_map");
+        camera.centerOnMap(maps.getCurrent());
+        stateManager.goToMainMenuState();
         Settings.reset();
         audioPlayer.playMusic("menu.wav");
     }
@@ -216,6 +217,8 @@ public class Game {
 
     public void startNewGame() {
         stateManager.newGameState(this);
+        addGameObject(stateManager.getGameState().getPlayer());
+        camera.focusOn(stateManager.getGameState().getPlayer());
         loadMap(stateManager.getGameState().getWorldMap()[0][0]);
         audioPlayer.playMusic("suburbs.wav");
     }
@@ -226,8 +229,8 @@ public class Game {
 
     public void goToWorldEditor() {
         stateManager.goToEditorState();
-        gameObjects.clear();
         createNewMap(64, 64, content);
+        camera.removeFocus();
         Settings.setDebugMode(true);
     }
 
@@ -271,6 +274,7 @@ public class Game {
 
 
     public void createNewMap(int width, int height, ContentManager content) {
+        gameObjects.clear();
         maps.setCurrent(new GameMap(width, height, content));
     }
 

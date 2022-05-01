@@ -6,6 +6,7 @@ import entity.GameObject;
 import entity.Humanoid;
 import input.Input;
 import main.Game;
+import main.state.GameState;
 import map.GameMap;
 import settings.Settings;
 import utilities.ImgUtils;
@@ -138,7 +139,9 @@ public class UIMinimap extends UIClickable{
 
     @Override
     public void onRelease(Game game) {
-        game.getCamera().resetLastFocus();
+        if(game.getCurrentState() instanceof GameState) {
+            game.getCamera().resetLastFocus();
+        }
     }
 
     @Override

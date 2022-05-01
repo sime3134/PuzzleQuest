@@ -17,11 +17,6 @@ public class MainMenuState extends State{
     }
 
     @Override
-    public void initialize(Game game) {
-        game.getCamera().removeFocus();
-    }
-
-    @Override
     protected void setupUI(Game game) {
         super.setupUI(game);
         UIContainer container = new HorizontalContainer();
@@ -65,12 +60,6 @@ public class MainMenuState extends State{
         VerticalContainer menu = new VerticalContainer(newGame, loadGame, settings, worldEditor, exitGame);
         menu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(menu);
-    }
-
-    @Override
-    public void update(Game game) {
-        super.update(game);
-        game.getCamera().centerOnMap(game.getCurrentMap());
     }
 
     @Override

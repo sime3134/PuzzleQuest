@@ -53,10 +53,9 @@ public class StateManager {
         this.currentState = gameState;
     }
 
-    public void goToMainMenuState(Game game) {
+    public void goToMainMenuState() {
         lastState = currentState;
         this.currentState = mainMenuState;
-        initialize(game);
     }
 
     public void goToPauseState() {
@@ -76,22 +75,16 @@ public class StateManager {
             gameState = new GameState(game);
         }
 
-        gameState.initialize(game);
-
         currentState = gameState;
     }
 
     public void goToSetupNameState() {
         lastState = currentState;
-        this.currentState = setupNameState;
+        currentState = setupNameState;
     }
 
     public void goToEditorState() {
         lastState = currentState;
         currentState = editorState;
-    }
-
-    public void initialize(Game game) {
-        currentState.initialize(game);
     }
 }
