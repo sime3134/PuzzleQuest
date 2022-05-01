@@ -14,7 +14,7 @@ public class AnimationManager {
 
     private final SpriteSet spriteSet;
     private String currentAnimationName;
-    private BufferedImage currentAnimationSheet;
+    private BufferedImage[][] currentAnimationSheet;
     private int currentFrameTime;
     private final int updatesPerFrame;
     private int frameIndex;
@@ -27,12 +27,8 @@ public class AnimationManager {
      * depending on where in the animation we currently are.
      */
     public Image getSprite() {
-        return currentAnimationSheet.getSubimage(
-                frameIndex * spriteWidth,
-                directionIndex * spriteHeight,
-                spriteWidth,
-                spriteHeight
-        );
+        return currentAnimationSheet[frameIndex]
+                [directionIndex];
     }
 
     public SpriteSet getSpriteSet() {
@@ -62,7 +58,7 @@ public class AnimationManager {
             currentFrameTime = 0;
             frameIndex++;
 
-            if(frameIndex >= currentAnimationSheet.getWidth() / spriteWidth) {
+            if(frameIndex >= currentAnimationSheet.length) {
                 frameIndex = 0;
             }
         }
@@ -75,7 +71,7 @@ public class AnimationManager {
             currentFrameTime = 0;
             frameIndex++;
 
-            if(frameIndex >= currentAnimationSheet.getWidth() / spriteWidth) {
+            if(frameIndex >= currentAnimationSheet.length) {
                 frameIndex = 0;
             }
         }
@@ -87,7 +83,7 @@ public class AnimationManager {
      */
     public void playAnimation(String name){
         if(!name.equals(currentAnimationName)) {
-            this.currentAnimationSheet = (BufferedImage) spriteSet.get(name);
+            this.currentAnimationSheet = (BufferedImage[][]) spriteSet.get(name);
             currentAnimationName = name;
             frameIndex = 0;
         }

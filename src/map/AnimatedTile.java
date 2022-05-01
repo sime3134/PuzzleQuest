@@ -25,7 +25,7 @@ public class AnimatedTile extends Tile{
     }
 
     public AnimatedTile(ContentManager content, String tileSheetName) {
-        this.tileSheet = content.getAnimatedTileSheet(tileSheetName).get(tileSheetName);
+        this.tileSheet = content.getAnimatedTileSheet(tileSheetName).get(tileSheetName)[0][0];
         this.tileSheetName = tileSheetName;
         this.collisionBoxType = 0;
         animationManager = new AnimationManager(content.getAnimatedTileSheet(tileSheetName), Settings.getTileSize(),
@@ -53,11 +53,13 @@ public class AnimatedTile extends Tile{
 
     @Override
     public void reloadGraphics(ContentManager content) {
-        tileSheet = content.getAnimatedTileSheet(tileSheetName).get(tileSheetName);
+        tileSheet = content.getAnimatedTileSheet(tileSheetName).get(tileSheetName)[0][0];
         animationManager = new AnimationManager(content.getAnimatedTileSheet(tileSheetName), Settings.getTileSize(),
                 Settings.getTileSize(), tileSheetName);
         generateSprite();
     }
+
+    @Override
     public void update() {
         super.update();
         animationManager.update();

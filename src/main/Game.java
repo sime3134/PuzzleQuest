@@ -136,9 +136,9 @@ public class Game {
 
     public void update() {
         gameController.update(this);
-        camera.update(maps.getCurrent());
-        maps.update(this);
         stateManager.update(this);
+        maps.update(this);
+        camera.update(maps.getCurrent());
         time.update();
         audioPlayer.update();
 

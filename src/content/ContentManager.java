@@ -1,8 +1,10 @@
 package content;
 
+import settings.Settings;
 import utilities.ImgUtils;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -67,11 +69,27 @@ public class ContentManager {
 
             for(String sheetName : sheetsInFolder){
                 spriteSet.addSheet(sheetName.substring(0, sheetName.length() - 4),
-                        ImgUtils.loadImage(pathToFolder + "/" + sheetName));
+                        generateSubImages(pathToFolder, sheetName));
             }
 
             spriteSets.put(folderName, spriteSet);
         }}
+
+    private BufferedImage[][] generateSubImages(String pathToFolder,String sheetName) {
+        BufferedImage fullSheet = (BufferedImage) ImgUtils.loadImage(pathToFolder + "/" + sheetName);
+        BufferedImage[][] subImages =
+                new BufferedImage[fullSheet.getWidth(null) / Settings.getTileSize()][fullSheet.getHeight(null) / Settings.getTileSize()];
+
+        for(int x = 0; x < subImages.length; x++) {
+            for(int y = 0; y < subImages[0].length; y++) {
+                subImages[x][y] = fullSheet.getSubimage(x * Settings.getTileSize(), y * Settings.getTileSize(),
+                        Settings.getTileSize(),
+                        Settings.getTileSize());
+            }
+        }
+
+        return subImages;
+    }
 
     private void loadAnimatedTileSets(String filePath) {
         String[] imagesInFolder = getImagesInFolder(filePath);
@@ -81,7 +99,7 @@ public class ContentManager {
             SpriteSet spriteSet = new SpriteSet(fileName);
 
             spriteSet.addSheet(fileNameWithoutExtension,
-                    ImgUtils.loadImage(filePath + "/" + fileName));
+                    generateSubImages(filePath, fileName));
             animatedTileSets.put(fileNameWithoutExtension, spriteSet);
         }
     }

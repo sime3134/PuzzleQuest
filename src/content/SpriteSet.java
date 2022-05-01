@@ -1,6 +1,7 @@
 package content;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * A sprite set contains all animations for an entity, for example walking and standing animations.
  */
 public class SpriteSet {
-    private final Map<String, Image> animationSheets;
+    private final Map<String, BufferedImage[][]> animationSheets;
 
     private final String name;
 
@@ -22,11 +23,11 @@ public class SpriteSet {
         this.name = name;
     }
 
-    public void addSheet(String name, Image animationSheet){
+    public void addSheet(String name, BufferedImage[][] animationSheet){
         animationSheets.put(name, animationSheet);
     }
 
-    public Image get(String name){
+    public Image[][] get(String name){
         return animationSheets.get(name);
     }
 }
