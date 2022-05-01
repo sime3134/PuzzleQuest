@@ -48,21 +48,32 @@ public class GameState extends State implements Persistable {
         return player;
     }
 
+    public String[][] getWorldMap() {
+        return worldMap;
+    }
+
     public GameState(Game game){
         super(game);
         quests = new QuestManager();
-        initializeEntities(game);
-        game.loadMap(worldMap[player.getWorldMapPosition().intX()][player.getWorldMapPosition().intY()]);
+        player = new Player(PlayerController.getInstance(),
+                game.getContent().getSpriteSet("player"), "PlayerName");
+
+        player.setPosition(new Vector2D(2200,1500));
+    }
+
+    @Override
+    public void initialize(Game game) {
+        game.getCamera().focusOn(player);
         initializeQuests(game);
     }
 
-    private void initializeQuests(Game game) {
+    public void initializeQuests(Game game) {
         NPC npc = new NPC(new NPCController(), game.getContent().getSpriteSet("villager1"), "default");
+        npc.setPosition(new Vector2D(2200, 1700));
         Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
         npc.addQuest(goToTwoPositions);
         quests.addQuest(goToTwoPositions);
-        game.addGameObject(npc);
-        SplashScreen splashScreen = new SplashScreen();
+        game.spawn(npc);
     }
 
     @Override
@@ -87,17 +98,16 @@ public class GameState extends State implements Persistable {
                         && player.getWorldMapPosition().intY() + directionValue.intY() < worldMap[0].length
                         && player.getWorldMapPosition().intY() + directionValue.intY() >= 0) {
 
-                    player.setWorldMapPosition(new Vector2D(player.getWorldMapPosition().intX() + directionValue.intX(),
-                            player.getWorldMapPosition().intY() + directionValue.intY()));
+                    player.getWorldMapPosition().add(directionValue);
+
+                    setPlayerPositionFromDirectionToMapBorder(game, direction);
 
                         game.loadMap(worldMap[player.getWorldMapPosition().intX()]
                                 [player.getWorldMapPosition().intY()]);
-
-                    setPlayerPositionFromDirectionToMapBorder(game, direction);
                 }
             }else{
-                game.loadMap(worldMap[0][0]);
                 setPlayerPositionFromDirectionToMapBorder(game, direction);
+                game.loadMap(worldMap[0][0]);
             }
         }
     }
@@ -174,31 +184,6 @@ public class GameState extends State implements Persistable {
     @Override
     public void escapeButtonPressed(Game game) {
         game.pauseGame();
-    }
-
-    private void initializeEntities(Game game) {
-        player = new Player(PlayerController.getInstance(),
-                game.getContent().getSpriteSet("player"), "PlayerName");
-        player.setPosition(new Vector2D(2200,1500));
-
-        game.getGameObjects().add(player);
-        game.getCamera().focusOn(player);
-
-        initializeNPCs(20, game);
-    }
-
-    private void initializeNPCs(int numberToAdd, Game game) {
-        SecureRandom randomizer = new SecureRandom();
-        for(int i = 0; i < numberToAdd; i++){
-
-            Vector2D spawnPosition = game.getCurrentMap().getRandomAvailablePositionOnMap(game.getGameObjects());
-
-            NPC npc = new NPC(new NPCController(),
-                    game.getContent().getSpriteSet("villager" + randomizer.nextInt(5)), "default");
-            npc.setPosition(new Vector2D(1400, 1000));
-            game.addGameObject(npc);
-
-        }
     }
 
     @Override

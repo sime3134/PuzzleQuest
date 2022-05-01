@@ -7,9 +7,11 @@ import content.ContentManager;
 import controller.GameController;
 import core.CollisionBox;
 import core.Time;
+import core.Vector2D;
 import display.Camera;
 import display.Debug;
 import display.GameFrame;
+import editor.UISettingsContainer;
 import entity.GameObject;
 import entity.Player;
 import entity.Scenery;
@@ -17,6 +19,7 @@ import main.state.*;
 import map.GameMap;
 import map.MapManager;
 import settings.Settings;
+import ui.UIContainer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -42,20 +45,15 @@ public class Game {
     private final Camera camera;
     private final Time time;
 
-    private State currentState;
-    private State lastState;
-    private GameState gameState;
-    private EditorState editorState;
-
-    private SettingsMenuState settingsState;
-
-    private final List<GameObject> gameObjects;
+    private final StateManager stateManager;
     private final MapManager maps;
+
+    private final UIContainer debugSettingsContainer;
 
     //region Getters & Setters (Click to view)
 
     public State getCurrentState() {
-        return currentState;
+        return stateManager.getCurrentState();
     }
 
     public GameFrame getGameFrame() {
@@ -63,7 +61,7 @@ public class Game {
     }
 
     public GameState getGameState() {
-        return gameState;
+        return stateManager.getGameState();
     }
 
     public ContentManager getContent() {
@@ -87,13 +85,13 @@ public class Game {
     }
 
     public List<GameObject> getCollidingBoxes(CollisionBox box) {
-        return gameObjects.stream()
+        return maps.getCurrent().getGameObjects().stream()
                 .filter(other -> other.collidingWith(box))
                 .toList();
     }
 
     public <T extends GameObject> List<T> getGameObjectsOfClass(Class<T> clazz) {
-        return gameObjects.stream()
+        return maps.getCurrent().getGameObjects().stream()
                 .filter(clazz::isInstance)
                 .map(gameObject -> (T) gameObject)
                 .collect(Collectors.toList());
@@ -108,7 +106,7 @@ public class Game {
     }
 
     public List<GameObject> getGameObjects() {
-        return gameObjects;
+        return maps.getCurrent().getGameObjects();
     }
 
     public MapManager getMapManager() {
@@ -118,59 +116,54 @@ public class Game {
     //endregion
 
     public Game(){
-        gameObjects = new ArrayList<>();
         content = new ContentManager();
         content.loadContent();
+        stateManager = new StateManager(this);
+        stateManager.goToMainMenuState();
         maps = new MapManager();
         maps.loadAll(content, "/maps");
+        maps.initialize(this);
         camera = new Camera();
         time = new Time();
-        loadMap("main_menu_map");
-        currentState = new MainMenuState(this);
-        lastState = currentState;
-        settingsState = new SettingsMenuState(this);
         gameController = new GameController();
-        debug = new Debug(currentState);
+        debug = new Debug();
         audioPlayer = new AudioPlayer();
         audioPlayer.playMusic("menu.wav");
+        goToMainMenu();
+        debugSettingsContainer = new UISettingsContainer(maps.getCurrent(), content);
         gameFrame = new GameFrame(this);
     }
 
     public void update() {
         gameController.update(this);
         camera.update(maps.getCurrent());
-        maps.update(camera);
-        currentState.update(this);
-        updateObjectsDrawOrder();
-        if(!(currentState instanceof PauseMenuState)) {
-            gameObjects.forEach(gameObject -> gameObject.update(this));
-        }
+        maps.update(this);
+        stateManager.update(this);
         time.update();
-        debug.update(this);
         audioPlayer.update();
+
+        if(Settings.isDebugMode()){
+            debug.update(this);
+            debugSettingsContainer.update(this);
+        }
     }
 
     public void draw(Graphics g) {
         maps.draw(g, camera);
-        gameObjects.stream()
-                .filter(gameObject -> camera.isObjectInView(gameObject))
-                .forEach(gameObject -> renderGameObject(g, camera, gameObject));
-        currentState.draw(g);
-        debug.draw(this, g);
-    }
+        stateManager.draw(g);
 
-    private void renderGameObject(Graphics g, Camera camera, GameObject gameObject) {
-        gameObject.getAttachments().forEach(attachment -> renderGameObject(g, camera, attachment));
-        gameObject.draw(g, camera);
+        if(Settings.isDebugMode()){
+            debug.draw(this, g);
+            debugSettingsContainer.draw(g);
+        }
     }
 
     public void resumeGame() {
-        lastState = currentState;
-        this.currentState = gameState;
+        stateManager.goToGameState();
     }
 
     public void saveGame() {
-        ProgressIO.save(gameState,"./save_file.txt");
+        ProgressIO.save(stateManager.getGameState(),"./save_file.txt");
     }
 
     public void loadGame() {
@@ -178,47 +171,38 @@ public class Game {
     }
 
     public void goToMainMenu() {
-        lastState = currentState;
-        this.currentState = new MainMenuState(this);
+        loadMap("main_menu_map");
+        stateManager.goToMainMenuState();
         Settings.reset();
         audioPlayer.playMusic("menu.wav");
     }
 
     public void pauseGame() {
-        lastState = currentState;
-        this.currentState = new PauseMenuState(this);
+        stateManager.goToPauseState();
     }
 
     public void goToSettingsMenu() {
-        lastState = currentState;
-        this.currentState = settingsState;
+        stateManager.goToSettingsState();
     }
 
     public void startNewGame() {
-        lastState = currentState;
-        gameState = new GameState(this);
-        currentState = gameState;
+        stateManager.newGameState(this);
+        loadMap(stateManager.getGameState().getWorldMap()[0][0]);
         audioPlayer.playMusic("suburbs.wav");
     }
 
     public void enterUsername() {
-        lastState = currentState;
-        this.currentState = new SetupNameState(this);
+        stateManager.goToSetupNameState();
     }
 
     public void goToWorldEditor() {
-        lastState = currentState;
-        if(editorState == null) {
-            editorState = new EditorState(this);
-        }else{
-            Settings.toggleDebugMode();
-        }
-
-        currentState = editorState;
+        stateManager.goToEditorState();
+        createNewMap(64, 64, content);
+        Settings.setDebugMode(true);
     }
 
     public void goToLastState() {
-        currentState = lastState;
+        stateManager.goToLastState();
     }
 
     public void showDialog(String text) {
@@ -226,15 +210,11 @@ public class Game {
     }
 
     public void loadMapFromPath(String path) {
-        gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
-        maps.setCurrent(MapIO.loadFromPath(content ,path));
-        gameObjects.addAll(maps.getCurrent().getSceneryList());
+        maps.setCurrent(MapIO.loadFromPath(content, path));
     }
 
     public void loadMap(String name) {
-        gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
         maps.setCurrent(maps.getByName(name));
-        gameObjects.addAll(maps.getCurrent().getSceneryList());
     }
 
     public void saveMap(String filePath) {
@@ -244,30 +224,14 @@ public class Game {
 
 
     public void createNewMap(int width, int height, ContentManager content) {
-        gameObjects.clear();
         maps.setCurrent(new GameMap(width, height, content));
     }
 
     public void spawn(GameObject gameObject) {
-        gameObjects.add(gameObject);
-        maps.getCurrent().getSceneryList().add((Scenery) gameObject);
+        maps.getCurrent().addGameObject(gameObject);
     }
 
     public void despawn(GameObject gameObject) {
-        gameObjects.remove(gameObject);
-        maps.getCurrent().getSceneryList().remove((Scenery)gameObject);
-    }
-
-    /**
-     * Updates in which order gameObjects should be rendered on the screen to give a correct
-     * feeling of depth.
-     */
-    private void updateObjectsDrawOrder() {
-        gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(
-                gameObject -> gameObject.getRenderOrderComparisonYPosition()));
-    }
-
-    public void addGameObject(GameObject gameObject) {
-        gameObjects.add(gameObject);
+        maps.getCurrent().removeGameObject(gameObject);
     }
 }

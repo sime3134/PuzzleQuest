@@ -32,9 +32,11 @@ public class EditorState extends State {
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Game map", "txt"));
         fileChooser.setCurrentDirectory(new File(getClass().getResource("/").getFile()));
-        game.createNewMap(64, 64, game.getContent());
         setupMouseButtons();
-        Settings.setDebugMode(true);
+    }
+
+    @Override
+    public void initialize(Game game) {
         game.getCamera().centerOnMap(game.getCurrentMap());
     }
 

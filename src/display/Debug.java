@@ -18,23 +18,19 @@ public class Debug {
 
     protected List<UIContainer> uiContainers;
 
-    public Debug(State state){
+    public Debug(){
         uiContainers = new ArrayList<>();
     }
 
     public void update(Game game){
-        if(Settings.isDebugMode()) {
-            uiContainers.forEach(container -> container.update(game));
-        }
+        uiContainers.forEach(container -> container.update(game));
     }
 
     public void draw(Game game, Graphics g){
         if(Settings.getRenderCollisionBox().getValue()){
             drawCollisionBoxes(game, g);
         }
-        if(Settings.isDebugMode()) {
-            uiContainers.forEach(container -> container.draw(g));
-        }
+        uiContainers.forEach(container -> container.draw(g));
     }
 
     private void drawCollisionBoxes(Game game, Graphics g) {

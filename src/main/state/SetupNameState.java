@@ -22,6 +22,11 @@ public class SetupNameState extends State{
     }
 
     @Override
+    public void initialize(Game game) {
+
+    }
+
+    @Override
     protected void setupUI(Game game) {
         super.setupUI(game);
 

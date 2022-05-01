@@ -1,9 +1,7 @@
 package main.state;
 
-import editor.UISettingsContainer;
 import input.mouse.MouseHandler;
 import main.Game;
-import settings.Settings;
 import ui.UIContainer;
 
 import java.awt.*;
@@ -18,7 +16,6 @@ public abstract class State {
 
     protected List<UIContainer> uiContainers;
     protected MouseHandler mouseHandler = new MouseHandler();
-    private UIContainer debugSettingsContainer;
 
     //region Getters and Setters (click to view)
 
@@ -33,27 +30,21 @@ public abstract class State {
         setupUI(game);
     }
 
+    public abstract void initialize(Game game);
+
     protected void setupUI(Game game) {
-        debugSettingsContainer = new UISettingsContainer(game.getCurrentMap(), game.getContent());
     }
 
     public void update(Game game) {
         uiContainers.forEach(uiContainer -> uiContainer.update(game));
 
         mouseHandler.update(game);
-
-        if(Settings.isDebugMode()){
-            debugSettingsContainer.update(game);
-        }
     }
 
     public void draw(Graphics g) {
         mouseHandler.draw(g);
-        uiContainers.forEach(uiContainer -> uiContainer.draw(g));
 
-        if(Settings.isDebugMode()){
-            debugSettingsContainer.draw(g);
-        }
+        uiContainers.forEach(uiContainer -> uiContainer.draw(g));
     }
 
     public abstract void escapeButtonPressed(Game game);

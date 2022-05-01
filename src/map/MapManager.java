@@ -2,12 +2,16 @@ package map;
 
 import IO.MapIO;
 import content.ContentManager;
+import controller.NPCController;
+import core.Vector2D;
 import display.Camera;
 import entity.GameObject;
+import entity.NPC;
 import entity.Scenery;
 import main.Game;
 
 import java.awt.*;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,8 +67,8 @@ public class MapManager {
         currentMap.getSceneryList().remove((Scenery)gameObject);
     }
 
-    public void update(Camera camera) {
-        currentMap.update(camera);
+    public void update(Game game) {
+        currentMap.update(game);
     }
 
     public void draw(Graphics g, Camera camera) {
@@ -79,5 +83,27 @@ public class MapManager {
         }
 
         return worldMaps;
+    }
+
+    public void initialize(Game game) {
+        for(GameMap map : maps.values()){
+            maps.get(map.getName()).addGameObject(game.getGameState().getPlayer());
+            initializeNPCs(20, game, map);
+            map.updateObjectsDrawOrder();
+        }
+    }
+
+    public void initializeNPCs(int numberToAdd, Game game, GameMap map) {
+        SecureRandom randomizer = new SecureRandom();
+        for(int i = 0; i < numberToAdd; i++){
+
+            Vector2D spawnPosition = map.getRandomAvailablePositionOnMap();
+
+            NPC npc = new NPC(new NPCController(),
+                    game.getContent().getSpriteSet("villager" + randomizer.nextInt(5)), "default");
+            npc.setPosition(spawnPosition);
+            map.addGameObject(npc);
+
+        }
     }
 }
