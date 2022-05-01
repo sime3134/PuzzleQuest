@@ -78,7 +78,7 @@ public class Camera {
             position.setX(objectPosition.getX() - Settings.getScreenWidth() / 2f);
             position.setY(objectPosition.getY() - Settings.getScreenHeight() / 2f);
 
-            //clamp(currentMap);
+            clamp(currentMap);
         }
         setCurrentView();
     }

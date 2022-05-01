@@ -68,7 +68,7 @@ public class MapManager {
     }
 
     public void update(Game game) {
-        currentMap.update(game);
+        currentMap.update(game.getCamera());
     }
 
     public void draw(Graphics g, Camera camera) {
@@ -86,24 +86,7 @@ public class MapManager {
     }
 
     public void initialize(Game game) {
-        for(GameMap map : maps.values()){
-            maps.get(map.getName()).addGameObject(game.getGameState().getPlayer());
-            initializeNPCs(20, game, map);
-            map.updateObjectsDrawOrder();
-        }
-    }
-
-    public void initializeNPCs(int numberToAdd, Game game, GameMap map) {
-        SecureRandom randomizer = new SecureRandom();
-        for(int i = 0; i < numberToAdd; i++){
-
-            Vector2D spawnPosition = map.getRandomAvailablePositionOnMap();
-
-            NPC npc = new NPC(new NPCController(),
-                    game.getContent().getSpriteSet("villager" + randomizer.nextInt(5)), "default");
-            npc.setPosition(spawnPosition);
-            map.addGameObject(npc);
-
-        }
+        game.spawn(game.getGameState().getPlayer());
+        game.updateObjectsDrawOrder();
     }
 }

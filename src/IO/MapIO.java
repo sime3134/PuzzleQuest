@@ -93,11 +93,12 @@ public class MapIO {
         return new GameMap(64, 64, content);
     }
 
-    public static GameMap loadFromPath(ContentManager content, String nameOrPath) {
-        File file = new File(nameOrPath);
+    public static GameMap loadFromPath(ContentManager content, String path) {
+        File file = new File(path);
         if (file.isFile()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(nameOrPath))) {
-                GameMap gameMap = new GameMap(file.getName());
+            try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+                String fileNameWithoutExtension = file.getName().substring(0, file.getName().length() - 4);
+                GameMap gameMap = new GameMap(fileNameWithoutExtension);
 
                 StringBuilder sb = new StringBuilder();
                 String line;

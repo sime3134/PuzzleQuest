@@ -8,14 +8,10 @@ import display.Camera;
 import entity.GameObject;
 import entity.Scenery;
 import entity.SelectionCircle;
-import main.Game;
-import main.state.PauseMenuState;
 import settings.Settings;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -27,15 +23,9 @@ public class GameMap implements Persistable {
     private Tile[][] tiles;
     private List<Scenery> sceneryList;
 
-    private final List<GameObject> gameObjects;
-
     private String name;
 
     //region Getters and Setters (click to open)
-
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
-    }
 
     public int getWidth() {
         return tiles.length * Settings.getTileSize();
@@ -87,14 +77,12 @@ public class GameMap implements Persistable {
 
     public GameMap(String name) {
         sceneryList = new ArrayList<>();
-        gameObjects = new ArrayList<>();
         this.name = name;
     }
 
     public GameMap(int mapWidth, int mapHeight, ContentManager content) {
         tiles = new Tile[mapWidth][mapHeight];
         sceneryList = new ArrayList<>();
-        gameObjects = new ArrayList<>();
         initializeTiles(content);
     }
 
@@ -188,16 +176,7 @@ public class GameMap implements Persistable {
             drawGrid(g, camera, (int) startPosX, (int) endPosX, (int) startPosY, (int) endPosY);
         }
 
-        gameObjects.stream()
-                .filter(gameObject -> camera.isObjectInView(gameObject))
-                .forEach(gameObject -> renderGameObject(g, camera, gameObject));
     }
-
-    private void renderGameObject(Graphics g, Camera camera, GameObject gameObject) {
-        gameObject.getAttachments().forEach(attachment -> renderGameObject(g, camera, attachment));
-        gameObject.draw(g, camera);
-    }
-
 
     private void drawGrid(Graphics g, Camera camera, int startPosX, int endPosX, int startPosY, int endPosY) {
         g.setColor(Color.LIGHT_GRAY);
@@ -345,30 +324,11 @@ public class GameMap implements Persistable {
                 Scenery scenery = new Scenery();
                 scenery.applySerializedData(serializedScenery);
                 sceneryList.add(scenery);
-                gameObjects.add(scenery);
             }
         }
     }
 
-    public void update(Game game) {
-        updateTiles(game.getCamera());
-
-        updateObjectsDrawOrder();
-        if(!(game.getCurrentState() instanceof PauseMenuState)) {
-            gameObjects.forEach(gameObject -> gameObject.update(game));
-        }
-    }
-
-    /**
-     * Updates in which order gameObjects should be rendered on the screen to give a correct
-     * feeling of depth.
-     */
-    public void updateObjectsDrawOrder() {
-        gameObjects.sort(Comparator.comparing(GameObject::getRenderOrder).thenComparing(
-                gameObject -> gameObject.getRenderOrderComparisonYPosition()));
-    }
-
-    private void updateTiles(Camera camera) {
+    public void update(Camera camera) {
         double startPosX = Math.max(0, camera.getPosition().getX() / Settings.getTileSize()); //left border of screen
         double endPosX = Math.min(tiles.length,
                 (camera.getPosition().getX() + Settings.getScreenWidth()) / Settings.getTileSize()
@@ -383,20 +343,6 @@ public class GameMap implements Persistable {
 
                 tiles[x][y].update();
             }
-        }
-    }
-
-    public void addGameObject(GameObject gameObject) {
-        gameObjects.add(gameObject);
-        if(gameObject instanceof Scenery) {
-            sceneryList.add((Scenery) gameObject);
-        }
-    }
-
-    public void removeGameObject(GameObject gameObject) {
-        gameObjects.remove(gameObject);
-        if(gameObject instanceof Scenery) {
-            sceneryList.remove((Scenery) gameObject);
         }
     }
 }

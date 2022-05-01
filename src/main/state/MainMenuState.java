@@ -18,7 +18,7 @@ public class MainMenuState extends State{
 
     @Override
     public void initialize(Game game) {
-
+        game.getCamera().removeFocus();
     }
 
     @Override

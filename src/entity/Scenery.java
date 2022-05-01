@@ -18,7 +18,8 @@ public class Scenery extends GameObject implements Persistable {
     private Image sprite;
     private String name;
 
-    public Scenery() {}
+    public Scenery() {
+    }
 
     public Scenery(String name,
                    int collisionBoxWidth, int collisionBoxHeight,
@@ -127,10 +128,10 @@ public class Scenery extends GameObject implements Persistable {
         );
     }
 
-    public Scenery getCopy(){
+    public Scenery getCopy(String mapName){
         Scenery copy = new Scenery();
 
-        copy.name = name;
+        copy.name = this.name;
         copy.position = position.getCopy();
         copy.width = width;
         copy.height = height;

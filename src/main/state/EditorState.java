@@ -37,7 +37,6 @@ public class EditorState extends State {
 
     @Override
     public void initialize(Game game) {
-        game.getCamera().centerOnMap(game.getCurrentMap());
     }
 
     private void setupMouseButtons() {

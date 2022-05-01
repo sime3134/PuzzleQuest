@@ -15,7 +15,7 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
 
     private String spriteSetName;
 
-    private Vector2D worldMapPosition;
+    protected Vector2D worldMapPosition;
 
     public Vector2D getWorldMapPosition() {
         return worldMapPosition;

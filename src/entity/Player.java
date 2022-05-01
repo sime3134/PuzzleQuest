@@ -21,6 +21,7 @@ public class Player extends Humanoid {
 
     public Player(EntityController entityController, SpriteSet spriteSet, String name){
         super(entityController, spriteSet, name);
+        this.speed = 5;
         this.selectionCircle = new SelectionCircle(38, 22);
         this.selectionCircle.setRenderOffset(new Vector2D(5, selectionCircle.getHeight() + 9f));
     }
