@@ -66,7 +66,7 @@ public class SceneryTool extends MouseAction{
     public void update(Game game) {
         Input input = Input.getInstance();
         if(input.isKeyPressed(KeyEvent.VK_DELETE)){
-            selectedScenery.forEach(scenery -> game.despawn(scenery));
+            selectedScenery.forEach(scenery -> game.removeScenery(scenery));
         }
 
         if(!input.isLeftMousePressed()){

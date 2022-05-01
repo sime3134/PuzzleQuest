@@ -2,16 +2,12 @@ package map;
 
 import IO.MapIO;
 import content.ContentManager;
-import controller.NPCController;
-import core.Vector2D;
 import display.Camera;
 import entity.GameObject;
-import entity.NPC;
 import entity.Scenery;
 import main.Game;
 
 import java.awt.*;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,7 +82,7 @@ public class MapManager {
     }
 
     public void initialize(Game game) {
-        game.spawn(game.getGameState().getPlayer());
+        game.addGameObject(game.getGameState().getPlayer());
         game.updateObjectsDrawOrder();
     }
 }

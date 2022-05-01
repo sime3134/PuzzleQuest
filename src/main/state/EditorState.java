@@ -7,7 +7,6 @@ import input.mouse.action.CameraMovement;
 import input.mouse.action.ClearAction;
 import input.mouse.action.SceneryTool;
 import main.Game;
-import settings.Settings;
 import ui.Alignment;
 import ui.HorizontalContainer;
 import ui.UITabContainer;
@@ -55,7 +54,7 @@ public class EditorState extends State {
         toolsContainer.addTab("Animated", new UIAnimatedTileMenu(game.getContent()));
         uiContainers.add(toolsContainer);
 
-        UIButton mainMenuButton = new UIButton("main menu", () -> game.goToMainMenu());
+        UIButton mainMenuButton = new UIButton("main menu", () -> displayWarning(game));
         UIButton saveButton = new UIButton("save", () -> displaySaveDialog(game));
         UIButton loadButton = new UIButton("load", () -> displayLoadDialog(game));
         UIButton newButton = new UIButton("new", () -> game.createNewMap(64, 64, game.getContent()));
@@ -69,6 +68,16 @@ public class EditorState extends State {
         newButton.setWidth(180);
         pngButton.setWidth(180);
         uiContainers.add(buttonMenu);
+    }
+
+    private void displayWarning(Game game) {
+        int answer = JOptionPane.showConfirmDialog(null,
+                "Have you saved your progress?", "Warning!",
+                JOptionPane.YES_NO_OPTION);
+
+        if(answer == JOptionPane.YES_OPTION) {
+            game.goToMainMenu();
+        }
     }
 
     private void displayLoadDialog(Game game) {

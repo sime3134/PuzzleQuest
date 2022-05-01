@@ -17,10 +17,8 @@ import ui.HorizontalContainer;
 import ui.UIContainer;
 import ui.UIText;
 import ui.clickable.UIButton;
-import utilities.SplashScreen;
 
 import java.awt.*;
-import java.security.SecureRandom;
 
 /**
  * @author Simon Jern, Johan Salomonsson
@@ -73,7 +71,7 @@ public class GameState extends State implements Persistable {
         Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
         npc.addQuest(goToTwoPositions);
         quests.addQuest(goToTwoPositions);
-        game.spawn(npc);
+        game.addGameObject(npc);
     }
 
     @Override

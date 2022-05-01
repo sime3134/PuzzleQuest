@@ -126,7 +126,7 @@ public class Game {
         gameObjects = new ArrayList<>();
         stateManager = new StateManager(this);
         maps = new MapManager();
-        //maps.loadAll(content, "/maps");
+        maps.loadAll(content, "/maps");
         time = new Time();
         gameController = new GameController();
         debug = new Debug();
@@ -226,6 +226,7 @@ public class Game {
 
     public void goToWorldEditor() {
         stateManager.goToEditorState();
+        gameObjects.clear();
         createNewMap(64, 64, content);
         Settings.setDebugMode(true);
     }
@@ -247,20 +248,20 @@ public class Game {
             NPC npc = new NPC(new NPCController(),
                     content.getSpriteSet("villager" + randomizer.nextInt(5)), "default");
             npc.setPosition(spawnPosition);
-            spawn(npc);
-
+            addGameObject(npc);
         }
     }
 
     public void loadMapFromPath(String path) {
         maps.setCurrent(MapIO.loadFromPath(content, path));
+        gameObjects.addAll(maps.getCurrent().getSceneryList());
     }
 
     public void loadMap(String name) {
         gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
-        maps.setCurrent(MapIO.loadFromName(content, name));
+        maps.setCurrent(maps.getByName(name));
         gameObjects.addAll(maps.getCurrent().getSceneryList());
-        initializeNPCs(20);
+        //initializeNPCs(20);
     }
 
     public void saveMap(String filePath) {
@@ -273,11 +274,17 @@ public class Game {
         maps.setCurrent(new GameMap(width, height, content));
     }
 
-    public void spawn(GameObject gameObject) {
+    public void addScenery(GameObject gameObject) {
         gameObjects.add(gameObject);
+        maps.getCurrent().getSceneryList().add((Scenery)gameObject);
     }
 
-    public void despawn(GameObject gameObject) {
+    public void removeScenery(GameObject gameObject) {
         gameObjects.remove(gameObject);
+        maps.getCurrent().getSceneryList().remove((Scenery)gameObject);
+    }
+
+    public void addGameObject(GameObject gameObject) {
+        gameObjects.add(gameObject);
     }
 }
