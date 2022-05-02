@@ -48,6 +48,9 @@ public class UITileMenu extends HorizontalContainer {
         tileContainer.addTab("paths",
                 getTileSheet(content, "paths"));
 
+        tileContainer.addTab("dead",
+                getTileSheet(content, "dead"));
+
         addComponent(tileContainer);
     }
 

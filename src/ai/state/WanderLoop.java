@@ -22,6 +22,8 @@ public class WanderLoop extends AIState{
 
     private Vector2D currentTarget;
 
+    private boolean leaveLoop;
+
     public WanderLoop(Game game, NPC currentNPC, String lastState, Vector2D firstTarget, Vector2D secondTarget) {
         super(currentNPC, lastState);
         path = new ArrayList<>();
@@ -40,7 +42,7 @@ public class WanderLoop extends AIState{
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("choose_next_action", ((state, currentNPC) -> false));
+        return new AITransition("wander", ((state, currentNPC) -> leaveLoop));
     }
 
     @Override
@@ -48,7 +50,7 @@ public class WanderLoop extends AIState{
         NPCController controller = (NPCController) currentNPC.getController();
 
         if(path.isEmpty()){
-
+            leaveLoop = true;
         }
 
         if(arrivedAtTarget()) {

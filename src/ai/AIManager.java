@@ -1,9 +1,6 @@
 package ai;
 
-import ai.state.AIState;
-import ai.state.ChooseNextAction;
-import ai.state.Stand;
-import ai.state.WanderLoop;
+import ai.state.*;
 import entity.NPC;
 import main.Game;
 
@@ -34,12 +31,13 @@ public class AIManager {
         }
     }
 
-    public void transitionTo(String nextState, NPC currentCharacter, Game game) {
+    public void transitionTo(String nextState, NPC currentNPC, Game game) {
         switch (nextState) {
-            case "choose_next_action" -> currentAIState = new ChooseNextAction(currentCharacter, lastState);
-            case "wander" -> currentAIState = new WanderLoop(game, currentCharacter, lastState,
-                    currentCharacter.getFirstLoopTarget(), currentCharacter.getSecondLoopTarget());
-            case "stand" -> currentAIState = new Stand(currentCharacter, lastState);
+            case "choose_next_action" -> currentAIState = new ChooseNextAction(currentNPC, lastState);
+            case "wander" -> currentAIState = new Wander(currentNPC, lastState);
+            case "wander_loop" -> currentAIState = new WanderLoop(game, currentNPC, lastState,
+                    currentNPC.getFirstLoopTarget(), currentNPC.getSecondLoopTarget());
+            case "stand" -> currentAIState = new Stand(currentNPC, lastState);
             default -> System.out.println("Wrong value");
         }
 
