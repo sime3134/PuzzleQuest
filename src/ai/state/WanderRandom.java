@@ -14,12 +14,12 @@ import java.util.List;
  * @author Simon Jern
  * Implements a state where the entity will walk towards a goal.
  */
-public class Wander extends AIState{
+public class WanderRandom extends AIState{
 
     List<Vector2D> path;
     private Vector2D target;
 
-    public Wander(NPC currentNPC, String lastState) {
+    public WanderRandom(NPC currentNPC, String lastState) {
         super(currentNPC, lastState);
         path = new ArrayList<>();
         currentNPC.setPath(path);

@@ -35,14 +35,13 @@ public class WanderLoop extends AIState{
                 game.getCurrentMap());
         if(!foundPath.isEmpty()){
             currentTarget = foundPath.get(foundPath.size() - 1);
-            System.out.println(currentTarget);
             this.path.addAll(foundPath);
         }
     }
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("wander", ((state, currentNPC) -> leaveLoop));
+        return new AITransition("wander_random", ((state, currentNPC) -> leaveLoop));
     }
 
     @Override

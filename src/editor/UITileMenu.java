@@ -34,7 +34,8 @@ public class UITileMenu extends HorizontalContainer {
                 getTileSheet(content, "mountain1"),
                 getTileSheet(content, "mountain2"),
                 getTileSheet(content, "mountain3"),
-                getTileSheet(content, "mountain4"));
+                getTileSheet(content, "mountain4"),
+                getTileSheet(content, "dead_mountain"));
 
         tileContainer.addTab("wall/stair",
                 getTileSheet(content, "town"));

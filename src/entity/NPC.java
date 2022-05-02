@@ -27,6 +27,7 @@ public class NPC extends Humanoid {
 
     private Vector2D firstLoopTarget;
     private Vector2D secondLoopTarget;
+    private String activity;
 
     public void setPath(List<Vector2D> path) {
         this.path = path;
@@ -58,6 +59,7 @@ public class NPC extends Humanoid {
 
     public NPC(EntityController entityController, SpriteSet spriteSet, String name) {
         super(entityController, spriteSet, name);
+        activity = "random_action";
         doRandomAction = new Setting<>(true);
         brain = new AIManager(this);
         path = new ArrayList<>();
@@ -106,5 +108,9 @@ public class NPC extends Humanoid {
                 || other instanceof Scenery && !((Scenery)other).isWalkable()){
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
         }
+    }
+
+    public String getActivity() {
+        return activity;
     }
 }
