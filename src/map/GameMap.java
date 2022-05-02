@@ -24,7 +24,7 @@ public class GameMap implements Persistable {
     private Tile[][] tiles;
     private List<Scenery> sceneryList;
 
-    private List<NPC> npcList;
+    private final List<NPC> npcList;
 
     private String name;
 
@@ -353,5 +353,13 @@ public class GameMap implements Persistable {
 
     public List<NPC> getNPCList() {
         return npcList;
+    }
+
+    public void addNPC(NPC npc) {
+        npcList.add(npc);
+    }
+
+    public void addScenery(Scenery scenery){
+        sceneryList.add(scenery);
     }
 }

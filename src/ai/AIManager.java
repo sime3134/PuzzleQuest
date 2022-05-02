@@ -5,7 +5,7 @@ import entity.NPC;
 import main.Game;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Erik Larsson
  * Handles the flow during and between states.
  */
 public class AIManager {
@@ -39,7 +39,7 @@ public class AIManager {
             case "wander_loop" -> currentAIState = new WanderLoop(game, currentNPC, lastState,
                     currentNPC.getFirstLoopTarget(), currentNPC.getSecondLoopTarget());
             case "stand" -> currentAIState = new Stand(currentNPC, lastState);
-            default -> System.out.println("Illegal value in AIManager");
+            default -> System.out.println("Illegal value in AIManager: " + nextState);
         }
 
         lastState = nextState;

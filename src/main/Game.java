@@ -282,9 +282,9 @@ public class Game {
     public void addGameObject(GameObject gameObject) {
         gameObjects.add(gameObject);
         if(gameObject instanceof NPC npc) {
-            maps.getCurrent().getNPCList().add(npc);
+            maps.getCurrent().addNPC(npc);
         }else if(gameObject instanceof Scenery scenery) {
-            maps.getCurrent().getSceneryList().add(scenery);
+            maps.getCurrent().addScenery(scenery);
         }
     }
 

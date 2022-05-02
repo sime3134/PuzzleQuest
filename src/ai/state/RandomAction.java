@@ -24,7 +24,7 @@ public class RandomAction extends AIState{
             if (num > 0 && num < 15) {
                 return new AITransition("stand", (state, currentNPC) -> true);
             } else if (num > 14) {
-                return new AITransition("wander", (state, currentNPC) -> true);
+                return new AITransition("wander_random", (state, currentNPC) -> true);
             } else {
                 return new AITransition("random_action", (state, currentNPC) -> true);
             }
