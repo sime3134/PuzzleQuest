@@ -6,6 +6,7 @@ import core.CollisionBox;
 import core.Vector2D;
 import display.Camera;
 import entity.GameObject;
+import entity.NPC;
 import entity.Scenery;
 import entity.SelectionCircle;
 import settings.Settings;
@@ -22,6 +23,8 @@ public class GameMap implements Persistable {
 
     private Tile[][] tiles;
     private List<Scenery> sceneryList;
+
+    private List<NPC> npcList;
 
     private String name;
 
@@ -77,12 +80,14 @@ public class GameMap implements Persistable {
 
     public GameMap(String name) {
         sceneryList = new ArrayList<>();
+        npcList = new ArrayList<>();
         this.name = name;
     }
 
     public GameMap(int mapWidth, int mapHeight, ContentManager content) {
         tiles = new Tile[mapWidth][mapHeight];
         sceneryList = new ArrayList<>();
+        npcList = new ArrayList<>();
         initializeTiles(content);
     }
 
@@ -344,5 +349,9 @@ public class GameMap implements Persistable {
                 tiles[x][y].update();
             }
         }
+    }
+
+    public List<NPC> getNPCList() {
+        return npcList;
     }
 }

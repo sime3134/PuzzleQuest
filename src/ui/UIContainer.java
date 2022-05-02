@@ -23,8 +23,6 @@ public abstract class UIContainer extends UIComponent {
     protected int fixedWidth;
     protected int fixedHeight;
 
-    protected boolean fixedPosition;
-
     protected Alignment alignment;
 
     protected List<UIComponent> children;
@@ -59,10 +57,6 @@ public abstract class UIContainer extends UIComponent {
 
     public void setCenterChildren(boolean centerChildren) {
         this.centerChildren = centerChildren;
-    }
-
-    public void setFixedPosition(boolean fixedPosition) {
-        this.fixedPosition = fixedPosition;
     }
 
     //endregion
@@ -140,35 +134,40 @@ public abstract class UIContainer extends UIComponent {
     public void addComponent(UIComponent uiComponent){
         children.add(uiComponent);
         uiComponent.setParent(this);
+        uiComponent.setFixedPosition(fixedPosition);
         calculateSize();
     }
 
     @Override
     public void update(Game game) {
-        calculateSize();
-        calculatePosition();
-        children.forEach(component -> component.update(game));
+        if(visible) {
+            calculateSize();
+            calculatePosition();
+            children.forEach(component -> component.update(game));
 
-        if(game.getTime().secondsDividableBy(0.1)){
-            createUiSprite();
+            if (game.getTime().secondsDividableBy(0.1)) {
+                createUiSprite();
+            }
         }
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(
-                getSprite(),
-                absolutePosition.intX(),
-                absolutePosition.intY(),
-                null
-        );
+        if(visible) {
+            g.drawImage(
+                    getSprite(),
+                    absolutePosition.intX(),
+                    absolutePosition.intY(),
+                    null
+            );
 
-        for(UIComponent component : children){
-            component.draw(g);
+            for (UIComponent component : children) {
+                component.draw(g);
+            }
         }
     }
 
-    protected void clear() {
+    public void clear() {
         children.clear();
     }
 

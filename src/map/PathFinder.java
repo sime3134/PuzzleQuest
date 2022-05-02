@@ -68,7 +68,7 @@ public class PathFinder {
             }
         }while(!open.isEmpty());
 
-        return List.of(start);
+        return Collections.emptyList();
     }
 
     private static List<Vector2D> extractPath(Node current) {

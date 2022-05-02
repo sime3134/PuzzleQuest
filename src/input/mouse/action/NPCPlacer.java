@@ -1,7 +1,7 @@
 package input.mouse.action;
 
 import core.Vector2D;
-import entity.Scenery;
+import entity.NPC;
 import input.Input;
 import main.Game;
 import ui.UIImage;
@@ -10,21 +10,21 @@ import java.awt.*;
 
 /**
  * @author Simon Jern
- * Tool to place scenery on a game map.
+ * Tool to place npc on a game map.
  */
-public class SceneryPlacer extends MouseAction{
+public class NPCPlacer extends MouseAction{
 
-    private final Scenery scenery;
+    private final NPC npc;
     private final UIImage preview;
 
-    public SceneryPlacer(Scenery scenery) {
-        this.scenery = scenery;
-        preview = new UIImage(scenery.getSprite());
+    public NPCPlacer(NPC npc) {
+        this.npc = npc;
+        preview = new UIImage(npc.getSprite());
     }
 
     @Override
     public void onClick(Game game) {
-        game.addGameObject(scenery.getCopy(game.getCurrentMap().getName()));
+        game.addGameObject(npc.getCopy());
     }
 
     @Override
@@ -42,9 +42,9 @@ public class SceneryPlacer extends MouseAction{
         Vector2D position = Input.getInstance().getMousePosition().getCopy();
         position.add(game.getCamera().getPosition());
 
-        position.subtract(new Vector2D(scenery.getWidth() / 2f, scenery.getHeight() / 2f));
-        scenery.setPosition(position);
-        preview.setAbsolutePosition(scenery.getRenderPosition(game.getCamera()));
+        position.subtract(new Vector2D(npc.getWidth() / 2f, npc.getHeight() / 2f));
+        npc.setPosition(position);
+        preview.setAbsolutePosition(npc.getRenderPosition(game.getCamera()));
     }
 
     @Override

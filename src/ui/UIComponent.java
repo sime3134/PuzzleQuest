@@ -19,6 +19,10 @@ public abstract class UIComponent {
 
     protected UIContainer parent;
 
+    protected boolean fixedPosition;
+
+    protected boolean visible;
+
     //region Getters and Setters (click to open)
 
     public abstract Image getSprite();
@@ -91,6 +95,14 @@ public abstract class UIComponent {
         this.parent = parent;
     }
 
+    public void setFixedPosition(boolean fixedPosition) {
+        this.fixedPosition = fixedPosition;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     //endregion
 
     protected UIComponent() {
@@ -100,6 +112,7 @@ public abstract class UIComponent {
         this.height = 1;
         this.margin = new Spacing(0);
         this.padding = new Spacing(0);
+        this.visible = true;
     }
 
     public abstract void update(Game game);

@@ -1,17 +1,13 @@
 package main.state;
 
 import IO.Persistable;
-import controller.NPCController;
 import controller.PlayerController;
 import core.Direction;
 import core.Vector2D;
-import entity.NPC;
 import entity.Player;
 import main.Game;
 import map.GameMap;
-import story.Quest;
 import story.QuestManager;
-import story.quests.GoToTwoPositions;
 import ui.Alignment;
 import ui.HorizontalContainer;
 import ui.UIContainer;
@@ -61,12 +57,12 @@ public class GameState extends State implements Persistable {
     }
 
     public void initializeQuests(Game game) {
-        NPC npc = new NPC(new NPCController(), game.getContent().getSpriteSet("villager1"), "default");
-        npc.setPosition(new Vector2D(2200, 1700));
-        Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
-        npc.addQuest(goToTwoPositions);
-        quests.addQuest(goToTwoPositions);
-        game.addGameObject(npc);
+//        NPC npc = new NPC(new NPCController(), game.getContent().getSpriteSet("villager1"), "default");
+//        npc.setPosition(new Vector2D(2200, 1700));
+//        Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
+//        npc.addQuest(goToTwoPositions);
+//        quests.addQuest(goToTwoPositions);
+//        game.addGameObject(npc);
     }
 
     @Override

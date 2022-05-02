@@ -85,9 +85,11 @@ public class UIText extends UIComponent{
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(getSprite(),
-                absolutePosition.intX(),
-                absolutePosition.intY(),
-                null);
+        if(visible) {
+            g.drawImage(getSprite(),
+                    absolutePosition.intX(),
+                    absolutePosition.intY(),
+                    null);
+        }
     }
 }

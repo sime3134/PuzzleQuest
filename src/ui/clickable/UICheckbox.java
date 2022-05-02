@@ -43,6 +43,7 @@ public class UICheckbox extends UIComponent {
         height = container.getHeight();
         container.setParent(parent);
         container.setAbsolutePosition(absolutePosition);
+        container.setFixedPosition(fixedPosition);
     }
 
     @Override
@@ -54,11 +55,11 @@ public class UICheckbox extends UIComponent {
         text.setFontSize(size);
     }
 
-    private static class Checkbox extends UIClickable{
+    private class Checkbox extends UIClickable{
 
         private final Setting<Boolean> setting;
         private Color color;
-        private ClickAction clickAction;
+        private final ClickAction clickAction;
 
 
         private Checkbox(Setting<Boolean> setting) {

@@ -19,21 +19,21 @@ public class Wander extends AIState{
     List<Vector2D> path;
     private Vector2D target;
 
-    public Wander(NPC currentCharacter, String lastState) {
-        super(currentCharacter, lastState);
+    public Wander(NPC currentNPC, String lastState) {
+        super(currentNPC, lastState);
         path = new ArrayList<>();
-        currentCharacter.setPath(path);
+        currentNPC.setPath(path);
     }
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("choose_next_action", ((state, currentCharacter) -> arrivedAtTarget()));
+        return new AITransition("choose_next_action", ((state, currentNPC) -> arrivedAtTarget()));
     }
 
     @Override
     public void update(Game game) {
         if(target == null) {
-            List<Vector2D> foundPath = PathFinder.findPath(currentCharacter.getCollisionBoxGridPosition(),
+            List<Vector2D> foundPath = PathFinder.findPath(currentNPC.getCollisionBoxGridPosition(),
                     game.getCurrentMap().getRandomAvailablePositionOnMap(),
                     game.getCurrentMap());
             if(!foundPath.isEmpty()){
@@ -42,22 +42,22 @@ public class Wander extends AIState{
             }
         }
 
-        NPCController controller = (NPCController) currentCharacter.getController();
+        NPCController controller = (NPCController) currentNPC.getController();
 
         if(arrivedAtTarget()) {
             controller.stop();
         }
 
-        if(!path.isEmpty() && currentCharacter.getPosition().isInRangeOf(path.get(0))){
+        if(!path.isEmpty() && currentNPC.getPosition().isInRangeOf(path.get(0))){
             path.remove(0);
         }
 
         if(!path.isEmpty()){
-            controller.moveToTarget(path.get(0), currentCharacter.getPosition());
+            controller.moveToTarget(path.get(0), currentNPC.getPosition());
         }
     }
 
     private boolean arrivedAtTarget(){
-        return target != null && currentCharacter.getPosition().isInRangeOf(target);
+        return target != null && currentNPC.getPosition().isInRangeOf(target);
     }
 }

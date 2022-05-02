@@ -256,6 +256,7 @@ public class Game {
     }
 
     public void loadMapFromPath(String path) {
+        gameObjects.clear();
         maps.setCurrent(MapIO.loadFromPath(content, path));
         gameObjects.addAll(maps.getCurrent().getSceneryList());
     }
@@ -264,7 +265,7 @@ public class Game {
         gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
         maps.setCurrent(maps.getByName(name));
         gameObjects.addAll(maps.getCurrent().getSceneryList());
-        //initializeNPCs(20);
+        initializeNPCs(20);
     }
 
     public void saveMap(String filePath) {
@@ -278,17 +279,25 @@ public class Game {
         maps.setCurrent(new GameMap(width, height, content));
     }
 
-    public void addScenery(GameObject gameObject) {
-        gameObjects.add(gameObject);
-        maps.getCurrent().getSceneryList().add((Scenery)gameObject);
-    }
-
-    public void removeScenery(GameObject gameObject) {
-        gameObjects.remove(gameObject);
-        maps.getCurrent().getSceneryList().remove((Scenery)gameObject);
-    }
-
     public void addGameObject(GameObject gameObject) {
         gameObjects.add(gameObject);
+        if(gameObject instanceof NPC npc) {
+            maps.getCurrent().getNPCList().add(npc);
+        }else if(gameObject instanceof Scenery scenery) {
+            maps.getCurrent().getSceneryList().add(scenery);
+        }
+    }
+
+    public void removeGameObject(GameObject gameObject) {
+        gameObjects.remove(gameObject);
+        if(gameObject instanceof NPC) {
+            maps.getCurrent().getNPCList().remove(gameObject);
+        }else if(gameObject instanceof Scenery) {
+            maps.getCurrent().getSceneryList().remove(gameObject);
+        }
+    }
+
+    public EditorState getEditorState() {
+        return stateManager.getEditorState();
     }
 }

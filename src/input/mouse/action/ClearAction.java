@@ -12,7 +12,7 @@ import java.awt.*;
 public class ClearAction extends MouseAction{
     @Override
     public void onClick(Game game) {
-        game.getCurrentState().getMouseHandler().switchLeftButtonAction(new SceneryTool());
+        game.getCurrentState().getMouseHandler().switchLeftButtonAction(new GameObjectTool());
     }
 
     @Override

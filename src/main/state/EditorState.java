@@ -1,20 +1,20 @@
 package main.state;
 
 import editor.UIAnimatedTileMenu;
+import editor.UINPCMenu;
 import editor.UISceneryMenu;
 import editor.UITileMenu;
 import input.mouse.action.CameraMovement;
 import input.mouse.action.ClearAction;
-import input.mouse.action.SceneryTool;
+import input.mouse.action.GameObjectTool;
 import main.Game;
-import ui.Alignment;
-import ui.HorizontalContainer;
-import ui.UITabContainer;
+import ui.*;
 import ui.clickable.UIButton;
 import utilities.WorldMapDrawer;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.File;
 
 /**
@@ -24,6 +24,12 @@ import java.io.File;
 public class EditorState extends State {
 
     private final JFileChooser fileChooser;
+
+    private UIContainer options;
+
+    public UIContainer getOptions() {
+        return options;
+    }
 
     public EditorState(Game game){
         super(game);
@@ -36,7 +42,7 @@ public class EditorState extends State {
 
     private void setupMouseButtons() {
         mouseHandler.setWheelButtonAction(new CameraMovement());
-        mouseHandler.switchLeftButtonAction(new SceneryTool());
+        mouseHandler.switchLeftButtonAction(new GameObjectTool());
         mouseHandler.setRightButtonAction(new ClearAction());
     }
 
@@ -48,6 +54,7 @@ public class EditorState extends State {
         toolsContainer.addTab("Scenery", new UISceneryMenu(game.getContent()));
         toolsContainer.addTab("Tiles", new UITileMenu(game.getContent()));
         toolsContainer.addTab("Animated", new UIAnimatedTileMenu(game.getContent()));
+        toolsContainer.addTab("NPC", new UINPCMenu(game.getContent()));
         uiContainers.add(toolsContainer);
 
         UIButton mainMenuButton = new UIButton("main menu", () -> displayWarning(game));
@@ -64,6 +71,11 @@ public class EditorState extends State {
         newButton.setWidth(180);
         pngButton.setWidth(180);
         uiContainers.add(buttonMenu);
+
+        options = new VerticalContainer();
+        options.setFixedPosition(true);
+        options.setBackgroundColor(Color.GRAY);
+        uiContainers.add(options);
     }
 
     private void displayWarning(Game game) {

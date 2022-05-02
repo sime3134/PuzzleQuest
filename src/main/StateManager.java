@@ -87,4 +87,8 @@ public class StateManager {
         lastState = currentState;
         currentState = editorState;
     }
+
+    public EditorState getEditorState() {
+        return editorState;
+    }
 }

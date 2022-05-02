@@ -12,21 +12,26 @@ import java.security.SecureRandom;
  */
 public class ChooseNextAction extends AIState{
 
-    public ChooseNextAction(NPC currentCharacter, String lastState){
-        super(currentCharacter, lastState);
+    public ChooseNextAction(NPC currentNPC, String lastState){
+        super(currentNPC, lastState);
     }
     @Override
     protected AITransition initializeTransition() {
         SecureRandom random = new SecureRandom();
-        int num = random.nextInt(0, 20);
 
-        if(num > 0 && num < 15) {
-            return new AITransition("stand", (state, currentCharacter) -> true);
-        }else if(num > 14) {
-            return new AITransition("wander", (state, currentCharacter) -> true);
-        }else {
-            return new AITransition("choose_next_action", (state, currentCharacter) -> true);
+        if(currentNPC.getDoRandomAction().getValue()) {
+            int num = random.nextInt(0, 20);
+
+            if (num > 0 && num < 15) {
+                return new AITransition("stand", (state, currentNPC) -> true);
+            } else if (num > 14) {
+                return new AITransition("wander", (state, currentNPC) -> true);
+            } else {
+                return new AITransition("choose_next_action", (state, currentNPC) -> true);
+            }
         }
+
+        return new AITransition(lastState, (state, currentNPC) -> true);
     }
 
     @Override

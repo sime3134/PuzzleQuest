@@ -3,7 +3,6 @@ package ai.state;
 import ai.AITransition;
 import entity.NPC;
 import main.Game;
-import main.state.State;
 
 /**
  * @author Simon Jern
@@ -12,11 +11,11 @@ import main.state.State;
  */
 public abstract class AIState {
     private final AITransition transition;
-    protected NPC currentCharacter;
+    protected NPC currentNPC;
     protected String lastState;
 
-    protected AIState(NPC currentCharacter, String lastState) {
-        this.currentCharacter = currentCharacter;
+    protected AIState(NPC currentNPC, String lastState) {
+        this.currentNPC = currentNPC;
         this.lastState = lastState;
         this.transition = initializeTransition();
     }
@@ -25,7 +24,7 @@ public abstract class AIState {
     public abstract void update(Game game);
 
     public boolean shouldTransition(Game game) {
-        return transition.shouldTransition(game, currentCharacter);
+        return transition.shouldTransition(game, currentNPC);
     }
 
     public String getNextState(){

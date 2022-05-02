@@ -24,8 +24,8 @@ public final class AITransition {
         return nextState;
     }
 
-    public boolean shouldTransition(Game game, NPC currentCharacter) {
-        return condition.isMet(game, currentCharacter);
+    public boolean shouldTransition(Game game, NPC currentNPC) {
+        return condition.isMet(game, currentNPC);
     }
 
 

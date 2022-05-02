@@ -120,16 +120,8 @@ public class MouseHandler {
         return leftButtonAction;
     }
 
-    public MouseAction getRightButtonAction() {
-        return rightButtonAction;
-    }
-
     public void setRightButtonAction(MouseAction rightButtonAction) {
         this.rightButtonAction = rightButtonAction;
-    }
-
-    public MouseAction getWheelButtonAction() {
-        return wheelButtonAction;
     }
 
     public void setWheelButtonAction(MouseAction wheelButtonAction) {
