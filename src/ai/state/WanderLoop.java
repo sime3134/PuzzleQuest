@@ -41,7 +41,7 @@ public class WanderLoop extends AIState{
 
     @Override
     protected AITransition initializeTransition() {
-        return new AITransition("wander_random", ((state, currentNPC) -> leaveLoop));
+        return new AITransition("choose_next_action", ((state, currentNPC) -> leaveLoop));
     }
 
     @Override

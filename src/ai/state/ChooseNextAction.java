@@ -10,9 +10,7 @@ public class ChooseNextAction extends AIState {
     }
     @Override
     protected AITransition initializeTransition() {
-
         return new AITransition(currentNPC.getActivity(), (state, currentNPC) -> true);
-
     }
 
     @Override

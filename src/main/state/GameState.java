@@ -29,7 +29,7 @@ public class GameState extends State implements Persistable {
 
     private boolean repeatMaps;
 
-    private String[][] worldMap = {
+    private final String[][] worldMap = {
 
             {"map1", "map2", "map3", "map4", "map5"},
             {"map6", "map7", "map8", "map9", "map10"},

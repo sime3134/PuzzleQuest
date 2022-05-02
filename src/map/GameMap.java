@@ -362,4 +362,12 @@ public class GameMap implements Persistable {
     public void addScenery(Scenery scenery){
         sceneryList.add(scenery);
     }
+
+    public void removeNPC(NPC npc) {
+        npcList.remove(npc);
+    }
+
+    public void removeScenery(Scenery scenery){
+        sceneryList.remove(scenery);
+    }
 }

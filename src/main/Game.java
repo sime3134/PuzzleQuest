@@ -290,10 +290,10 @@ public class Game {
 
     public void removeGameObject(GameObject gameObject) {
         gameObjects.remove(gameObject);
-        if(gameObject instanceof NPC) {
-            maps.getCurrent().getNPCList().remove(gameObject);
-        }else if(gameObject instanceof Scenery) {
-            maps.getCurrent().getSceneryList().remove(gameObject);
+        if(gameObject instanceof NPC npc) {
+            maps.getCurrent().removeNPC(npc);
+        }else if(gameObject instanceof Scenery scenery) {
+            maps.getCurrent().removeScenery(scenery);
         }
     }
 

@@ -39,6 +39,9 @@ public class WanderRandom extends AIState{
             if(!foundPath.isEmpty()){
                 target = foundPath.get(foundPath.size() - 1);
                 this.path.addAll(foundPath);
+            }else{
+                target = currentNPC.getCollisionBoxGridPosition();
+                this.path.add(currentNPC.getCollisionBoxGridPosition());
             }
         }
 
