@@ -20,6 +20,7 @@ import entity.Scenery;
 import main.state.*;
 import map.GameMap;
 import map.MapManager;
+import map.PathFinder;
 import settings.Settings;
 import ui.UIContainer;
 
@@ -120,6 +121,7 @@ public class Game {
     //endregion
 
     public Game(){
+        PathFinder.NodeBuffer.initialize();
         content = new ContentManager();
         content.loadContent();
         camera = new Camera();

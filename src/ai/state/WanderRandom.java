@@ -16,7 +16,9 @@ import java.util.List;
  */
 public class WanderRandom extends AIState{
 
-    List<Vector2D> path;
+    private List<Vector2D> path;
+
+    private PathFindingThread thread;
     private Vector2D target;
 
     public WanderRandom(NPC currentNPC, String lastState) {
@@ -32,23 +34,16 @@ public class WanderRandom extends AIState{
 
     @Override
     public void update(Game game) {
-        if(target == null) {
-            List<Vector2D> foundPath = PathFinder.findPath(currentNPC.getCollisionBoxGridPosition(),
-                    game.getCurrentMap().getRandomAvailablePositionOnMap(),
-                    game.getCurrentMap());
-            if(!foundPath.isEmpty()){
-                target = foundPath.get(foundPath.size() - 1);
-                this.path.addAll(foundPath);
-            }else{
-                target = currentNPC.getCollisionBoxGridPosition();
-                this.path.add(currentNPC.getCollisionBoxGridPosition());
-            }
+        if(target == null && thread == null) {
+            thread = new PathFindingThread(game);
+            thread.start();
         }
 
         NPCController controller = (NPCController) currentNPC.getController();
 
         if(arrivedAtTarget()) {
             controller.stop();
+            thread = null;
         }
 
         if(!path.isEmpty() && currentNPC.getPosition().isInRangeOf(path.get(0))){
@@ -62,5 +57,22 @@ public class WanderRandom extends AIState{
 
     private boolean arrivedAtTarget(){
         return target != null && currentNPC.getPosition().isInRangeOf(target);
+    }
+
+    public class PathFindingThread extends Thread{
+        Game game;
+        public PathFindingThread(Game game){
+            this.game = game;
+        }
+        @Override
+        public void run() {
+            List<Vector2D> foundPath = PathFinder.findPath(currentNPC.getCollisionBoxGridPosition(),
+                    game.getCurrentMap().getRandomAvailablePositionOnMap(),
+                    game.getCurrentMap());
+            if(!foundPath.isEmpty()){
+                target = foundPath.get(foundPath.size() - 1);
+                path.addAll(foundPath);
+            }
+        }
     }
 }

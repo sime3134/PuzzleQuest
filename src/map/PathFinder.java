@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * @author Simon Jern
- * Implements a* search algorithm to find the best walkable path to a target.
+ * Implements A* search algorithm to find the best walkable path to a target.
  */
 public class PathFinder {
 
@@ -21,7 +21,7 @@ public class PathFinder {
         for(int x = 0; x < nodeMap.length; x++) {
             for(int y = 0; y < nodeMap[0].length; y++) {
                 int heuristic = Math.abs(x - target.gridX() + Math.abs(y - target.gridY()));
-                Node node = new Node(map.getTile(x, y).getMoveCost(), heuristic, x, y);
+                Node node = NodeBuffer.get(map.getTile(x, y).getMoveCost(), heuristic, x, y);
 
                 if(!map.tileIsAvailable(x, y)){
                     closed.add(node);
@@ -41,6 +41,11 @@ public class PathFinder {
             closed.add(current);
 
             if(current.equals(targetNode)){
+                for(Node[] row : nodeMap){
+                    for(Node node : row){
+                        NodeBuffer.put(node);
+                    }
+                }
                 return extractPath(current);
             }
 
@@ -68,7 +73,12 @@ public class PathFinder {
             }
         }while(!open.isEmpty());
 
-        return Collections.emptyList();
+        for(Node[] row : nodeMap){
+            for(Node node : row){
+                NodeBuffer.put(node);
+            }
+        }
+        return List.of(start);
     }
 
     private static List<Vector2D> extractPath(Node current) {
@@ -106,6 +116,45 @@ public class PathFinder {
 
         public Vector2D getPosition(){
             return Vector2D.ofGridPosition(gridX, gridY);
+        }
+    }
+
+    public static class NodeBuffer {
+
+        private NodeBuffer(){}
+
+        private static LinkedList<Node> nodes;
+
+        public static void initialize(){
+            nodes = new LinkedList<>();
+            for(int i = 0; i < 10000; i ++){
+                nodes.add(new Node(0,0,0,0));
+            }
+        }
+
+        public static synchronized void put(Node node) {
+            nodes.addLast(node);
+        }
+
+        public static synchronized Node get(int moveCost, int heuristic, int gridX, int gridY) {
+            if(nodes.isEmpty()) {
+                return new Node(moveCost, heuristic, gridX, gridY);
+            }
+            Node node = nodes.removeFirst();
+            node.moveCost = moveCost;
+            node.heuristic = heuristic;
+            node.gridX = gridX;
+            node.gridY = gridY;
+            node.parent = null;
+            return node;
+        }
+
+        public static void clear() {
+            nodes.clear();
+        }
+
+        public static int size() {
+            return nodes.size();
         }
     }
 }
