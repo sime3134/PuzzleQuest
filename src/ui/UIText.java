@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * Implements a UI component that displays text.
  */
 public class UIText extends UIComponent{
@@ -71,6 +71,14 @@ public class UIText extends UIComponent{
     public void update(Game game) {
         createFont();
         calculateSize();
+    }
+
+    public Color getFontColor() {
+        return fontColor;
+    }
+
+    public void setFontColor(Color fontColor) {
+        this.fontColor = fontColor;
     }
 
     private void calculateSize() {

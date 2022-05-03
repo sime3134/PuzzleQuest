@@ -8,10 +8,7 @@ import entity.Player;
 import main.Game;
 import map.GameMap;
 import story.QuestManager;
-import ui.Alignment;
-import ui.HorizontalContainer;
-import ui.UIContainer;
-import ui.UIText;
+import ui.*;
 import ui.clickable.UIButton;
 
 import java.awt.*;
@@ -28,6 +25,10 @@ public class GameState extends State implements Persistable {
     private final QuestManager quests;
 
     private boolean repeatMaps;
+
+    private int medallionsCollected = 0;
+    private boolean npcConversationActive = true;
+    private String npcMessage;
 
     private final String[][] worldMap = {
 
@@ -161,13 +162,55 @@ public class GameState extends State implements Persistable {
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         container.addComponent(new UIText("Puzzle Quest 2.0"));
         container.setBackgroundColor(new Color(0,0,0,0));
+        uiContainers.add(container);
 
         UIButton pauseMenuButton = new UIButton("pause", () -> game.pauseGame());
         HorizontalContainer buttonMenu = new HorizontalContainer(pauseMenuButton);
         pauseMenuButton.setWidth(70);
         uiContainers.add(buttonMenu);
 
-        uiContainers.add(container);
+        UIContainer container1 = new HorizontalContainer();
+        container1.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
+        UIText medallionText = new UIText("Medallions collected: " + medallionsCollected + "/7");
+        if(medallionsCollected == 7) {
+            medallionText.setFontColor(Color.yellow);
+        }
+        container1.addComponent(medallionText);
+        uiContainers.add(container1);
+
+        UIContainer npcConversation = new HorizontalContainer();
+        npcConversation.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.BOTTOM));
+        npcConversation.setFixedHeight(200);
+        npcConversation.setFixedWidth(500);
+        npcConversation.setBackgroundColor(Color.gray);
+        setNpcMessage("We are fucked");
+        UIText npcMessage = new UIText("[NPC]: " + getNpcMessage());
+        npcConversation.addComponent(npcMessage);
+        uiContainers.add(npcConversation);
+    }
+
+    public String getNpcMessage() {
+        return npcMessage;
+    }
+
+    public void setNpcMessage(String npcMessage) {
+        this.npcMessage = npcMessage;
+    }
+
+    public int getMedallionsCollected() {
+        return medallionsCollected;
+    }
+
+    public void setMedallionsCollected(int medallionsCollected) {
+        this.medallionsCollected = medallionsCollected;
+    }
+
+    public boolean isNpcConversationActive() {
+        return npcConversationActive;
+    }
+
+    public void setNpcConversationActive(boolean npcConversationActive) {
+        this.npcConversationActive = npcConversationActive;
     }
 
     @Override
