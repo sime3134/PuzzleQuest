@@ -53,6 +53,8 @@ public class Game {
     private final StateManager stateManager;
     private final MapManager maps;
 
+    private String shouldChangeTo;
+
     private final UIContainer debugSettingsContainer;
 
     //region Getters & Setters (Click to view)
@@ -155,6 +157,12 @@ public class Game {
         updateObjectsDrawOrder();
         if(!(stateManager.getCurrentState() instanceof PauseMenuState)) {
             gameObjects.forEach(gameObject -> gameObject.update(this));
+        }
+
+        if(shouldChangeTo != null){
+            getGameState().getPlayer().setPosition(new Vector2D(0,0));
+            loadMap(shouldChangeTo);
+            shouldChangeTo = null;
         }
     }
 
@@ -302,4 +310,9 @@ public class Game {
     public EditorState getEditorState() {
         return stateManager.getEditorState();
     }
+
+    public void setShouldChangeMap(String name) {
+        shouldChangeTo = name;
+    }
+
 }

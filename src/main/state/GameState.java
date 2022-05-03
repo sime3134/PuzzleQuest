@@ -25,9 +25,10 @@ public class GameState extends State implements Persistable {
     private final QuestManager quests;
 
     private boolean repeatMaps;
+    private UIText medallionText;
 
     private int medallionsCollected = 0;
-    private boolean npcConversationActive = true;
+    private boolean npcConversationActive;
     private String npcMessage;
 
     private final String[][] worldMap = {
@@ -169,15 +170,6 @@ public class GameState extends State implements Persistable {
         pauseMenuButton.setWidth(70);
         uiContainers.add(buttonMenu);
 
-        UIContainer container1 = new HorizontalContainer();
-        container1.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
-        UIText medallionText = new UIText("Medallions collected: " + medallionsCollected + "/7");
-        if(medallionsCollected == 7) {
-            medallionText.setFontColor(Color.yellow);
-        }
-        container1.addComponent(medallionText);
-        uiContainers.add(container1);
-
         UIContainer npcConversation = new HorizontalContainer();
         npcConversation.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.BOTTOM));
         npcConversation.setFixedHeight(200);
@@ -186,9 +178,25 @@ public class GameState extends State implements Persistable {
         setNpcMessage("We are fucked");
         UIText npcMessage = new UIText("[NPC]: " + getNpcMessage());
         npcConversation.addComponent(npcMessage);
-        uiContainers.add(npcConversation);
+        if(npcConversationActive) {
+            uiContainers.add(npcConversation);
+        }
+        UIContainer container1 = new VerticalContainer();
+        container1.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
+        medallionText = new UIText("Medallions collected: " + medallionsCollected + "/7");
+        container1.addComponent(medallionText);
+        uiContainers.add(container1);
     }
 
+    public void updateMedallionCount() {
+        if(medallionsCollected < 7) {
+            medallionsCollected++;
+        }
+        medallionText.setText("Medallions collected: " + medallionsCollected + "/7");
+        if(medallionsCollected == 7) {
+            medallionText.setFontColor(Color.yellow);
+        }
+    }
     public String getNpcMessage() {
         return npcMessage;
     }
