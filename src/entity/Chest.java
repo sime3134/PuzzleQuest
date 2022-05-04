@@ -1,6 +1,5 @@
 package entity;
 
-import IO.Persistable;
 import content.ContentManager;
 import core.CollisionBox;
 import core.Vector2D;
@@ -8,22 +7,22 @@ import display.Camera;
 import main.Game;
 
 import java.awt.*;
-import java.util.Objects;
 
 /**
- * @author Simon Jern
- * Implements world objects that are not tiles and will be displayed on top of the tiles.
+ * @author Johan Salomonsson
  */
-public class Scenery extends GameObject implements Persistable {
+public class Chest extends Scenery {
 
     private Image sprite;
     private String name;
-    private Chest chest;
+    private boolean chest1Open;
+    private boolean chest2Open;
+    private boolean chest3Open;
 
-    public Scenery() {
+    public Chest() {
     }
 
-    public Scenery(String name,
+    public Chest(String name,
                    int collisionBoxWidth, int collisionBoxHeight,
                    Vector2D collisionBoxOffset,
                    double renderOrderComparisonOffset,
@@ -40,7 +39,7 @@ public class Scenery extends GameObject implements Persistable {
         calculateSelectionCircle();
     }
 
-    public Scenery(String name,
+    public Chest(String name,
                    boolean walkable,
                    ContentManager content) {
 
@@ -114,36 +113,6 @@ public class Scenery extends GameObject implements Persistable {
         return getCollisionBox();
     }
 
-    @Override
-    protected void executePlayerAction(Game game) {
-        chest = new Chest();
-        if(sprite.equals(game.getContent().getImage("chest"))) {
-            sprite = game.getContent().getImage("chest_open");
-            System.out.println(chest.isChest1Open());
-            if(!chest.isChest1Open()) {
-                game.getGameState().updateMedallionCount();
-                chest.setChest1Open(true);
-                System.out.println(chest.isChest1Open());
-            }
-        }
-        if(sprite.equals(game.getContent().getImage("chest2"))) {
-            sprite = game.getContent().getImage("chest2_open");
-        }
-        if(sprite.equals(game.getContent().getImage("chest3"))) {
-            sprite = game.getContent().getImage("chest3_open");
-        }
-        if(sprite.equals(game.getContent().getImage("tree1")) &&
-                game.getCurrentMap().getName().equals("map1")) {
-            game.setShouldChangeMap("maze");
-        }
-        if(sprite == game.getContent().getImage("small_tree2") &&
-                Objects.equals(game.getCurrentMap().getName(), "maze")){
-            game.getGameState();
-
-        }
-
-    }
-
     public CollisionBox getExtendedCollisionBox() {
         Vector2D position = getPosition().getCopy();
 
@@ -155,8 +124,8 @@ public class Scenery extends GameObject implements Persistable {
         );
     }
 
-    public Scenery getCopy(String mapName){
-        Scenery copy = new Scenery();
+    public Chest getCopy(String mapName){
+        Chest copy = new Chest();
 
         copy.name = this.name;
         copy.position = position.getCopy();
@@ -235,5 +204,29 @@ public class Scenery extends GameObject implements Persistable {
         selectionCircleHeight = Integer.parseInt(tokens[12]);
         selectionCircleRenderXOffset = Integer.parseInt(tokens[13]);
         selectionCircleRenderYOffset = Integer.parseInt(tokens[14]);
+    }
+
+    public boolean isChest1Open() {
+        return chest1Open;
+    }
+
+    public void setChest1Open(boolean chest1Open) {
+        this.chest1Open = chest1Open;
+    }
+
+    public boolean isChest2Open() {
+        return chest2Open;
+    }
+
+    public void setChest2Open(boolean chest2Open) {
+        this.chest2Open = chest2Open;
+    }
+
+    public boolean isChest3Open() {
+        return chest3Open;
+    }
+
+    public void setChest3Open(boolean chest3Open) {
+        this.chest3Open = chest3Open;
     }
 }
