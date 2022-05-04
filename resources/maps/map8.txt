@@ -66,15 +66,7 @@ Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:
 Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:mountain2:12:1,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:mountain2:12:1,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:58:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:58:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:mountain2:12:1,Tile:grass1:56:0,Tile:grass1:41:0,Tile:grass1:57:0,Tile:grass1:41:0,Tile:mountain2:12:1,Tile:grass1:41:0,Tile:grass1:41:0,
 
 ###
-Scenery:small_tree1:3037|-55:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:2996|-42:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:2963|-34:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:2963|-34:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:2962|-18:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:2975|8:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:3025|9:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree_with_fruit:808|14:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:2959|19:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree_with_fruit:506|29:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:red_fruit2:790|71:15:15:0|0:-15.0:0|5:15:10:true:25:20:-5:0:
 Scenery:tree1:2716|-3:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
