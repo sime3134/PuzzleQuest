@@ -269,7 +269,7 @@ public class Game implements Persistable {
             NPC npc = new NPC(new NPCController(),
                     content.getSpriteSet("villager" + randomizer.nextInt(5)), "default", getCurrentMap().getName());
             npc.setPosition(spawnPosition);
-            addGameObject(npc);
+            addNPC(npc);
         }
     }
 
@@ -301,20 +301,25 @@ public class Game implements Persistable {
 
     public void addGameObject(GameObject gameObject) {
         gameObjects.add(gameObject);
-        if(gameObject instanceof NPC npc) {
-            maps.getCurrent().addNPC(npc);
-        }else if(gameObject instanceof Scenery scenery) {
-            maps.getCurrent().addScenery(scenery);
-        }
     }
 
     public void removeGameObject(GameObject gameObject) {
         gameObjects.remove(gameObject);
-        if(gameObject instanceof NPC npc) {
-            maps.getCurrent().removeNPC(npc);
-        }else if(gameObject instanceof Scenery scenery) {
-            maps.getCurrent().removeScenery(scenery);
+        if(gameObject instanceof Scenery scenery){
+            getCurrentMap().removeScenery(scenery);
+        }else if(gameObject instanceof NPC npc){
+            getCurrentMap().removeNPC(npc);
         }
+    }
+
+    public void addNPC(NPC npc){
+        maps.getCurrent().addNPC(npc);
+        gameObjects.add(npc);
+    }
+
+    public void addScenery(Scenery scenery){
+        maps.getCurrent().addScenery(scenery);
+        gameObjects.add(scenery);
     }
 
     public EditorState getEditorState() {
@@ -326,12 +331,10 @@ public class Game implements Persistable {
         StringBuilder sb = new StringBuilder();
         sb.append(stateManager.getGameState().serialize());
         sb.append(SECTION_DELIMETER);
-        maps.getMaps().forEach((mapName, map) -> {
-            map.getNPCList().forEach(npc -> {
-                sb.append(npc.serialize());
-                sb.append(COLUMN_DELIMETER);
-            });
-        });
+        maps.getMaps().forEach((mapName, map) -> map.getNPCList().forEach(npc -> {
+            sb.append(npc.serialize());
+            sb.append(COLUMN_DELIMETER);
+        }));
 
         return sb.toString();
     }
@@ -349,11 +352,9 @@ public class Game implements Persistable {
         String[] NPCs = npcSection.split(COLUMN_DELIMETER);
 
         for(String npcString : NPCs){
-            System.out.println(npcString);
             NPC npc = new NPC();
             npc.applySerializedData(npcString);
             npc.applyGraphics(content);
-            System.out.println(npc.getMapName());
             maps.getByName(npc.getMapName()).addNPC(npc);
         }
     }

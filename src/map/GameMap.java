@@ -285,17 +285,21 @@ public class GameMap implements Persistable {
             sb.append(COLUMN_DELIMETER);
         }
 
-        sb.append(SECTION_DELIMETER);
-        sceneryList.forEach(scenery -> {
-            sb.append(scenery.serialize());
-            sb.append(COLUMN_DELIMETER);
-        });
+        if(sceneryList.size() > 0) {
+            sb.append(SECTION_DELIMETER);
+            sceneryList.forEach(scenery -> {
+                sb.append(scenery.serialize());
+                sb.append(COLUMN_DELIMETER);
+            });
+        }
 
-        sb.append(SECTION_DELIMETER2);
-        npcList.forEach(npc -> {
-            sb.append(npc.serialize());
-            sb.append(COLUMN_DELIMETER);
-        });
+        if(npcList.size() > 0) {
+            sb.append(SECTION_DELIMETER2);
+            npcList.forEach(npc -> {
+                sb.append(npc.serialize());
+                sb.append(COLUMN_DELIMETER);
+            });
+        }
 
         return sb.toString();
     }
