@@ -285,7 +285,7 @@ public class GameMap implements Persistable {
             sb.append(COLUMN_DELIMETER);
         }
 
-        if(sceneryList.size() > 0) {
+        if(!sceneryList.isEmpty()) {
             sb.append(SECTION_DELIMETER);
             sceneryList.forEach(scenery -> {
                 sb.append(scenery.serialize());
@@ -293,7 +293,7 @@ public class GameMap implements Persistable {
             });
         }
 
-        if(npcList.size() > 0) {
+        if(!npcList.isEmpty()) {
             sb.append(SECTION_DELIMETER2);
             npcList.forEach(npc -> {
                 sb.append(npc.serialize());

@@ -289,7 +289,6 @@ public class Game implements Persistable {
     }
 
     public void saveMap(String filePath) {
-        maps.getCurrent().setSceneryList(getGameObjectsOfClass(Scenery.class));
         MapIO.save(maps.getCurrent(), filePath);
     }
 
@@ -337,6 +336,7 @@ public class Game implements Persistable {
         }));
 
         return sb.toString();
+
     }
 
     @Override
