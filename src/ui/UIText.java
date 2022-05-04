@@ -51,6 +51,7 @@ public class UIText extends UIComponent{
 
     @Override
     public Image getSprite() {
+        //TODO: Refactor to not create new image every draw
         BufferedImage image = (BufferedImage) ImgUtils.createCompatibleImage(width, height, ImgUtils.ALPHA_BIT_MASKED);
         Graphics2D graphics = image.createGraphics();
         graphics.setFont(font);

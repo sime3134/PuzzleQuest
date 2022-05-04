@@ -136,6 +136,10 @@ public class PathFinder {
             nodes.addLast(node);
         }
 
+        public static synchronized void putAll(List<Node> list){
+            nodes.addAll(list);
+        }
+
         public static synchronized Node get(int moveCost, int heuristic, int gridX, int gridY) {
             if(nodes.isEmpty()) {
                 return new Node(moveCost, heuristic, gridX, gridY);

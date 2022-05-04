@@ -1,14 +1,16 @@
 package entity;
 
 import ai.AIManager;
+import content.AnimationManager;
+import content.ContentManager;
 import content.SpriteSet;
 import controller.EntityController;
 import controller.NPCController;
+import core.Direction;
 import core.Vector2D;
 import display.Camera;
 import main.Game;
 import main.state.GameState;
-import settings.Setting;
 import settings.Settings;
 
 import java.awt.*;
@@ -21,13 +23,15 @@ import java.util.List;
  */
 public class NPC extends Humanoid {
 
-    private final AIManager brain;
+    private AIManager brain;
     private List<Vector2D> path;
-    private Setting<Boolean> doRandomAction;
-
     private Vector2D firstLoopTarget;
     private Vector2D secondLoopTarget;
     private String activity;
+
+    private String spriteSetName;
+
+    private String currentMapName;
 
     public void setPath(List<Vector2D> path) {
         this.path = path;
@@ -37,16 +41,12 @@ public class NPC extends Humanoid {
         return brain;
     }
 
-    public NPC getCopy() {
-        NPC copy = new NPC(new NPCController(), animationManager.getSpriteSet(), "default");
+    public NPC getCopy(String mapName) {
+        NPC copy = new NPC(new NPCController(), animationManager.getSpriteSet(), "default", mapName);
 
         copy.position = position;
 
         return copy;
-    }
-
-    public Setting<Boolean> getDoRandomAction() {
-        return doRandomAction;
     }
 
     public Vector2D getFirstLoopTarget() {
@@ -57,14 +57,25 @@ public class NPC extends Humanoid {
         return secondLoopTarget;
     }
 
-    public NPC(EntityController entityController, SpriteSet spriteSet, String name) {
+
+    public String getMapName() {
+        return currentMapName;
+    }
+
+    public NPC(){
+        super(new NPCController());
+        path = new ArrayList<>();
+    }
+
+    public NPC(EntityController entityController, SpriteSet spriteSet, String name, String mapName) {
         super(entityController, spriteSet, name);
         activity = "random_action";
-        doRandomAction = new Setting<>(true);
+        spriteSetName = spriteSet.getName();
         brain = new AIManager(this);
         path = new ArrayList<>();
         firstLoopTarget = new Vector2D(0, 0);
         secondLoopTarget = new Vector2D(100, 100);
+        this.currentMapName = mapName;
     }
 
     @Override
@@ -112,5 +123,46 @@ public class NPC extends Humanoid {
 
     public String getActivity() {
         return activity;
+    }
+
+    @Override
+    public String serialize() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getClass().getSimpleName())
+                .append(DELIMITER)
+                .append(name)
+                .append(DELIMITER)
+                .append(speed)
+                .append(DELIMITER)
+                .append(currentMapName)
+                .append(DELIMITER)
+                .append(position.serialize())
+                .append(DELIMITER)
+                .append(animationManager.getSpriteSet().getName())
+                .append(DELIMITER)
+                .append(activity)
+                .append(DELIMITER)
+                .append(direction)
+                .append(DELIMITER);
+
+        return sb.toString();
+    }
+
+    @Override
+    public void applySerializedData(String serializedData) {
+        String[] tokens = serializedData.split(DELIMITER);
+        name = tokens[1];
+        speed = Double.parseDouble(tokens[2]);
+        currentMapName = tokens[3];
+        position.applySerializedData(tokens[4]);
+        spriteSetName = tokens[5];
+        activity = tokens[6];
+        direction = Direction.valueOf(tokens[7]);
+        brain = new AIManager(this);
+    }
+
+    public void applyGraphics(ContentManager content) {
+        animationManager = new AnimationManager(content.getSpriteSet(spriteSetName), Settings.getTileSize(),
+                Settings.getTileSize(), "stand");
     }
 }

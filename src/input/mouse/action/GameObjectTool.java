@@ -8,7 +8,7 @@ import input.Input;
 import main.Game;
 import ui.UIContainer;
 import ui.UIImage;
-import ui.clickable.UICheckbox;
+import ui.UIText;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -43,7 +43,7 @@ public class GameObjectTool extends MouseAction{
         position.subtract(new Vector2D(0, 50));
         options.setAbsolutePosition(position);
         options.clear();
-        options.addComponent(new UICheckbox("Random action", collidingNPC.getDoRandomAction()));
+        options.addComponent(new UIText(collidingNPC.getName()));
         options.setVisible(true);
     }
 

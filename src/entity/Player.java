@@ -133,4 +133,26 @@ public class Player extends Humanoid {
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
         }
     }
+
+    @Override
+    public String serialize() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getClass().getSimpleName())
+                .append(DELIMITER)
+                .append(name)
+                .append(DELIMITER)
+                .append(worldMapPosition.serialize())
+                .append(DELIMITER)
+                .append(position.serialize());
+
+        return sb.toString();
+    }
+
+    @Override
+    public void applySerializedData(String serializedData) {
+        String[] tokens = serializedData.split(DELIMITER);
+        name = tokens[1];
+        worldMapPosition.applySerializedData(tokens[2]);
+        position.applySerializedData(tokens[3]);
+    }
 }

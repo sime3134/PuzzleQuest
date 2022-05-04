@@ -260,6 +260,7 @@ public class GameMap implements Persistable {
         }
 
         sceneryList.forEach(scenery -> scenery.loadGraphics(content));
+        npcList.forEach(npc -> npc.applyGraphics(content));
     }
 
     /**
@@ -290,6 +291,12 @@ public class GameMap implements Persistable {
             sb.append(COLUMN_DELIMETER);
         });
 
+        sb.append(SECTION_DELIMETER2);
+        npcList.forEach(npc -> {
+            sb.append(npc.serialize());
+            sb.append(COLUMN_DELIMETER);
+        });
+
         return sb.toString();
     }
 
@@ -298,8 +305,8 @@ public class GameMap implements Persistable {
      */
     @Override
     public void applySerializedData(String serializedData) {
-        String[] tokens = serializedData.split(DELIMITER);
         String[] sections = serializedData.split(SECTION_DELIMETER);
+        String[] tokens = sections[0].split(DELIMITER);
         tiles = new Tile[Integer.parseInt(tokens[1])][Integer.parseInt(tokens[2])];
 
         String tileSection = sections[1];
@@ -316,6 +323,7 @@ public class GameMap implements Persistable {
                 }else{
                     tile = new AnimatedTile();
                 }
+
                 tile.applySerializedData(tilesInColumn[y]);
 
                 tiles[x][y] = tile;
@@ -329,6 +337,16 @@ public class GameMap implements Persistable {
                 Scenery scenery = new Scenery();
                 scenery.applySerializedData(serializedScenery);
                 sceneryList.add(scenery);
+            }
+        }
+
+        if (sections.length > 3) {
+            String NPCSection = sections[3];
+            String[] serializedNPCs = NPCSection.split(COLUMN_DELIMETER);
+            for (String serializedNPC : serializedNPCs) {
+                NPC npc = new NPC();
+                npc.applySerializedData(serializedNPC);
+                npcList.add(npc);
             }
         }
     }

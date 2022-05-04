@@ -16,8 +16,7 @@ import java.util.List;
  */
 public class WanderRandom extends AIState{
 
-    private List<Vector2D> path;
-
+    private final List<Vector2D> path;
     private PathFindingThread thread;
     private Vector2D target;
 

@@ -29,7 +29,6 @@ public class GameState extends State implements Persistable {
     private int medallionsCollected = 0;
     private boolean npcConversationActive = true;
     private String npcMessage;
-
     private final String[][] worldMap = {
 
             {"map1", "map2", "map3", "map4", "map5"},
@@ -223,15 +222,17 @@ public class GameState extends State implements Persistable {
         StringBuilder sb = new StringBuilder();
         sb.append(this.getClass().getSimpleName())
                 .append(SECTION_DELIMETER)
-                .append(player.serialize())
-                .append(SECTION_DELIMETER);
-
-        //TODO: Save all NPC on all maps
+                .append(player.serialize());
         return sb.toString();
     }
 
     @Override
-    public void applySerializedData(String toString) {
+    public void applySerializedData(String serializedData) {
+        player.applySerializedData(serializedData);
+    }
 
+    public void resetPlayerPosition() {
+        player.setPosition(new Vector2D(2200,1500));
+        player.setWorldMapPosition(new Vector2D(0,0));
     }
 }

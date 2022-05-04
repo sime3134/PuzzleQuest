@@ -24,7 +24,7 @@ public class NPCPlacer extends MouseAction{
 
     @Override
     public void onClick(Game game) {
-        game.addGameObject(npc.getCopy());
+        game.addGameObject(npc.getCopy(game.getCurrentMap().getName()));
     }
 
     @Override

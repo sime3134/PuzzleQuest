@@ -28,15 +28,15 @@ public class UINPCMenu extends HorizontalContainer {
     private UIContainer getHumansContainer(ContentManager content) {
         List<NPC> NPCToAdd = new ArrayList<>();
 
-        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager0"), "villager0"));
+        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager0"), "villager0", "default"));
 
-        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager1"), "villager1"));
+        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager1"), "villager1", "default"));
 
-        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager2"), "villager2"));
+        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager2"), "villager2", "default"));
 
-        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager3"), "villager3"));
+        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager3"), "villager3", "default"));
 
-        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager4"), "villager4"));
+        NPCToAdd.add(new NPC(new NPCController(), content.getSpriteSet("villager4"), "villager4", "default"));
 
         UIContainer main = new HorizontalContainer();
         main.setMargin(new Spacing(0));

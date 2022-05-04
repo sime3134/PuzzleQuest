@@ -34,6 +34,13 @@ public abstract class MovingEntity extends GameObject {
         return animationManager.getSprite();
     }
 
+    protected MovingEntity(EntityController entityController){
+        super();
+        this.entityController = entityController;
+        this.velocity = new Vector2D(0,0);
+        this.directionVector = new Vector2D(0,0);
+    }
+
     protected MovingEntity(EntityController entityController, SpriteSet spriteSet) {
         super();
         this.entityController = entityController;

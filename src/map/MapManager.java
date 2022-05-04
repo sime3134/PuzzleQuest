@@ -31,6 +31,10 @@ public class MapManager {
         this.currentMap = newMap;
     }
 
+    public Map<String, GameMap> getMaps() {
+        return maps;
+    }
+
     public MapManager() {
         maps = new HashMap<>();
     }

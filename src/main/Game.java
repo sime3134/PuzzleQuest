@@ -1,6 +1,7 @@
 package main;
 
 import IO.MapIO;
+import IO.Persistable;
 import IO.ProgressIO;
 import audio.AudioPlayer;
 import content.ContentManager;
@@ -34,7 +35,7 @@ import java.util.List;
  * @author Simon Jern, Johan Salomonsson
  * Main class for the game controlling the current state of the game.
  */
-public class Game {
+public class Game implements Persistable {
 
     private final ContentManager content;
 
@@ -192,11 +193,17 @@ public class Game {
     }
 
     public void saveGame() {
-        ProgressIO.save(stateManager.getGameState(),"./save_file.txt");
+        ProgressIO.save(this,"./save_file.txt");
     }
 
     public void loadGame() {
-        //TODO: implement
+        ProgressIO.load(this, "./save_file.txt");
+        addGameObject(getGameState().getPlayer());
+        camera.focusOn(stateManager.getGameState().getPlayer());
+        loadMap(stateManager.getGameState().getWorldMap()[getGameState().getPlayer().getWorldMapPosition().intX()]
+                [getGameState().getPlayer().getWorldMapPosition().intY()]);
+        stateManager.goToGameState();
+        audioPlayer.playMusic("suburbs.wav");
     }
 
     public void goToMainMenu() {
@@ -219,6 +226,7 @@ public class Game {
 
     public void startNewGame() {
         stateManager.newGameState(this);
+        getGameState().resetPlayerPosition();
         addGameObject(stateManager.getGameState().getPlayer());
         camera.focusOn(stateManager.getGameState().getPlayer());
         loadMap(stateManager.getGameState().getWorldMap()[0][0]);
@@ -251,7 +259,7 @@ public class Game {
             Vector2D spawnPosition = getCurrentMap().getRandomAvailablePositionOnMap();
 
             NPC npc = new NPC(new NPCController(),
-                    content.getSpriteSet("villager" + randomizer.nextInt(5)), "default");
+                    content.getSpriteSet("villager" + randomizer.nextInt(5)), "default", getCurrentMap().getName());
             npc.setPosition(spawnPosition);
             addGameObject(npc);
         }
@@ -261,13 +269,15 @@ public class Game {
         gameObjects.clear();
         maps.setCurrent(MapIO.loadFromPath(content, path));
         gameObjects.addAll(maps.getCurrent().getSceneryList());
+        gameObjects.addAll(maps.getCurrent().getNPCList());
     }
 
     public void loadMap(String name) {
         gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
         maps.setCurrent(maps.getByName(name));
         gameObjects.addAll(maps.getCurrent().getSceneryList());
-        initializeNPCs(20);
+        gameObjects.addAll(maps.getCurrent().getNPCList());
+        //initializeNPCs(20);
     }
 
     public void saveMap(String filePath) {
@@ -301,5 +311,42 @@ public class Game {
 
     public EditorState getEditorState() {
         return stateManager.getEditorState();
+    }
+
+    @Override
+    public String serialize() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(stateManager.getGameState().serialize());
+        sb.append(SECTION_DELIMETER);
+        maps.getMaps().forEach((mapName, map) -> {
+            map.getNPCList().forEach(npc -> {
+                sb.append(npc.serialize());
+                sb.append(COLUMN_DELIMETER);
+            });
+        });
+
+        return sb.toString();
+    }
+
+    @Override
+    public void applySerializedData(String serializedData) {
+        maps.getMaps().forEach((mapName, map) -> map.getNPCList().clear());
+
+        String[] sections = serializedData.split(SECTION_DELIMETER);
+
+        getGameState().applySerializedData(sections[1]);
+
+        String npcSection = sections[2];
+
+        String[] NPCs = npcSection.split(COLUMN_DELIMETER);
+
+        for(String npcString : NPCs){
+            System.out.println(npcString);
+            NPC npc = new NPC();
+            npc.applySerializedData(npcString);
+            npc.applyGraphics(content);
+            System.out.println(npc.getMapName());
+            maps.getByName(npc.getMapName()).addNPC(npc);
+        }
     }
 }

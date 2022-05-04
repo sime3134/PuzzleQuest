@@ -11,9 +11,7 @@ import core.Vector2D;
  */
 public abstract class Humanoid extends MovingEntity implements Persistable {
 
-    private String name;
-
-    private String spriteSetName;
+    protected String name;
 
     protected Vector2D worldMapPosition;
 
@@ -23,6 +21,21 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
 
     public void setWorldMapPosition(Vector2D worldMapPosition) {
         this.worldMapPosition = worldMapPosition;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    protected Humanoid(EntityController entityController){
+        super(entityController);
+        this.collisionBoxWidth = 24;
+        this.collisionBoxHeight = 24;
+        this.collisionBoxOffset = new Vector2D(collisionBoxWidth / 2f, collisionBoxHeight / 2f + 5f);
+        this.selectionCircleWidth = 38;
+        this.selectionCircleHeight = 22;
+        this.selectionCircleRenderXOffset = 5;
+        this.selectionCircleRenderYOffset = (int) (selectionCircleHeight + 9f);
     }
 
     protected Humanoid(EntityController entityController, SpriteSet spriteSet, String name) {
@@ -48,24 +61,4 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
 
     @Override
     protected abstract void handleCollision(GameObject other);
-
-    @Override
-    public String serialize() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.getClass().getSimpleName())
-                .append(DELIMITER)
-                .append(name)
-                .append(DELIMITER)
-                .append(worldMapPosition.serialize())
-                .append(DELIMITER)
-                .append(position.serialize())
-                .append(animationManager.getSpriteSet().getName());
-
-        return sb.toString();
-    }
-
-    @Override
-    public void applySerializedData(String serializedData) {
-        //abstract?
-    }
 }
