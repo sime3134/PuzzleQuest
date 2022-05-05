@@ -1,7 +1,7 @@
 package ui.clickable;
 
 import main.Game;
-import settings.Setting;
+import core.Value;
 import ui.*;
 import utilities.ImgUtils;
 
@@ -18,16 +18,16 @@ public class UICheckbox extends UIComponent {
     private final UIText text;
 
 
-    public UICheckbox(String label, Setting<Boolean> setting) {
+    public UICheckbox(String label, Value<Boolean> value) {
         this.container = new HorizontalContainer();
         this.text = new UIText(label);
-        container.addComponent(new Checkbox(setting));
+        container.addComponent(new Checkbox(value));
         container.addComponent(text);
     }
-    public UICheckbox(String label, Setting<Boolean> setting, ClickAction clickAction) {
+    public UICheckbox(String label, Value<Boolean> value, ClickAction clickAction) {
         this.container = new HorizontalContainer();
         this.text = new UIText(label);
-        container.addComponent(new Checkbox(setting, clickAction));
+        container.addComponent(new Checkbox(value, clickAction));
         container.addComponent(text);
     }
 
@@ -57,17 +57,17 @@ public class UICheckbox extends UIComponent {
 
     private class Checkbox extends UIClickable{
 
-        private final Setting<Boolean> setting;
+        private final Value<Boolean> value;
         private Color color;
         private final ClickAction clickAction;
 
 
-        private Checkbox(Setting<Boolean> setting) {
-            this(setting, null);
+        private Checkbox(Value<Boolean> value) {
+            this(value, null);
         }
 
-        private Checkbox(Setting<Boolean> setting, ClickAction clickAction) {
-            this.setting = setting;
+        private Checkbox(Value<Boolean> value, ClickAction clickAction) {
+            this.value = value;
             this.clickAction = clickAction;
             width = 20;
             height = 20;
@@ -78,7 +78,7 @@ public class UICheckbox extends UIComponent {
         @Override
         public void update(Game game) {
             super.update(game);
-            color = setting.getValue() ? Color.WHITE : Color.LIGHT_GRAY;
+            color = value.get() ? Color.WHITE : Color.LIGHT_GRAY;
 
             if(hasFocus) {
                 color = Color.DARK_GRAY;
@@ -92,7 +92,7 @@ public class UICheckbox extends UIComponent {
             Graphics2D g = sprite.createGraphics();
 
             g.setColor(color);
-            if(setting.getValue()){
+            if(value.get()){
                 g.drawRect(0,0, width - 1, height - 1);
                 g.fillRect(2,2,width - 4,height - 4);
             }else{
@@ -106,10 +106,10 @@ public class UICheckbox extends UIComponent {
         @Override
         public void onClick(Game game) {
             if(hasFocus) {
-                setting.setValue(!setting.getValue());
+                value.set(!value.get());
             }
             if(clickAction != null){
-                clickAction.execute();
+                clickAction.execute(game);
             }
         }
 

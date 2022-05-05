@@ -1,5 +1,6 @@
 package main.state;
 
+import content.ContentManager;
 import editor.UIAnimatedTileMenu;
 import editor.UINPCMenu;
 import editor.UISceneryMenu;
@@ -31,13 +32,24 @@ public class EditorState extends State {
         return options;
     }
 
-    public EditorState(Game game){
-        super(game);
+    public EditorState(ContentManager content){
+        super();
+        setupToolsContainers(content);
         fileChooser = new JFileChooser();
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Game map", "txt"));
         fileChooser.setCurrentDirectory(new File(getClass().getResource("/").getFile()));
         setupMouseButtons();
+    }
+
+    public void setupToolsContainers(ContentManager content) {
+        UITabContainer toolsContainer = new UITabContainer();
+        toolsContainer.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.BOTTOM));
+        toolsContainer.addTab("Scenery", new UISceneryMenu(content));
+        toolsContainer.addTab("Tiles", new UITileMenu(content));
+        toolsContainer.addTab("Animated", new UIAnimatedTileMenu(content));
+        toolsContainer.addTab("NPC", new UINPCMenu(content));
+        uiContainers.add(toolsContainer);
     }
 
     private void setupMouseButtons() {
@@ -47,22 +59,14 @@ public class EditorState extends State {
     }
 
     @Override
-    protected void setupUI(Game game) {
-        super.setupUI(game);
-        UITabContainer toolsContainer = new UITabContainer();
-        toolsContainer.setAlignment(new Alignment(Alignment.Horizontal.LEFT, Alignment.Vertical.BOTTOM));
-        toolsContainer.addTab("Scenery", new UISceneryMenu(game.getContent()));
-        toolsContainer.addTab("Tiles", new UITileMenu(game.getContent()));
-        toolsContainer.addTab("Animated", new UIAnimatedTileMenu(game.getContent()));
-        toolsContainer.addTab("NPC", new UINPCMenu(game.getContent()));
-        uiContainers.add(toolsContainer);
-
-        UIButton mainMenuButton = new UIButton("main menu", () -> displayWarning(game));
-        UIButton saveButton = new UIButton("save", () -> displaySaveDialog(game));
-        UIButton loadButton = new UIButton("load", () -> displayLoadDialog(game));
-        UIButton newButton = new UIButton("new", () -> game.createNewMap(64, 64, game.getContent()));
+    public void setupUI() {
+        super.setupUI();
+        UIButton mainMenuButton = new UIButton("main menu", (game) -> displayWarning(game));
+        UIButton saveButton = new UIButton("save", (game) -> displaySaveDialog(game));
+        UIButton loadButton = new UIButton("load", (game) -> displayLoadDialog(game));
+        UIButton newButton = new UIButton("new", (game) -> game.createNewMap(64, 64, game.getContent()));
         UIButton pngButton = new UIButton("PNG",
-                () -> WorldMapDrawer.generateMap(game.getCurrentMap(), 2304, game.getCurrentMap().getName()));
+                (game) -> WorldMapDrawer.generateMap(game.getCurrentMap(), 2304, game.getCurrentMap().getName()));
         HorizontalContainer buttonMenu = new HorizontalContainer(mainMenuButton, pngButton, saveButton,
                 loadButton, newButton);
         mainMenuButton.setWidth(180);

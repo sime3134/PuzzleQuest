@@ -33,13 +33,13 @@ public class AudioPlayer {
     }
 
     public void playMusic(String fileName) {
-        if(Settings.getAudioOn().getValue()) {
+        if(Settings.getAudioOn().get()) {
             if (!audioClips.containsKey(fileName)) {
                 clear();
                 final Clip clip = getClip(fileName);
                 final AudioClip audioClip = new AudioClip(clip, false);
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
-                audioClip.setVolume(Settings.getVolume().getValue());
+                audioClip.setVolume(Settings.getVolume().get());
                 audioClips.put(fileName, audioClip);
                 lastPlayedMusicFileName = fileName;
             }
@@ -47,13 +47,13 @@ public class AudioPlayer {
     }
 
     public void playLastMusic() {
-        if(Settings.getAudioOn().getValue()) {
+        if(Settings.getAudioOn().get()) {
             if (!audioClips.containsKey(lastPlayedMusicFileName)) {
                 clear();
                 final Clip clip = getClip(lastPlayedMusicFileName);
                 final AudioClip audioClip = new AudioClip(clip, false);
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
-                audioClip.setVolume(Settings.getVolume().getValue());
+                audioClip.setVolume(Settings.getVolume().get());
                 audioClips.put(lastPlayedMusicFileName, audioClip);
             }
         }
@@ -62,7 +62,7 @@ public class AudioPlayer {
     public void playSound(String fileName) {
         final Clip clip = getClip(fileName);
         final AudioClip audioClip = new AudioClip(clip, true);
-        audioClip.setVolume(Settings.getVolume().getValue());
+        audioClip.setVolume(Settings.getVolume().get());
         audioClips.put(fileName, audioClip);
     }
 

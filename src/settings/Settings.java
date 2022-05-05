@@ -1,5 +1,7 @@
 package settings;
 
+import core.Value;
+
 /**
  * @author Simon Jern
  * Stores settings for the game.
@@ -20,21 +22,21 @@ public abstract class Settings {
 
     private static double GAME_SPEED_MULTIPLIER = 1;
 
-    private static final Setting<Boolean> RENDER_GRID = new Setting<>(false);
+    private static final Value<Boolean> RENDER_GRID = new Value<>(false);
 
-    private static final Setting<Boolean> RENDER_COLLISION_BOX = new Setting<>(false);
+    private static final Value<Boolean> RENDER_COLLISION_BOX = new Value<>(false);
 
-    private static final Setting<Boolean> RENDER_TILE_WALKABLE = new Setting<>(false);
+    private static final Value<Boolean> RENDER_TILE_WALKABLE = new Value<>(false);
 
-    private static final Setting<Boolean> RENDER_TILE_PATHABLE = new Setting<>(false);
+    private static final Value<Boolean> RENDER_TILE_PATHABLE = new Value<>(false);
 
-    private static final Setting<Boolean> RENDER_PATHS = new Setting<>(false);
+    private static final Value<Boolean> RENDER_PATHS = new Value<>(false);
 
-    private static final Setting<Boolean> AUDIO_ON = new Setting<>(true);
+    private static final Value<Boolean> AUDIO_ON = new Value<>(true);
 
-    private static final Setting<Float> VOLUME = new Setting<>(0.8f);
+    private static final Value<Float> VOLUME = new Value<>(0.8f);
 
-    private static final Setting<Boolean> FULLSCREEN = new Setting<>(false);
+    private static final Value<Boolean> FULLSCREEN = new Value<>(false);
 
     //region Getters and Setters (click to view)
 
@@ -88,44 +90,44 @@ public abstract class Settings {
         GAME_SPEED_MULTIPLIER = 1;
     }
 
-    public static Setting<Boolean> getRenderGrid() {
+    public static Value<Boolean> getRenderGrid() {
         return RENDER_GRID;
     }
 
-    public static Setting<Boolean> getRenderCollisionBox() { return RENDER_COLLISION_BOX; }
+    public static Value<Boolean> getRenderCollisionBox() { return RENDER_COLLISION_BOX; }
 
-    public static Setting<Boolean> getRenderTileWalkable() { return RENDER_TILE_WALKABLE; }
+    public static Value<Boolean> getRenderTileWalkable() { return RENDER_TILE_WALKABLE; }
 
-    public static Setting<Boolean> isPathable() { return RENDER_TILE_PATHABLE; }
+    public static Value<Boolean> isPathable() { return RENDER_TILE_PATHABLE; }
 
-    public static Setting<Boolean> getRenderPaths() { return RENDER_PATHS; }
+    public static Value<Boolean> getRenderPaths() { return RENDER_PATHS; }
 
-    public static Setting<Boolean> getAudioOn() { return AUDIO_ON; }
+    public static Value<Boolean> getAudioOn() { return AUDIO_ON; }
 
-    public static Setting<Float> getVolume() {
+    public static Value<Float> getVolume() {
         return VOLUME;
     }
 
-    public static Setting<Boolean> getFullScreenSetting() { return FULLSCREEN; }
+    public static Value<Boolean> getFullScreenSetting() { return FULLSCREEN; }
 
     public static void increaseVolume() {
-        if(VOLUME.getValue() < 1f)
-            VOLUME.setValue(VOLUME.getValue() + 0.05f);
+        if(VOLUME.get() < 1f)
+            VOLUME.set(VOLUME.get() + 0.05f);
     }
 
     public static void decreaseVolume() {
-        if(VOLUME.getValue() > 0.1f)
-            VOLUME.setValue(VOLUME.getValue() - 0.05f);
+        if(VOLUME.get() > 0.1f)
+            VOLUME.set(VOLUME.get() - 0.05f);
     }
 
     //endregion
 
     public static void reset() {
-        RENDER_GRID.setValue(false);
-        RENDER_COLLISION_BOX.setValue(false);
-        RENDER_TILE_WALKABLE.setValue(false);
-        RENDER_TILE_PATHABLE.setValue(false);
-        RENDER_PATHS.setValue(false);
+        RENDER_GRID.set(false);
+        RENDER_COLLISION_BOX.set(false);
+        RENDER_TILE_WALKABLE.set(false);
+        RENDER_TILE_PATHABLE.set(false);
+        RENDER_PATHS.set(false);
         DEBUG_MODE = false;
         resetGameSpeedMultiplier();
     }

@@ -12,13 +12,12 @@ import java.awt.*;
  */
 public class PauseMenuState extends State{
 
-    public PauseMenuState(Game game) {
-        super(game);
+    public PauseMenuState() {
+        super();
     }
 
     @Override
-    protected void setupUI(Game game) {
-        super.setupUI(game);
+    public void setupUI() {
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         UIText title = new UIText("Puzzle Quest 2.0");
@@ -26,10 +25,10 @@ public class PauseMenuState extends State{
         container.addComponent(title);
         uiContainers.add(container);
 
-        UIButton resumeGame = new UIButton("Resume Game", () -> game.resumeGame());
-        UIButton saveGame = new UIButton("Save Game", () -> game.saveGame());
-        UIButton mainMenu = new UIButton("Main Menu", () -> game.goToMainMenu());
-        UIButton settings = new UIButton("Settings", () -> game.goToSettingsMenu());
+        UIButton resumeGame = new UIButton("Resume Game", (game) -> game.resumeGame());
+        UIButton saveGame = new UIButton("Save Game", (game) -> game.saveGame());
+        UIButton mainMenu = new UIButton("Main Menu", (game) -> game.goToMainMenu());
+        UIButton settings = new UIButton("Settings", (game) -> game.goToSettingsMenu());
 
         resumeGame.setBackgroundColor(Color.GRAY);
         resumeGame.setClickColor(Color.YELLOW);

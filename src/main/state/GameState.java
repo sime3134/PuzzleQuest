@@ -48,7 +48,7 @@ public class GameState extends State implements Persistable {
     }
 
     public GameState(Game game){
-        super(game);
+        super();
         quests = new QuestManager();
         initializeQuests(game);
         player = new Player(PlayerController.getInstance(),
@@ -155,16 +155,15 @@ public class GameState extends State implements Persistable {
     }
 
     @Override
-    protected void setupUI(Game game) {
-        super.setupUI(game);
-
+    public void setupUI() {
+        super.setupUI();
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         container.addComponent(new UIText("Puzzle Quest 2.0"));
         container.setBackgroundColor(new Color(0,0,0,0));
         uiContainers.add(container);
 
-        UIButton pauseMenuButton = new UIButton("pause", () -> game.pauseGame());
+        UIButton pauseMenuButton = new UIButton("pause", (game) -> game.pauseGame());
         HorizontalContainer buttonMenu = new HorizontalContainer(pauseMenuButton);
         pauseMenuButton.setWidth(70);
         uiContainers.add(buttonMenu);

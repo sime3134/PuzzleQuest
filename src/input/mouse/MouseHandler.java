@@ -81,7 +81,7 @@ public class MouseHandler {
             currentConsumer = null;
         }
 
-        input.cleanUpMouseEvents();
+        input.cleanUp();
     }
 
     private void handleCurrentConsumer(Game game, Input input) {

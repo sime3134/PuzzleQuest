@@ -2,7 +2,6 @@ package display;
 
 import entity.SelectionCircle;
 import main.Game;
-import main.state.State;
 import settings.Settings;
 import ui.UIContainer;
 
@@ -27,7 +26,7 @@ public class Debug {
     }
 
     public void draw(Game game, Graphics g){
-        if(Settings.getRenderCollisionBox().getValue()){
+        if(Settings.getRenderCollisionBox().get()){
             drawCollisionBoxes(game, g);
         }
         uiContainers.forEach(container -> container.draw(g));

@@ -32,6 +32,10 @@ public class UIText extends UIComponent{
         this.text = text;
     }
 
+    public String getText() {
+        return text;
+    }
+
     public UIText(String text) {
         super();
         setupText(text);
@@ -84,8 +88,8 @@ public class UIText extends UIComponent{
 
     private void calculateSize() {
         FontMetrics metrics = new Canvas().getFontMetrics(font);
-        width = metrics.stringWidth(text) + padding.getHorizontal();
-        height = metrics.getHeight() + padding.getVertical();
+        width = Math.max(1, metrics.stringWidth(text) + padding.getHorizontal());
+        height = Math.max(1, metrics.getHeight() + padding.getVertical());
     }
 
     private void createFont() {

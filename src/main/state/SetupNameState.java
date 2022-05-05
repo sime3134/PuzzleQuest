@@ -6,6 +6,7 @@ import ui.UIContainer;
 import ui.UIText;
 import ui.VerticalContainer;
 import ui.clickable.UIButton;
+import ui.input.UITextInput;
 
 import java.awt.*;
 
@@ -16,14 +17,13 @@ import java.awt.*;
  */
 public class SetupNameState extends State{
 
-    public SetupNameState(Game game) {
-        super(game);
+    public SetupNameState() {
+        super();
     }
 
     @Override
-    protected void setupUI(Game game) {
-        super.setupUI(game);
-
+    public void setupUI() {
+        super.setupUI();
         UIContainer container = new VerticalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         UIText title = new UIText("Puzzle Quest 2.0");
@@ -32,10 +32,20 @@ public class SetupNameState extends State{
         uiContainers.add(container);
 
         UIText enterName = new UIText("Enter your character's name");
+        UITextInput nameInput = new UITextInput(3, 10);
         enterName.setFontSize(24);
         UIText nameRules = new UIText("3-10 characters");
-        UIButton startGame = new UIButton("Start Game", () -> game.startNewGame());
-        UIButton back = new UIButton("Back", () -> game.goToLastState());
+        UIButton startGame = new UIButton("Start Game", (game) -> {
+            if(nameInput.validate()) {
+                game.startNewGame(nameInput.getText());
+                nameInput.clear();
+            }
+        });
+        UIButton back = new UIButton("Back", (game) -> {
+            nameInput.clear();
+            game.goToLastState();
+        }
+        );
 
         startGame.setBackgroundColor(Color.GRAY);
         startGame.setClickColor(Color.YELLOW);
@@ -46,7 +56,7 @@ public class SetupNameState extends State{
         back.setHoverColor(Color.lightGray);
         back.setWidth(80);
 
-        VerticalContainer menu = new VerticalContainer(enterName, nameRules, startGame);
+        VerticalContainer menu = new VerticalContainer(enterName, nameInput, nameRules, startGame);
         menu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         menu.setCenterChildren(true);
         uiContainers.add(menu);

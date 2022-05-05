@@ -3,6 +3,8 @@ package input;
 import core.Vector2D;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Simon Jern
@@ -14,7 +16,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     private final boolean[] currentlyPressed;
     private final boolean[] pressed;
-
+    private final List<Integer> typedKeyBuffer;
     private Vector2D mousePosition;
 
     private boolean leftMouseClicked;
@@ -36,10 +38,15 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         return input;
     }
 
+    public List<Integer> getTypedKeyBuffer() {
+        return typedKeyBuffer;
+    }
+
     private Input(){
         currentlyPressed = new boolean[1000];
         pressed = new boolean[1000];
         mousePosition = new Vector2D(0, 0);
+        typedKeyBuffer = new ArrayList<>();
     }
 
     public boolean isKeyPressed(int keyCode) {
@@ -55,7 +62,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         return currentlyPressed[keyCode];
     }
 
-    public void cleanUpMouseEvents() {
+    public void cleanUp() {
         leftMouseClicked = false;
         rightMouseClicked = false;
         wheelMouseClicked = false;
@@ -63,6 +70,8 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         leftMouseReleased = false;
         rightMouseReleased = false;
         wheelMouseReleased = false;
+
+        typedKeyBuffer.clear();
     }
 
     public Vector2D getMousePosition() {
@@ -117,6 +126,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     public void keyReleased(KeyEvent e) {
         currentlyPressed[e.getKeyCode()] = false;
         pressed[e.getKeyCode()] = false;
+        typedKeyBuffer.add(e.getKeyCode());
     }
 
     @Override

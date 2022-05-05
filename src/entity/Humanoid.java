@@ -27,6 +27,10 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     protected Humanoid(EntityController entityController){
         super(entityController);
         this.collisionBoxWidth = 24;

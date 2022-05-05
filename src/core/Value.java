@@ -1,21 +1,21 @@
-package settings;
+package core;
 
 /**
  * @author Simon Jern
  */
-public class Setting<T> {
+public class Value<T> {
 
     private T value;
 
-    public T getValue() {
+    public T get() {
         return value;
     }
 
-    public void setValue(T value) {
+    public void set(T value) {
         this.value = value;
     }
 
-    public Setting(T value){
+    public Value(T value){
         this.value = value;
     }
 }

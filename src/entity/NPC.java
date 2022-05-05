@@ -89,7 +89,7 @@ public class NPC extends Humanoid {
     @Override
     public void draw(Graphics g, Camera camera) {
         super.draw(g, camera);
-        if(Settings.getRenderPaths().getValue()) {
+        if(Settings.getRenderPaths().get()) {
             int i = 0;
             for(Vector2D v : path){
                 i++;

@@ -24,7 +24,7 @@ public class UIHideButton extends UIButton{
     }
 
     private static ClickAction addOrRemove(UIContainer parentContainer, UIComponent componentToHide){
-        return () -> {
+        return (game) -> {
             if(parentContainer.hasComponent(componentToHide)) {
                 parentContainer.removeComponent(componentToHide);
             }else {

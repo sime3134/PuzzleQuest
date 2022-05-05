@@ -89,7 +89,7 @@ public class Game implements Persistable {
     }
 
     public void toggleAudio() {
-        if(Boolean.TRUE.equals(Settings.getAudioOn().getValue())){
+        if(Boolean.TRUE.equals(Settings.getAudioOn().get())){
             audioPlayer.playLastMusic();
         }else{
             audioPlayer.clear();
@@ -232,8 +232,9 @@ public class Game implements Persistable {
         stateManager.goToSettingsState();
     }
 
-    public void startNewGame() {
+    public void startNewGame(String playerName) {
         stateManager.newGameState(this);
+        getGameState().getPlayer().setName(playerName);
         getGameState().resetPlayerPosition();
         addGameObject(stateManager.getGameState().getPlayer());
         camera.focusOn(stateManager.getGameState().getPlayer());
@@ -246,7 +247,7 @@ public class Game implements Persistable {
     }
 
     public void goToWorldEditor() {
-        stateManager.goToEditorState();
+        stateManager.goToEditorState(content);
         createNewMap(64, 64, content);
         camera.removeFocus();
         Settings.setDebugMode(true);

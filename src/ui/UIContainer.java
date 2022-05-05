@@ -29,6 +29,8 @@ public abstract class UIContainer extends UIComponent {
 
     protected Image sprite;
 
+    protected float opacity;
+
     //region Getters and Setters (click to view)
     public void setFixedWidth(int fixedWidth) {
         this.fixedWidth = fixedWidth;
@@ -52,6 +54,17 @@ public abstract class UIContainer extends UIComponent {
 
     @Override
     public Image getSprite() {
+        if(opacity < 1){
+            Image spriteWithOpacity = ImgUtils.createCompatibleImage(width, height, ImgUtils.ALPHA_BLEND);
+            Graphics2D graphics = (Graphics2D) spriteWithOpacity.getGraphics();
+
+            graphics.setComposite(AlphaComposite.SrcOver.derive(opacity));
+            graphics.drawImage(sprite, 0, 0, null);
+
+            graphics.dispose();
+
+            return spriteWithOpacity;
+        }
         return sprite;
     }
 
@@ -70,6 +83,7 @@ public abstract class UIContainer extends UIComponent {
         margin = new Spacing(5);
         padding = new Spacing(5);
         children = new ArrayList<>();
+        opacity = 0.5f;
         calculatePosition();
 
         for (UIComponent component : components) {
@@ -141,9 +155,13 @@ public abstract class UIContainer extends UIComponent {
     @Override
     public void update(Game game) {
         if(visible) {
+            children.forEach(component -> component.update(game));
             calculateSize();
             calculatePosition();
-            children.forEach(component -> component.update(game));
+
+            if(opacity < 1){
+                opacity = (float) Math.min(opacity + 0.05, 1);
+            }
 
             if (game.getTime().secondsDividableBy(0.1)) {
                 createUiSprite();

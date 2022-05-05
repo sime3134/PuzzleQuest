@@ -39,6 +39,7 @@ public class UIButton extends UIClickable{
         buttonContainer.setCenterChildren(true);
         buttonContainer.addComponent(this.buttonText);
         buttonContainer.setFixedWidth(300);
+        buttonContainer.setBorderColor(borderColor);
     }
 
     @Override
@@ -48,7 +49,6 @@ public class UIButton extends UIClickable{
         width = buttonContainer.getWidth();
         height = buttonContainer.getHeight();
 
-        buttonContainer.setBorderColor(borderColor);
         buttonContainer.setBackgroundColor(backgroundColor);
 
         if(hasFocus){
@@ -63,7 +63,7 @@ public class UIButton extends UIClickable{
     @Override
     public void onClick(Game game) {
         if(hasFocus) {
-            clickAction.execute();
+            clickAction.execute(game);
         }
     }
 

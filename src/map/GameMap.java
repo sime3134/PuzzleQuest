@@ -163,21 +163,21 @@ public class GameMap implements Persistable {
 
                 tiles[x][y].draw(g, drawPositionX, drawPositionY);
 
-                if(Settings.getRenderGrid().getValue()) {
+                if(Settings.getRenderGrid().get()) {
                     g.drawString(x + ", " + y, drawPositionX, drawPositionY + 10);
                 }
 
-                if (Settings.getRenderTileWalkable().getValue()) {
+                if (Settings.getRenderTileWalkable().get()) {
                     drawWalkable(g, x, y, drawPositionX, drawPositionY);
                 }
 
-                if (Settings.isPathable().getValue()) {
+                if (Settings.isPathable().get()) {
                     drawPathable(g, x, y, drawPositionX, drawPositionY);
                 }
             }
         }
 
-        if (Settings.getRenderGrid().getValue()) {
+        if (Settings.getRenderGrid().get()) {
             drawGrid(g, camera, (int) startPosX, (int) endPosX, (int) startPosY, (int) endPosY);
         }
 

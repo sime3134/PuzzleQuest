@@ -69,7 +69,7 @@ public class GameFrame extends JFrame {
     }
 
     public void toggleFullScreen() {
-        if(Settings.getFullScreenSetting().getValue()){
+        if(Settings.getFullScreenSetting().get()){
             setSize(Toolkit.getDefaultToolkit().getScreenSize());
             dispose();
         }else{

@@ -29,7 +29,7 @@ public class AudioClip {
     }
 
     public void update() {
-        setVolume(Settings.getVolume().getValue());
+        setVolume(Settings.getVolume().get());
     }
 
     void setVolume(float volume) {
