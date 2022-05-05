@@ -109,7 +109,6 @@ public class NPC extends Humanoid {
     @Override
     protected void executePlayerAction(Game game) {
         startAvailableQuest();
-        System.out.println(name + ": " + activity);
     }
 
     private void startAvailableQuest() {

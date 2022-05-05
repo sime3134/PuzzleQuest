@@ -98,6 +98,14 @@ public class Vector2D implements Persistable {
         return false;
     }
 
+    public boolean isInQuestRangeOf(Vector2D position) {
+        if(position != null) {
+            return Math.abs(x - position.getX()) < Settings.getProximityRangeQuest()
+                    && Math.abs(y - position.getY()) < Settings.getProximityRangeQuest();
+        }
+        return false;
+    }
+
     public Vector2D distanceBetweenPositions(Vector2D other) {
         return new Vector2D(x - other.getX(), y - other.getY());
     }
@@ -171,5 +179,13 @@ public class Vector2D implements Persistable {
     @Override
     public String toString() {
         return String.format("x: %s, y: %s", x, y);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null) {
+            return ((Vector2D) obj).x == x && ((Vector2D) obj).y == y;
+        }
+        return false;
     }
 }

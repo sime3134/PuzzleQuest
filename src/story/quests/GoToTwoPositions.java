@@ -13,8 +13,13 @@ public class GoToTwoPositions extends Quest {
     }
 
     private void initializeSteps() {
-        QuestStep step1 = new GoToTarget(new Vector2D(40, 40), "Go to position 100 x 100");
-        QuestStep step2 = new GoToTarget(new Vector2D(0,0), "Go to position 300 x 300");
+        QuestStep step1 = new GoToTarget(new Vector2D(2200, 700), new Vector2D(0.0, 0.0), "Go to position 2200 x" +
+                " " +
+                "700" +
+                " on map 1");
+        QuestStep step2 = new GoToTarget(new Vector2D(2200,1100), new Vector2D(0.0,0.0), "Go to position 2200 x " +
+                "1100" +
+                " on map 1");
         currentStep = step1;
         addQuestStep(step2);
 

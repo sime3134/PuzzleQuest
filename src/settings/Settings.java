@@ -16,6 +16,8 @@ public abstract class Settings {
     private static int SCREEN_HEIGHT = 700;
 
     private static final int PROXIMITY_RANGE = 5;
+
+    private static final int PROXIMITY_RANGE_QUEST = 48 * 2;
     private static final int RENDER_MARGIN = 2 * TILE_SIZE;
 
     private static boolean DEBUG_MODE = false;
@@ -55,6 +57,8 @@ public abstract class Settings {
     public static int getProximityRange() {
         return PROXIMITY_RANGE;
     }
+
+    public static double getProximityRangeQuest() { return PROXIMITY_RANGE_QUEST; }
 
     public static int getRenderMargin() {
         return RENDER_MARGIN;
@@ -136,5 +140,4 @@ public abstract class Settings {
         SCREEN_WIDTH = width;
         SCREEN_HEIGHT = height;
     }
-
 }

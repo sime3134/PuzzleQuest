@@ -4,10 +4,14 @@ import IO.Persistable;
 import controller.PlayerController;
 import core.Direction;
 import core.Vector2D;
+import entity.GameObject;
+import entity.NPC;
 import entity.Player;
 import main.Game;
 import map.GameMap;
+import story.Quest;
 import story.QuestManager;
+import story.quests.GoToTwoPositions;
 import ui.*;
 import ui.clickable.UIButton;
 
@@ -20,7 +24,7 @@ import java.awt.*;
  */
 public class GameState extends State implements Persistable {
 
-    private Player player;
+    private final Player player;
 
     private final QuestManager quests;
 
@@ -47,6 +51,10 @@ public class GameState extends State implements Persistable {
         return worldMap;
     }
 
+    public QuestManager getQuests() {
+        return quests;
+    }
+
     public GameState(Game game){
         super();
         quests = new QuestManager();
@@ -58,12 +66,13 @@ public class GameState extends State implements Persistable {
     }
 
     public void initializeQuests(Game game) {
-//        NPC npc = new NPC(new NPCController(), game.getContent().getSpriteSet("villager1"), "default");
-//        npc.setPosition(new Vector2D(2200, 1700));
-//        Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
-//        npc.addQuest(goToTwoPositions);
-//        quests.addQuest(goToTwoPositions);
-//        game.addGameObject(npc);
+        Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
+        GameObject obj = game.getGameObjectById(10060);
+        if(obj != null){
+            obj.addQuest(goToTwoPositions);
+            quests.addQuest(goToTwoPositions);
+            System.out.println(((NPC)obj).getName());
+        }
     }
 
     @Override
@@ -157,11 +166,6 @@ public class GameState extends State implements Persistable {
     @Override
     public void setupUI() {
         super.setupUI();
-        UIContainer container = new HorizontalContainer();
-        container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        container.addComponent(new UIText("Puzzle Quest 2.0"));
-        container.setBackgroundColor(new Color(0,0,0,0));
-        uiContainers.add(container);
 
         UIButton pauseMenuButton = new UIButton("pause", (game) -> game.pauseGame());
         HorizontalContainer buttonMenu = new HorizontalContainer(pauseMenuButton);
@@ -179,11 +183,11 @@ public class GameState extends State implements Persistable {
         if(npcConversationActive) {
             uiContainers.add(npcConversation);
         }
-        UIContainer container1 = new VerticalContainer();
-        container1.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
+        UIContainer medallions = new VerticalContainer();
+        medallions.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
         medallionText = new UIText("Medallions collected: " + medallionsCollected + "/7");
-        container1.addComponent(medallionText);
-        uiContainers.add(container1);
+        medallions.addComponent(medallionText);
+        uiContainers.add(medallions);
     }
 
     public void updateMedallionCount() {

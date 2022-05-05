@@ -7,11 +7,13 @@ import story.QuestStepTransition;
 
 public class GoToTarget extends QuestStep {
 
-    Vector2D target;
+    private Vector2D positionTarget;
+    private Vector2D worldMapTarget;
 
-    public GoToTarget(Vector2D target, String name) {
+    public GoToTarget(Vector2D positionTarget, Vector2D worldMapTarget, String name) {
         super(name);
-        this.target = target;
+        this.positionTarget = positionTarget;
+        this.worldMapTarget = worldMapTarget;
     }
 
     @Override
@@ -20,7 +22,8 @@ public class GoToTarget extends QuestStep {
     }
 
     private boolean arrivedAtTarget(Game game) {
-        return game.getGameState().getPlayer().getPosition().isInRangeOf(target);
+        return game.getGameState().getPlayer().getWorldMapPosition().equals(worldMapTarget) &&
+                game.getGameState().getPlayer().getPosition().isInQuestRangeOf(positionTarget);
     }
 
     @Override

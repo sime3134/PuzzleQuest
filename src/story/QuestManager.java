@@ -21,4 +21,9 @@ public class QuestManager {
     public void addQuest(Quest quest){
         quests.add(quest);
     }
+
+    public List<Quest> getActiveQuests() {
+        return quests.stream()
+                .filter(quest -> quest.isActive()).toList();
+    }
 }

@@ -8,7 +8,6 @@ import display.Camera;
 import main.Game;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -226,7 +225,6 @@ public class Scenery extends GameObject implements Persistable {
     @Override
     public void applySerializedData(String serializedData) {
         String[] tokens = serializedData.split(DELIMITER);
-        System.out.println(Arrays.toString(tokens));
         name = tokens[1];
         id = Long.parseLong(tokens[2]);
         position.applySerializedData(tokens[3]);

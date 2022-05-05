@@ -394,4 +394,18 @@ public class GameMap implements Persistable {
     public void removeScenery(Scenery scenery){
         sceneryList.remove(scenery);
     }
+
+    public GameObject findGameObjectById(long id) {
+        for(Scenery scenery : sceneryList){
+            if(scenery.getId() == id){
+                return scenery;
+            }
+        }
+        for(NPC npc : npcList){
+            if(npc.getId() == id){
+                return npc;
+            }
+        }
+        return null;
+    }
 }

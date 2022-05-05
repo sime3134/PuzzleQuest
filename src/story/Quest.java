@@ -9,10 +9,25 @@ public abstract class Quest {
     String name;
 
     private boolean active;
-
     private boolean finished;
     private LinkedList<QuestStep> steps;
     protected QuestStep currentStep;
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public LinkedList<QuestStep> getSteps() {
+        return steps;
+    }
+
+    public QuestStep getCurrentStep() {
+        return currentStep;
+    }
 
     protected Quest(String name) {
         steps = new LinkedList<>();

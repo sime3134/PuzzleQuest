@@ -1,6 +1,7 @@
 package main.state;
 
 import main.Game;
+import story.Quest;
 import ui.*;
 import ui.clickable.UIButton;
 
@@ -11,6 +12,8 @@ import java.awt.*;
  * The menu that you access by pausing the game.
  */
 public class PauseMenuState extends State{
+
+    private UIContainer questMenu;
 
     public PauseMenuState() {
         super();
@@ -53,6 +56,19 @@ public class PauseMenuState extends State{
         VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings);
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
+
+        questMenu = new VerticalContainer(new UIText("Active quests"));
+        questMenu.setBackgroundColor(Color.DARK_GRAY);
+        questMenu.setBorderColor(Color.WHITE);
+        uiContainers.add(questMenu);
+    }
+
+    public void updateQuestMenu(GameState gameState){
+        questMenu.clear();
+        questMenu.addComponent(new UIText("Active quests"));
+        for(Quest quest : gameState.getQuests().getActiveQuests()){
+            questMenu.addComponent(new UIText(quest.getName()));
+        }
     }
 
     @Override

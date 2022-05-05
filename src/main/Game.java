@@ -18,7 +18,10 @@ import entity.GameObject;
 import entity.NPC;
 import entity.Player;
 import entity.Scenery;
-import main.state.*;
+import main.state.EditorState;
+import main.state.GameState;
+import main.state.PauseMenuState;
+import main.state.State;
 import map.GameMap;
 import map.MapManager;
 import map.PathFinder;
@@ -129,9 +132,9 @@ public class Game implements Persistable {
         content.loadContent();
         camera = new Camera();
         gameObjects = new ArrayList<>();
-        stateManager = new StateManager(this);
         maps = new MapManager();
         maps.loadAll(content, "/maps");
+        stateManager = new StateManager(this);
         time = new Time();
         gameController = new GameController();
         debug = new Debug();
@@ -365,4 +368,13 @@ public class Game implements Persistable {
         shouldChangeTo = name;
     }
 
+    public GameObject getGameObjectById(long id) {
+        for(GameMap map : maps.getMaps().values()){
+            GameObject obj = map.findGameObjectById(id);
+            if(obj != null){
+                return obj;
+            }
+        }
+        return null;
+    }
 }

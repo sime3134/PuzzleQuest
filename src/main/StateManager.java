@@ -66,6 +66,7 @@ public class StateManager {
         lastState = currentState;
         this.currentState = pauseMenuState;
         currentState.setupUI();
+        pauseMenuState.updateQuestMenu(gameState);
     }
 
     public void goToSettingsState() {
