@@ -119,6 +119,7 @@ public class GameObjectTool extends MouseAction{
     }
 
     private void select(GameObject gameObject) {
+        System.out.println(gameObject.getId());
         if(selectedGameObject != null) {
             selectedGameObject.clearAttachments();
         }
