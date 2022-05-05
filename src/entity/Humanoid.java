@@ -35,7 +35,7 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
         super(entityController);
         this.collisionBoxWidth = 24;
         this.collisionBoxHeight = 24;
-        this.collisionBoxOffset = new Vector2D(collisionBoxWidth / 2f, collisionBoxHeight / 2f + 5f);
+        this.collisionBoxOffset = new Vector2D(collisionBoxWidth / 2f, collisionBoxHeight / 2f + 7f);
         this.selectionCircleWidth = 38;
         this.selectionCircleHeight = 22;
         this.selectionCircleRenderXOffset = 5;
@@ -48,7 +48,7 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
         this.name = name;
         this.collisionBoxWidth = 24;
         this.collisionBoxHeight = 24;
-        this.collisionBoxOffset = new Vector2D(collisionBoxWidth / 2f, collisionBoxHeight / 2f + 5f);
+        this.collisionBoxOffset = new Vector2D(collisionBoxWidth / 2f, collisionBoxHeight / 2f + 7f);
         this.selectionCircleWidth = 38;
         this.selectionCircleHeight = 22;
         this.selectionCircleRenderXOffset = 5;

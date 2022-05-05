@@ -300,5 +300,7 @@ Scenery:tree1_v2:2935|2919:126:144:0|0:60.0:0|80:113:40:false:136:149:-5:0:
 Scenery:rocks6_v4:1892|2977:36:39:0|0:13.0:0|13:36:26:false:46:44:-5:0:
 Scenery:rocks6_v4:2341|3009:36:39:0|0:13.0:0|13:36:26:false:46:44:-5:0:
 Scenery:rocks6:2102|3013:39:39:0|0:13.0:0|13:39:26:false:49:44:-5:0:
+
 ###
-NPC:default:4.0:map1:1975|1639:villager3:random_action:DOWN:
+NPC:GRAN:4.0:map1:884|2651:villager3:random_action:DOWN:
+NPC:FAGGOT:4.0:map1:2059|1371:villager4:stand:DOWN:

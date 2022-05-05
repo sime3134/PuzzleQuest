@@ -9,6 +9,8 @@ import main.Game;
 import ui.UIContainer;
 import ui.UIImage;
 import ui.UIText;
+import ui.clickable.UIButton;
+import ui.input.UITextInput;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -37,14 +39,26 @@ public class GameObjectTool extends MouseAction{
     }
 
     private void showNPCMenu(NPC collidingNPC, Game game) {
+        UITextInput nameInput = new UITextInput(1, 13, collidingNPC.getName());
+        UITextInput activityInput = new UITextInput(1, 13, collidingNPC.getActivity());
+
         options = game.getEditorState().getOptions();
         options.setVisible(false);
         Vector2D position = collidingNPC.getRenderPosition(game.getCamera());
         position.subtract(new Vector2D(0, 50));
         options.setAbsolutePosition(position);
         options.clear();
-        options.addComponent(new UIText(collidingNPC.getName()));
+        options.addComponent(new UIText("Name:"));
+        options.addComponent(nameInput);
+        options.addComponent(new UIText("AIState:"));
+        options.addComponent(activityInput);
+        options.addComponent(new UIButton("Save", game1 -> saveNPCInfo(collidingNPC, nameInput, activityInput)));
         options.setVisible(true);
+    }
+
+    private void saveNPCInfo(NPC npc, UITextInput nameInput, UITextInput activityInput) {
+        npc.setName(nameInput.getText());
+        npc.setActivity(activityInput.getText().toLowerCase());
     }
 
     @Override

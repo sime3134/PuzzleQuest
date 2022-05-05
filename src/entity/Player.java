@@ -24,6 +24,7 @@ public class Player extends Humanoid {
         this.speed = 5;
         this.selectionCircle = new SelectionCircle(38, 22);
         this.selectionCircle.setRenderOffset(new Vector2D(5, selectionCircle.getHeight() + 9f));
+        this.collisionBoxOffset = new Vector2D(collisionBoxWidth / 2f, collisionBoxHeight / 2f + 11f);
     }
 
     @Override

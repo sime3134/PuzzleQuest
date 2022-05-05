@@ -10,7 +10,6 @@ import core.Direction;
 import core.Vector2D;
 import display.Camera;
 import main.Game;
-import main.state.GameState;
 import settings.Settings;
 
 import java.awt.*;
@@ -49,6 +48,10 @@ public class NPC extends Humanoid {
         return copy;
     }
 
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
     public Vector2D getFirstLoopTarget() {
         return firstLoopTarget;
     }
@@ -81,7 +84,7 @@ public class NPC extends Humanoid {
     @Override
     public void update(Game game){
         super.update(game);
-        if(game.getCurrentState() instanceof GameState) {
+        if(!activity.equals("stand")) {
             brain.update(game);
         }
     }
@@ -104,6 +107,7 @@ public class NPC extends Humanoid {
     @Override
     protected void executePlayerAction(Game game) {
         startAvailableQuest();
+        System.out.println(name + ": " + activity);
     }
 
     private void startAvailableQuest() {

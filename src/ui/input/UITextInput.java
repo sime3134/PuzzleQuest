@@ -25,6 +25,10 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
     }
 
     public UITextInput(int minLength, int maxLength) {
+        this(minLength, maxLength, "");
+    }
+
+    public UITextInput(int minLength, int maxLength, String placeholder) {
         margin = new Spacing(0);
         padding = new Spacing(0);
         this.minLength = minLength;
@@ -37,7 +41,7 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
         container.setBackgroundColor(Color.DARK_GRAY);
         container.setFixedWidth(200);
         container.setFixedHeight(30);
-        inputText = new UIText("");
+        inputText = new UIText(placeholder);
         container.addComponent(inputText);
     }
 
@@ -60,7 +64,9 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
             }
         }else if(key == KeyEvent.VK_SPACE && currentValue.length() < maxLength){
             currentValue += " ";
-        } else if(currentValue.length() < maxLength) {
+        }else if(key == KeyEvent.VK_UNDERSCORE && currentValue.length() < maxLength){
+            currentValue += "_";
+        }else if(currentValue.length() < maxLength) {
             String keyText = KeyEvent.getKeyText(key);
             if(keyText.length() == 1){
                 currentValue += keyText;

@@ -285,21 +285,17 @@ public class GameMap implements Persistable {
             sb.append(COLUMN_DELIMETER);
         }
 
-        if(!sceneryList.isEmpty()) {
-            sb.append(SECTION_DELIMETER);
-            sceneryList.forEach(scenery -> {
-                sb.append(scenery.serialize());
-                sb.append(COLUMN_DELIMETER);
-            });
-        }
+        sb.append(SECTION_DELIMETER);
+        sceneryList.forEach(scenery -> {
+            sb.append(scenery.serialize());
+            sb.append(COLUMN_DELIMETER);
+        });
 
-        if(!npcList.isEmpty()) {
-            sb.append(SECTION_DELIMETER2);
-            npcList.forEach(npc -> {
-                sb.append(npc.serialize());
-                sb.append(COLUMN_DELIMETER);
-            });
-        }
+        sb.append(SECTION_DELIMETER);
+        npcList.forEach(npc -> {
+            sb.append(npc.serialize());
+            sb.append(COLUMN_DELIMETER);
+        });
 
         return sb.toString();
     }
@@ -334,7 +330,7 @@ public class GameMap implements Persistable {
             }
         }
 
-        if (sections.length > 2) {
+        if(sections.length > 2 && !sections[2].isEmpty()) {
             String scenerySection = sections[2];
             String[] serializedSceneries = scenerySection.split(COLUMN_DELIMETER);
             for (String serializedScenery : serializedSceneries) {
@@ -344,7 +340,7 @@ public class GameMap implements Persistable {
             }
         }
 
-        if (sections.length > 3) {
+        if(sections.length > 3 && !sections[3].isEmpty()) {
             String NPCSection = sections[3];
             String[] serializedNPCs = NPCSection.split(COLUMN_DELIMETER);
             for (String serializedNPC : serializedNPCs) {
