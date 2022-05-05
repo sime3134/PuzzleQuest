@@ -297,4 +297,3 @@ Scenery:fence_middle_horizontal:825|2086:45:39:0|0:13.0:0|13:45:26:false:55:44:-
 Scenery:fence_middle_horizontal:776|2086:45:39:0|0:13.0:0|13:45:26:false:55:44:-5:0:
 Scenery:fence_middle_horizontal:736|2088:45:39:0|0:13.0:0|13:45:26:false:55:44:-5:0:
 Scenery:fence_middle_horizontal:711|2089:45:39:0|0:13.0:0|13:45:26:false:55:44:-5:0:
-###
