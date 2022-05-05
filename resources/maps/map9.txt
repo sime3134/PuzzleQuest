@@ -66,13 +66,10 @@ Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:
 Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:8:0,Tile:paths:92:0,Tile:grass1:10:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:8:0,Tile:paths:92:0,Tile:grass1:10:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:16:0,Tile:grass1:25:0,Tile:paths:92:0,Tile:grass1:24:0,Tile:grass1:18:0,Tile:grass1:41:0,
 
 ###
-Scenery:small_tree1:-5|-63:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:-10|-51:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:seedling2:1771|26:36:48:0|0:-48.0:0|16:36:32:true:46:24:-5:29:
 Scenery:orange_flowers:900|17:42:39:0|0:-39.0:0|13:42:26:true:52:44:-5:0:
 Scenery:green_plant2:680|32:42:36:0|0:-36.0:0|12:42:24:true:52:41:-5:0:
 Scenery:small_tree1:1078|-22:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:-10|-18:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree_with_fruit:2452|-18:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree_with_fruit:1372|-17:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:green_plant2:763|39:42:36:0|0:-36.0:0|12:42:24:true:52:41:-5:0:
@@ -87,8 +84,6 @@ Scenery:bush_with_fruit:2015|11:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 Scenery:small_tree_with_fruit:1163|7:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:green_plant2:1123|71:42:36:0|0:-36.0:0|12:42:24:true:52:41:-5:0:
 Scenery:tree1:2734|-19:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
-Scenery:small_tree1:-15|21:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:small_tree1:-14|35:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:large_pole:1725|6:18:144:0|0:50.0:0|94:18:50:false:28:72:-5:77:
 Scenery:tree1:938|2:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:rip2:53|43:42:48:0|0:20.0:1|25:40:24:false:52:53:-5:0:
@@ -99,7 +94,7 @@ Scenery:green_banner:1268|13:48:87:0|0:60.0:0|0:48:87:true:58:43:-5:48:
 Scenery:tree2:2516|16:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:green_plant2:876|113:42:36:0|0:-36.0:0|12:42:24:true:52:41:-5:0:
 Scenery:empty_well:502|57:96:96:0|0:20.0:0|14:96:82:false:106:101:-5:0:
-Scenery:small_tree1:-24|70:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
+Scenery:small_tree1:-5|62:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:house9:257|-23:138:192:0|0:120.0:0|80:138:115:false:148:96:-5:101:
 Scenery:small_tree_with_fruit:2442|83:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree1:-9|90:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
