@@ -18,6 +18,10 @@ import java.util.List;
  */
 public abstract class GameObject {
 
+    public static long nextId = 0;
+
+    protected long id;
+
     protected GameObject parent;
 
     protected Vector2D position;
@@ -47,6 +51,14 @@ public abstract class GameObject {
     protected List<Quest> quests;
 
     //region Getters & Setters (click to view)
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public void setRenderOffset(Vector2D renderOffset) {
         this.renderOffset = renderOffset;

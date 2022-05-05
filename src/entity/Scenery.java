@@ -8,6 +8,7 @@ import display.Camera;
 import main.Game;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -173,6 +174,8 @@ public class Scenery extends GameObject implements Persistable {
         copy.selectionCircleRenderYOffset = selectionCircleRenderYOffset;
         copy.walkable = walkable;
         copy.sprite = sprite;
+        copy.id = nextId;
+        nextId++;
 
         return copy;
     }
@@ -187,6 +190,8 @@ public class Scenery extends GameObject implements Persistable {
         sb.append(this.getClass().getSimpleName());
         sb.append(DELIMITER);
         sb.append(name);
+        sb.append(DELIMITER);
+        sb.append(id);
         sb.append(DELIMITER);
         sb.append(position.serialize());
         sb.append(DELIMITER);
@@ -221,19 +226,23 @@ public class Scenery extends GameObject implements Persistable {
     @Override
     public void applySerializedData(String serializedData) {
         String[] tokens = serializedData.split(DELIMITER);
+        System.out.println(Arrays.toString(tokens));
         name = tokens[1];
-        position.applySerializedData(tokens[2]);
-        width = Integer.parseInt(tokens[3]);
-        height = Integer.parseInt(tokens[4]);
-        renderOffset.applySerializedData(tokens[5]);
-        renderOrderComparisonYOffset = Double.parseDouble(tokens[6]);
-        collisionBoxOffset.applySerializedData(tokens[7]);
-        collisionBoxWidth = Integer.parseInt(tokens[8]);
-        collisionBoxHeight = Integer.parseInt(tokens[9]);
-        walkable = Boolean.parseBoolean(tokens[10]);
-        selectionCircleWidth = Integer.parseInt(tokens[11]);
-        selectionCircleHeight = Integer.parseInt(tokens[12]);
-        selectionCircleRenderXOffset = Integer.parseInt(tokens[13]);
-        selectionCircleRenderYOffset = Integer.parseInt(tokens[14]);
+        id = Long.parseLong(tokens[2]);
+        position.applySerializedData(tokens[3]);
+        width = Integer.parseInt(tokens[4]);
+        height = Integer.parseInt(tokens[5]);
+        renderOffset.applySerializedData(tokens[6]);
+        renderOrderComparisonYOffset = Double.parseDouble(tokens[7]);
+        collisionBoxOffset.applySerializedData(tokens[8]);
+        collisionBoxWidth = Integer.parseInt(tokens[9]);
+        collisionBoxHeight = Integer.parseInt(tokens[10]);
+        walkable = Boolean.parseBoolean(tokens[11]);
+        selectionCircleWidth = Integer.parseInt(tokens[12]);
+        selectionCircleHeight = Integer.parseInt(tokens[13]);
+        selectionCircleRenderXOffset = Integer.parseInt(tokens[14]);
+        selectionCircleRenderYOffset = Integer.parseInt(tokens[15]);
+
+        nextId = Math.max(nextId, id + 1);
     }
 }

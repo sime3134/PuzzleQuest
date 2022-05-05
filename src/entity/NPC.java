@@ -44,6 +44,8 @@ public class NPC extends Humanoid {
         NPC copy = new NPC(new NPCController(), animationManager.getSpriteSet(), "default", mapName);
 
         copy.position = position;
+        copy.id = nextId;
+        nextId++;
 
         return copy;
     }
@@ -72,7 +74,7 @@ public class NPC extends Humanoid {
 
     public NPC(EntityController entityController, SpriteSet spriteSet, String name, String mapName) {
         super(entityController, spriteSet, name);
-        activity = "random_action";
+        activity = "stand";
         spriteSetName = spriteSet.getName();
         brain = new AIManager(this);
         path = new ArrayList<>();
@@ -136,6 +138,8 @@ public class NPC extends Humanoid {
                 .append(DELIMITER)
                 .append(name)
                 .append(DELIMITER)
+                .append(id)
+                .append(DELIMITER)
                 .append(speed)
                 .append(DELIMITER)
                 .append(currentMapName)
@@ -156,13 +160,16 @@ public class NPC extends Humanoid {
     public void applySerializedData(String serializedData) {
         String[] tokens = serializedData.split(DELIMITER);
         name = tokens[1];
-        speed = Double.parseDouble(tokens[2]);
-        currentMapName = tokens[3];
-        position.applySerializedData(tokens[4]);
-        spriteSetName = tokens[5];
-        activity = tokens[6];
-        direction = Direction.valueOf(tokens[7]);
+        id = Long.parseLong(tokens[2]);
+        speed = Double.parseDouble(tokens[3]);
+        currentMapName = tokens[4];
+        position.applySerializedData(tokens[5]);
+        spriteSetName = tokens[6];
+        activity = tokens[7];
+        direction = Direction.valueOf(tokens[8]);
         brain = new AIManager(this);
+
+        nextId = Math.max(nextId, id + 1);
     }
 
     public void applyGraphics(ContentManager content) {

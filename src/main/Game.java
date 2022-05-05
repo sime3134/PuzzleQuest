@@ -315,11 +315,13 @@ public class Game implements Persistable {
     public void addNPC(NPC npc){
         maps.getCurrent().addNPC(npc);
         gameObjects.add(npc);
+        System.out.println(npc.getId());
     }
 
     public void addScenery(Scenery scenery){
         maps.getCurrent().addScenery(scenery);
         gameObjects.add(scenery);
+        System.out.println(scenery.getId());
     }
 
     public EditorState getEditorState() {
