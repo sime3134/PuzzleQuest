@@ -1,14 +1,15 @@
 package story.quests;
 
 import core.Vector2D;
+import main.Game;
 import story.Quest;
 import story.QuestStep;
 import story.quest_steps.GoToTarget;
 
 public class GoToTwoPositions extends Quest {
 
-    public GoToTwoPositions(String name) {
-        super(name);
+    public GoToTwoPositions(String name, int id) {
+        super(name, id);
         initializeSteps();
     }
 
@@ -22,9 +23,10 @@ public class GoToTwoPositions extends Quest {
                 " on map 1");
         currentStep = step1;
         addQuestStep(step2);
-
     }
 
-
-
+    @Override
+    protected void disengage(Game game) {
+        super.disengage(game);
+    }
 }

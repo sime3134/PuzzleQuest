@@ -71,8 +71,12 @@ public class Player extends Humanoid {
      * movement and reacts to the input accordingly.
      */
     private void handlePlayerSpecificInput(Game game){
-        if(getController().requestedAction() && target != null){
-            target.executePlayerAction(game);
+        if(getController().requestedAction()){
+            if(target != null) {
+                target.executePlayerAction(game);
+            }else{
+                game.getGameState().handleNonNpcDialog(game);
+            }
         }
     }
 

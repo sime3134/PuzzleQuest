@@ -196,4 +196,8 @@ public abstract class UIContainer extends UIComponent {
     public void removeComponent(UIComponent component) {
         children.remove(component);
     }
+
+    public int getFixedHeight() {
+        return fixedHeight;
+    }
 }

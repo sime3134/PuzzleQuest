@@ -24,6 +24,7 @@ public abstract class MovingEntity extends GameObject {
     protected double speed;
 
     protected Vector2D directionVector;
+    private boolean canMove;
 
     public EntityController getController() {
         return entityController;
@@ -39,6 +40,7 @@ public abstract class MovingEntity extends GameObject {
         this.entityController = entityController;
         this.velocity = new Vector2D(0,0);
         this.directionVector = new Vector2D(0,0);
+        this.canMove = true;
     }
 
     protected MovingEntity(EntityController entityController, SpriteSet spriteSet) {
@@ -49,6 +51,7 @@ public abstract class MovingEntity extends GameObject {
         this.direction = Direction.DOWN;
         this.directionVector = new Vector2D(0,0);
         animationManager = new AnimationManager(spriteSet, getWidth(), getHeight(), "stand");
+        this.canMove = true;
     }
 
     @Override
@@ -103,24 +106,26 @@ public abstract class MovingEntity extends GameObject {
      * Depending on requested movement, for example from a keyboard, moves the entity accordingly.
      */
     private void handleMovement() {
-        int velocityX = 0;
-        int velocityY = 0;
+        if(canMove) {
+            int velocityX = 0;
+            int velocityY = 0;
 
-        if(entityController.requestedUp())
-            velocityY--;
-        if(entityController.requestedDown())
-            velocityY++;
-        if(entityController.requestedLeft())
-            velocityX--;
-        if(entityController.requestedRight())
-            velocityX++;
+            if (entityController.requestedUp())
+                velocityY--;
+            if (entityController.requestedDown())
+                velocityY++;
+            if (entityController.requestedLeft())
+                velocityX--;
+            if (entityController.requestedRight())
+                velocityX++;
 
-        velocity = new Vector2D(velocityX, velocityY);
+            velocity = new Vector2D(velocityX, velocityY);
 
-        updateDirection();
+            updateDirection();
 
-        velocity.normalize();
-        velocity.multiply(speed);
+            velocity.normalize();
+            velocity.multiply(speed);
+        }
     }
 
     @Override
@@ -178,5 +183,9 @@ public abstract class MovingEntity extends GameObject {
     public Vector2D getCollisionBoxGridPosition() {
         Vector2D grid = new Vector2D(getCollisionBox().getBounds().getX(), getCollisionBox().getBounds().getY()).grid();
         return Vector2D.ofGridPosition(grid);
+    }
+
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
     }
 }

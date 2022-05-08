@@ -26,4 +26,17 @@ public class QuestManager {
         return quests.stream()
                 .filter(quest -> quest.isActive()).toList();
     }
+
+    public void initializeQuests(Game game) {
+        new QuestInitializer().initializeQuests(game, this);
+    }
+
+    public void startQuest(int id) {
+        for(Quest quest : quests){
+            if(quest.getId() == id && !quest.isActive()){
+                quest.initialize();
+                break;
+            }
+        }
+    }
 }

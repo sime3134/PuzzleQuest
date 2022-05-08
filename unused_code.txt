@@ -1,0 +1,38 @@
+
+    private Vector2D calculatePositionOnNewMap(GameMap currentMap, Direction direction, double oldMapWidth,
+                                               double oldMapHeight) {
+        double heightRatio = calculateMapHeightRatio(currentMap, oldMapHeight);
+        double widthRatio = calculateMapWidthRatio(currentMap, oldMapWidth);
+
+        return switch (direction) {
+            case RIGHT -> new Vector2D(0, player.getPosition().getY() * heightRatio);
+            case LEFT -> new Vector2D(currentMap.getWidth() - player.getWidth(),
+                    player.getPosition().getY() * heightRatio);
+            case UP -> new Vector2D(player.getPosition().getX() * widthRatio,
+                        currentMap.getHeight() - player.getHeight());
+            case DOWN -> new Vector2D(player.getPosition().getX() * widthRatio, 0);
+            case NULL -> null;
+        };
+    }
+
+    private double calculateMapWidthRatio(GameMap currentMap, double oldMapWidth) {
+        double biggestMapWidth = Math.max(oldMapWidth, currentMap.getWidth());
+        double smallestMapWidth = Math.min(oldMapWidth, currentMap.getWidth());
+
+        if(biggestMapWidth == oldMapWidth){
+            return smallestMapWidth / biggestMapWidth;
+        }else{
+            return biggestMapWidth / smallestMapWidth;
+        }
+    }
+
+    private double calculateMapHeightRatio(GameMap currentMap, double oldMapHeight) {
+        double biggestMapHeight = Math.max(oldMapHeight, currentMap.getHeight());
+        double smallestMapHeight = Math.min(oldMapHeight, currentMap.getHeight());
+
+        if(biggestMapHeight == oldMapHeight){
+            return smallestMapHeight / biggestMapHeight;
+        }else{
+            return biggestMapHeight / smallestMapHeight;
+        }
+    }

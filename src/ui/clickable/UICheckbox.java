@@ -1,5 +1,6 @@
 package ui.clickable;
 
+import core.Action;
 import main.Game;
 import core.Value;
 import ui.*;
@@ -24,10 +25,10 @@ public class UICheckbox extends UIComponent {
         container.addComponent(new Checkbox(value));
         container.addComponent(text);
     }
-    public UICheckbox(String label, Value<Boolean> value, ClickAction clickAction) {
+    public UICheckbox(String label, Value<Boolean> value, Action action) {
         this.container = new HorizontalContainer();
         this.text = new UIText(label);
-        container.addComponent(new Checkbox(value, clickAction));
+        container.addComponent(new Checkbox(value, action));
         container.addComponent(text);
     }
 
@@ -59,16 +60,16 @@ public class UICheckbox extends UIComponent {
 
         private final Value<Boolean> value;
         private Color color;
-        private final ClickAction clickAction;
+        private final Action action;
 
 
         private Checkbox(Value<Boolean> value) {
             this(value, null);
         }
 
-        private Checkbox(Value<Boolean> value, ClickAction clickAction) {
+        private Checkbox(Value<Boolean> value, Action action) {
             this.value = value;
-            this.clickAction = clickAction;
+            this.action = action;
             width = 20;
             height = 20;
             color = Color.GRAY;
@@ -108,8 +109,8 @@ public class UICheckbox extends UIComponent {
             if(hasFocus) {
                 value.set(!value.get());
             }
-            if(clickAction != null){
-                clickAction.execute(game);
+            if(action != null){
+                action.execute(game);
             }
         }
 

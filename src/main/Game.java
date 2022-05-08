@@ -60,8 +60,36 @@ public class Game implements Persistable {
     private String shouldChangeTo;
 
     private final UIContainer debugSettingsContainer;
+    private boolean canPause;
+    private boolean showBlackScreen;
 
     //region Getters & Setters (Click to view)
+
+    public void setShowBlackScreen(boolean showBlackScreen) {
+        this.showBlackScreen = showBlackScreen;
+    }
+
+    public void setShouldChangeMap(String name) {
+        shouldChangeTo = name;
+    }
+
+    public void setCanPause(boolean canPause) {
+        this.canPause = canPause;
+    }
+
+    public EditorState getEditorState() {
+        return stateManager.getEditorState();
+    }
+
+    public GameObject getGameObjectById(long id) {
+        for(GameMap map : maps.getMaps().values()){
+            GameObject obj = map.findGameObjectById(id);
+            if(obj != null){
+                return obj;
+            }
+        }
+        return null;
+    }
 
     public List<GameObject> getGameObjects() {
         return gameObjects;
@@ -143,6 +171,8 @@ public class Game implements Persistable {
         goToMainMenu();
         debugSettingsContainer = new UISettingsContainer(maps.getCurrent(), content);
         gameFrame = new GameFrame(this);
+        canPause = true;
+        showBlackScreen = false;
     }
 
     public void update() {
@@ -180,11 +210,14 @@ public class Game implements Persistable {
     }
 
     public void draw(Graphics g) {
-        maps.draw(g, camera);
+        if(!showBlackScreen) {
+            maps.draw(g, camera);
 
-        gameObjects.stream()
-                .filter(gameObject -> camera.isObjectInView(gameObject))
-                .forEach(gameObject -> renderGameObject(g, camera, gameObject));
+            gameObjects.stream()
+                    .filter(gameObject -> camera.isObjectInView(gameObject))
+                    .forEach(gameObject -> renderGameObject(g, camera, gameObject));
+
+        }
 
         stateManager.draw(g);
 
@@ -228,7 +261,9 @@ public class Game implements Persistable {
     }
 
     public void pauseGame() {
-        stateManager.goToPauseState();
+        if(canPause) {
+            stateManager.goToPauseState();
+        }
     }
 
     public void goToSettingsMenu() {
@@ -236,13 +271,17 @@ public class Game implements Persistable {
     }
 
     public void startNewGame(String playerName) {
+        showBlackScreen = true;
         stateManager.newGameState(this);
         getGameState().getPlayer().setName(playerName);
         getGameState().resetPlayerPosition();
-        addGameObject(stateManager.getGameState().getPlayer());
-        camera.focusOn(stateManager.getGameState().getPlayer());
-        loadMap(stateManager.getGameState().getWorldMap()[0][0]);
+        addGameObject(getGameState().getPlayer());
+        camera.focusOn(getGameState().getPlayer());
+        loadMap(getGameState().getWorldMap()
+                [getGameState().getPlayer().getWorldMapPosition().intX()]
+                [getGameState().getPlayer().getWorldMapPosition().intY()]);
         audioPlayer.playMusic("suburbs.wav");
+        getGameState().handleNonNpcDialog(this);
     }
 
     public void enterUsername() {
@@ -327,10 +366,6 @@ public class Game implements Persistable {
         System.out.println(scenery.getId());
     }
 
-    public EditorState getEditorState() {
-        return stateManager.getEditorState();
-    }
-
     @Override
     public String serialize() {
         StringBuilder sb = new StringBuilder();
@@ -363,18 +398,5 @@ public class Game implements Persistable {
             npc.applyGraphics(content);
             maps.getByName(npc.getMapName()).addNPC(npc);
         }
-    }
-    public void setShouldChangeMap(String name) {
-        shouldChangeTo = name;
-    }
-
-    public GameObject getGameObjectById(long id) {
-        for(GameMap map : maps.getMaps().values()){
-            GameObject obj = map.findGameObjectById(id);
-            if(obj != null){
-                return obj;
-            }
-        }
-        return null;
     }
 }

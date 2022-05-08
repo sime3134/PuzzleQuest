@@ -20,7 +20,6 @@ public class PlayerController implements EntityController {
     }
 
     private PlayerController(){
-
     }
 
     private final Input input = Input.getInstance();

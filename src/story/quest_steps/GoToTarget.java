@@ -7,8 +7,8 @@ import story.QuestStepTransition;
 
 public class GoToTarget extends QuestStep {
 
-    private Vector2D positionTarget;
-    private Vector2D worldMapTarget;
+    private final Vector2D positionTarget;
+    private final Vector2D worldMapTarget;
 
     public GoToTarget(Vector2D positionTarget, Vector2D worldMapTarget, String name) {
         super(name);

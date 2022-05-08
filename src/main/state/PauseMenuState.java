@@ -66,7 +66,7 @@ public class PauseMenuState extends State{
     public void updateQuestMenu(GameState gameState){
         questMenu.clear();
         questMenu.addComponent(new UIText("Active quests"));
-        for(Quest quest : gameState.getQuests().getActiveQuests()){
+        for(Quest quest : gameState.getQuestManager().getActiveQuests()){
             questMenu.addComponent(new UIText(quest.getName()));
         }
     }

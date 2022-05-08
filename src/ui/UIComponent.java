@@ -117,4 +117,8 @@ public abstract class UIComponent {
 
     public abstract void update(Game game);
     public abstract void draw(Graphics g);
+
+    public boolean isVisible() {
+        return visible;
+    }
 }

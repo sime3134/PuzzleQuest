@@ -49,14 +49,14 @@ public abstract class State {
     public void update(Game game) {
         uiContainers.forEach(uiContainer -> uiContainer.update(game));
 
-        handleKeyInput();
+        handleKeyInput(game);
         mouseHandler.update(game);
     }
 
-    private void handleKeyInput() {
+    private void handleKeyInput(Game game) {
         if(keyInputConsumer != null){
             for(int keyCode : Input.getInstance().getTypedKeyBuffer()){
-                keyInputConsumer.onKeyPressed(keyCode);
+                keyInputConsumer.onKeyPressed(game, keyCode);
             }
         }
     }
@@ -68,4 +68,8 @@ public abstract class State {
     }
 
     public abstract void escapeButtonPressed(Game game);
+
+    public void addUIContainer(UIContainer container){
+        uiContainers.add(container);
+    }
 }

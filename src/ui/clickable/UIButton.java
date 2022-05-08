@@ -1,5 +1,6 @@
 package ui.clickable;
 
+import core.Action;
 import main.Game;
 import ui.Spacing;
 import ui.UIContainer;
@@ -17,7 +18,7 @@ public class UIButton extends UIClickable{
     protected final UIContainer buttonContainer;
     protected final UIText buttonText;
 
-    protected final ClickAction clickAction;
+    protected final Action action;
 
     private Color backgroundColor;
     private Color hoverColor;
@@ -25,9 +26,9 @@ public class UIButton extends UIClickable{
 
     private Color borderColor;
 
-    public UIButton(String buttonText, ClickAction clickAction) {
+    public UIButton(String buttonText, Action action) {
         this.buttonText = new UIText(buttonText);
-        this.clickAction = clickAction;
+        this.action = action;
 
         setMargin(new Spacing(5, 0, 0, 0));
         backgroundColor = Color.GRAY;
@@ -63,7 +64,7 @@ public class UIButton extends UIClickable{
     @Override
     public void onClick(Game game) {
         if(hasFocus) {
-            clickAction.execute(game);
+            action.execute(game);
         }
     }
 

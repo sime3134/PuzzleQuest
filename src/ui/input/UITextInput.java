@@ -55,7 +55,7 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
     }
 
     @Override
-    public void onKeyPressed(int key) {
+    public void onKeyPressed(Game game, int key) {
         String currentValue = inputText.getText();
 
         if(key == KeyEvent.VK_BACK_SPACE){

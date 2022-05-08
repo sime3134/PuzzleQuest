@@ -1,5 +1,7 @@
 package input;
 
+import main.Game;
+
 public interface KeyInputConsumer {
-    void onKeyPressed(int key);
+    void onKeyPressed(Game game, int key);
 }

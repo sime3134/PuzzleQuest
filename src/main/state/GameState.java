@@ -4,16 +4,16 @@ import IO.Persistable;
 import controller.PlayerController;
 import core.Direction;
 import core.Vector2D;
-import entity.GameObject;
+import dialog.Dialog;
+import dialog.DialogInitializer;
+import dialog.DialogLine;
+import dialog.DialogManager;
 import entity.NPC;
 import entity.Player;
 import main.Game;
-import map.GameMap;
-import story.Quest;
+import settings.Settings;
 import story.QuestManager;
-import story.quests.GoToTwoPositions;
 import ui.*;
-import ui.clickable.UIButton;
 
 import java.awt.*;
 
@@ -24,16 +24,19 @@ import java.awt.*;
  */
 public class GameState extends State implements Persistable {
 
-    private final Player player;
+    private Player player;
 
-    private final QuestManager quests;
+    private final QuestManager questManager;
 
-    private boolean repeatMaps;
+    private boolean repeatMap;
     private UIText medallionText;
-
     private int medallionsCollected = 0;
-    private boolean npcConversationActive;
-    private String npcMessage;
+
+    private UIContainer dialogContainer;
+    private UIText currentDialogLine;
+
+    private final DialogManager dialogManager;
+
     private final String[][] worldMap = {
 
             {"map1", "map2", "map3", "map4", "map5"},
@@ -51,28 +54,39 @@ public class GameState extends State implements Persistable {
         return worldMap;
     }
 
-    public QuestManager getQuests() {
-        return quests;
+    public QuestManager getQuestManager() {
+        return questManager;
     }
 
     public GameState(Game game){
         super();
-        quests = new QuestManager();
-        initializeQuests(game);
-        player = new Player(PlayerController.getInstance(),
-                game.getContent().getSpriteSet("player"), "PlayerName");
-
-        player.setPosition(new Vector2D(2200,1500));
+        questManager = new QuestManager();
+        questManager.initializeQuests(game);
+        dialogManager = new DialogManager();
+        initializeIntroDialog(game);
+        initializePlayer(game);
+        new DialogInitializer(game);
     }
 
-    public void initializeQuests(Game game) {
-        Quest goToTwoPositions = new GoToTwoPositions("Your first quest!");
-        GameObject obj = game.getGameObjectById(10060);
-        if(obj != null){
-            obj.addQuest(goToTwoPositions);
-            quests.addQuest(goToTwoPositions);
-            System.out.println(((NPC)obj).getName());
-        }
+    private void initializePlayer(Game game) {
+        player = new Player(PlayerController.getInstance(),
+                game.getContent().getSpriteSet("player"), "PlayerName");
+    }
+
+    private void initializeIntroDialog(Game game) {
+        Dialog intro = new Dialog(ignore -> {
+            dialogManager.clear();
+            questManager.startQuest(0);
+            NPC npc = (NPC)game.getGameObjectById(19554);
+            npc.oneTimeActivity(game);
+        });
+        intro.addLine(new DialogLine("Hey! Wake up..."));
+        intro.addLine(new DialogLine("Are you alive?"));
+        intro.addLine(new DialogLine("...", ignore -> game.setShowBlackScreen(false)));
+        intro.addLine(new DialogLine("Ah.. You finally woke up! How are you feeling?"));
+        intro.addLine(new DialogLine("I just found you lying here.\nIt seems like you washed ashore."));
+        intro.addLine(new DialogLine("Come with me to my house and warm up to start with."));
+        dialogManager.addDialog(intro);
     }
 
     @Override
@@ -80,7 +94,7 @@ public class GameState extends State implements Persistable {
         super.update(game);
 
         handleWorldMapLocation(game);
-        quests.update(game);
+        questManager.update(game);
     }
 
     private void handleWorldMapLocation(Game game) {
@@ -90,7 +104,7 @@ public class GameState extends State implements Persistable {
 
             Vector2D directionValue = Direction.toVelocity(direction);
 
-            if (!repeatMaps) {
+            if (!repeatMap) {
 
                 if (player.getWorldMapPosition().intX() + directionValue.intX() < worldMap.length
                         && player.getWorldMapPosition().intX() + directionValue.intX() >= 0
@@ -114,52 +128,11 @@ public class GameState extends State implements Persistable {
     private void setPlayerPositionFromDirectionToMapBorder(Game game, Direction direction) {
         switch (direction) {
             case RIGHT -> player.setPosition(new Vector2D(0, player.getPosition().getY()));
-            case LEFT -> player.setPosition(new Vector2D(game.getCurrentMap().getWidth() - player.getWidth(),
+            case LEFT -> player.setPosition(new Vector2D(game.getCurrentMap().getWidth() - (double)player.getWidth(),
                     player.getPosition().getY()));
             case UP -> player.setPosition(new Vector2D(player.getPosition().getX(),
-                    game.getCurrentMap().getHeight() - player.getHeight()));
+                    game.getCurrentMap().getHeight() - (double)player.getHeight()));
             case DOWN -> player.setPosition(new Vector2D(player.getPosition().getX(), 0));
-        }
-    }
-
-    /**
-     * Not used at the moment but saved for future use.
-     */
-    private Vector2D calculatePositionOnNewMap(GameMap currentMap, Direction direction, double oldMapWidth,
-                                               double oldMapHeight) {
-        double heightRatio = calculateMapHeightRatio(currentMap, oldMapHeight);
-        double widthRatio = calculateMapWidthRatio(currentMap, oldMapWidth);
-
-        return switch (direction) {
-            case RIGHT -> new Vector2D(0, player.getPosition().getY() * heightRatio);
-            case LEFT -> new Vector2D(currentMap.getWidth() - player.getWidth(),
-                    player.getPosition().getY() * heightRatio);
-            case UP -> new Vector2D(player.getPosition().getX() * widthRatio,
-                        currentMap.getHeight() - player.getHeight());
-            case DOWN -> new Vector2D(player.getPosition().getX() * widthRatio, 0);
-            case NULL -> null;
-        };
-    }
-
-    private double calculateMapWidthRatio(GameMap currentMap, double oldMapWidth) {
-        double biggestMapWidth = Math.max(oldMapWidth, currentMap.getWidth());
-        double smallestMapWidth = Math.min(oldMapWidth, currentMap.getWidth());
-
-        if(biggestMapWidth == oldMapWidth){
-            return smallestMapWidth / biggestMapWidth;
-        }else{
-            return biggestMapWidth / smallestMapWidth;
-        }
-    }
-
-    private double calculateMapHeightRatio(GameMap currentMap, double oldMapHeight) {
-        double biggestMapHeight = Math.max(oldMapHeight, currentMap.getHeight());
-        double smallestMapHeight = Math.min(oldMapHeight, currentMap.getHeight());
-
-        if(biggestMapHeight == oldMapHeight){
-            return smallestMapHeight / biggestMapHeight;
-        }else{
-            return biggestMapHeight / smallestMapHeight;
         }
     }
 
@@ -167,27 +140,23 @@ public class GameState extends State implements Persistable {
     public void setupUI() {
         super.setupUI();
 
-        UIButton pauseMenuButton = new UIButton("pause", (game) -> game.pauseGame());
-        HorizontalContainer buttonMenu = new HorizontalContainer(pauseMenuButton);
-        pauseMenuButton.setWidth(70);
-        uiContainers.add(buttonMenu);
-
-        UIContainer npcConversation = new HorizontalContainer();
-        npcConversation.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.BOTTOM));
-        npcConversation.setFixedHeight(200);
-        npcConversation.setFixedWidth(500);
-        npcConversation.setBackgroundColor(Color.gray);
-        setNpcMessage("We are fucked");
-        UIText npcMessage = new UIText("[NPC]: " + getNpcMessage());
-        npcConversation.addComponent(npcMessage);
-        if(npcConversationActive) {
-            uiContainers.add(npcConversation);
-        }
         UIContainer medallions = new VerticalContainer();
         medallions.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
         medallionText = new UIText("Medallions collected: " + medallionsCollected + "/7");
         medallions.addComponent(medallionText);
         uiContainers.add(medallions);
+
+        currentDialogLine = new UIText("");
+        dialogContainer = new HorizontalContainer(currentDialogLine);
+        dialogContainer.setFixedPosition(true);
+        dialogContainer.setFixedWidth(Settings.getScreenWidth() - dialogContainer.getMargin().getHorizontal());
+        dialogContainer.setFixedHeight(Settings.getScreenHeight() / 4);
+        dialogContainer.setAbsolutePosition(new Vector2D(0f + dialogContainer.getMargin().getHorizontal() / 2f,
+                Settings.getScreenHeight() - (double)dialogContainer.getFixedHeight() - dialogContainer.getMargin().getVertical() / 2f));
+        dialogContainer.setBackgroundColor(Color.LIGHT_GRAY);
+        dialogContainer.setBorderColor(Color.DARK_GRAY);
+        dialogContainer.setVisible(false);
+        uiContainers.add(dialogContainer);
     }
 
     public void updateMedallionCount() {
@@ -198,29 +167,6 @@ public class GameState extends State implements Persistable {
         if(medallionsCollected == 7) {
             medallionText.setFontColor(Color.yellow);
         }
-    }
-    public String getNpcMessage() {
-        return npcMessage;
-    }
-
-    public void setNpcMessage(String npcMessage) {
-        this.npcMessage = npcMessage;
-    }
-
-    public int getMedallionsCollected() {
-        return medallionsCollected;
-    }
-
-    public void setMedallionsCollected(int medallionsCollected) {
-        this.medallionsCollected = medallionsCollected;
-    }
-
-    public boolean isNpcConversationActive() {
-        return npcConversationActive;
-    }
-
-    public void setNpcConversationActive(boolean npcConversationActive) {
-        this.npcConversationActive = npcConversationActive;
     }
 
     @Override
@@ -243,7 +189,25 @@ public class GameState extends State implements Persistable {
     }
 
     public void resetPlayerPosition() {
-        player.setPosition(new Vector2D(2200,1500));
-        player.setWorldMapPosition(new Vector2D(0,0));
+        player.setPosition(new Vector2D(2150,750));
+        player.setWorldMapPosition(new Vector2D(0,4));
+    }
+
+    public UIText getDialogText() {
+        return currentDialogLine;
+    }
+
+    public void hideDialog() {
+        dialogContainer.setVisible(false);
+    }
+
+    public void showDialog() {
+        dialogContainer.setVisible(true);
+    }
+
+    public void handleNonNpcDialog(Game game) {
+        if(dialogManager.hasDialog()) {
+            dialogManager.handleDialog(game);
+        }
     }
 }

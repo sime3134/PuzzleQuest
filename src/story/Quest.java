@@ -6,32 +6,24 @@ import java.util.LinkedList;
 
 public abstract class Quest {
 
-    String name;
-
+    private int id;
+    private String name;
     private boolean active;
     private boolean finished;
-    private LinkedList<QuestStep> steps;
+    private final LinkedList<QuestStep> steps;
     protected QuestStep currentStep;
 
+    public int getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }
 
-    public boolean isFinished() {
-        return finished;
-    }
-
-    public LinkedList<QuestStep> getSteps() {
-        return steps;
-    }
-
-    public QuestStep getCurrentStep() {
-        return currentStep;
-    }
-
-    protected Quest(String name) {
+    protected Quest(String name, int id) {
         steps = new LinkedList<>();
         this.name = name;
+        this.id = id;
     }
 
     public void update(Game game){
@@ -48,7 +40,7 @@ public abstract class Quest {
         }
     }
 
-    private void disengage(Game game) {
+    protected void disengage(Game game) {
         active = false;
         finished = true;
         game.showDialog("Finished the quest: " + name);
@@ -63,7 +55,7 @@ public abstract class Quest {
     }
 
     public void initialize() {
-        System.out.println("Quest activated");
+        System.out.println("Quest '" + name  + "' started");
         active = true;
     }
 }

@@ -1,5 +1,6 @@
 package ui.clickable;
 
+import core.Action;
 import main.Game;
 import ui.UIComponent;
 import ui.UIContainer;
@@ -23,7 +24,7 @@ public class UIHideButton extends UIButton{
         setBackgroundColor(Color.DARK_GRAY);
     }
 
-    private static ClickAction addOrRemove(UIContainer parentContainer, UIComponent componentToHide){
+    private static Action addOrRemove(UIContainer parentContainer, UIComponent componentToHide){
         return (game) -> {
             if(parentContainer.hasComponent(componentToHide)) {
                 parentContainer.removeComponent(componentToHide);

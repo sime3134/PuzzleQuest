@@ -1,6 +1,7 @@
 package entity;
 
 import ai.AIManager;
+import ai.state.Stand;
 import content.AnimationManager;
 import content.ContentManager;
 import content.SpriteSet;
@@ -8,6 +9,8 @@ import controller.EntityController;
 import controller.NPCController;
 import core.Direction;
 import core.Vector2D;
+import dialog.Dialog;
+import dialog.DialogManager;
 import display.Camera;
 import main.Game;
 import settings.Settings;
@@ -23,6 +26,8 @@ import java.util.List;
 public class NPC extends Humanoid {
 
     private AIManager brain;
+
+    private final DialogManager dialogManager;
     private List<Vector2D> path;
     private Vector2D firstLoopTarget;
     private Vector2D secondLoopTarget;
@@ -31,6 +36,8 @@ public class NPC extends Humanoid {
     private String spriteSetName;
 
     private String currentMapName;
+
+    //region Getters & Setters (click to view)
 
     public void setPath(List<Vector2D> path) {
         this.path = path;
@@ -62,14 +69,20 @@ public class NPC extends Humanoid {
         return secondLoopTarget;
     }
 
-
     public String getMapName() {
         return currentMapName;
     }
 
+    public DialogManager getDialogManager() {
+        return dialogManager;
+    }
+
+    //endregion
+
     public NPC(){
         super(new NPCController());
         path = new ArrayList<>();
+        dialogManager = new DialogManager(this);
     }
 
     public NPC(EntityController entityController, SpriteSet spriteSet, String name, String mapName) {
@@ -77,6 +90,7 @@ public class NPC extends Humanoid {
         activity = "stand";
         spriteSetName = spriteSet.getName();
         brain = new AIManager(this);
+        dialogManager = new DialogManager(this);
         path = new ArrayList<>();
         firstLoopTarget = new Vector2D(0, 0);
         secondLoopTarget = new Vector2D(100, 100);
@@ -86,7 +100,7 @@ public class NPC extends Humanoid {
     @Override
     public void update(Game game){
         super.update(game);
-        if(!activity.equals("stand")) {
+        if(!(brain.getCurrentAIState() instanceof Stand)) {
             brain.update(game);
         }
     }
@@ -107,8 +121,10 @@ public class NPC extends Humanoid {
     }
 
     @Override
-    protected void executePlayerAction(Game game) {
-        startAvailableQuest();
+    public void executePlayerAction(Game game) {
+        if(dialogManager.hasDialog()) {
+            dialogManager.handleDialog(game);
+        }
     }
 
     private void startAvailableQuest() {
@@ -174,5 +190,13 @@ public class NPC extends Humanoid {
     public void applyGraphics(ContentManager content) {
         animationManager = new AnimationManager(content.getSpriteSet(spriteSetName), Settings.getTileSize(),
                 Settings.getTileSize(), "stand");
+    }
+
+    public void addDialog(Dialog dialog) {
+        dialogManager.addDialog(dialog);
+    }
+
+    public void oneTimeActivity(Game game) {
+        brain.transitionTo("wander_random", this, game);
     }
 }

@@ -2,7 +2,6 @@ package controller;
 
 import input.Input;
 import main.Game;
-import main.state.PauseMenuState;
 import settings.Settings;
 
 import java.awt.event.KeyEvent;
