@@ -18,10 +18,7 @@ import entity.GameObject;
 import entity.NPC;
 import entity.Player;
 import entity.Scenery;
-import main.state.EditorState;
-import main.state.GameState;
-import main.state.PauseMenuState;
-import main.state.State;
+import main.state.*;
 import map.GameMap;
 import map.MapManager;
 import map.PathFinder;
@@ -273,6 +270,7 @@ public class Game implements Persistable {
     public void startNewGame(String playerName) {
         showBlackScreen = true;
         stateManager.newGameState(this);
+        getGameState().setNonNPCDialogActive(true);
         getGameState().getPlayer().setName(playerName);
         getGameState().resetPlayerPosition();
         addGameObject(getGameState().getPlayer());
@@ -286,6 +284,7 @@ public class Game implements Persistable {
 
     public void enterUsername() {
         stateManager.goToSetupNameState();
+        ((SetupNameState)stateManager.getCurrentState()).getNameInput().activate(this);
     }
 
     public void goToWorldEditor() {

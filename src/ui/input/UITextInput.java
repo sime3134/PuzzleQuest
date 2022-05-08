@@ -66,6 +66,8 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
             currentValue += " ";
         }else if(key == KeyEvent.VK_UNDERSCORE && currentValue.length() < maxLength){
             currentValue += "_";
+        }else if(key == KeyEvent.VK_ENTER){
+            game.startNewGame(currentValue);
         }else if(currentValue.length() < maxLength) {
             String keyText = KeyEvent.getKeyText(key);
             if(keyText.length() == 1){
@@ -125,5 +127,9 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
         }
 
         return followsRules;
+    }
+
+    public void activate(Game game) {
+        onClick(game);
     }
 }

@@ -122,15 +122,8 @@ public class NPC extends Humanoid {
 
     @Override
     public void executePlayerAction(Game game) {
-        if(dialogManager.hasDialog()) {
+        if(dialogManager.hasDialog() && !game.getGameState().getNonNPCDialogActive()) {
             dialogManager.handleDialog(game);
-        }
-    }
-
-    private void startAvailableQuest() {
-        //Should filter through and find quests possible to do
-        if(!quests.isEmpty()){
-            quests.get(0).initialize();
         }
     }
 

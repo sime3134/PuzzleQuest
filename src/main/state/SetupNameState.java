@@ -17,8 +17,14 @@ import java.awt.*;
  */
 public class SetupNameState extends State{
 
-    public SetupNameState() {
+    private UITextInput nameInput;
+
+    public SetupNameState(Game game) {
         super();
+    }
+
+    public UITextInput getNameInput() {
+        return nameInput;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class SetupNameState extends State{
         uiContainers.add(container);
 
         UIText enterName = new UIText("Enter your character's name");
-        UITextInput nameInput = new UITextInput(3, 10);
+        nameInput = new UITextInput(3, 10);
         enterName.setFontSize(24);
         UIText nameRules = new UIText("3-10 characters");
         UIButton startGame = new UIButton("Start Game", (game) -> {

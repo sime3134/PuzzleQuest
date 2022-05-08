@@ -24,7 +24,7 @@ public class StateManager {
         settingsState = new SettingsMenuState();
         currentState = new MainMenuState();
         editorState = new EditorState(game.getContent());
-        setupNameState = new SetupNameState();
+        setupNameState = new SetupNameState(game);
         gameState = new GameState(game);
     }
 

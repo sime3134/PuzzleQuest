@@ -72,7 +72,7 @@ public class Player extends Humanoid {
      */
     private void handlePlayerSpecificInput(Game game){
         if(getController().requestedAction()){
-            if(target != null) {
+            if(target != null && !game.getGameState().getNonNPCDialogActive()) {
                 target.executePlayerAction(game);
             }else{
                 game.getGameState().handleNonNpcDialog(game);

@@ -41,6 +41,7 @@ public class GameObjectTool extends MouseAction{
     private void showNPCMenu(NPC collidingNPC, Game game) {
         UITextInput nameInput = new UITextInput(1, 13, collidingNPC.getName());
         UITextInput activityInput = new UITextInput(1, 13, collidingNPC.getActivity());
+        UITextInput directionInput = new UITextInput(1, 13, collidingNPC.getDirection().toString());
 
         options = game.getEditorState().getOptions();
         options.setVisible(false);
@@ -52,13 +53,17 @@ public class GameObjectTool extends MouseAction{
         options.addComponent(nameInput);
         options.addComponent(new UIText("AIState:"));
         options.addComponent(activityInput);
-        options.addComponent(new UIButton("Save", game1 -> saveNPCInfo(collidingNPC, nameInput, activityInput)));
+        options.addComponent(new UIText("Direction"));
+        options.addComponent(directionInput);
+        options.addComponent(new UIButton("Save", game1 -> saveNPCInfo(collidingNPC, nameInput, activityInput,
+                directionInput)));
         options.setVisible(true);
     }
 
-    private void saveNPCInfo(NPC npc, UITextInput nameInput, UITextInput activityInput) {
+    private void saveNPCInfo(NPC npc, UITextInput nameInput, UITextInput activityInput, UITextInput directionInput) {
         npc.setName(nameInput.getText());
         npc.setActivity(activityInput.getText().toLowerCase());
+        npc.setDirection(directionInput.getText().toUpperCase());
     }
 
     @Override

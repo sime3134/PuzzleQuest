@@ -24,6 +24,7 @@ import java.awt.*;
  */
 public class GameState extends State implements Persistable {
 
+    private boolean nonNPCDialogActive;
     private Player player;
 
     private final QuestManager questManager;
@@ -46,6 +47,8 @@ public class GameState extends State implements Persistable {
             {"map21", "map22", "map23", "map24", "map25"}
     };
 
+    //region Getters & Setters (click to view)
+
     public Player getPlayer() {
         return player;
     }
@@ -57,6 +60,16 @@ public class GameState extends State implements Persistable {
     public QuestManager getQuestManager() {
         return questManager;
     }
+
+    public void setNonNPCDialogActive(boolean nonNPCDialogActive) {
+        this.nonNPCDialogActive = nonNPCDialogActive;
+    }
+
+    public boolean getNonNPCDialogActive() {
+        return nonNPCDialogActive;
+    }
+
+    //endregion
 
     public GameState(Game game){
         super();
@@ -79,11 +92,13 @@ public class GameState extends State implements Persistable {
             questManager.startQuest(0);
             NPC npc = (NPC)game.getGameObjectById(19554);
             npc.oneTimeActivity(game);
+            nonNPCDialogActive = false;
         });
         intro.addLine(new DialogLine("Hey! Wake up..."));
         intro.addLine(new DialogLine("Are you alive?"));
         intro.addLine(new DialogLine("...", ignore -> game.setShowBlackScreen(false)));
-        intro.addLine(new DialogLine("Ah.. You finally woke up! How are you feeling?"));
+        intro.addLine(new DialogLine("Ah.. You finally woke up! How are you feeling?",
+                ignore -> game.getGameState().getPlayer().setDirection("DOWN")));
         intro.addLine(new DialogLine("I just found you lying here.\nIt seems like you washed ashore."));
         intro.addLine(new DialogLine("Come with me to my house and warm up to start with."));
         dialogManager.addDialog(intro);
@@ -189,8 +204,9 @@ public class GameState extends State implements Persistable {
     }
 
     public void resetPlayerPosition() {
-        player.setPosition(new Vector2D(2150,750));
+        player.setPosition(new Vector2D(2145,750));
         player.setWorldMapPosition(new Vector2D(0,4));
+        player.setDirection("RIGHT");
     }
 
     public UIText getDialogText() {

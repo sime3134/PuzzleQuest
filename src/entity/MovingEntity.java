@@ -188,4 +188,12 @@ public abstract class MovingEntity extends GameObject {
     public void setCanMove(boolean canMove) {
         this.canMove = canMove;
     }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = Direction.valueOf(direction);
+    }
 }
