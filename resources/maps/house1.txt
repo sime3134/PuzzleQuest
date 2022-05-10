@@ -1,17 +1,17 @@
 GameMap:12:8:null:
 ###
-Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:48:0,Tile:paths:48:0,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:0,
-Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,Tile:paths:69:0,
+Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,
+Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,
 
 ###
 Scenery:bed:19555:50|130:72:96:0|0:32.0:0|32:72:64:false:82:48:-5:53:
@@ -24,5 +24,6 @@ Scenery:table3:19563:482|272:36:36:0|0:12.0:0|12:36:24:false:46:41:-5:0:
 Scenery:table3:19564:385|271:36:36:0|0:12.0:0|12:36:24:false:46:41:-5:0:
 Scenery:crate:19566:325|121:96:66:0|0:20.0:0|30:96:36:false:106:71:-5:0:
 Scenery:table3:19570:125|139:36:36:0|0:12.0:0|12:36:24:false:46:41:-5:0:
+TeleportScenery:teleport:19578:107|367:24:24:0|0:8.0:0|8:24:16:false:34:29:-5:0:map5:593|2003:
 
 ###

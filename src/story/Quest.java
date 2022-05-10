@@ -1,17 +1,18 @@
 package story;
 
+import IO.Persistable;
 import main.Game;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Quest {
-
-    private int id;
-    private String name;
+public abstract class Quest implements Persistable {
+    private final int id;
+    private final String name;
     private boolean active;
     private boolean finished;
-    private final LinkedList<QuestStep> steps;
-    protected QuestStep currentStep;
+    private final List<QuestStep> steps;
+    protected int currentStep;
 
     public int getId() {
         return id;
@@ -21,19 +22,18 @@ public abstract class Quest {
     }
 
     protected Quest(String name, int id) {
-        steps = new LinkedList<>();
+        steps = new ArrayList<>();
         this.name = name;
         this.id = id;
     }
 
     public void update(Game game){
-        currentStep.update(game);
+        steps.get(currentStep).update(game);
 
-        if(currentStep.shouldTransition(game)){
-            game.showDialog("Finished step " + currentStep.getName() + " in quest " + name);
-            if(!steps.isEmpty()) {
-                currentStep = steps.getFirst();
-                steps.removeFirst();
+        if(steps.get(currentStep).shouldTransition(game)){
+            game.showDialog("Finished step " + steps.get(currentStep).getName() + " in quest " + name);
+            if(currentStep < steps.size()) {
+                currentStep++;
             }else{
                 disengage(game);
             }
@@ -47,7 +47,7 @@ public abstract class Quest {
     }
 
     public void addQuestStep(QuestStep step){
-        steps.addLast(step);
+        steps.add(step);
     }
 
     public boolean isActive() {
@@ -57,5 +57,33 @@ public abstract class Quest {
     public void initialize() {
         System.out.println("Quest '" + name  + "' started");
         active = true;
+    }
+
+    @Override
+    public String serialize() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getClass().getSimpleName())
+                .append(DELIMITER)
+                .append(id)
+                .append(DELIMITER)
+                .append(name)
+                .append(DELIMITER)
+                .append(active)
+                .append(DELIMITER)
+                .append(finished)
+                .append(DELIMITER)
+                .append(currentStep)
+                .append(DELIMITER);
+
+        return sb.toString();
+    }
+
+    @Override
+    public void applySerializedData(String serializedData) {
+        String[] tokens = serializedData.split(DELIMITER);
+        active = Boolean.parseBoolean(tokens[3]);
+        finished = Boolean.parseBoolean(tokens[4]);
+        currentStep = Integer.parseInt(tokens[5]);
     }
 }

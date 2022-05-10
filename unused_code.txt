@@ -36,3 +36,14 @@
             return biggestMapHeight / smallestMapHeight;
         }
     }
+
+
+
+
+    public boolean tileHasUnwalkableEntity(List<GameObject> gameObjects, int gridX, int gridY) {
+            CollisionBox gridCollisionBox = getGridCollisionBox(gridX, gridY);
+            return gameObjects.stream()
+                    .filter(gameObject -> !(gameObject instanceof SelectionCircle))
+                    .filter(gameObject -> !gameObject.isWalkable())
+                    .anyMatch(gameObject -> gameObject.getCollisionBox().collidingWith(gridCollisionBox));
+        }

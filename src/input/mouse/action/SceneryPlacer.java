@@ -24,7 +24,7 @@ public class SceneryPlacer extends MouseAction{
 
     @Override
     public void onClick(Game game) {
-        game.addScenery(scenery.getCopy(game.getCurrentMap().getName()));
+        game.addScenery(scenery.getCopy());
     }
 
     @Override

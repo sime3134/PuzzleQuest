@@ -2,6 +2,7 @@ package editor;
 
 import content.ContentManager;
 import core.Vector2D;
+import entity.TeleportScenery;
 import entity.Scenery;
 import input.mouse.action.SceneryPlacer;
 import ui.*;
@@ -28,7 +29,35 @@ public class UISceneryMenu extends HorizontalContainer {
         tabContainer.addTab("Buildings", getBuildingSymbolContainer(content));
         tabContainer.addTab("Market", getMarketContainer(content));
         tabContainer.addTab("Stands", getStandContainer(content));
+        tabContainer.addTab("Events", getEventsContainer(content));
         addComponent(tabContainer);
+    }
+
+    private UIContainer getEventsContainer(ContentManager content) {
+        List<Scenery> sceneryToAdd = new ArrayList<>();
+
+        sceneryToAdd.add(new TeleportScenery("teleport", false, content));
+
+        UIContainer main = new HorizontalContainer();
+        main.setMargin(new Spacing(0));
+
+        UIContainer column = new VerticalContainer();
+        column.setMargin(new Spacing(0));
+        column.setPadding(new Spacing(0));
+
+        main.addComponent(column);
+
+        for (Scenery scenery : sceneryToAdd) {
+            column.addComponent(new UIToolToggle(content.getImage(scenery.getName()),
+                    new SceneryPlacer(scenery), scenery.getWidth() / 3, scenery.getHeight() / 3));
+
+            if (column.getHeight() > 140) {
+                column = new VerticalContainer();
+                main.addComponent(column);
+            }
+        }
+
+        return main;
     }
 
     private UIContainer getStandContainer(ContentManager content) {

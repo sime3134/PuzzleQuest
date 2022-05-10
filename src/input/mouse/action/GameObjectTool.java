@@ -4,6 +4,7 @@ import core.Vector2D;
 import entity.GameObject;
 import entity.NPC;
 import entity.SelectionCircle;
+import entity.TeleportScenery;
 import input.Input;
 import main.Game;
 import ui.UIContainer;
@@ -32,10 +33,48 @@ public class GameObjectTool extends MouseAction{
         Vector2D mousePosition = input.getMousePosition().getCopy();
         mousePosition.add(game.getCamera().getPosition());
 
+        System.out.println(mousePosition);
+
         game.getGameObjectsOfClass(NPC.class).stream()
             .filter(npc -> npc.getCollisionBox().getBounds().contains(mousePosition.intX(),
                     mousePosition.intY()))
             .forEach(collidingNPCs -> showNPCMenu(collidingNPCs, game));
+
+        game.getGameObjectsOfClass(TeleportScenery.class).stream()
+                .filter(tScenery -> tScenery.getCollisionBox().getBounds().contains(mousePosition.intX(),
+                        mousePosition.intY()))
+                .forEach(collidingTScenery -> showTeleportSceneryMenu(collidingTScenery, game));
+    }
+
+    private void showTeleportSceneryMenu(TeleportScenery collidingTScenery, Game game) {
+        UITextInput mapToTeleportTo = new UITextInput(1, 13, collidingTScenery.getMapToTeleportTo());
+        UITextInput xPositionToTeleportTo = new UITextInput(1,13,
+                String.valueOf(collidingTScenery.getPositionToTeleportTo().getX()));
+        UITextInput yPositionToTeleportTo = new UITextInput(1,13,
+                String.valueOf(collidingTScenery.getPositionToTeleportTo().getY()));
+
+        options = game.getEditorState().getOptions();
+        options.setVisible(false);
+        Vector2D position = collidingTScenery.getRenderPosition(game.getCamera());
+        position.subtract(new Vector2D(0, 50));
+        options.setAbsolutePosition(position);
+        options.clear();
+        options.addComponent(new UIText("Teleport to map:"));
+        options.addComponent(mapToTeleportTo);
+        options.addComponent(new UIText("x:"));
+        options.addComponent(xPositionToTeleportTo);
+        options.addComponent(new UIText("y:"));
+        options.addComponent(yPositionToTeleportTo);
+        options.addComponent(new UIButton("Save", game1 -> saveTeleportSceneryInfo(collidingTScenery,
+                mapToTeleportTo, xPositionToTeleportTo, yPositionToTeleportTo)));
+        options.setVisible(true);
+    }
+
+    private void saveTeleportSceneryInfo(TeleportScenery collidingTScenery, UITextInput mapToTeleportTo,
+                                         UITextInput xPositionToTeleportTo, UITextInput yPositionToTeleportTo) {
+        collidingTScenery.setMapToTeleportTo(mapToTeleportTo.getText().toLowerCase());
+        collidingTScenery.setPositionToTeleportTo(new Vector2D(Double.parseDouble(xPositionToTeleportTo.getText()),
+                Double.parseDouble(yPositionToTeleportTo.getText())));
     }
 
     private void showNPCMenu(NPC collidingNPC, Game game) {

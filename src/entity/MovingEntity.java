@@ -76,7 +76,7 @@ public abstract class MovingEntity extends GameObject {
     }
 
     private void checkForCollisions(Game game) {
-        game.getCollidingBoxes(getCollisionBox()).forEach(this::handleCollision);
+        game.getCollidingBoxes(getCollisionBox()).forEach(gameObject -> handleCollision(game, gameObject));
     }
 
     private void checkForTileCollisions(Game game) {
@@ -84,7 +84,7 @@ public abstract class MovingEntity extends GameObject {
                 .forEach(tileCollisionBox -> velocity.reset(willCollideX(tileCollisionBox), willCollideY(tileCollisionBox)));
     }
 
-    protected abstract void handleCollision(GameObject other);
+    protected abstract void handleCollision(Game game, GameObject other);
 
     protected abstract String decideAnimation();
 

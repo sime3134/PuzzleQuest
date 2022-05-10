@@ -4,6 +4,7 @@ import IO.Persistable;
 import content.SpriteSet;
 import controller.EntityController;
 import core.Vector2D;
+import main.Game;
 
 /**
  * @author Simon Jern
@@ -64,5 +65,5 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
     }
 
     @Override
-    protected abstract void handleCollision(GameObject other);
+    protected abstract void handleCollision(Game game, GameObject other);
 }

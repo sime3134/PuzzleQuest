@@ -60,13 +60,19 @@ public class UIText extends UIComponent{
         Graphics2D graphics = image.createGraphics();
         graphics.setFont(font);
 
-        if(dropShadow){
-            graphics.setColor(shadowColor);
-            graphics.drawString(text, padding.getLeft() + dropShadowOffset, fontSize + padding.getTop() + dropShadowOffset);
-        }
+        String[] lines = text.split("\n");
+        for(int i = 0; i < lines.length; i++){
+            if(dropShadow){
+                graphics.setColor(shadowColor);
+                graphics.drawString(lines[i], padding.getLeft() + dropShadowOffset,
+                        (i + 1) * fontSize + padding.getTop() + dropShadowOffset + (lines.length > 1 && i != 0 ?
+                                10 : 0));
+            }
 
-        graphics.setColor(fontColor);
-        graphics.drawString(text, padding.getLeft(), fontSize + padding.getTop());
+            graphics.setColor(fontColor);
+            graphics.drawString(lines[i], padding.getLeft(),
+                    (i + 1) * fontSize + padding.getTop() + (lines.length > 1 && i != 0 ? 10 : 0));
+        }
 
         graphics.dispose();
         return image;
@@ -87,9 +93,11 @@ public class UIText extends UIComponent{
     }
 
     private void calculateSize() {
+        String[] lines = text.split("\n");
         FontMetrics metrics = new Canvas().getFontMetrics(font);
         width = Math.max(1, metrics.stringWidth(text) + padding.getHorizontal());
-        height = Math.max(1, metrics.getHeight() + padding.getVertical());
+        height = Math.max(1, lines.length * metrics.getHeight() + padding.getVertical()
+                + (lines.length > 1 ? 10 : 0));
     }
 
     private void createFont() {

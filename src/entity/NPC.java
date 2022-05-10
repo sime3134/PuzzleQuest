@@ -128,10 +128,13 @@ public class NPC extends Humanoid {
     }
 
     @Override
-    protected void handleCollision(GameObject other) {
-        if(other instanceof Player
-                || other instanceof Scenery && !((Scenery)other).isWalkable()){
+    protected void handleCollision(Game game, GameObject other) {
+        if (other instanceof Player) {
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
+        }else if(other instanceof Scenery scenery){
+            if(!other.isWalkable()){
+                velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
+            }
         }
     }
 

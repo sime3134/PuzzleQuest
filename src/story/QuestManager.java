@@ -1,11 +1,12 @@
 package story;
 
+import IO.Persistable;
 import main.Game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestManager {
+public class QuestManager implements Persistable {
 
     private final List<Quest> quests;
 
@@ -36,6 +37,34 @@ public class QuestManager {
             if(quest.getId() == id && !quest.isActive()){
                 quest.initialize();
                 break;
+            }
+        }
+    }
+
+    @Override
+    public String serialize() {
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < quests.size(); i++){
+            sb.append(quests.get(i).serialize());
+            if(i < quests.size() - 1) {
+                sb.append(COLUMN_DELIMETER);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    @Override
+    public void applySerializedData(String serializedData) {
+        String[] questStrings = serializedData.split(COLUMN_DELIMETER);
+
+        for(String questString : questStrings){
+            String[] tokens = questString.split(DELIMITER);
+            for(Quest quest : quests){
+                if(quest.getId() == Integer.parseInt(tokens[1])){
+                    quest.applySerializedData(questString);
+                }
             }
         }
     }

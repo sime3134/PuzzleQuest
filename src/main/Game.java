@@ -14,10 +14,7 @@ import display.Camera;
 import display.Debug;
 import display.GameFrame;
 import editor.UISettingsContainer;
-import entity.GameObject;
-import entity.NPC;
-import entity.Player;
-import entity.Scenery;
+import entity.*;
 import main.state.*;
 import map.GameMap;
 import map.MapManager;
@@ -54,7 +51,10 @@ public class Game implements Persistable {
     private final StateManager stateManager;
     private final MapManager maps;
 
-    private String shouldChangeTo;
+    private String shouldChangeToMap;
+
+
+    private Vector2D shouldChangeToPosition;
 
     private final UIContainer debugSettingsContainer;
     private boolean canPause;
@@ -66,8 +66,12 @@ public class Game implements Persistable {
         this.showBlackScreen = showBlackScreen;
     }
 
-    public void setShouldChangeMap(String name) {
-        shouldChangeTo = name;
+    public void setShouldChangeToMap(String name) {
+        shouldChangeToMap = name;
+    }
+
+    public void setShouldChangeToPosition(Vector2D shouldChangeToPosition) {
+        this.shouldChangeToPosition = shouldChangeToPosition;
     }
 
     public void setCanPause(boolean canPause) {
@@ -190,10 +194,15 @@ public class Game implements Persistable {
             gameObjects.forEach(gameObject -> gameObject.update(this));
         }
 
-        if(shouldChangeTo != null){
-            getGameState().getPlayer().setPosition(new Vector2D(0,0));
-            loadMap(shouldChangeTo);
-            shouldChangeTo = null;
+        if(shouldChangeToMap != null){
+            loadMap(shouldChangeToMap);
+            if(shouldChangeToPosition != null) {
+                getGameState().getPlayer().setPosition(shouldChangeToPosition);
+            }else if(getCurrentMap().getStartingPosition() != null) {
+                getGameState().getPlayer().setPosition(getCurrentMap().getStartingPosition());
+            }
+            shouldChangeToMap = null;
+            shouldChangeToPosition = null;
         }
     }
 
@@ -210,9 +219,16 @@ public class Game implements Persistable {
         if(!showBlackScreen) {
             maps.draw(g, camera);
 
-            gameObjects.stream()
-                    .filter(gameObject -> camera.isObjectInView(gameObject))
-                    .forEach(gameObject -> renderGameObject(g, camera, gameObject));
+            if(stateManager.getCurrentState() instanceof EditorState) {
+                gameObjects.stream()
+                        .filter(gameObject -> camera.isObjectInView(gameObject))
+                        .forEach(gameObject -> renderGameObject(g, camera, gameObject));
+            }else {
+                gameObjects.stream()
+                        .filter(gameObject -> camera.isObjectInView(gameObject))
+                        .filter(gameObject -> !(gameObject instanceof TeleportScenery))
+                        .forEach(gameObject -> renderGameObject(g, camera, gameObject));
+            }
 
         }
 
@@ -324,6 +340,7 @@ public class Game implements Persistable {
 
     public void loadMap(String name) {
         gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
+        System.out.println(name);
         maps.setCurrent(maps.getByName(name));
         gameObjects.addAll(maps.getCurrent().getSceneryList());
         gameObjects.addAll(maps.getCurrent().getNPCList());

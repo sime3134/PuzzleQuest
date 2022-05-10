@@ -30,6 +30,7 @@ public class GameState extends State implements Persistable {
     private final QuestManager questManager;
 
     private boolean repeatMap;
+
     private UIText medallionText;
     private int medallionsCollected = 0;
 
@@ -101,7 +102,8 @@ public class GameState extends State implements Persistable {
         intro.addLine(new DialogLine("...", ignore -> game.setShowBlackScreen(false)));
         intro.addLine(new DialogLine("Ah.. You finally woke up! How are you feeling?",
                 ignore -> game.getGameState().getPlayer().setDirection("DOWN")));
-        intro.addLine(new DialogLine("I just found you lying here.\nIt seems like you washed ashore."));
+        intro.addLine(new DialogLine("I just found you lying here.\n" +
+                "It seems like you washed ashore."));
         intro.addLine(new DialogLine("Come with me to my house and warm up to start with."));
         dialogManager.addDialog(intro);
     }
@@ -197,13 +199,21 @@ public class GameState extends State implements Persistable {
         StringBuilder sb = new StringBuilder();
         sb.append(this.getClass().getSimpleName())
                 .append(SECTION_DELIMETER)
-                .append(player.serialize());
+                .append(player.serialize())
+                .append(INNER_SECTION_DELIMETER)
+                .append(questManager.serialize());
         return sb.toString();
     }
 
     @Override
     public void applySerializedData(String serializedData) {
-        player.applySerializedData(serializedData);
+        String[] sections = serializedData.split(INNER_SECTION_DELIMETER);
+        System.out.println(sections[0]);
+        player.applySerializedData(sections[0]);
+        if(sections.length > 1) {
+            System.out.println(sections[1]);
+            questManager.applySerializedData(sections[1]);
+        }
     }
 
     public void resetPlayerPosition() {

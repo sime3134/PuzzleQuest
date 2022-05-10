@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class Scenery extends GameObject implements Persistable {
 
-    private Image sprite;
+    protected Image sprite;
     protected String name;
 
     public Scenery() {
@@ -133,7 +133,7 @@ public class Scenery extends GameObject implements Persistable {
         }
         if(sprite.equals(game.getContent().getImage("tree1")) &&
                 game.getCurrentMap().getName().equals("map1")) {
-            game.setShouldChangeMap("maze");
+            game.setShouldChangeToMap("maze");
         }
         if(sprite == game.getContent().getImage("small_tree2") &&
                 Objects.equals(game.getCurrentMap().getName(), "maze")){
@@ -154,7 +154,7 @@ public class Scenery extends GameObject implements Persistable {
         );
     }
 
-    public Scenery getCopy(String mapName){
+    public Scenery getCopy(){
         Scenery copy = new Scenery();
 
         copy.name = this.name;

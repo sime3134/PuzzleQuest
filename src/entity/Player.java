@@ -132,10 +132,18 @@ public class Player extends Humanoid {
     }
 
     @Override
-    protected void handleCollision(GameObject other) {
-        if (other instanceof NPC
-                || other instanceof Scenery && !other.isWalkable()) {
+    protected void handleCollision(Game game, GameObject other) {
+        if (other instanceof NPC) {
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
+        }else if(other instanceof Scenery scenery){
+            if(!other.isWalkable()){
+                velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
+            }
+            if(scenery instanceof TeleportScenery tScenery){
+                String nameOfMapToTeleportTo = tScenery.getMapToTeleportTo();
+                game.setShouldChangeToMap(nameOfMapToTeleportTo);
+                game.setShouldChangeToPosition(tScenery.getPositionToTeleportTo());
+            }
         }
     }
 

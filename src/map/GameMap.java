@@ -5,10 +5,7 @@ import content.ContentManager;
 import core.CollisionBox;
 import core.Vector2D;
 import display.Camera;
-import entity.GameObject;
-import entity.NPC;
-import entity.Scenery;
-import entity.SelectionCircle;
+import entity.*;
 import settings.Settings;
 
 import java.awt.*;
@@ -42,6 +39,10 @@ public class GameMap implements Persistable {
 
     public Tile[][] getTiles() {
         return tiles;
+    }
+
+    public Vector2D getStartingPosition() {
+        return startingPosition;
     }
 
     public boolean isWithinBounds(int gridX, int gridY) {
@@ -90,7 +91,6 @@ public class GameMap implements Persistable {
         tiles = new Tile[mapWidth][mapHeight];
         sceneryList = new ArrayList<>();
         npcList = new ArrayList<>();
-        startingPosition = null;
         initializeTiles(content);
     }
 
@@ -243,14 +243,6 @@ public class GameMap implements Persistable {
         //TODO: Better with getExtendedCollisionBox()?
     }
 
-    public boolean tileHasUnwalkableEntity(List<GameObject> gameObjects, int gridX, int gridY) {
-        CollisionBox gridCollisionBox = getGridCollisionBox(gridX, gridY);
-        return gameObjects.stream()
-                .filter(gameObject -> !(gameObject instanceof SelectionCircle))
-                .filter(gameObject -> !gameObject.isWalkable())
-                .anyMatch(gameObject -> gameObject.getCollisionBox().collidingWith(gridCollisionBox));
-    }
-
     /**
      * Used to reload the tile sheet images after loading a game map since
      * images can't be serialized.
@@ -315,7 +307,7 @@ public class GameMap implements Persistable {
         tiles = new Tile[Integer.parseInt(tokens[1])][Integer.parseInt(tokens[2])];
         if(!tokens[3].equals("null")){
             Vector2D temp = new Vector2D(0,0);
-            startingPosition.applySerializedData(tokens[3]);
+            temp.applySerializedData(tokens[3]);
             this.startingPosition = temp;
         }
 
@@ -345,7 +337,13 @@ public class GameMap implements Persistable {
             String[] serializedSceneries = scenerySection.split(COLUMN_DELIMETER);
             for (String serializedScenery : serializedSceneries) {
                 if(!serializedScenery.isEmpty() && !serializedScenery.equals("###")) {
-                    Scenery scenery = new Scenery();
+                    String[] sceneryTokens = serializedScenery.split(DELIMITER);
+                    Scenery scenery;
+                    if(sceneryTokens[0].equals("TeleportScenery")){
+                        scenery = new TeleportScenery();
+                    }else{
+                        scenery = new Scenery();
+                    }
                     scenery.applySerializedData(serializedScenery);
                     sceneryList.add(scenery);
                 }
@@ -404,13 +402,13 @@ public class GameMap implements Persistable {
     }
 
     public GameObject findGameObjectById(long id) {
-        for(Scenery scenery : sceneryList){
-            if(scenery.getId() == id){
+        for (Scenery scenery : sceneryList) {
+            if (scenery.getId() == id) {
                 return scenery;
             }
         }
-        for(NPC npc : npcList){
-            if(npc.getId() == id){
+        for (NPC npc : npcList) {
+            if (npc.getId() == id) {
                 return npc;
             }
         }

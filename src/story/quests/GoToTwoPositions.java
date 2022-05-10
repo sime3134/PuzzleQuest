@@ -1,7 +1,6 @@
 package story.quests;
 
 import core.Vector2D;
-import main.Game;
 import story.Quest;
 import story.QuestStep;
 import story.quest_steps.GoToTarget;
@@ -21,12 +20,7 @@ public class GoToTwoPositions extends Quest {
         QuestStep step2 = new GoToTarget(new Vector2D(2200,1100), new Vector2D(0.0,0.0), "Go to position 2200 x " +
                 "1100" +
                 " on map 1");
-        currentStep = step1;
+        addQuestStep(step1);
         addQuestStep(step2);
-    }
-
-    @Override
-    protected void disengage(Game game) {
-        super.disengage(game);
     }
 }
