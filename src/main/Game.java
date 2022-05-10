@@ -282,6 +282,7 @@ public class Game implements Persistable {
         gameObjects.clear();
         camera.removeFocus();
         loadMap("main_menu_map");
+        camera.removeFocus();
         camera.centerOnMap(maps.getCurrent());
         stateManager.goToMainMenuState();
         Settings.reset();
@@ -344,6 +345,13 @@ public class Game implements Persistable {
         maps.setCurrent(maps.getByName(name));
         gameObjects.addAll(maps.getCurrent().getSceneryList());
         gameObjects.addAll(maps.getCurrent().getNPCList());
+        if(getCurrentMap().getWidth() < Settings.getScreenWidth() || getCurrentMap().getHeight() < Settings.getScreenHeight()){
+            camera.removeFocus();
+            camera.centerOnMap(getCurrentMap());
+        }else{
+            System.out.println(getGameState().getPlayer().getPosition());
+            camera.focusOn(getGameState().getPlayer());
+        }
         //initializeNPCs(20);
     }
 
