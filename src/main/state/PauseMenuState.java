@@ -32,6 +32,7 @@ public class PauseMenuState extends State{
         UIButton saveGame = new UIButton("Save Game", (game) -> game.saveGame());
         UIButton mainMenu = new UIButton("Main Menu", (game) -> game.goToMainMenu());
         UIButton settings = new UIButton("Settings", (game) -> game.goToSettingsMenu());
+        UIButton exitGame = new UIButton("Exit Game", (game) -> System.exit(0));
 
         resumeGame.setBackgroundColor(Color.GRAY);
         resumeGame.setClickColor(Color.YELLOW);
@@ -53,7 +54,12 @@ public class PauseMenuState extends State{
         settings.setHoverColor(Color.lightGray);
         settings.setPadding(25);
 
-        VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings);
+        exitGame.setBackgroundColor(Color.GRAY);
+        exitGame.setClickColor(Color.YELLOW);
+        exitGame.setHoverColor(Color.lightGray);
+        exitGame.setPadding(25);
+
+        VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings, exitGame);
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
 
