@@ -171,6 +171,7 @@ public class GameState extends State implements Persistable {
         dialogContainer.setBackgroundColor(Color.LIGHT_GRAY);
         dialogContainer.setBorderColor(Color.DARK_GRAY);
         dialogContainer.setVisible(false);
+        dialogContainer.setCenterChildren(true);
         uiContainers.add(dialogContainer);
     }
 

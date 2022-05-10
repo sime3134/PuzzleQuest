@@ -1,4 +1,4 @@
-GameMap:32:32:
+GameMap:32:32:null:
 ###
 Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:mountain1:11:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:8:0,Tile:paths:92:0,Tile:grass1:10:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,
 Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:mountain1:11:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:8:0,Tile:paths:92:0,Tile:grass1:10:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,Tile:grass1:41:0,

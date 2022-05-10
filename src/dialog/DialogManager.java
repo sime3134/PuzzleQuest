@@ -35,9 +35,15 @@ public class DialogManager {
             game.getGameState().getPlayer().setCanMove(false);
             game.setCanPause(false);
             game.getGameState().showDialog();
-            game.getGameState().getDialogText()
-                    .setText(line.get());
-            line.executeAction(game);
+            if(speaker != null) {
+                game.getGameState().getDialogText()
+                        .setText("[" + speaker.getName() + "] " + line.get());
+                line.executeAction(game);
+            }else{
+                game.getGameState().getDialogText()
+                        .setText("[???] " + line.get());
+                line.executeAction(game);
+            }
         }else{
             game.getGameState().hideDialog();
             game.setCanPause(true);

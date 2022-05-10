@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class GameMap implements Persistable {
 
-    public static long nextId = 0;
+    private Vector2D startingPosition;
 
     private Tile[][] tiles;
     private List<Scenery> sceneryList;
@@ -90,6 +90,7 @@ public class GameMap implements Persistable {
         tiles = new Tile[mapWidth][mapHeight];
         sceneryList = new ArrayList<>();
         npcList = new ArrayList<>();
+        startingPosition = null;
         initializeTiles(content);
     }
 
@@ -310,6 +311,11 @@ public class GameMap implements Persistable {
         String[] sections = serializedData.split(SECTION_DELIMETER);
         String[] tokens = sections[0].split(DELIMITER);
         tiles = new Tile[Integer.parseInt(tokens[1])][Integer.parseInt(tokens[2])];
+        if(!tokens[3].equals("null")){
+            Vector2D temp = new Vector2D(0,0);
+            startingPosition.applySerializedData(tokens[3]);
+            this.startingPosition = temp;
+        }
 
         String tileSection = sections[1];
         String[] columns = tileSection.split(COLUMN_DELIMETER);

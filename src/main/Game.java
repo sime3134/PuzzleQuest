@@ -247,6 +247,21 @@ public class Game implements Persistable {
         audioPlayer.playMusic("suburbs.wav");
     }
 
+    public void startNewGame(String playerName) {
+        showBlackScreen = true;
+        stateManager.newGameState(this);
+        getGameState().setNonNPCDialogActive(true);
+        getGameState().getPlayer().setName(playerName);
+        getGameState().resetPlayerPosition();
+        addGameObject(getGameState().getPlayer());
+        camera.focusOn(getGameState().getPlayer());
+        loadMap(getGameState().getWorldMap()
+                [getGameState().getPlayer().getWorldMapPosition().intX()]
+                [getGameState().getPlayer().getWorldMapPosition().intY()]);
+        audioPlayer.playMusic("suburbs.wav");
+        getGameState().handleNonNpcDialog(this);
+    }
+
     public void goToMainMenu() {
         gameObjects.clear();
         camera.removeFocus();
@@ -267,21 +282,6 @@ public class Game implements Persistable {
         stateManager.goToSettingsState();
     }
 
-    public void startNewGame(String playerName) {
-        showBlackScreen = true;
-        stateManager.newGameState(this);
-        getGameState().setNonNPCDialogActive(true);
-        getGameState().getPlayer().setName(playerName);
-        getGameState().resetPlayerPosition();
-        addGameObject(getGameState().getPlayer());
-        camera.focusOn(getGameState().getPlayer());
-        loadMap(getGameState().getWorldMap()
-                [getGameState().getPlayer().getWorldMapPosition().intX()]
-                [getGameState().getPlayer().getWorldMapPosition().intY()]);
-        audioPlayer.playMusic("suburbs.wav");
-        getGameState().handleNonNpcDialog(this);
-    }
-
     public void enterUsername() {
         stateManager.goToSetupNameState();
         ((SetupNameState)stateManager.getCurrentState()).getNameInput().activate(this);
@@ -289,7 +289,7 @@ public class Game implements Persistable {
 
     public void goToWorldEditor() {
         stateManager.goToEditorState(content);
-        createNewMap(64, 64, content);
+        createNewMap(12, 8, content);
         camera.removeFocus();
         Settings.setDebugMode(true);
     }

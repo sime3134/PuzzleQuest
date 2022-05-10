@@ -17,8 +17,7 @@ import java.util.Objects;
 public class Scenery extends GameObject implements Persistable {
 
     private Image sprite;
-    private String name;
-    private Chest chest;
+    protected String name;
 
     public Scenery() {
     }
@@ -116,16 +115,16 @@ public class Scenery extends GameObject implements Persistable {
 
     @Override
     protected void executePlayerAction(Game game) {
-        chest = new Chest();
-        if(sprite.equals(game.getContent().getImage("chest"))) {
-            sprite = game.getContent().getImage("chest_open");
-            System.out.println(chest.isChest1Open());
-            if(!chest.isChest1Open()) {
-                game.getGameState().updateMedallionCount();
-                chest.setChest1Open(true);
-                System.out.println(chest.isChest1Open());
-            }
-        }
+//        chest = new Chest();
+//        if(sprite.equals(game.getContent().getImage("chest"))) {
+//            sprite = game.getContent().getImage("chest_open");
+//            System.out.println(chest.isChest1Open());
+//            if(!chest.isChest1Open()) {
+//                game.getGameState().updateMedallionCount();
+//                chest.setChest1Open(true);
+//                System.out.println(chest.isChest1Open());
+//            }
+//        }
         if(sprite.equals(game.getContent().getImage("chest2"))) {
             sprite = game.getContent().getImage("chest2_open");
         }

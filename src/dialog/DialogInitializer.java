@@ -9,7 +9,7 @@ public class DialogInitializer {
         NPC npc = (NPC)game.getGameObjectById(19554);
         Dialog dialog19554_1 = new Dialog(ignore -> npc.getDialogManager().nextDialog());
 
-        dialog19554_1.addLine(new DialogLine("This is where I live, welcome in.."));
+        dialog19554_1.addLine(new DialogLine("My name is Bill. This is where I live, welcome in.."));
 
         npc.addDialog(dialog19554_1);
 

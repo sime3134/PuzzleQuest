@@ -1,5 +1,7 @@
 GameState
 ###
-Player:PlayerName:0|0:2200|1655
+Player:SIMON:0|3:2984|2499
 ###
-NPC:default:4.0:map1:1972|1636:villager3:random_action:UP:
+NPC:GRAN:10059:4.0:map1:867|2642:villager3:random_action:LEFT:
+NPC:FAGGOT:10060:4.0:map1:2059|1371:villager4:stand:DOWN:
+NPC:Bill:19554:4.0:map5:98|2443:villager1:stand:LEFT:

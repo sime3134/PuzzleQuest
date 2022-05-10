@@ -2,7 +2,6 @@ package editor;
 
 import content.ContentManager;
 import core.Vector2D;
-import entity.Chest;
 import entity.Scenery;
 import input.mouse.action.SceneryPlacer;
 import ui.*;
@@ -1384,6 +1383,12 @@ public class UISceneryMenu extends HorizontalContainer {
         List<Scenery> sceneryToAdd = new ArrayList<>();
 
         sceneryToAdd.add(new Scenery(
+                "bed",
+                false,
+                content
+        ));
+
+        sceneryToAdd.add(new Scenery(
                 "bridge",
                 true,
                 content
@@ -1488,37 +1493,37 @@ public class UISceneryMenu extends HorizontalContainer {
                 content
         ));
 
-        sceneryToAdd.add(new Chest(
+        sceneryToAdd.add(new Scenery(
                 "chest",
                 false,
                 content
         ));
 
-        sceneryToAdd.add(new Chest(
+        sceneryToAdd.add(new Scenery(
                 "chest_open",
                 false,
                 content
         ));
 
-        sceneryToAdd.add(new Chest(
+        sceneryToAdd.add(new Scenery(
                 "chest2",
                 false,
                 content
         ));
 
-        sceneryToAdd.add(new Chest(
+        sceneryToAdd.add(new Scenery(
                 "chest2_open",
                 false,
                 content
         ));
 
-        sceneryToAdd.add(new Chest(
+        sceneryToAdd.add(new Scenery(
                 "chest3",
                 false,
                 content
         ));
 
-        sceneryToAdd.add(new Chest(
+        sceneryToAdd.add(new Scenery(
                 "chest3_open",
                 false,
                 content
