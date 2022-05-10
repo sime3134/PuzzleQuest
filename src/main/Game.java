@@ -243,22 +243,22 @@ public class Game implements Persistable {
         camera.focusOn(stateManager.getGameState().getPlayer());
         loadMap(stateManager.getGameState().getWorldMap()[getGameState().getPlayer().getWorldMapPosition().intX()]
                 [getGameState().getPlayer().getWorldMapPosition().intY()]);
+        getGameState().initializeDialogs(this);
         stateManager.goToGameState();
         audioPlayer.playMusic("suburbs.wav");
     }
 
     public void startNewGame(String playerName) {
         showBlackScreen = true;
-        stateManager.newGameState(this);
-        getGameState().setNonNPCDialogActive(true);
-        getGameState().getPlayer().setName(playerName);
-        getGameState().resetPlayerPosition();
+        maps.loadAll(content, "/maps");
+        getGameState().initializeNewGame(this, playerName);
         addGameObject(getGameState().getPlayer());
         camera.focusOn(getGameState().getPlayer());
         loadMap(getGameState().getWorldMap()
                 [getGameState().getPlayer().getWorldMapPosition().intX()]
                 [getGameState().getPlayer().getWorldMapPosition().intY()]);
         audioPlayer.playMusic("suburbs.wav");
+        stateManager.goToGameState();
         getGameState().handleNonNpcDialog(this);
     }
 

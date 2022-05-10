@@ -159,6 +159,8 @@ public class NPC extends Humanoid {
                 .append(activity)
                 .append(DELIMITER)
                 .append(direction)
+                .append(DELIMITER)
+                .append(dialogManager.serialize())
                 .append(DELIMITER);
 
         return sb.toString();
@@ -175,6 +177,9 @@ public class NPC extends Humanoid {
         spriteSetName = tokens[6];
         activity = tokens[7];
         direction = Direction.valueOf(tokens[8]);
+        if(tokens.length > 9) {
+            dialogManager.applySerializedData(tokens[9]);
+        }
         brain = new AIManager(this);
 
         nextId = Math.max(nextId, id + 1);

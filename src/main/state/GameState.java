@@ -74,11 +74,9 @@ public class GameState extends State implements Persistable {
     public GameState(Game game){
         super();
         questManager = new QuestManager();
-        questManager.initializeQuests(game);
         dialogManager = new DialogManager();
-        initializeIntroDialog(game);
         initializePlayer(game);
-        new DialogInitializer(game);
+        questManager.initializeQuests(game);
     }
 
     private void initializePlayer(Game game) {
@@ -86,7 +84,11 @@ public class GameState extends State implements Persistable {
                 game.getContent().getSpriteSet("player"), "PlayerName");
     }
 
-    private void initializeIntroDialog(Game game) {
+    public void initializeDialogs(Game game) {
+        new DialogInitializer(game);
+    }
+
+    public void initializeIntroDialog(Game game) {
         Dialog intro = new Dialog(ignore -> {
             dialogManager.clear();
             questManager.startQuest(0);
@@ -226,5 +228,13 @@ public class GameState extends State implements Persistable {
         if(dialogManager.hasDialog()) {
             dialogManager.handleDialog(game);
         }
+    }
+
+    public void initializeNewGame(Game game, String playerName) {
+        nonNPCDialogActive = true;
+        player.setName(playerName);
+        resetPlayerPosition();
+        initializeIntroDialog(game);
+        initializeDialogs(game);
     }
 }

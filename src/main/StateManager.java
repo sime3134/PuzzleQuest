@@ -49,10 +49,9 @@ public class StateManager {
         currentState.setupUI();
     }
 
-
     public void goToGameState() {
         lastState = currentState;
-        this.currentState = gameState;
+        currentState = gameState;
         currentState.setupUI();
     }
 
@@ -72,17 +71,6 @@ public class StateManager {
     public void goToSettingsState() {
         lastState = currentState;
         this.currentState = settingsState;
-        currentState.setupUI();
-    }
-
-    public void newGameState(Game game) {
-        lastState = currentState;
-
-        if(gameState == null){
-            gameState = new GameState(game);
-        }
-
-        currentState = gameState;
         currentState.setupUI();
     }
 

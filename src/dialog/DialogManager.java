@@ -1,15 +1,16 @@
 package dialog;
 
+import IO.Persistable;
 import entity.NPC;
 import main.Game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialogManager {
+public class DialogManager implements Persistable {
 
     private final NPC speaker;
-    private List<Dialog> dialogs;
+    private final List<Dialog> dialogs;
 
     private int currentDialogIndex;
 
@@ -70,5 +71,20 @@ public class DialogManager {
         if(dialogs.size() > currentDialogIndex + 1) {
             currentDialogIndex++;
         }
+    }
+
+    @Override
+    public String serialize() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(currentDialogIndex);
+
+        return sb.toString();
+    }
+
+    @Override
+    public void applySerializedData(String serializedData) {
+        String[] tokens = serializedData.split(DELIMITER);
+        currentDialogIndex = Integer.parseInt(tokens[0]);
     }
 }
