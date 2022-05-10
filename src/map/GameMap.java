@@ -278,6 +278,8 @@ public class GameMap implements Persistable {
                 .append(DELIMITER)
                 .append(tiles[0].length)
                 .append(DELIMITER)
+                .append(startingPosition)
+                .append(DELIMITER)
                 .append(SECTION_DELIMETER);
 
         for(int x = 0; x < tiles.length; x++) {
