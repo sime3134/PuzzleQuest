@@ -78,7 +78,7 @@ public class PathFinder {
                 NodeBuffer.put(node);
             }
         }
-        return List.of(start);
+        return Collections.emptyList();
     }
 
     private static List<Vector2D> extractPath(Node current) {

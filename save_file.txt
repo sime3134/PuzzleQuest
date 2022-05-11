@@ -1,9 +1,9 @@
 GameState
 ###
-Player:SIMON:0|4:1523|1667
+Player:DILLIAMWOK:0|4:1711|2919
 &&&
 GoToTwoPositions:0:Follow the man to his house:true:false:0:
 ###
 NPC:GRAN:10059:4.0:map1:867|2642:villager3:random_action:LEFT:0:
 NPC:FAGGOT:10060:4.0:map1:2059|1371:villager4:stand:DOWN:0:
-NPC:Bill:19554:4.0:map5:1261|1620:villager1:stand:DOWN:0:
+NPC:Bill:19554:4.0:map5:2395|908:villager1:stand:DOWN:0:

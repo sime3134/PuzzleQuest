@@ -1,8 +1,12 @@
 package ai;
 
 import ai.state.*;
+import ai.task.AITask;
 import entity.NPC;
 import main.Game;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Simon Jern, Erik Larsson
@@ -12,6 +16,7 @@ public class AIManager {
     private AIState currentAIState;
     private String lastState;
     private final NPC currentNPC;
+    private final List<AITask> tasks;
 
     public AIState getCurrentAIState() {
         return currentAIState;
@@ -21,13 +26,23 @@ public class AIManager {
         this.currentNPC = currentNPC;
         lastState = "choose_next_action";
         currentAIState = new ChooseNextAction(currentNPC, lastState);
+        tasks = new ArrayList<>();
     }
 
     public void update(Game game){
-        currentAIState.update(game);
+        if(tasks.isEmpty()) {
+            currentAIState.update(game);
 
-        if(currentAIState.shouldTransition(game)){
-            transitionTo(currentAIState.getNextState(), currentNPC, game);
+            if (currentAIState.shouldTransition(game)) {
+                transitionTo(currentAIState.getNextState(), currentNPC, game);
+            }
+        }else{
+            tasks.get(0).update(game);
+
+            if(tasks.get(0).finished(game, currentNPC)) {
+                tasks.get(0).executeEndTask(game);
+                tasks.remove(0);
+            }
         }
     }
 
@@ -43,5 +58,9 @@ public class AIManager {
         }
 
         lastState = nextState;
+    }
+
+    public void addTask(AITask taskToAdd) {
+        tasks.add(taskToAdd);
     }
 }

@@ -36,7 +36,7 @@ public class UISceneryMenu extends HorizontalContainer {
     private UIContainer getEventsContainer(ContentManager content) {
         List<Scenery> sceneryToAdd = new ArrayList<>();
 
-        sceneryToAdd.add(new TeleportScenery("teleport", false, content));
+        sceneryToAdd.add(new TeleportScenery("teleport", true, content));
 
         UIContainer main = new HorizontalContainer();
         main.setMargin(new Spacing(0));

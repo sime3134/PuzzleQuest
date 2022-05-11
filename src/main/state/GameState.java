@@ -1,6 +1,8 @@
 package main.state;
 
 import IO.Persistable;
+import ai.task.GoToPosition;
+import ai.task.GoToPositionWithoutPathFinding;
 import controller.PlayerController;
 import core.Direction;
 import core.Vector2D;
@@ -11,6 +13,7 @@ import dialog.DialogManager;
 import entity.NPC;
 import entity.Player;
 import main.Game;
+import map.GameMap;
 import settings.Settings;
 import story.QuestManager;
 import ui.*;
@@ -94,7 +97,20 @@ public class GameState extends State implements Persistable {
             dialogManager.clear();
             questManager.startQuest(0);
             NPC npc = (NPC)game.getGameObjectById(19554);
-            npc.oneTimeActivity(game);
+            npc.getBrain().addTask(new GoToPosition(npc, new Vector2D(613, 1968),
+
+                    ignore2 -> npc.getBrain().addTask(new GoToPositionWithoutPathFinding(npc,
+                            new Vector2D(576, 1948),
+
+                            ignore3 -> {
+                                GameMap map = game.getMapManager().getByName("house1");
+                                map.addNPC(npc);
+                                game.addGameObjectToRemove(npc);
+                                npc.setPosition(map.getStartingPosition());
+                                npc.setActivity("wander_random");
+                            }
+                            ))));
+
             nonNPCDialogActive = false;
         });
         intro.addLine(new DialogLine("Hey! Wake up..."));

@@ -1,6 +1,5 @@
 package ai.state;
 
-import ai.AITransition;
 import entity.NPC;
 import main.Game;
 
@@ -10,7 +9,7 @@ import main.Game;
  * This abstract class is the skeleton for the actual doable states like Wander, Stand etc.
  */
 public abstract class AIState {
-    private final AITransition transition;
+    private final AIStateTransition transition;
     protected NPC currentNPC;
     protected String lastState;
 
@@ -20,7 +19,7 @@ public abstract class AIState {
         this.transition = initializeTransition();
     }
 
-    protected abstract AITransition initializeTransition();
+    protected abstract AIStateTransition initializeTransition();
     public abstract void update(Game game);
 
     public boolean shouldTransition(Game game) {

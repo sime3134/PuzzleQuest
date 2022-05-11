@@ -1,6 +1,5 @@
 package ai.state;
 
-import ai.AITransition;
 import controller.NPCController;
 import core.Vector2D;
 import entity.NPC;
@@ -40,8 +39,8 @@ public class WanderLoop extends AIState{
     }
 
     @Override
-    protected AITransition initializeTransition() {
-        return new AITransition("choose_next_action", ((state, currentNPC) -> leaveLoop));
+    protected AIStateTransition initializeTransition() {
+        return new AIStateTransition("choose_next_action", ((state, currentNPC) -> leaveLoop));
     }
 
     @Override

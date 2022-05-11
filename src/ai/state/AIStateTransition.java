@@ -1,5 +1,6 @@
-package ai;
+package ai.state;
 
+import ai.AICondition;
 import entity.NPC;
 import main.Game;
 
@@ -7,7 +8,7 @@ import main.Game;
  * @author Simon Jern
  * Implements a transition between two AI states.
  */
-public final class AITransition {
+public final class AIStateTransition {
     private final String nextState;
     private final AICondition condition;
 
@@ -15,7 +16,7 @@ public final class AITransition {
      * @param nextState the state to transfer to.
      * @param condition the condition for moving to the next state.
      */
-    public AITransition(String nextState, AICondition condition) {
+    public AIStateTransition(String nextState, AICondition condition) {
         this.nextState = nextState;
         this.condition = condition;
     }

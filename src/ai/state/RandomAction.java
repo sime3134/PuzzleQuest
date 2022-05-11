@@ -1,6 +1,5 @@
 package ai.state;
 
-import ai.AITransition;
 import entity.NPC;
 import main.Game;
 
@@ -16,17 +15,17 @@ public class RandomAction extends AIState{
         super(currentNPC, lastState);
     }
     @Override
-    protected AITransition initializeTransition() {
+    protected AIStateTransition initializeTransition() {
         SecureRandom random = new SecureRandom();
 
             int num = random.nextInt(0, 20);
 
             if (num > 0 && num < 15) {
-                return new AITransition("stand", (state, currentNPC) -> true);
+                return new AIStateTransition("stand", (state, currentNPC) -> true);
             } else if (num > 14) {
-                return new AITransition("wander_random", (state, currentNPC) -> true);
+                return new AIStateTransition("wander_random", (state, currentNPC) -> true);
             } else {
-                return new AITransition("random_action", (state, currentNPC) -> true);
+                return new AIStateTransition("random_action", (state, currentNPC) -> true);
             }
 
     }

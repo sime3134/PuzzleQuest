@@ -4,7 +4,6 @@ import content.ContentManager;
 import core.Vector2D;
 
 public class TeleportScenery extends Scenery{
-
     private String mapToTeleportTo;
 
     private Vector2D positionToTeleportTo;

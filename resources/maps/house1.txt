@@ -1,4 +1,4 @@
-GameMap:12:8:null:
+GameMap:12:8:151|280:
 ###
 Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,
 Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:77:0,Tile:paths:69:2,

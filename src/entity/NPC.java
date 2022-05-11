@@ -1,7 +1,6 @@
 package entity;
 
 import ai.AIManager;
-import ai.state.Stand;
 import content.AnimationManager;
 import content.ContentManager;
 import content.SpriteSet;
@@ -100,9 +99,7 @@ public class NPC extends Humanoid {
     @Override
     public void update(Game game){
         super.update(game);
-        if(!(brain.getCurrentAIState() instanceof Stand)) {
-            brain.update(game);
-        }
+        brain.update(game);
     }
 
     @Override
@@ -131,7 +128,7 @@ public class NPC extends Humanoid {
     protected void handleCollision(Game game, GameObject other) {
         if (other instanceof Player) {
             velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
-        }else if(other instanceof Scenery scenery){
+        }else if(other instanceof Scenery){
             if(!other.isWalkable()){
                 velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
             }

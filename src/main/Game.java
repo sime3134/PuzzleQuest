@@ -40,6 +40,8 @@ public class Game implements Persistable {
 
     private final List<GameObject> gameObjects;
 
+    private final List<GameObject> gameObjectsToRemove;
+
     private final Debug debug;
     private final GameController gameController;
 
@@ -161,6 +163,7 @@ public class Game implements Persistable {
         content.loadContent();
         camera = new Camera();
         gameObjects = new ArrayList<>();
+        gameObjectsToRemove = new ArrayList<>();
         maps = new MapManager();
         maps.loadAll(content, "/maps");
         stateManager = new StateManager(this);
@@ -193,6 +196,8 @@ public class Game implements Persistable {
         if(!(stateManager.getCurrentState() instanceof PauseMenuState)) {
             gameObjects.forEach(gameObject -> gameObject.update(this));
         }
+
+        cleanUp();
 
         if(shouldChangeToMap != null){
             loadMap(shouldChangeToMap);
@@ -422,5 +427,16 @@ public class Game implements Persistable {
             npc.applyGraphics(content);
             maps.getByName(npc.getMapName()).addNPC(npc);
         }
+    }
+
+    public void addGameObjectToRemove(GameObject obj) {
+        gameObjectsToRemove.add(obj);
+    }
+
+    private void cleanUp(){
+        for(GameObject object : gameObjectsToRemove){
+            gameObjects.remove(object);
+        }
+        gameObjectsToRemove.clear();
     }
 }

@@ -1,11 +1,10 @@
 package ai.state;
 
-import ai.AITransition;
+import ai.PathFindingThread;
 import controller.NPCController;
 import core.Vector2D;
 import entity.NPC;
 import main.Game;
-import map.PathFinder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +26,15 @@ public class WanderRandom extends AIState{
     }
 
     @Override
-    protected AITransition initializeTransition() {
-        return new AITransition("choose_next_action", ((state, currentNPC) -> arrivedAtTarget()));
+    protected AIStateTransition initializeTransition() {
+        return new AIStateTransition("stand", ((state, currentNPC) -> arrivedAtTarget()));
     }
 
     @Override
     public void update(Game game) {
-        if(target == null && thread == null) {
-            thread = new PathFindingThread(game);
+        if(thread == null || !thread.getCouldFindPath()) {
+            target = game.getCurrentMap().getRandomAvailablePositionOnMap();
+            thread = new PathFindingThread(game, currentNPC, path, target);
             thread.start();
         }
 
@@ -42,7 +42,6 @@ public class WanderRandom extends AIState{
 
         if(arrivedAtTarget()) {
             controller.stop();
-            thread = null;
         }
 
         if(!path.isEmpty() && currentNPC.getPosition().isInRangeOf(path.get(0))){
@@ -56,22 +55,5 @@ public class WanderRandom extends AIState{
 
     private boolean arrivedAtTarget(){
         return target != null && currentNPC.getPosition().isInRangeOf(target);
-    }
-
-    public class PathFindingThread extends Thread{
-        Game game;
-        public PathFindingThread(Game game){
-            this.game = game;
-        }
-        @Override
-        public void run() {
-            List<Vector2D> foundPath = PathFinder.findPath(currentNPC.getCollisionBoxGridPosition(),
-                    game.getCurrentMap().getRandomAvailablePositionOnMap(),
-                    game.getCurrentMap());
-            if(!foundPath.isEmpty()){
-                target = foundPath.get(foundPath.size() - 1);
-                path.addAll(foundPath);
-            }
-        }
     }
 }
