@@ -67,7 +67,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand",
                 144,100,
                 new Vector2D(0,146),
-                20,
+                150,
                 false,
                 content
         ));
@@ -76,7 +76,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand3",
                 144,100,
                 new Vector2D(0,176),
-                20,
+                150,
                 false,
                 content
         ));
@@ -85,7 +85,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand4",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -94,7 +94,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand5",
                 144,100,
                 new Vector2D(0,146),
-                20,
+                150,
                 false,
                 content
         ));
@@ -103,7 +103,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand6",
                 144,100,
                 new Vector2D(0,176),
-                20,
+                150,
                 false,
                 content
         ));
@@ -112,7 +112,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand8",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -121,7 +121,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand9",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -130,7 +130,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand10",
                 144,100,
                 new Vector2D(0,146),
-                20,
+                150,
                 false,
                 content
         ));
@@ -139,7 +139,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand11",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -148,7 +148,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand12",
                 144,100,
                 new Vector2D(0,176),
-                20,
+                150,
                 false,
                 content
         ));
@@ -157,7 +157,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand13",
                 144,100,
                 new Vector2D(0,176),
-                20,
+                150,
                 false,
                 content
         ));
@@ -166,7 +166,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand14",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -175,7 +175,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand15",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -184,7 +184,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand16",
                 144,100,
                 new Vector2D(0,176),
-                20,
+                150,
                 false,
                 content
         ));
@@ -193,7 +193,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand17",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -202,7 +202,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand18",
                 144,100,
                 new Vector2D(0,146),
-                20,
+                150,
                 false,
                 content
         ));
@@ -211,7 +211,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand19",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -220,7 +220,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand20",
                 144,100,
                 new Vector2D(0,149),
-                20,
+                150,
                 false,
                 content
         ));
@@ -229,7 +229,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand21",
                 144,100,
                 new Vector2D(0,176),
-                20,
+                150,
                 false,
                 content
         ));
@@ -238,7 +238,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "stand22",
                 144,100,
                 new Vector2D(0,146),
-                20,
+                150,
                 false,
                 content
         ));
@@ -1598,7 +1598,7 @@ public class UISceneryMenu extends HorizontalContainer {
                 "well_with_roof",
                 130,74,
                 new Vector2D(4,70),
-                20,
+                100,
                 false,
                 content
         ));
