@@ -20,6 +20,7 @@ import map.GameMap;
 import map.MapManager;
 import map.PathFinder;
 import settings.Settings;
+import story.StoryInitializer;
 import ui.UIContainer;
 
 import java.awt.*;
@@ -264,7 +265,7 @@ public class Game implements Persistable {
         camera.focusOn(stateManager.getGameState().getPlayer());
         loadMap(stateManager.getGameState().getWorldMap()[getGameState().getPlayer().getWorldMapPosition().intX()]
                 [getGameState().getPlayer().getWorldMapPosition().intY()]);
-        getGameState().initializeDialogs(this);
+        StoryInitializer.initializeDialogs(this);
         stateManager.goToGameState();
         audioPlayer.playMusic("suburbs.wav");
     }

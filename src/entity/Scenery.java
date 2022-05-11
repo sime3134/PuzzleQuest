@@ -2,6 +2,7 @@ package entity;
 
 import IO.Persistable;
 import content.ContentManager;
+import core.Action;
 import core.CollisionBox;
 import core.Vector2D;
 import display.Camera;
@@ -18,6 +19,7 @@ public class Scenery extends GameObject implements Persistable {
 
     protected Image sprite;
     protected String name;
+    protected Action action;
 
     public Scenery() {
     }
@@ -115,6 +117,10 @@ public class Scenery extends GameObject implements Persistable {
 
     @Override
     protected void executePlayerAction(Game game) {
+        if(action != null){
+            action.execute(game);
+        }
+
 //        chest = new Chest();
 //        if(sprite.equals(game.getContent().getImage("chest"))) {
 //            sprite = game.getContent().getImage("chest_open");
@@ -180,6 +186,10 @@ public class Scenery extends GameObject implements Persistable {
 
     public Image getSprite() {
         return sprite;
+    }
+
+    public void setAction(Action action){
+        this.action = action;
     }
 
     @Override

@@ -1,21 +1,15 @@
 package main.state;
 
 import IO.Persistable;
-import ai.task.GoToPosition;
-import ai.task.GoToPositionWithoutPathFinding;
 import controller.PlayerController;
 import core.Direction;
 import core.Vector2D;
-import dialog.Dialog;
-import dialog.DialogInitializer;
-import dialog.DialogLine;
 import dialog.DialogManager;
-import entity.NPC;
 import entity.Player;
 import main.Game;
-import map.GameMap;
 import settings.Settings;
 import story.QuestManager;
+import story.StoryInitializer;
 import ui.*;
 
 import java.awt.*;
@@ -53,6 +47,10 @@ public class GameState extends State implements Persistable {
 
     //region Getters & Setters (click to view)
 
+    public DialogManager getDialogManager() {
+        return dialogManager;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -86,42 +84,6 @@ public class GameState extends State implements Persistable {
     private void initializePlayer(Game game) {
         player = new Player(PlayerController.getInstance(),
                 game.getContent().getSpriteSet("player"), "PlayerName");
-    }
-
-    public void initializeDialogs(Game game) {
-        new DialogInitializer(game);
-    }
-
-    public void initializeIntroDialog(Game game) {
-        Dialog intro = new Dialog(ignore -> {
-            dialogManager.clear();
-            questManager.startQuest(0);
-            NPC npc = (NPC)game.getGameObjectById(19554);
-            npc.getBrain().addTask(new GoToPosition(npc, new Vector2D(613, 1968),
-
-                    ignore2 -> npc.getBrain().addTask(new GoToPositionWithoutPathFinding(npc,
-                            new Vector2D(576, 1948),
-
-                            ignore3 -> {
-                                GameMap map = game.getMapManager().getByName("house1");
-                                map.addNPC(npc);
-                                game.addGameObjectToRemove(npc);
-                                npc.setPosition(map.getStartingPosition());
-                                npc.setActivity("wander_random");
-                            }
-                            ))));
-
-            nonNPCDialogActive = false;
-        });
-        intro.addLine(new DialogLine("Hey! Wake up..."));
-        intro.addLine(new DialogLine("Are you alive?"));
-        intro.addLine(new DialogLine("...", ignore -> game.setShowBlackScreen(false)));
-        intro.addLine(new DialogLine("Ah.. You finally woke up! How are you feeling?",
-                ignore -> game.getGameState().getPlayer().setDirection("DOWN")));
-        intro.addLine(new DialogLine("I just found you lying here.\n" +
-                "It seems like you washed ashore."));
-        intro.addLine(new DialogLine("Come with me to my house and warm up to start with."));
-        dialogManager.addDialog(intro);
     }
 
     @Override
@@ -260,7 +222,7 @@ public class GameState extends State implements Persistable {
         nonNPCDialogActive = true;
         player.setName(playerName);
         resetPlayerPosition();
-        initializeIntroDialog(game);
-        initializeDialogs(game);
+        StoryInitializer.initializeIntroDialog(game);
+        StoryInitializer.initializeDialogs(game);
     }
 }
