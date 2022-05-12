@@ -36,12 +36,11 @@ public class DialogManager implements Persistable {
             if(speaker != null) {
                 game.getGameState().getDialogText()
                         .setText("[" + speaker.getName() + "] " + line.get());
-                line.executeAction(game);
             }else{
                 game.getGameState().getDialogText()
                         .setText("[???] " + line.get());
-                line.executeAction(game);
             }
+            line.executeAction(game);
         }else{
             if(speaker != null){
                 speaker.setCanMove(true);

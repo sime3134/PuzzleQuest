@@ -20,11 +20,6 @@ public class Scenery extends GameObject implements Persistable {
     protected Image sprite;
     protected String name;
     protected Action action;
-    protected String mapName;
-
-    public String getMapName() {
-        return mapName;
-    }
 
     public void setSprite(Image sprite) {
         this.sprite = sprite;
@@ -52,7 +47,6 @@ public class Scenery extends GameObject implements Persistable {
         this.walkable = walkable;
         loadGraphics(content);
         calculateSelectionCircle();
-        mapName = "default";
     }
 
     public Scenery(String name,
@@ -181,7 +175,6 @@ public class Scenery extends GameObject implements Persistable {
         copy.walkable = walkable;
         copy.sprite = sprite;
         copy.id = nextId;
-        copy.mapName = mapName;
         nextId++;
 
         return copy;

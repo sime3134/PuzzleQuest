@@ -7,6 +7,7 @@ import core.Vector2D;
 import dialog.Dialog;
 import dialog.DialogLine;
 import entity.NPC;
+import entity.Player;
 import entity.Scenery;
 import entity.TeleportScenery;
 import main.Game;
@@ -20,26 +21,21 @@ public class StoryInitializer {
         Dialog intro = new Dialog(ignore -> {
             game.getGameState().getDialogManager().clear();
             game.getGameState().getQuestManager().startQuest(0);
-            NPC npc = (NPC)game.getGameObjectById(19554);
-            npc.getBrain().addTask(new GoToPosition(npc, new Vector2D(613, 1968),
+            NPC npcBill = (NPC)game.getGameObjectById(19554);
+            npcBill.getBrain().addTask(new GoToPosition(npcBill, new Vector2D(613, 1968),
 
                     ignore2 -> {
-                        npc.getBrain().addTask(new GoToPositionWithoutPathFinding(npc,
+                        npcBill.getBrain().addTask(new GoToPositionWithoutPathFinding(npcBill,
                                 new Vector2D(576, 1948),
 
                                 ignore3 -> {
-
-                                    moveNpcToOtherMap(game, npc, "house1");
-                                    npc.setActivity("wander_random");
+                                    moveNpcToOtherMap(game, npcBill, "house1");
+                                    npcBill.setActivity("wander_random");
+                                    addBillFirstDialog(game, npcBill);
                                 }
                         ));
-                        Scenery door = (Scenery)game.getGameObjectById(29880);
-                        door.setSprite(game.getContent().getImage("blue_open_door2"));
-                        door.setName("blue_open_door2");
-                        game.addSceneryToOverwrite(door);
-                        TeleportScenery teleport = (TeleportScenery)game.getGameObjectById(29877);
-                        teleport.setActive(new Value<>(true));
-                        game.addSceneryToOverwrite(teleport);
+                        changeScenerySprite(game, 29880, "blue_open_door2");
+                        activeTeleportScenery(game, 29877);
                     }));
 
             game.getGameState().setNonNPCDialogActive(false);
@@ -55,6 +51,19 @@ public class StoryInitializer {
         game.getGameState().getDialogManager().addDialog(intro);
     }
 
+    private static void changeScenerySprite(Game game, long id, String newSpriteName) {
+        Scenery door = (Scenery) game.getGameObjectById(id);
+        door.setSprite(game.getContent().getImage(newSpriteName));
+        door.setName(newSpriteName);
+        game.addSceneryToOverwrite(door);
+    }
+
+    private static void activeTeleportScenery(Game game, long id) {
+        TeleportScenery teleport = (TeleportScenery) game.getGameObjectById(id);
+        teleport.setActive(new Value<>(true));
+        game.addSceneryToOverwrite(teleport);
+    }
+
     private static void moveNpcToOtherMap(Game game, NPC npc, String nameOfMapToMoveTo) {
         GameMap map = game.getMapManager().getByName(nameOfMapToMoveTo);
         map.addNPC(npc);
@@ -65,18 +74,46 @@ public class StoryInitializer {
     }
 
     public static void initializeDialogs(Game game) {
-        NPC npc = (NPC)game.getGameObjectById(19554);
-        Dialog dialog19554_1 = new Dialog(ignore -> npc.getDialogManager().nextDialog());
+    }
+
+    private static void addBillFirstDialog(Game game, NPC npcBill){
+        Dialog dialog19554_1 = new Dialog();
 
         dialog19554_1.addLine(new DialogLine("My name is Bill by the way. \nWelcome to my home."));
+        dialog19554_1.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest in the bed " +
+                "over there and we will talk tomorrow.", ignore -> {
+            Scenery bed = (Scenery) game.getGameObjectById(89555);
+            bed.setAction(ignore4 -> game.showBlackScreen(2000, game,
+                    ignore5 -> {
+                        bed.setAction(null);
+                        npcBill.getDialogManager().nextDialog();
+                        Player player = game.getGameState().getPlayer();
+                        player.setDirection("RIGHT");
+                        npcBill.setActivity("stand");
+                        npcBill.getBrain().addTask(new GoToPosition(npcBill,
+                                new Vector2D(240, 192),
+                                ignore6 ->  npcBill.setDirection("LEFT")));
+                    }
+            ));
+        }));
 
-        npc.addDialog(dialog19554_1);
+        npcBill.addDialog(dialog19554_1);
 
         Dialog dialog19554_2 = new Dialog();
 
-        dialog19554_2.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest and we will talk " +
-                "tomorrow."));
+        dialog19554_2.addLine(new DialogLine("Good morning. Did you sleep well?"));
+        dialog19554_2.addLine(new DialogLine("You have bad luck washing ashore on this island.\n" +
+                "Did you notice how the nature has died outside?"));
+        dialog19554_2.addLine(new DialogLine("The island is under a curse after Group19 stole\n" +
+                "the  medallion keeping the balance in check."));
+        dialog19554_2.addLine(new DialogLine("What medallion you say?"));
+        dialog19554_2.addLine(new DialogLine("The medallion contains a stone of life, I'm sure you have heard " +
+                "of them?"));
+        dialog19554_2.addLine(new DialogLine("The legends say that this island was originally just dead rock."));
+        dialog19554_2.addLine(new DialogLine("But one day an adventurer found the stone of life in the " +
+                "medallion\nand with it, created life on the island."));
+        dialog19554_2.addLine(new DialogLine("And now, without it, it is once again dying."));
 
-        npc.addDialog(dialog19554_2);
+        npcBill.addDialog(dialog19554_2);
     }
 }

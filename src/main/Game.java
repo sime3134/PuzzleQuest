@@ -7,6 +7,7 @@ import audio.AudioPlayer;
 import content.ContentManager;
 import controller.GameController;
 import controller.NPCController;
+import core.Action;
 import core.CollisionBox;
 import core.Time;
 import core.Vector2D;
@@ -62,6 +63,8 @@ public class Game implements Persistable {
     private final UIContainer debugSettingsContainer;
     private boolean canPause;
     private boolean showBlackScreen;
+
+    private boolean showingBlackScreenWithTimer;
 
     //region Getters & Setters (Click to view)
 
@@ -179,6 +182,7 @@ public class Game implements Persistable {
         gameFrame = new GameFrame(this);
         canPause = true;
         showBlackScreen = false;
+        showingBlackScreenWithTimer = false;
     }
 
     public void update() {
@@ -195,7 +199,7 @@ public class Game implements Persistable {
         }
 
         updateObjectsDrawOrder();
-        if(!(stateManager.getCurrentState() instanceof PauseMenuState)) {
+        if(!(stateManager.getCurrentState() instanceof PauseMenuState) && !showingBlackScreenWithTimer) {
             gameObjects.forEach(gameObject -> gameObject.update(this));
         }
 
@@ -480,5 +484,20 @@ public class Game implements Persistable {
 
     public void addSceneryToOverwrite(Scenery scenery) {
         sceneryToOverwrite.add(scenery);
+    }
+
+    public void showBlackScreen(long delay, Game game, Action action) {
+        setShowBlackScreen(true);
+        showingBlackScreenWithTimer = true;
+        canPause = false;
+        Timer timer = new Timer("BlackoutTimer");
+        timer.schedule(new TimerTask() {
+            public void run() {
+                setShowBlackScreen(false);
+                canPause = true;
+                showingBlackScreenWithTimer = false;
+                action.execute(game);
+            }
+        }, delay);
     }
 }

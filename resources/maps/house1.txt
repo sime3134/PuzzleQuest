@@ -14,7 +14,7 @@ Tile:paths:69:2,Tile:paths:48:2,Tile:paths:48:2,Tile:borders:15:0,Tile:paths:77:
 Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,Tile:paths:69:2,
 
 ###
-Scenery:bed:19555:50|130:72:96:0|0:32.0:0|32:72:64:false:82:48:-5:53:
+Scenery:bed:89555:50|130:72:96:0|0:32.0:0|32:72:64:false:82:48:-5:53:
 Scenery:chest3:19571:477|138:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 Scenery:crate3:19559:426|138:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 Scenery:shield:19560:273|65:42:42:0|0:14.0:0|14:42:28:false:52:47:-5:0:

@@ -4,8 +4,8 @@ import core.Action;
 import main.Game;
 
 public class DialogLine {
-    private String line;
-    private Action action;
+    private final String line;
+    private final Action action;
 
 
     public DialogLine(String line){

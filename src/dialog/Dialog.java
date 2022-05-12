@@ -32,7 +32,6 @@ public class Dialog {
         }else {
             DialogLine line = lines.get(currentLineIndex);
             currentLineIndex++;
-            line.executeAction(game);
             return line;
         }
     }
