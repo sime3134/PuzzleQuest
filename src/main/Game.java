@@ -25,9 +25,8 @@ import ui.UIContainer;
 
 import java.awt.*;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.*;
 
 /**
  * @author Simon Jern, Johan Salomonsson
@@ -43,6 +42,8 @@ public class Game implements Persistable {
 
     private final List<GameObject> gameObjectsToRemove;
 
+    private final List<Scenery> sceneryToOverwrite;
+
     private final Debug debug;
     private final GameController gameController;
 
@@ -55,7 +56,6 @@ public class Game implements Persistable {
     private final MapManager maps;
 
     private String shouldChangeToMap;
-
 
     private Vector2D shouldChangeToPosition;
 
@@ -165,6 +165,7 @@ public class Game implements Persistable {
         camera = new Camera();
         gameObjects = new ArrayList<>();
         gameObjectsToRemove = new ArrayList<>();
+        sceneryToOverwrite = new ArrayList<>();
         maps = new MapManager();
         maps.loadAll(content, "/maps");
         stateManager = new StateManager(this);
@@ -272,6 +273,7 @@ public class Game implements Persistable {
 
     public void startNewGame(String playerName) {
         showBlackScreen = true;
+        sceneryToOverwrite.clear();
         maps.loadAll(content, "/maps");
         getGameState().initializeNewGame(this, playerName);
         addGameObject(getGameState().getPlayer());
@@ -406,6 +408,14 @@ public class Game implements Persistable {
             sb.append(COLUMN_DELIMETER);
         }));
 
+        if(!sceneryToOverwrite.isEmpty()) {
+            sb.append(SECTION_DELIMETER);
+            for (Scenery scenery : sceneryToOverwrite) {
+                sb.append(scenery.serialize());
+                sb.append(COLUMN_DELIMETER);
+            }
+        }
+
         return sb.toString();
 
     }
@@ -423,10 +433,37 @@ public class Game implements Persistable {
         String[] NPCs = npcSection.split(COLUMN_DELIMETER);
 
         for(String npcString : NPCs){
-            NPC npc = new NPC();
-            npc.applySerializedData(npcString);
-            npc.applyGraphics(content);
-            maps.getByName(npc.getMapName()).addNPC(npc);
+            if(!npcString.equals("###") && !npcString.isEmpty()) {
+                NPC npc = new NPC();
+                npc.applySerializedData(npcString);
+                npc.applyGraphics(content);
+                maps.getByName(npc.getMapName()).addNPC(npc);
+            }
+        }
+
+        if(sections.length > 3) {
+            String scenerySection = sections[3];
+
+            String[] sceneries = scenerySection.split(COLUMN_DELIMETER);
+
+            sceneryToOverwrite.clear();
+
+            for (String sceneryString : sceneries) {
+                String[] sceneryTokens = sceneryString.split(DELIMITER);
+                long sceneryId = Long.parseLong(sceneryTokens[2]);
+                for (GameMap map : maps.getMaps().values()) {
+                    for (Scenery s : map.getSceneryList()) {
+                        if (s.getId() == sceneryId) {
+                            System.out.println(s.getId());
+                            s.applySerializedData(sceneryString);
+                            s.loadGraphics(content);
+                            sceneryToOverwrite.add(s);
+                        }
+                    }
+                }
+            }
+
+            System.out.println(sceneryToOverwrite);
         }
     }
 
@@ -439,5 +476,9 @@ public class Game implements Persistable {
             gameObjects.remove(object);
         }
         gameObjectsToRemove.clear();
+    }
+
+    public void addSceneryToOverwrite(Scenery scenery) {
+        sceneryToOverwrite.add(scenery);
     }
 }

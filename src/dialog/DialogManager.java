@@ -30,9 +30,6 @@ public class DialogManager implements Persistable {
         DialogLine line = dialogs.get(currentDialogIndex).getCurrentLine(game);
 
         if(line != null) {
-            if(speaker != null) {
-                speaker.setCanMove(false);
-            }
             game.getGameState().getPlayer().setCanMove(false);
             game.setCanPause(false);
             game.getGameState().showDialog();
@@ -46,11 +43,11 @@ public class DialogManager implements Persistable {
                 line.executeAction(game);
             }
         }else{
+            if(speaker != null){
+                speaker.setCanMove(true);
+            }
             game.getGameState().hideDialog();
             game.setCanPause(true);
-            if(speaker != null) {
-                speaker.setCanMove(false);
-            }
             game.getGameState().getPlayer().setCanMove(true);
         }
     }

@@ -11,6 +11,7 @@ import ui.UIContainer;
 import ui.UIImage;
 import ui.UIText;
 import ui.clickable.UIButton;
+import ui.clickable.UICheckbox;
 import ui.input.UITextInput;
 
 import java.awt.*;
@@ -52,6 +53,7 @@ public class GameObjectTool extends MouseAction{
                 String.valueOf(collidingTScenery.getPositionToTeleportTo().getX()));
         UITextInput yPositionToTeleportTo = new UITextInput(1,13,
                 String.valueOf(collidingTScenery.getPositionToTeleportTo().getY()));
+        UICheckbox active = new UICheckbox("Active", collidingTScenery.getActive());
 
         options = game.getEditorState().getOptions();
         options.setVisible(false);
@@ -65,6 +67,7 @@ public class GameObjectTool extends MouseAction{
         options.addComponent(xPositionToTeleportTo);
         options.addComponent(new UIText("y:"));
         options.addComponent(yPositionToTeleportTo);
+        options.addComponent(active);
         options.addComponent(new UIButton("Save", game1 -> saveTeleportSceneryInfo(collidingTScenery,
                 mapToTeleportTo, xPositionToTeleportTo, yPositionToTeleportTo)));
         options.setVisible(true);

@@ -139,7 +139,7 @@ public class Player extends Humanoid {
             if(!other.isWalkable()){
                 velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
             }
-            if(scenery instanceof TeleportScenery tScenery){
+            if(scenery instanceof TeleportScenery tScenery && tScenery.getActive().get()){
                 String nameOfMapToTeleportTo = tScenery.getMapToTeleportTo();
                 game.setShouldChangeToMap(nameOfMapToTeleportTo);
                 game.setShouldChangeToPosition(tScenery.getPositionToTeleportTo());

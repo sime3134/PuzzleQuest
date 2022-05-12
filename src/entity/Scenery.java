@@ -20,6 +20,19 @@ public class Scenery extends GameObject implements Persistable {
     protected Image sprite;
     protected String name;
     protected Action action;
+    protected String mapName;
+
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setSprite(Image sprite) {
+        this.sprite = sprite;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Scenery() {
     }
@@ -39,6 +52,7 @@ public class Scenery extends GameObject implements Persistable {
         this.walkable = walkable;
         loadGraphics(content);
         calculateSelectionCircle();
+        mapName = "default";
     }
 
     public Scenery(String name,
@@ -144,20 +158,8 @@ public class Scenery extends GameObject implements Persistable {
         if(sprite == game.getContent().getImage("small_tree2") &&
                 Objects.equals(game.getCurrentMap().getName(), "maze")){
             game.getGameState();
-
         }
 
-    }
-
-    public CollisionBox getExtendedCollisionBox() {
-        Vector2D position = getPosition().getCopy();
-
-        return CollisionBox.of(
-                new Vector2D(position.getX() + collisionBoxOffset.getX() - 5,
-                        position.getY() + collisionBoxOffset.getY() - 5),
-                collisionBoxWidth + 5,
-                collisionBoxHeight + 5
-        );
     }
 
     public Scenery getCopy(){
@@ -179,6 +181,7 @@ public class Scenery extends GameObject implements Persistable {
         copy.walkable = walkable;
         copy.sprite = sprite;
         copy.id = nextId;
+        copy.mapName = mapName;
         nextId++;
 
         return copy;

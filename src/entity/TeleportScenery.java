@@ -1,12 +1,13 @@
 package entity;
 
 import content.ContentManager;
+import core.Value;
 import core.Vector2D;
 
 public class TeleportScenery extends Scenery{
     private String mapToTeleportTo;
-
     private Vector2D positionToTeleportTo;
+    private Value<Boolean> active;
 
     public String getMapToTeleportTo() {
         return mapToTeleportTo;
@@ -24,6 +25,14 @@ public class TeleportScenery extends Scenery{
         this.positionToTeleportTo = positionToTeleportTo;
     }
 
+    public Value<Boolean> getActive() {
+        return active;
+    }
+
+    public void setActive(Value<Boolean> active) {
+        this.active = active;
+    }
+
     public TeleportScenery(){
         super();
         mapToTeleportTo = "";
@@ -34,6 +43,7 @@ public class TeleportScenery extends Scenery{
         super(name, walkable, content);
         mapToTeleportTo = "";
         positionToTeleportTo = new Vector2D(0,0);
+        active = new Value<>(true);
     }
 
     @Override
@@ -58,6 +68,7 @@ public class TeleportScenery extends Scenery{
         copy.id = nextId;
         copy.mapToTeleportTo = mapToTeleportTo;
         copy.positionToTeleportTo = positionToTeleportTo;
+        copy.active = active;
         nextId++;
 
         return copy;
@@ -102,6 +113,8 @@ public class TeleportScenery extends Scenery{
         sb.append(DELIMITER);
         sb.append(positionToTeleportTo.serialize());
         sb.append(DELIMITER);
+        sb.append(active.get());
+        sb.append(DELIMITER);
 
         return sb.toString();
     }
@@ -126,6 +139,7 @@ public class TeleportScenery extends Scenery{
         selectionCircleRenderYOffset = Integer.parseInt(tokens[15]);
         mapToTeleportTo = tokens[16];
         positionToTeleportTo.applySerializedData(tokens[17]);
+        active = new Value<>(Boolean.valueOf(tokens[18]));
 
         nextId = Math.max(nextId, id + 1);
     }

@@ -24,7 +24,7 @@ public abstract class MovingEntity extends GameObject {
     protected double speed;
 
     protected Vector2D directionVector;
-    private boolean canMove;
+    protected boolean canMove;
 
     public EntityController getController() {
         return entityController;
@@ -64,7 +64,9 @@ public abstract class MovingEntity extends GameObject {
         animationManager.playAnimation(decideAnimation());
         decideAnimation();
 
-        position.add(velocity);
+        if(canMove) {
+            position.add(velocity);
+        }
     }
 
     @Override
@@ -125,6 +127,8 @@ public abstract class MovingEntity extends GameObject {
 
             velocity.normalize();
             velocity.multiply(speed);
+        }else{
+            velocity = new Vector2D(0,0);
         }
     }
 

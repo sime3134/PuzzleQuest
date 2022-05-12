@@ -46,6 +46,10 @@ public class NPC extends Humanoid {
         return brain;
     }
 
+    public void setCurrentMapName(String currentMapName) {
+        this.currentMapName = currentMapName;
+    }
+
     public NPC getCopy(String mapName) {
         NPC copy = new NPC(new NPCController(), animationManager.getSpriteSet(), "default", mapName);
 
@@ -120,6 +124,8 @@ public class NPC extends Humanoid {
     @Override
     public void executePlayerAction(Game game) {
         if(dialogManager.hasDialog() && !game.getGameState().getNonNPCDialogActive()) {
+            canMove = false;
+            direction = Direction.opposite(getDirectionInRelationToGameObject(game.getGameState().getPlayer()));
             dialogManager.handleDialog(game);
         }
     }
@@ -192,9 +198,5 @@ public class NPC extends Humanoid {
 
     public void addDialog(Dialog dialog) {
         dialogManager.addDialog(dialog);
-    }
-
-    public void oneTimeActivity(Game game) {
-        brain.transitionTo("wander_random", this, game);
     }
 }

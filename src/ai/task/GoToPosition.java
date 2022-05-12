@@ -55,7 +55,5 @@ public class GoToPosition extends AITask{
         if(!path.isEmpty()){
             controller.moveToTarget(path.get(0), currentCharacter.getPosition());
         }
-
-        System.out.println(target);
     }
 }

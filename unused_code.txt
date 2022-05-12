@@ -47,3 +47,16 @@
                     .filter(gameObject -> !gameObject.isWalkable())
                     .anyMatch(gameObject -> gameObject.getCollisionBox().collidingWith(gridCollisionBox));
         }
+
+
+
+        public CollisionBox getExtendedCollisionBox() {
+                Vector2D position = getPosition().getCopy();
+
+                return CollisionBox.of(
+                        new Vector2D(position.getX() + collisionBoxOffset.getX() - 5,
+                                position.getY() + collisionBoxOffset.getY() - 5),
+                        collisionBoxWidth + 5,
+                        collisionBoxHeight + 5
+                );
+            }
