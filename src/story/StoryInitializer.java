@@ -88,24 +88,27 @@ public class StoryInitializer {
                         bed.setAction(null);
                         npcBill.getDialogManager().nextDialog();
                         Player player = game.getGameState().getPlayer();
+                        player.setPosition(new Vector2D(111, 165));
                         player.setDirection("RIGHT");
                         npcBill.setActivity("stand");
-                        npcBill.getBrain().addTask(new GoToPosition(npcBill,
-                                new Vector2D(240, 192),
-                                ignore6 ->  npcBill.setDirection("LEFT")));
+                        npcBill.setCanMove(false);
+                        npcBill.getBrain().transitionTo("stand", npcBill, game);
+                        npcBill.setPosition(new Vector2D(145, 165));
+                        npcBill.setDirection("LEFT");
+                        npcBill.executePlayerAction(game);
                     }
             ));
         }));
 
         npcBill.addDialog(dialog19554_1);
 
-        Dialog dialog19554_2 = new Dialog();
+        Dialog dialog19554_2 = new Dialog(ignore -> npcBill.getDialogManager().nextDialog());
 
         dialog19554_2.addLine(new DialogLine("Good morning. Did you sleep well?"));
         dialog19554_2.addLine(new DialogLine("You have bad luck washing ashore on this island.\n" +
                 "Did you notice how the nature has died outside?"));
-        dialog19554_2.addLine(new DialogLine("The island is under a curse after Group19 stole\n" +
-                "the  medallion keeping the balance in check."));
+        dialog19554_2.addLine(new DialogLine("The island is dying after Group19 stole\n" +
+                "the medallion keeping it in balance."));
         dialog19554_2.addLine(new DialogLine("What medallion you say?"));
         dialog19554_2.addLine(new DialogLine("The medallion contains a stone of life, I'm sure you have heard " +
                 "of them?"));
@@ -113,7 +116,17 @@ public class StoryInitializer {
         dialog19554_2.addLine(new DialogLine("But one day an adventurer found the stone of life in the " +
                 "medallion\nand with it, created life on the island."));
         dialog19554_2.addLine(new DialogLine("And now, without it, it is once again dying."));
+        dialog19554_2.addLine(new DialogLine("If you want to hear more about it, talk to the king in his\n" +
+                "castle south-east of here.", ignore -> npcBill.setActivity("wander_random")
+        ));
 
         npcBill.addDialog(dialog19554_2);
+
+        Dialog dialog19554_3 = new Dialog();
+
+        dialog19554_3.addLine(new DialogLine("If you want to hear more about the missing medallion\n" +
+                "talk to the king in his castle south-east of here."));
+
+        npcBill.addDialog(dialog19554_3);
     }
 }

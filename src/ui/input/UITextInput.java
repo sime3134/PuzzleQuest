@@ -13,12 +13,12 @@ import java.awt.event.KeyEvent;
 
 public class UITextInput extends UIClickable implements KeyInputConsumer {
 
-    private UIContainer container;
+    private final UIContainer container;
 
-    private UIText inputText;
+    private final UIText inputText;
 
-    private int minLength;
-    private int maxLength;
+    private final int minLength;
+    private final int maxLength;
 
     public String getText() {
         return inputText.getText();
@@ -66,7 +66,7 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
             currentValue += " ";
         }else if(key == KeyEvent.VK_UNDERSCORE && currentValue.length() < maxLength){
             currentValue += "_";
-        }else if(key == KeyEvent.VK_ENTER){
+        }else if(key == KeyEvent.VK_ENTER && validate()){
             game.startNewGame(currentValue);
         }else if(currentValue.length() < maxLength) {
             String keyText = KeyEvent.getKeyText(key);
@@ -120,7 +120,8 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
     }
 
     public boolean validate() {
-        boolean followsRules = inputText.getText().length() >= minLength && inputText.getText().length() <= maxLength;
+        boolean followsRules =
+                inputText.getText().length() >= minLength && inputText.getText().length() <= maxLength;
 
         if(!followsRules){
             container.setBorderColor(Color.RED);

@@ -353,7 +353,6 @@ public class Game implements Persistable {
 
     public void loadMap(String name) {
         gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
-        System.out.println(name);
         maps.setCurrent(maps.getByName(name));
         gameObjects.addAll(maps.getCurrent().getSceneryList());
         gameObjects.addAll(maps.getCurrent().getNPCList());
@@ -361,7 +360,6 @@ public class Game implements Persistable {
             camera.removeFocus();
             camera.centerOnMap(getCurrentMap());
         }else{
-            System.out.println(getGameState().getPlayer().getPosition());
             camera.focusOn(getGameState().getPlayer());
         }
         //initializeNPCs(20);

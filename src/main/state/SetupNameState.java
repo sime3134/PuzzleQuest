@@ -19,7 +19,7 @@ public class SetupNameState extends State{
 
     private UITextInput nameInput;
 
-    public SetupNameState(Game game) {
+    public SetupNameState() {
         super();
     }
 

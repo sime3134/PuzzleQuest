@@ -9,14 +9,14 @@ public class StateManager {
     private State currentState;
     private State lastState;
 
-    private MainMenuState mainMenuState;
-    private GameState gameState;
-    private EditorState editorState;
-    private SettingsMenuState settingsState;
+    private final MainMenuState mainMenuState;
+    private final GameState gameState;
+    private final EditorState editorState;
+    private final SettingsMenuState settingsState;
 
-    private PauseMenuState pauseMenuState;
+    private final PauseMenuState pauseMenuState;
 
-    private SetupNameState setupNameState;
+    private final SetupNameState setupNameState;
 
     public StateManager(Game game) {
         mainMenuState = new MainMenuState();
@@ -24,7 +24,7 @@ public class StateManager {
         settingsState = new SettingsMenuState();
         currentState = new MainMenuState();
         editorState = new EditorState(game.getContent());
-        setupNameState = new SetupNameState(game);
+        setupNameState = new SetupNameState();
         gameState = new GameState(game);
     }
 

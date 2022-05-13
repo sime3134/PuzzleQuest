@@ -27,10 +27,6 @@ public abstract class State {
         return mouseHandler;
     }
 
-    public KeyInputConsumer getKeyInputConsumer() {
-        return keyInputConsumer;
-    }
-
     public void setKeyInputConsumer(KeyInputConsumer keyInputConsumer) {
         this.keyInputConsumer = keyInputConsumer;
     }

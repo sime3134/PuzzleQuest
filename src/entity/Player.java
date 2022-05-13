@@ -30,7 +30,6 @@ public class Player extends Humanoid {
     @Override
     public void update(Game game) {
         super.update(game);
-
         handleTarget(game);
         handlePlayerSpecificInput(game);
     }
@@ -119,9 +118,9 @@ public class Player extends Humanoid {
     private boolean checkDistance(GameObject gameObject) {
         Vector2D targetRange =
                 new Vector2D(getStaticCollisionBox().getBounds().getWidth() / 2
-                        + gameObject.getStaticCollisionBox().getBounds().getWidth() / 2 + 10,
+                        + gameObject.getStaticCollisionBox().getBounds().getWidth() / 2 + 20,
                         getStaticCollisionBox().getBounds().getHeight() / 2
-                                + gameObject.getStaticCollisionBox().getBounds().getHeight() / 2 + 10);
+                                + gameObject.getStaticCollisionBox().getBounds().getHeight() / 2 + 20);
 
         Vector2D distance = getStaticCollisionBox().getCenter()
                 .distanceBetweenPositions(gameObject.getStaticCollisionBox().getCenter());

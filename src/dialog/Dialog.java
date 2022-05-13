@@ -12,6 +12,16 @@ public class Dialog {
 
     private final Action action;
 
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public Dialog(){
         this(null);
     }
@@ -20,6 +30,7 @@ public class Dialog {
         lines = new ArrayList<>();
         currentLineIndex = 0;
         this.action = action;
+        active = true;
     }
 
     public DialogLine getCurrentLine(Game game) {

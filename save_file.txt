@@ -1,13 +1,13 @@
 GameState
 ###
-Player:SIMON:0|4:593|2093
+Player:SIMON:0|4:112|159
 &&&
 GoToTwoPositions:0:Follow the man to his house:true:false:0:
 ###
-NPC:Bill:19554:4.0:house1:151|280:villager1:wander_random:UP:0:
-NPC:GRAN:10059:4.0:map1:867|2642:villager3:random_action:LEFT:0:
+NPC:Bill:19554:4.0:house1:313|196:villager1:wander_random:LEFT:2:
+NPC:GRAN:10059:4.0:map1:2156|1380:villager3:random_action:UP:0:
 NPC:FAGGOT:10060:4.0:map1:2059|1371:villager4:stand:DOWN:0:
 
 ###
 Scenery:blue_open_door2:29880:576|1917:48:48:0|0:20.0:0|0:48:18:false:58:53:-5:0:
-TeleportScenery:teleport:29877:587|1947:24:24:0|0:8.0:0|8:24:16:true:34:29:-5:0:house1:101|325:true:
+TeleportScenery:teleport:29877:587|1947:24:24:0|0:8.0:0|8:24:16:true:34:29:-5:0:house1:112|159:true:
