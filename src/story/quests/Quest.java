@@ -1,7 +1,8 @@
-package story;
+package story.quests;
 
 import IO.Persistable;
 import main.Game;
+import story.QuestStep;
 
 import java.util.ArrayList;
 import java.util.List;

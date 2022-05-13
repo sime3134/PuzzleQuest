@@ -22,5 +22,5 @@ public abstract class QuestStep {
 
     protected abstract QuestStepTransition initializeTransition();
 
-    protected abstract void update(Game game);
+    public abstract void update(Game game);
 }

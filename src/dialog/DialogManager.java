@@ -14,6 +14,10 @@ public class DialogManager implements Persistable {
 
     private int currentDialogIndex;
 
+    public Dialog getCurrentDialog(){
+        return dialogs.get(currentDialogIndex);
+    }
+
     public DialogManager(NPC speaker) {
         this.speaker = speaker;
         this.dialogs = new ArrayList<>();
@@ -27,28 +31,28 @@ public class DialogManager implements Persistable {
     }
 
     public void handleDialog(Game game) {
-        DialogLine line = dialogs.get(currentDialogIndex).getCurrentLine(game);
+            DialogLine line = dialogs.get(currentDialogIndex).getCurrentLine(game);
 
-        if(line != null) {
-            game.getGameState().getPlayer().setCanMove(false);
-            game.setCanPause(false);
-            game.getGameState().showDialog();
-            if(speaker != null) {
-                game.getGameState().getDialogText()
-                        .setText("[" + speaker.getName() + "] " + line.get());
-            }else{
-                game.getGameState().getDialogText()
-                        .setText("[???] " + line.get());
+            if (line != null) {
+                game.getGameState().getPlayer().setCanMove(false);
+                game.setCanPause(false);
+                game.getGameState().showDialog();
+                if (speaker != null) {
+                    game.getGameState().getDialogText()
+                            .setText("[" + speaker.getName() + "] " + line.get());
+                } else {
+                    game.getGameState().getDialogText()
+                            .setText("[???] " + line.get());
+                }
+                line.executeAction(game);
+            } else {
+                if (speaker != null) {
+                    speaker.setCanMove(true);
+                }
+                game.getGameState().hideDialog();
+                game.setCanPause(true);
+                game.getGameState().getPlayer().setCanMove(true);
             }
-            line.executeAction(game);
-        }else{
-            if(speaker != null){
-                speaker.setCanMove(true);
-            }
-            game.getGameState().hideDialog();
-            game.setCanPause(true);
-            game.getGameState().getPlayer().setCanMove(true);
-        }
     }
 
     public void addDialog(Dialog dialog) {
@@ -56,7 +60,7 @@ public class DialogManager implements Persistable {
     }
 
     public boolean hasDialog() {
-        return !dialogs.isEmpty();
+        return !dialogs.isEmpty() && getCurrentDialog().isActive();
     }
 
     public void clear() {

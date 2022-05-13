@@ -113,4 +113,7 @@ public class UIText extends UIComponent{
                     null);
         }
     }
+    public void toggleVisible() {
+        visible = !visible;
+    }
 }

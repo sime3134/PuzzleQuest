@@ -83,7 +83,7 @@ public abstract class UIContainer extends UIComponent {
         margin = new Spacing(5);
         padding = new Spacing(5);
         children = new ArrayList<>();
-        opacity = 0.5f;
+        opacity = 0.3f;
         calculatePosition();
 
         for (UIComponent component : components) {
@@ -159,7 +159,7 @@ public abstract class UIContainer extends UIComponent {
             calculateSize();
             calculatePosition();
 
-            if(opacity < 1){
+            if (opacity < 1) {
                 opacity = (float) Math.min(opacity + 0.05, 1);
             }
 

@@ -18,6 +18,18 @@ public class StateManager {
 
     private final SetupNameState setupNameState;
 
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public State getCurrentState() {
+        return currentState;
+    }
+
+    public PauseMenuState getPauseMenuState() {
+        return pauseMenuState;
+    }
+
     public StateManager(Game game) {
         mainMenuState = new MainMenuState();
         pauseMenuState = new PauseMenuState();
@@ -26,14 +38,6 @@ public class StateManager {
         editorState = new EditorState(game.getContent());
         setupNameState = new SetupNameState();
         gameState = new GameState(game);
-    }
-
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public State getCurrentState() {
-        return currentState;
     }
 
     public void update(Game game) {

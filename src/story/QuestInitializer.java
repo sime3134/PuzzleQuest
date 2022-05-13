@@ -3,6 +3,7 @@ package story;
 import entity.GameObject;
 import main.Game;
 import story.quests.GoToTwoPositions;
+import story.quests.Quest;
 
 public class QuestInitializer {
 

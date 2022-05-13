@@ -23,7 +23,6 @@ public class UIButton extends UIClickable{
     private Color backgroundColor;
     private Color hoverColor;
     private Color clickColor;
-
     private Color borderColor;
 
     public UIButton(String buttonText, Action action) {
@@ -80,18 +79,20 @@ public class UIButton extends UIClickable{
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(
-                getSprite(),
-                absolutePosition.intX(),
-                absolutePosition.intY(),
-                null
-        );
+        if(visible) {
+            g.drawImage(
+                    getSprite(),
+                    absolutePosition.intX(),
+                    absolutePosition.intY(),
+                    null
+            );
 
-        g.drawImage(buttonText.getSprite(),
-                absolutePosition.intX() + buttonText.getRelativePosition().intX(),
-                absolutePosition.intY() + buttonText.getRelativePosition().intY(),
-                null
-        );
+            g.drawImage(buttonText.getSprite(),
+                    absolutePosition.intX() + buttonText.getRelativePosition().intX(),
+                    absolutePosition.intY() + buttonText.getRelativePosition().intY(),
+                    null
+            );
+        }
     }
 
     @Override

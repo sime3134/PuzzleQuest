@@ -30,7 +30,7 @@ public class Dialog {
         lines = new ArrayList<>();
         currentLineIndex = 0;
         this.action = action;
-        active = true;
+        this.active = true;
     }
 
     public DialogLine getCurrentLine(Game game) {

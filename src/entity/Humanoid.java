@@ -16,6 +16,18 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
 
     protected Vector2D worldMapPosition;
 
+    protected String currentMapName;
+
+    //region Getters & Setters (click to view)
+
+    public void setCurrentMapName(String currentMapName) {
+        this.currentMapName = currentMapName;
+    }
+
+    public String getCurrentMapName() {
+        return currentMapName;
+    }
+
     public Vector2D getWorldMapPosition() {
         return worldMapPosition;
     }
@@ -32,6 +44,8 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
         this.name = name;
     }
 
+    //endregion
+
     protected Humanoid(EntityController entityController){
         super(entityController);
         this.collisionBoxWidth = 24;
@@ -43,7 +57,7 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
         this.selectionCircleRenderYOffset = (int) (selectionCircleHeight + 9f);
     }
 
-    protected Humanoid(EntityController entityController, SpriteSet spriteSet, String name) {
+    protected Humanoid(EntityController entityController, SpriteSet spriteSet, String name, String currentMapName) {
         super(entityController, spriteSet);
         this.worldMapPosition = new Vector2D(0,0);
         this.name = name;
@@ -54,6 +68,7 @@ public abstract class Humanoid extends MovingEntity implements Persistable {
         this.selectionCircleHeight = 22;
         this.selectionCircleRenderXOffset = 5;
         this.selectionCircleRenderYOffset = (int) (selectionCircleHeight + 9f);
+        this.currentMapName = currentMapName;
     }
 
     @Override

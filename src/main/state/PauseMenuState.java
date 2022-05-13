@@ -1,7 +1,7 @@
 package main.state;
 
 import main.Game;
-import story.Quest;
+import story.quests.Quest;
 import ui.*;
 import ui.clickable.UIButton;
 
@@ -14,6 +14,12 @@ import java.awt.*;
 public class PauseMenuState extends State{
 
     private UIContainer questMenu;
+
+    private UIButton saveGame;
+
+    public UIButton getSaveGameButton() {
+        return saveGame;
+    }
 
     public PauseMenuState() {
         super();
@@ -29,7 +35,7 @@ public class PauseMenuState extends State{
         uiContainers.add(container);
 
         UIButton resumeGame = new UIButton("Resume Game", (game) -> game.resumeGame());
-        UIButton saveGame = new UIButton("Save Game", (game) -> game.saveGame());
+        saveGame = new UIButton("Save Game", (game) -> game.saveGame());
         UIButton mainMenu = new UIButton("Main Menu", (game) -> game.goToMainMenu());
         UIButton settings = new UIButton("Settings", (game) -> game.goToSettingsMenu());
         UIButton exitGame = new UIButton("Exit Game", (game) -> System.exit(0));

@@ -27,7 +27,7 @@ public class GoToTarget extends QuestStep {
     }
 
     @Override
-    protected void update(Game game) {
+    public void update(Game game) {
 
     }
 }

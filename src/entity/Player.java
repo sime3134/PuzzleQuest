@@ -20,7 +20,7 @@ public class Player extends Humanoid {
     private final SelectionCircle selectionCircle;
 
     public Player(EntityController entityController, SpriteSet spriteSet, String name){
-        super(entityController, spriteSet, name);
+        super(entityController, spriteSet, name, "map5");
         this.speed = 5;
         this.selectionCircle = new SelectionCircle(38, 22);
         this.selectionCircle.setRenderOffset(new Vector2D(5, selectionCircle.getHeight() + 9f));
@@ -155,7 +155,10 @@ public class Player extends Humanoid {
                 .append(DELIMITER)
                 .append(worldMapPosition.serialize())
                 .append(DELIMITER)
-                .append(position.serialize());
+                .append(position.serialize())
+                .append(DELIMITER)
+                .append(currentMapName)
+                .append(DELIMITER);
 
         return sb.toString();
     }
@@ -166,5 +169,6 @@ public class Player extends Humanoid {
         name = tokens[1];
         worldMapPosition.applySerializedData(tokens[2]);
         position.applySerializedData(tokens[3]);
+        currentMapName = tokens[4];
     }
 }

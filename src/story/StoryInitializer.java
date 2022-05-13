@@ -18,6 +18,7 @@ public class StoryInitializer {
     private StoryInitializer() {}
 
     public static void initializeIntroDialog(Game game) {
+        game.getPauseState().getSaveGameButton().setVisible(false);
         Dialog intro = new Dialog(ignore -> {
             game.getGameState().getDialogManager().clear();
             game.getGameState().getQuestManager().startQuest(0);
@@ -31,7 +32,7 @@ public class StoryInitializer {
                                 ignore3 -> {
                                     moveNpcToOtherMap(game, npcBill, "house1");
                                     npcBill.setActivity("wander_random");
-                                    addBillFirstDialog(game, npcBill);
+                                    npcBill.getDialogManager().getCurrentDialog().setActive(true);
                                 }
                         ));
                         changeScenerySprite(game, 29880, "blue_open_door2");
@@ -74,9 +75,11 @@ public class StoryInitializer {
     }
 
     public static void initializeDialogs(Game game) {
+        addBillFirstDialog(game);
     }
 
-    private static void addBillFirstDialog(Game game, NPC npcBill){
+    private static void addBillFirstDialog(Game game){
+        NPC npcBill = (NPC) game.getGameObjectById(19554);
         Dialog dialog19554_1 = new Dialog();
 
         dialog19554_1.addLine(new DialogLine("My name is Bill by the way. \nWelcome to my home."));
@@ -99,6 +102,7 @@ public class StoryInitializer {
                     }
             ));
         }));
+        dialog19554_1.setActive(false);
 
         npcBill.addDialog(dialog19554_1);
 
@@ -112,12 +116,16 @@ public class StoryInitializer {
         dialog19554_2.addLine(new DialogLine("What medallion you say?"));
         dialog19554_2.addLine(new DialogLine("The medallion contains a stone of life, I'm sure you have heard " +
                 "of them?"));
+
         dialog19554_2.addLine(new DialogLine("The legends say that this island was originally just dead rock."));
         dialog19554_2.addLine(new DialogLine("But one day an adventurer found the stone of life in the " +
                 "medallion\nand with it, created life on the island."));
         dialog19554_2.addLine(new DialogLine("And now, without it, it is once again dying."));
         dialog19554_2.addLine(new DialogLine("If you want to hear more about it, talk to the king in his\n" +
-                "castle south-east of here.", ignore -> npcBill.setActivity("wander_random")
+                "castle south-east of here.", ignore -> {
+            npcBill.setActivity("wander_random");
+            game.getPauseState().getSaveGameButton().setVisible(true);
+        }
         ));
 
         npcBill.addDialog(dialog19554_2);

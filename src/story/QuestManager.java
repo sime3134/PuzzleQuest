@@ -2,6 +2,7 @@ package story;
 
 import IO.Persistable;
 import main.Game;
+import story.quests.Quest;
 
 import java.util.ArrayList;
 import java.util.List;

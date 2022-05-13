@@ -1,7 +1,6 @@
 package story.quests;
 
 import core.Vector2D;
-import story.Quest;
 import story.QuestStep;
 import story.quest_steps.GoToTarget;
 

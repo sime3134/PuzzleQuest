@@ -61,9 +61,9 @@ public class Game implements Persistable {
     private Vector2D shouldChangeToPosition;
 
     private final UIContainer debugSettingsContainer;
+
     private boolean canPause;
     private boolean showBlackScreen;
-
     private boolean showingBlackScreenWithTimer;
 
     //region Getters & Setters (Click to view)
@@ -86,6 +86,10 @@ public class Game implements Persistable {
 
     public EditorState getEditorState() {
         return stateManager.getEditorState();
+    }
+
+    public PauseMenuState getPauseState() {
+        return stateManager.getPauseMenuState();
     }
 
     public GameObject getGameObjectById(long id) {
@@ -181,8 +185,6 @@ public class Game implements Persistable {
         debugSettingsContainer = new UISettingsContainer(maps.getCurrent(), content);
         gameFrame = new GameFrame(this);
         canPause = true;
-        showBlackScreen = false;
-        showingBlackScreenWithTimer = false;
     }
 
     public void update() {
@@ -268,8 +270,7 @@ public class Game implements Persistable {
         ProgressIO.load(this, "./save_file.txt");
         addGameObject(getGameState().getPlayer());
         camera.focusOn(stateManager.getGameState().getPlayer());
-        loadMap(stateManager.getGameState().getWorldMap()[getGameState().getPlayer().getWorldMapPosition().intX()]
-                [getGameState().getPlayer().getWorldMapPosition().intY()]);
+        loadMap(getGameState().getPlayer().getCurrentMapName());
         StoryInitializer.initializeDialogs(this);
         stateManager.goToGameState();
         audioPlayer.playMusic("suburbs.wav");
@@ -354,6 +355,7 @@ public class Game implements Persistable {
     public void loadMap(String name) {
         gameObjects.removeIf(gameObject -> !(gameObject instanceof Player));
         maps.setCurrent(maps.getByName(name));
+        getGameState().getPlayer().setCurrentMapName(maps.getCurrent().getName());
         gameObjects.addAll(maps.getCurrent().getSceneryList());
         gameObjects.addAll(maps.getCurrent().getNPCList());
         if(getCurrentMap().getWidth() < Settings.getScreenWidth() || getCurrentMap().getHeight() < Settings.getScreenHeight()){
@@ -439,7 +441,7 @@ public class Game implements Persistable {
                 NPC npc = new NPC();
                 npc.applySerializedData(npcString);
                 npc.applyGraphics(content);
-                maps.getByName(npc.getMapName()).addNPC(npc);
+                maps.getByName(npc.getCurrentMapName()).addNPC(npc);
             }
         }
 

@@ -186,10 +186,8 @@ public class GameState extends State implements Persistable {
     @Override
     public void applySerializedData(String serializedData) {
         String[] sections = serializedData.split(INNER_SECTION_DELIMETER);
-        System.out.println(sections[0]);
         player.applySerializedData(sections[0]);
         if(sections.length > 1) {
-            System.out.println(sections[1]);
             questManager.applySerializedData(sections[1]);
         }
     }

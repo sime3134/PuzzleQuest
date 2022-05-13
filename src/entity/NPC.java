@@ -34,8 +34,6 @@ public class NPC extends Humanoid {
 
     private String spriteSetName;
 
-    private String currentMapName;
-
     //region Getters & Setters (click to view)
 
     public void setPath(List<Vector2D> path) {
@@ -44,10 +42,6 @@ public class NPC extends Humanoid {
 
     public AIManager getBrain() {
         return brain;
-    }
-
-    public void setCurrentMapName(String currentMapName) {
-        this.currentMapName = currentMapName;
     }
 
     public NPC getCopy(String mapName) {
@@ -72,10 +66,6 @@ public class NPC extends Humanoid {
         return secondLoopTarget;
     }
 
-    public String getMapName() {
-        return currentMapName;
-    }
-
     public DialogManager getDialogManager() {
         return dialogManager;
     }
@@ -89,7 +79,7 @@ public class NPC extends Humanoid {
     }
 
     public NPC(EntityController entityController, SpriteSet spriteSet, String name, String mapName) {
-        super(entityController, spriteSet, name);
+        super(entityController, spriteSet, name, mapName);
         activity = "stand";
         spriteSetName = spriteSet.getName();
         brain = new AIManager(this);
@@ -97,7 +87,6 @@ public class NPC extends Humanoid {
         path = new ArrayList<>();
         firstLoopTarget = new Vector2D(0, 0);
         secondLoopTarget = new Vector2D(100, 100);
-        this.currentMapName = mapName;
     }
 
     @Override
