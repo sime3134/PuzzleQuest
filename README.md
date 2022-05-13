@@ -9,7 +9,9 @@
 
 # Controls
 - Move the player with WASD.
-- Interact with NPCs by facing them and pressing E. At the moment this makes the NPC change path.
+- Interact with NPCs or items by facing them and pressing E. At the moment this moves the dialog with the NPC forward.
+  - It also lets you "sleep" in the bed and open chests.
+  - We have just started writing dialog so when the same messages starts repeating that means that there is no more dialog added to the game.
 - Pause the game with ESC.
 - Display the debug mode with F2.
 - Speed up the game with F8.
