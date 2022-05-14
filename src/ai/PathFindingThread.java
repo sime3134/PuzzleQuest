@@ -7,6 +7,11 @@ import map.PathFinder;
 
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Ïmplements a thread to find a path with path finding. Read more about pathfinding in the
+ * PathFinder class.
+ */
 public class PathFindingThread extends Thread{
     private final Game game;
     private final NPC currentNPC;

@@ -2,11 +2,16 @@ package story.quests;
 
 import IO.Persistable;
 import main.Game;
-import story.QuestStep;
+import story.quest_steps.QuestStep;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Implements a quest that has one or several steps that should be completed to
+ * complete the quest in whole.
+ */
 public abstract class Quest implements Persistable {
     private final int id;
     private final String name;

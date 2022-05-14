@@ -3,6 +3,11 @@ package dialog;
 import core.Action;
 import main.Game;
 
+/**
+ * @author Simon Jern
+ * Implements a dialog line to be used in a dialog. A dialog can have an action occur
+ * when the line is shown in the dialog.
+ */
 public class DialogLine {
     private final String line;
     private final Action action;

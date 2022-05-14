@@ -13,6 +13,10 @@ import entity.TeleportScenery;
 import main.Game;
 import map.GameMap;
 
+/**
+ * @author Simon Jern
+ * Initializes the story in the game.
+ */
 public class StoryInitializer {
 
     private StoryInitializer() {}

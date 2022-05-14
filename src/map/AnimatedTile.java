@@ -7,6 +7,10 @@ import settings.Settings;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * @author Simon Jern
+ * Implements an animated tile.
+ */
 public class AnimatedTile extends Tile{
     private AnimationManager animationManager;
 

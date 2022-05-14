@@ -10,6 +10,10 @@ import main.Game;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Implements a task that uses path finding to move the entity to a specific position on the current map.
+ */
 public class GoToPosition extends AITask{
 
     private PathFindingThread thread;

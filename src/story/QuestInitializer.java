@@ -5,6 +5,10 @@ import main.Game;
 import story.quests.GoToTwoPositions;
 import story.quests.Quest;
 
+/**
+ * @quest Simon Jern
+ * Initializes all quests in the game.
+ */
 public class QuestInitializer {
 
     public void initializeQuests(Game game, QuestManager questManager) {

@@ -19,7 +19,7 @@ import java.awt.event.KeyEvent;
 
 /**
  * @author Simon Jern
- * Tool to move and delete scenery on the game map.
+ * Tool to move and delete a game object on the game map.
  */
 public class GameObjectTool extends MouseAction{
 

@@ -7,6 +7,10 @@ import main.Game;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Implements a manager to keep track of a set of dialogs for an entity or for the game.
+ */
 public class DialogManager implements Persistable {
 
     private final NPC speaker;
@@ -30,6 +34,9 @@ public class DialogManager implements Persistable {
         this.currentDialogIndex = 0;
     }
 
+    /**
+     * Make the dialog continue.
+     */
     public void handleDialog(Game game) {
             DialogLine line = dialogs.get(currentDialogIndex).getCurrentLine(game);
 
@@ -67,12 +74,18 @@ public class DialogManager implements Persistable {
         dialogs.clear();
     }
 
+    /**
+     * Moves to the next dialog.
+     */
     public void nextDialog() {
         if(dialogs.size() > currentDialogIndex + 1) {
             currentDialogIndex++;
         }
     }
 
+    /**
+     * Returns the values needed to save this class to file.
+     */
     @Override
     public String serialize() {
         StringBuilder sb = new StringBuilder();
@@ -82,6 +95,10 @@ public class DialogManager implements Persistable {
         return sb.toString();
     }
 
+    /**
+     * Restores the dialog manager from file.
+     * @param serializedData the values to restore.
+     */
     @Override
     public void applySerializedData(String serializedData) {
         String[] tokens = serializedData.split(DELIMITER);

@@ -2,9 +2,12 @@ package story.quest_steps;
 
 import core.Vector2D;
 import main.Game;
-import story.QuestStep;
 import story.QuestStepTransition;
 
+/**
+ * @author Simon Jern
+ * Implements a quest step where the player should go to a certain position.
+ */
 public class GoToTarget extends QuestStep {
 
     private final Vector2D positionTarget;

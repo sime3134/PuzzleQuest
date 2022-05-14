@@ -2,6 +2,10 @@ package story;
 
 import main.Game;
 
+/**
+ * @author Simon Jern
+ * Transitions to the next quest step in a quest.
+ */
 public class QuestStepTransition {
 
     private final QuestStepCondition condition;

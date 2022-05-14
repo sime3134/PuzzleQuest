@@ -7,6 +7,10 @@ import story.quests.Quest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Manages all quests in the game.
+ */
 public class QuestManager implements Persistable {
 
     private final List<Quest> quests;

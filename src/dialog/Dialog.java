@@ -6,6 +6,11 @@ import main.Game;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Implements a dialog in the game. A dialog contains one or several lines and
+ * can have an action occur when the dialog has finished.
+ */
 public class Dialog {
     private final List<DialogLine> lines;
     private int currentLineIndex;

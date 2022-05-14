@@ -4,6 +4,10 @@ import content.ContentManager;
 import core.Value;
 import core.Vector2D;
 
+/**
+ * @author Simon Jern
+ * Implements a Scenery that stores information about a location that an entity should be moved to.
+ */
 public class TeleportScenery extends Scenery{
     private String mapToTeleportTo;
     private Vector2D positionToTeleportTo;

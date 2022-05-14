@@ -1,9 +1,13 @@
 package story.quests;
 
 import core.Vector2D;
-import story.QuestStep;
+import story.quest_steps.QuestStep;
 import story.quest_steps.GoToTarget;
 
+/**
+ * @author Simon Jern
+ * Implements a quest where the player should go to two different locations.
+ */
 public class GoToTwoPositions extends Quest {
 
     public GoToTwoPositions(String name, int id) {

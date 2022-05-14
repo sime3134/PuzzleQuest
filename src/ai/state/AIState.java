@@ -7,6 +7,8 @@ import main.Game;
  * @author Simon Jern
  * An entity with an AI can be in several states representing their current action and goal.
  * This abstract class is the skeleton for the actual doable states like Wander, Stand etc.
+ * The difference between an AITask and AIState is that an AIState will switch to another AIState when it's
+ * finished but an AITask will just end.
  */
 public abstract class AIState {
     private final AIStateTransition transition;

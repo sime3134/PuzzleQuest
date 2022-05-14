@@ -6,6 +6,11 @@ import core.Vector2D;
 import entity.NPC;
 import main.Game;
 
+/**
+ * @author Simon Jern
+ * Implements a task that moves an entity to a specific place on the current map. Notice that
+ * this task doesn't use path finding which means the entity might get stuck in scenery.
+ */
 public class GoToPositionWithoutPathFinding extends AITask {
 
     private final Vector2D target;
