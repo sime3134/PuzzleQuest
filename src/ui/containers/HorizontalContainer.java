@@ -1,7 +1,7 @@
-package ui;
+package ui.containers;
 
 import core.Vector2D;
-import main.Game;
+import ui.UIComponent;
 
 /**
  * @author Simon Jern

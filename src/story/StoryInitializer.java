@@ -22,10 +22,10 @@ public class StoryInitializer {
     private StoryInitializer() {}
 
     public static void initializeIntroDialog(Game game) {
-        game.getPauseState().getSaveGameButton().setVisible(false);
+        game.getPauseState().setCanSave(false);
         Dialog intro = new Dialog(ignore -> {
             game.getGameState().getDialogManager().clear();
-            game.getGameState().getQuestManager().startQuest(0);
+            game.getGameState().getQuestManager().startQuest(game, 0);
             NPC npcBill = (NPC)game.getGameObjectById(19554);
             npcBill.getBrain().addTask(new GoToPosition(npcBill, new Vector2D(613, 1968),
 
@@ -84,11 +84,12 @@ public class StoryInitializer {
 
     private static void addBillFirstDialog(Game game){
         NPC npcBill = (NPC) game.getGameObjectById(19554);
-        Dialog dialog19554_1 = new Dialog();
+        Dialog dialog19554_1 = new Dialog(ignore -> npcBill.getDialogManager().nextDialog());
 
         dialog19554_1.addLine(new DialogLine("My name is Bill by the way. \nWelcome to my home."));
         dialog19554_1.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest in the bed " +
                 "over there and we will talk tomorrow.", ignore -> {
+            game.getGameState().getQuestManager().getQuestById(0).goToNextStep(game);
             Scenery bed = (Scenery) game.getGameObjectById(89555);
             bed.setAction(ignore4 -> game.showBlackScreen(2000, game,
                     ignore5 -> {
@@ -110,35 +111,44 @@ public class StoryInitializer {
 
         npcBill.addDialog(dialog19554_1);
 
-        Dialog dialog19554_2 = new Dialog(ignore -> npcBill.getDialogManager().nextDialog());
-
-        dialog19554_2.addLine(new DialogLine("Good morning. Did you sleep well?"));
-        dialog19554_2.addLine(new DialogLine("You have bad luck washing ashore on this island.\n" +
-                "Did you notice how the nature has died outside?"));
-        dialog19554_2.addLine(new DialogLine("The island is dying after Group19 stole\n" +
-                "the medallion keeping it in balance."));
-        dialog19554_2.addLine(new DialogLine("What medallion you say?"));
-        dialog19554_2.addLine(new DialogLine("The medallion contains a stone of life, I'm sure you have heard " +
-                "of them?"));
-
-        dialog19554_2.addLine(new DialogLine("The legends say that this island was originally just dead rock."));
-        dialog19554_2.addLine(new DialogLine("But one day an adventurer found the stone of life in the " +
-                "medallion\nand with it, created life on the island."));
-        dialog19554_2.addLine(new DialogLine("And now, without it, it is once again dying."));
-        dialog19554_2.addLine(new DialogLine("If you want to hear more about it, talk to the king in his\n" +
-                "castle south-east of here.", ignore -> {
-            npcBill.setActivity("wander_random");
-            game.getPauseState().getSaveGameButton().setVisible(true);
-        }
-        ));
+        Dialog dialog19554_2 = new Dialog();
+        dialog19554_2.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest in the bed " +
+                "over there and we will talk tomorrow."));
 
         npcBill.addDialog(dialog19554_2);
 
-        Dialog dialog19554_3 = new Dialog();
+        Dialog dialog19554_3 = new Dialog(ignore -> {
+            npcBill.getDialogManager().nextDialog();
+            game.getGameState().getQuestManager().getQuestById(0).goToNextStep(game);
+        });
 
-        dialog19554_3.addLine(new DialogLine("If you want to hear more about the missing medallion\n" +
-                "talk to the king in his castle south-east of here."));
+        dialog19554_3.addLine(new DialogLine("Good morning. Did you sleep well?"));
+        dialog19554_3.addLine(new DialogLine("You have bad luck washing ashore on this island.\n" +
+                "Did you notice how the nature has died outside?"));
+        dialog19554_3.addLine(new DialogLine("The island is dying after Group19 stole\n" +
+                "the medallion keeping it in balance."));
+        dialog19554_3.addLine(new DialogLine("What medallion you say?"));
+        dialog19554_3.addLine(new DialogLine("The medallion contains a stone of life, I'm sure you have heard " +
+                "of them?"));
+
+        dialog19554_3.addLine(new DialogLine("The legends say that this island was originally just dead rock."));
+        dialog19554_3.addLine(new DialogLine("But one day an adventurer found the stone of life in the " +
+                "medallion\nand with it, created life on the island."));
+        dialog19554_3.addLine(new DialogLine("And now, without it, it is once again dying."));
+        dialog19554_3.addLine(new DialogLine("If you want to hear more about it, talk to the king in his\n" +
+                "castle south-east of here.", ignore -> {
+            npcBill.setActivity("wander_random");
+            game.getPauseState().setCanSave(true);
+        }
+        ));
 
         npcBill.addDialog(dialog19554_3);
+
+        Dialog dialog19554_4 = new Dialog();
+
+        dialog19554_4.addLine(new DialogLine("If you want to hear more about the missing medallion\n" +
+                "talk to the king in his castle south-east of here."));
+
+        npcBill.addDialog(dialog19554_4);
     }
 }

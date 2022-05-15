@@ -5,6 +5,10 @@ import settings.Settings;
 import ui.*;
 import ui.clickable.UIButton;
 import ui.clickable.UICheckbox;
+import ui.clickable.UIText;
+import ui.containers.HorizontalContainer;
+import ui.containers.UIContainer;
+import ui.containers.VerticalContainer;
 import utilities.WorldMapDrawer;
 
 import java.awt.*;

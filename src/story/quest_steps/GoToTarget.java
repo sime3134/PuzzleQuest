@@ -13,8 +13,8 @@ public class GoToTarget extends QuestStep {
     private final Vector2D positionTarget;
     private final Vector2D worldMapTarget;
 
-    public GoToTarget(Vector2D positionTarget, Vector2D worldMapTarget, String name) {
-        super(name);
+    public GoToTarget(Vector2D positionTarget, Vector2D worldMapTarget, String name, String addToDescription) {
+        super(name, addToDescription);
         this.positionTarget = positionTarget;
         this.worldMapTarget = worldMapTarget;
     }

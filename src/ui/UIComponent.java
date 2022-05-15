@@ -2,6 +2,7 @@ package ui;
 
 import core.Vector2D;
 import main.Game;
+import ui.containers.UIContainer;
 
 import java.awt.*;
 
@@ -101,6 +102,10 @@ public abstract class UIComponent {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
     //endregion

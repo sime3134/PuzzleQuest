@@ -22,7 +22,8 @@ import map.MapManager;
 import map.PathFinder;
 import settings.Settings;
 import story.StoryInitializer;
-import ui.UIContainer;
+import ui.NotificationManager;
+import ui.containers.UIContainer;
 
 import java.awt.*;
 import java.security.SecureRandom;
@@ -61,6 +62,8 @@ public class Game implements Persistable {
     private Vector2D shouldChangeToPosition;
 
     private final UIContainer debugSettingsContainer;
+
+    private final NotificationManager notificationManager;
 
     private boolean canPause;
     private boolean showBlackScreen;
@@ -176,6 +179,7 @@ public class Game implements Persistable {
         maps = new MapManager();
         maps.loadAll(content, "/maps");
         stateManager = new StateManager(this);
+        notificationManager = new NotificationManager();
         time = new Time();
         gameController = new GameController();
         debug = new Debug();
@@ -190,6 +194,7 @@ public class Game implements Persistable {
     public void update() {
         gameController.update(this);
         stateManager.update(this);
+        notificationManager.update(this);
         maps.update(this);
         camera.update(maps.getCurrent());
         time.update();
@@ -246,6 +251,7 @@ public class Game implements Persistable {
         }
 
         stateManager.draw(g);
+        notificationManager.draw(g);
 
         if(Settings.isDebugMode()){
             debug.draw(this, g);
@@ -267,6 +273,7 @@ public class Game implements Persistable {
     }
 
     public void loadGame() {
+        getGameState().getQuestManager().initializeQuests(this);
         ProgressIO.load(this, "./save_file.txt");
         addGameObject(getGameState().getPlayer());
         camera.focusOn(stateManager.getGameState().getPlayer());
@@ -308,6 +315,12 @@ public class Game implements Persistable {
         }
     }
 
+    public void goToQuestViewState() {
+        if(canPause) {
+            stateManager.goToQuestViewState();
+        }
+    }
+
     public void goToSettingsMenu() {
         stateManager.goToSettingsState();
     }
@@ -326,10 +339,6 @@ public class Game implements Persistable {
 
     public void goToLastState() {
         stateManager.goToLastState();
-    }
-
-    public void showDialog(String text) {
-        System.out.println(text);
     }
 
     public void initializeNPCs(int numberToAdd) {
@@ -499,5 +508,9 @@ public class Game implements Persistable {
                 action.execute(game);
             }
         }, delay);
+    }
+
+    public void displayNotification(String notification) {
+        notificationManager.displayNotification(notification);
     }
 }

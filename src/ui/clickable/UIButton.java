@@ -3,9 +3,8 @@ package ui.clickable;
 import core.Action;
 import main.Game;
 import ui.Spacing;
-import ui.UIContainer;
-import ui.UIText;
-import ui.VerticalContainer;
+import ui.containers.UIContainer;
+import ui.containers.VerticalContainer;
 
 import java.awt.*;
 

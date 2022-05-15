@@ -1,8 +1,11 @@
-package ui;
+package ui.containers;
 
 import core.Vector2D;
 import main.Game;
 import settings.Settings;
+import ui.Alignment;
+import ui.Spacing;
+import ui.UIComponent;
 import utilities.ImgUtils;
 
 import java.awt.*;
@@ -52,6 +55,14 @@ public abstract class UIContainer extends UIComponent {
         this.borderColor = borderColor;
     }
 
+    public int getFixedHeight() {
+        return fixedHeight;
+    }
+
+    public int getFixedWidth() {
+        return fixedWidth;
+    }
+
     @Override
     public Image getSprite() {
         if(opacity < 1){
@@ -70,6 +81,10 @@ public abstract class UIContainer extends UIComponent {
 
     public void setCenterChildren(boolean centerChildren) {
         this.centerChildren = centerChildren;
+    }
+
+    public List<UIComponent> getChildren() {
+        return children;
     }
 
     //endregion
@@ -195,9 +210,5 @@ public abstract class UIContainer extends UIComponent {
 
     public void removeComponent(UIComponent component) {
         children.remove(component);
-    }
-
-    public int getFixedHeight() {
-        return fixedHeight;
     }
 }

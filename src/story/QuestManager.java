@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class QuestManager implements Persistable {
 
-    private final List<Quest> quests;
+    private List<Quest> quests;
 
     public QuestManager() {
         quests = new ArrayList<>();
@@ -34,13 +34,14 @@ public class QuestManager implements Persistable {
     }
 
     public void initializeQuests(Game game) {
+        quests = new ArrayList<>();
         new QuestInitializer().initializeQuests(game, this);
     }
 
-    public void startQuest(int id) {
+    public void startQuest(Game game, int id) {
         for(Quest quest : quests){
             if(quest.getId() == id && !quest.isActive()){
-                quest.initialize();
+                quest.initialize(game);
                 break;
             }
         }
@@ -72,5 +73,14 @@ public class QuestManager implements Persistable {
                 }
             }
         }
+    }
+
+    public Quest getQuestById(int id) {
+        for(Quest quest : quests){
+            if(quest.getId() == id){
+                return quest;
+            }
+        }
+        return null;
     }
 }

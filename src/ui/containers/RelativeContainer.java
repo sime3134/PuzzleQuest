@@ -1,4 +1,4 @@
-package ui;
+package ui.containers;
 
 import core.Vector2D;
 import display.Camera;

@@ -5,6 +5,7 @@ import main.Game;
 import story.quest_steps.QuestStep;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ import java.util.List;
 public abstract class Quest implements Persistable {
     private final int id;
     private final String name;
+
+    private String description;
     private boolean active;
     private boolean finished;
     private final List<QuestStep> steps;
@@ -27,9 +30,18 @@ public abstract class Quest implements Persistable {
         return name;
     }
 
-    protected Quest(String name, int id) {
+    public QuestStep getCurrentStep() {
+        return steps.get(currentStep);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    protected Quest(String name, String startingDesc, int id) {
         steps = new ArrayList<>();
         this.name = name;
+        this.description = startingDesc;
         this.id = id;
     }
 
@@ -37,9 +49,10 @@ public abstract class Quest implements Persistable {
         steps.get(currentStep).update(game);
 
         if(steps.get(currentStep).shouldTransition(game)){
-            game.showDialog("Finished step " + steps.get(currentStep).getName() + " in quest " + name);
+            game.displayNotification("Quest '" + name  + "' updated.");
             if(currentStep < steps.size()) {
                 currentStep++;
+                description += steps.get(currentStep).getDescription();
             }else{
                 disengage(game);
             }
@@ -49,20 +62,25 @@ public abstract class Quest implements Persistable {
     protected void disengage(Game game) {
         active = false;
         finished = true;
-        game.showDialog("Finished the quest: " + name);
+        game.displayNotification("Finished quest: " + name);
     }
 
-    public void addQuestStep(QuestStep step){
-        steps.add(step);
+    public void addQuestStep(QuestStep... questSteps){
+        steps.addAll(Arrays.asList(questSteps));
     }
 
     public boolean isActive() {
         return active;
     }
 
-    public void initialize() {
-        System.out.println("Quest '" + name  + "' started");
+    public void initialize(Game game) {
+        game.displayNotification("Quest '" + name  + "' started");
         active = true;
+    }
+    public void goToNextStep(Game game) {
+        game.displayNotification("Quest '" + name  + "' updated.");
+        currentStep++;
+        description += steps.get(currentStep).getDescription();
     }
 
     @Override
@@ -91,5 +109,8 @@ public abstract class Quest implements Persistable {
         active = Boolean.parseBoolean(tokens[3]);
         finished = Boolean.parseBoolean(tokens[4]);
         currentStep = Integer.parseInt(tokens[5]);
+        for(int i = currentStep; i > 0; i--){
+            description += steps.get(i).getDescription();
+        }
     }
 }

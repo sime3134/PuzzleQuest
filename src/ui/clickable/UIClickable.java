@@ -32,7 +32,7 @@ public abstract class UIClickable extends UIComponent implements MouseConsumer {
     @Override
     public abstract void draw(Graphics g);
 
-    private Rectangle getBounds(){
+    protected Rectangle getBounds(){
         return new Rectangle(
                 absolutePosition.intX(),
                 absolutePosition.intY(),

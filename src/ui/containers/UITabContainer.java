@@ -1,6 +1,8 @@
-package ui;
+package ui.containers;
 
 import main.Game;
+import ui.Spacing;
+import ui.clickable.UIText;
 import ui.clickable.UIClickable;
 import ui.clickable.UIHideButton;
 

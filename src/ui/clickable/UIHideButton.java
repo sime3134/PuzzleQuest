@@ -3,7 +3,7 @@ package ui.clickable;
 import core.Action;
 import main.Game;
 import ui.UIComponent;
-import ui.UIContainer;
+import ui.containers.UIContainer;
 
 import java.awt.*;
 

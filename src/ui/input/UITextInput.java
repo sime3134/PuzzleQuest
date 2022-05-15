@@ -2,10 +2,10 @@ package ui.input;
 
 import input.KeyInputConsumer;
 import main.Game;
-import ui.HorizontalContainer;
+import ui.containers.HorizontalContainer;
 import ui.Spacing;
-import ui.UIContainer;
-import ui.UIText;
+import ui.containers.UIContainer;
+import ui.clickable.UIText;
 import ui.clickable.UIClickable;
 
 import java.awt.*;

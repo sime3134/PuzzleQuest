@@ -1,9 +1,12 @@
 package main.state;
 
 import main.Game;
-import story.quests.Quest;
-import ui.*;
+import ui.Alignment;
+import ui.clickable.UIText;
 import ui.clickable.UIButton;
+import ui.containers.HorizontalContainer;
+import ui.containers.UIContainer;
+import ui.containers.VerticalContainer;
 
 import java.awt.*;
 
@@ -13,20 +16,20 @@ import java.awt.*;
  */
 public class PauseMenuState extends State{
 
-    private UIContainer questMenu;
+    private boolean canSave;
 
-    private UIButton saveGame;
-
-    public UIButton getSaveGameButton() {
-        return saveGame;
+    public void setCanSave(boolean canSave) {
+        this.canSave = canSave;
     }
 
     public PauseMenuState() {
         super();
+        canSave = true;
     }
 
     @Override
     public void setupUI() {
+        super.setupUI();
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
         UIText title = new UIText("Puzzle Quest 2.0");
@@ -35,7 +38,7 @@ public class PauseMenuState extends State{
         uiContainers.add(container);
 
         UIButton resumeGame = new UIButton("Resume Game", (game) -> game.resumeGame());
-        saveGame = new UIButton("Save Game", (game) -> game.saveGame());
+        UIButton saveGame = new UIButton("Save Game", (game) -> game.saveGame());
         UIButton mainMenu = new UIButton("Main Menu", (game) -> game.goToMainMenu());
         UIButton settings = new UIButton("Settings", (game) -> game.goToSettingsMenu());
         UIButton exitGame = new UIButton("Exit Game", (game) -> System.exit(0));
@@ -49,6 +52,7 @@ public class PauseMenuState extends State{
         saveGame.setClickColor(Color.YELLOW);
         saveGame.setHoverColor(Color.lightGray);
         saveGame.setPadding(25);
+        saveGame.setVisible(canSave);
 
         mainMenu.setBackgroundColor(Color.GRAY);
         mainMenu.setClickColor(Color.YELLOW);
@@ -68,19 +72,6 @@ public class PauseMenuState extends State{
         VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings, exitGame);
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
-
-        questMenu = new VerticalContainer(new UIText("Active quests"));
-        questMenu.setBackgroundColor(Color.DARK_GRAY);
-        questMenu.setBorderColor(Color.WHITE);
-        uiContainers.add(questMenu);
-    }
-
-    public void updateQuestMenu(GameState gameState){
-        questMenu.clear();
-        questMenu.addComponent(new UIText("Active quests"));
-        for(Quest quest : gameState.getQuestManager().getActiveQuests()){
-            questMenu.addComponent(new UIText(quest.getName()));
-        }
     }
 
     @Override

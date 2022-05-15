@@ -16,6 +16,8 @@ public class StateManager {
 
     private final PauseMenuState pauseMenuState;
 
+    private final QuestViewState questViewState;
+
     private final SetupNameState setupNameState;
 
     public GameState getGameState() {
@@ -30,9 +32,15 @@ public class StateManager {
         return pauseMenuState;
     }
 
+
+    public EditorState getEditorState() {
+        return editorState;
+    }
+
     public StateManager(Game game) {
         mainMenuState = new MainMenuState();
         pauseMenuState = new PauseMenuState();
+        questViewState = new QuestViewState();
         settingsState = new SettingsMenuState();
         currentState = new MainMenuState();
         editorState = new EditorState(game.getContent());
@@ -69,7 +77,13 @@ public class StateManager {
         lastState = currentState;
         this.currentState = pauseMenuState;
         currentState.setupUI();
-        pauseMenuState.updateQuestMenu(gameState);
+    }
+
+    public void goToQuestViewState() {
+        lastState = currentState;
+        this.currentState = questViewState;
+        currentState.setupUI();
+        questViewState.updateQuestMenu(gameState);
     }
 
     public void goToSettingsState() {
@@ -89,9 +103,5 @@ public class StateManager {
         currentState = editorState;
         currentState.setupUI();
         editorState.setupToolsContainers(content);
-    }
-
-    public EditorState getEditorState() {
-        return editorState;
     }
 }

@@ -2,6 +2,8 @@ package controller;
 
 import input.Input;
 import main.Game;
+import main.state.GameState;
+import main.state.QuestViewState;
 import settings.Settings;
 
 import java.awt.event.KeyEvent;
@@ -34,6 +36,14 @@ public class GameController {
 
         if(input.isKeyPressed(KeyEvent.VK_ESCAPE)) {
             game.getCurrentState().escapeButtonPressed(game);
+        }
+
+        if(input.isKeyPressed(KeyEvent.VK_Q)) {
+            if(game.getCurrentState() instanceof GameState gameState){
+                gameState.QButtonPressed(game);
+            }else if(game.getCurrentState() instanceof QuestViewState questState){
+                questState.QButtonPressed(game);
+            }
         }
     }
 }

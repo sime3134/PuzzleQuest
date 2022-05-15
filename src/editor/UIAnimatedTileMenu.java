@@ -5,6 +5,10 @@ import input.mouse.action.TilePlacer;
 import map.AnimatedTile;
 import ui.*;
 import ui.clickable.UIToolToggle;
+import ui.containers.HorizontalContainer;
+import ui.containers.UIContainer;
+import ui.containers.UITabContainer;
+import ui.containers.VerticalContainer;
 
 import java.awt.*;
 

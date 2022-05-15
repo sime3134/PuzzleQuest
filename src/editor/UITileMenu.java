@@ -6,6 +6,10 @@ import map.Tile;
 import settings.Settings;
 import ui.*;
 import ui.clickable.UIToolToggle;
+import ui.containers.HorizontalContainer;
+import ui.containers.UIContainer;
+import ui.containers.UITabContainer;
+import ui.containers.VerticalContainer;
 
 import java.awt.*;
 

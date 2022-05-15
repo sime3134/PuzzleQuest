@@ -9,15 +9,15 @@ import java.awt.*;
  * @author Simon Jern
  * Implements the UI dividing content.
  */
-public class UIHorizontalDivider extends UIComponent{
+public class UIVerticalDivider extends UIComponent{
 
     private Image sprite;
 
-    public UIHorizontalDivider(int height) {
-        width = 2;
-        this.height = height;
+    public UIVerticalDivider(int width) {
+        this.width = width;
+        height = 2;
         padding = new Spacing(0);
-        margin = new Spacing(0);
+        margin = new Spacing(0, 16);
         generateSprite();
     }
 

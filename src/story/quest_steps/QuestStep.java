@@ -11,15 +11,22 @@ import story.QuestStepTransition;
 public abstract class QuestStep {
     private final QuestStepTransition transition;
 
-    protected final String name;
+    protected String name;
+
+    protected String description;
 
     public String getName() {
         return name;
     }
 
-    protected QuestStep(String name) {
+    public String getDescription() {
+        return description;
+    }
+
+    protected QuestStep(String name, String description) {
         transition = initializeTransition();
         this.name = name;
+        this.description = description;
     }
 
     public boolean shouldTransition(Game game) {

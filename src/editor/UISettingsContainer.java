@@ -5,7 +5,7 @@ import input.mouse.action.TileWalkableToggle;
 import map.GameMap;
 import settings.Settings;
 import ui.Alignment;
-import ui.VerticalContainer;
+import ui.containers.VerticalContainer;
 import ui.clickable.UICheckbox;
 import ui.clickable.UIMinimap;
 import ui.clickable.UIToolToggle;

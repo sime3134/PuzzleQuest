@@ -4,7 +4,7 @@ import input.Input;
 import input.KeyInputConsumer;
 import input.mouse.MouseHandler;
 import main.Game;
-import ui.UIContainer;
+import ui.containers.UIContainer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -60,7 +60,8 @@ public abstract class State {
     public void draw(Graphics g) {
         mouseHandler.draw(g);
 
-        uiContainers.forEach(uiContainer -> uiContainer.draw(g));
+        uiContainers.stream().filter(uiContainer -> uiContainer.isVisible())
+                .forEach(uiContainer -> uiContainer.draw(g));
     }
 
     public abstract void escapeButtonPressed(Game game);

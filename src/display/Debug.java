@@ -3,7 +3,7 @@ package display;
 import entity.SelectionCircle;
 import main.Game;
 import settings.Settings;
-import ui.UIContainer;
+import ui.containers.UIContainer;
 
 import java.awt.*;
 import java.util.ArrayList;

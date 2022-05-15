@@ -2,9 +2,9 @@ package main.state;
 
 import main.Game;
 import ui.Alignment;
-import ui.UIContainer;
-import ui.UIText;
-import ui.VerticalContainer;
+import ui.containers.UIContainer;
+import ui.clickable.UIText;
+import ui.containers.VerticalContainer;
 import ui.clickable.UIButton;
 import ui.input.UITextInput;
 

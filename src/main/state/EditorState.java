@@ -11,6 +11,10 @@ import input.mouse.action.GameObjectTool;
 import main.Game;
 import ui.*;
 import ui.clickable.UIButton;
+import ui.containers.HorizontalContainer;
+import ui.containers.UIContainer;
+import ui.containers.UITabContainer;
+import ui.containers.VerticalContainer;
 import utilities.WorldMapDrawer;
 
 import javax.swing.*;

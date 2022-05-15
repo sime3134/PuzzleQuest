@@ -11,6 +11,10 @@ import settings.Settings;
 import story.QuestManager;
 import story.StoryInitializer;
 import ui.*;
+import ui.clickable.UIText;
+import ui.containers.HorizontalContainer;
+import ui.containers.UIContainer;
+import ui.containers.VerticalContainer;
 
 import java.awt.*;
 
@@ -78,7 +82,6 @@ public class GameState extends State implements Persistable {
         questManager = new QuestManager();
         dialogManager = new DialogManager();
         initializePlayer(game);
-        questManager.initializeQuests(game);
     }
 
     private void initializePlayer(Game game) {
@@ -92,6 +95,11 @@ public class GameState extends State implements Persistable {
 
         handleWorldMapLocation(game);
         questManager.update(game);
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
     }
 
     private void handleWorldMapLocation(Game game) {
@@ -172,6 +180,10 @@ public class GameState extends State implements Persistable {
         game.pauseGame();
     }
 
+    public void QButtonPressed(Game game){
+        game.goToQuestViewState();
+    }
+
     @Override
     public String serialize() {
         StringBuilder sb = new StringBuilder();
@@ -222,5 +234,6 @@ public class GameState extends State implements Persistable {
         resetPlayerPosition();
         StoryInitializer.initializeIntroDialog(game);
         StoryInitializer.initializeDialogs(game);
+        questManager.initializeQuests(game);
     }
 }
