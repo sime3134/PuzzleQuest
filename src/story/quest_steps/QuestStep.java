@@ -1,5 +1,6 @@
 package story.quest_steps;
 
+import core.Action;
 import main.Game;
 import story.QuestStepTransition;
 
@@ -15,12 +16,22 @@ public abstract class QuestStep {
 
     protected String description;
 
+    private Action action;
+
     public String getName() {
         return name;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    public Action getAction() {
+        return action;
     }
 
     protected QuestStep(String name, String description) {

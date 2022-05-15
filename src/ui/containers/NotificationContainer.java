@@ -13,20 +13,30 @@ public class NotificationContainer extends HorizontalContainer{
 
     private final UIText notificationText;
 
-    private final int order;
+    private int order;
 
-    public NotificationContainer(int order, String notificationString){
+    public void setNotificationText(String notificationString) {
+        this.notificationText.setText(notificationString);
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+        setAbsolutePosition(new Vector2D(Settings.getScreenWidth(),
+                getFixedHeight() * order));
+    }
+
+    public NotificationContainer(){
         super();
         setFixedPosition(true);
-        this.order = order;
+        this.order = 0;
         setBackgroundColor(Color.DARK_GRAY);
         setFixedHeight(40);
         setFixedWidth(500);
         setCenterChildren(true);
-        setAbsolutePosition(new Vector2D(Settings.getScreenWidth() - getFixedWidth(),
-                getFixedHeight() * order));
-        notificationText = new UIText(notificationString);
+        notificationText = new UIText("");
         notificationText.setFontSize(14);
+        setAbsolutePosition(new Vector2D(Settings.getScreenWidth(),
+                getFixedHeight() * order));
         addComponent(notificationText);
     }
 
@@ -40,6 +50,6 @@ public class NotificationContainer extends HorizontalContainer{
     }
 
     public boolean finished(Game game){
-        return numberOfUpdatesWaiting >= game.getTime().getUpdatesFromSeconds(3);
+        return numberOfUpdatesWaiting >= game.getTime().getUpdatesFromSeconds(5);
     }
 }

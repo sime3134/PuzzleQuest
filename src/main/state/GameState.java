@@ -9,8 +9,7 @@ import entity.Player;
 import main.Game;
 import settings.Settings;
 import story.QuestManager;
-import story.StoryInitializer;
-import ui.*;
+import ui.Alignment;
 import ui.clickable.UIText;
 import ui.containers.HorizontalContainer;
 import ui.containers.UIContainer;
@@ -232,8 +231,6 @@ public class GameState extends State implements Persistable {
         nonNPCDialogActive = true;
         player.setName(playerName);
         resetPlayerPosition();
-        StoryInitializer.initializeIntroDialog(game);
-        StoryInitializer.initializeDialogs(game);
         questManager.initializeQuests(game);
     }
 }

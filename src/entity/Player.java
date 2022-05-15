@@ -139,9 +139,8 @@ public class Player extends Humanoid {
                 velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
             }
             if(scenery instanceof TeleportScenery tScenery && tScenery.getActive().get()){
-                String nameOfMapToTeleportTo = tScenery.getMapToTeleportTo();
-                game.setShouldChangeToMap(nameOfMapToTeleportTo);
-                game.setShouldChangeToPosition(tScenery.getPositionToTeleportTo());
+                game.setShouldChangeToMap(tScenery.getMapToTeleportTo());
+                game.setShouldChangeToPosition(tScenery.getPositionToTeleportTo().getCopy());
             }
         }
     }

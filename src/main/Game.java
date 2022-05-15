@@ -21,7 +21,6 @@ import map.GameMap;
 import map.MapManager;
 import map.PathFinder;
 import settings.Settings;
-import story.StoryInitializer;
 import ui.NotificationManager;
 import ui.containers.UIContainer;
 
@@ -45,6 +44,8 @@ public class Game implements Persistable {
     private final List<GameObject> gameObjectsToRemove;
 
     private final List<Scenery> sceneryToOverwrite;
+
+    private final Map<NPC, GameMap> npcToMoveToAnotherMap;
 
     private final Debug debug;
     private final GameController gameController;
@@ -166,6 +167,10 @@ public class Game implements Persistable {
         return maps;
     }
 
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
+    }
+
     //endregion
 
     public Game(){
@@ -176,6 +181,7 @@ public class Game implements Persistable {
         gameObjects = new ArrayList<>();
         gameObjectsToRemove = new ArrayList<>();
         sceneryToOverwrite = new ArrayList<>();
+        npcToMoveToAnotherMap = new HashMap<>();
         maps = new MapManager();
         maps.loadAll(content, "/maps");
         stateManager = new StateManager(this);
@@ -184,7 +190,6 @@ public class Game implements Persistable {
         gameController = new GameController();
         debug = new Debug();
         audioPlayer = new AudioPlayer();
-        audioPlayer.playMusic("menu.wav");
         goToMainMenu();
         debugSettingsContainer = new UISettingsContainer(maps.getCurrent(), content);
         gameFrame = new GameFrame(this);
@@ -215,7 +220,7 @@ public class Game implements Persistable {
         if(shouldChangeToMap != null){
             loadMap(shouldChangeToMap);
             if(shouldChangeToPosition != null) {
-                getGameState().getPlayer().setPosition(shouldChangeToPosition);
+                getGameState().getPlayer().setPosition(shouldChangeToPosition.getCopy());
             }else if(getCurrentMap().getStartingPosition() != null) {
                 getGameState().getPlayer().setPosition(getCurrentMap().getStartingPosition());
             }
@@ -277,14 +282,21 @@ public class Game implements Persistable {
         ProgressIO.load(this, "./save_file.txt");
         addGameObject(getGameState().getPlayer());
         camera.focusOn(stateManager.getGameState().getPlayer());
+        updateNPCMapsFromLoad();
         loadMap(getGameState().getPlayer().getCurrentMapName());
-        StoryInitializer.initializeDialogs(this);
         stateManager.goToGameState();
-        audioPlayer.playMusic("suburbs.wav");
+        audioPlayer.playMusic("suburbs.wav", 0);
+    }
+
+    private void updateNPCMapsFromLoad() {
+        for(Map.Entry<NPC, GameMap> entry : npcToMoveToAnotherMap.entrySet()){
+            entry.getValue().removeNPC(entry.getKey());
+            maps.getByName(entry.getKey().getCurrentMapName()).addNPC(entry.getKey());
+        }
+        npcToMoveToAnotherMap.clear();
     }
 
     public void startNewGame(String playerName) {
-        showBlackScreen = true;
         sceneryToOverwrite.clear();
         maps.loadAll(content, "/maps");
         getGameState().initializeNewGame(this, playerName);
@@ -293,8 +305,9 @@ public class Game implements Persistable {
         loadMap(getGameState().getWorldMap()
                 [getGameState().getPlayer().getWorldMapPosition().intX()]
                 [getGameState().getPlayer().getWorldMapPosition().intY()]);
-        audioPlayer.playMusic("suburbs.wav");
+        audioPlayer.playMusic("suburbs.wav", 0);
         stateManager.goToGameState();
+        getGameState().getQuestManager().startQuest(this, 0);
         getGameState().handleNonNpcDialog(this);
     }
 
@@ -306,7 +319,7 @@ public class Game implements Persistable {
         camera.centerOnMap(maps.getCurrent());
         stateManager.goToMainMenuState();
         Settings.reset();
-        audioPlayer.playMusic("menu.wav");
+        audioPlayer.playMusic("menu.wav", 0);
     }
 
     public void pauseGame() {
@@ -402,13 +415,11 @@ public class Game implements Persistable {
     public void addNPC(NPC npc){
         maps.getCurrent().addNPC(npc);
         gameObjects.add(npc);
-        System.out.println(npc.getId());
     }
 
     public void addScenery(Scenery scenery){
         maps.getCurrent().addScenery(scenery);
         gameObjects.add(scenery);
-        System.out.println(scenery.getId());
     }
 
     @Override
@@ -435,8 +446,6 @@ public class Game implements Persistable {
 
     @Override
     public void applySerializedData(String serializedData) {
-        maps.getMaps().forEach((mapName, map) -> map.getNPCList().clear());
-
         String[] sections = serializedData.split(SECTION_DELIMETER);
 
         getGameState().applySerializedData(sections[1]);
@@ -447,10 +456,17 @@ public class Game implements Persistable {
 
         for(String npcString : NPCs){
             if(!npcString.equals("###") && !npcString.isEmpty()) {
-                NPC npc = new NPC();
-                npc.applySerializedData(npcString);
-                npc.applyGraphics(content);
-                maps.getByName(npc.getCurrentMapName()).addNPC(npc);
+                String[] npcTokens = npcString.split(DELIMITER);
+                long npcId = Long.parseLong(npcTokens[2]);
+                for (GameMap map : maps.getMaps().values()) {
+                    for (NPC n : map.getNPCList()) {
+                        if (n.getId() == npcId) {
+                            n.applySerializedData(npcString);
+                            n.applyGraphics(content);
+                            npcToMoveToAnotherMap.put(n, map);
+                        }
+                    }
+                }
             }
         }
 
@@ -467,7 +483,6 @@ public class Game implements Persistable {
                 for (GameMap map : maps.getMaps().values()) {
                     for (Scenery s : map.getSceneryList()) {
                         if (s.getId() == sceneryId) {
-                            System.out.println(s.getId());
                             s.applySerializedData(sceneryString);
                             s.loadGraphics(content);
                             sceneryToOverwrite.add(s);
@@ -476,7 +491,7 @@ public class Game implements Persistable {
                 }
             }
 
-            System.out.println(sceneryToOverwrite);
+            System.out.println("Game 480: " + sceneryToOverwrite);
         }
     }
 

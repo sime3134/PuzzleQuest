@@ -1,8 +1,7 @@
 package story;
 
 import main.Game;
-import story.quests.ANewBeginning;
-import story.quests.Quest;
+import story.quests.BornAnew;
 
 /**
  * @author Simon Jern
@@ -11,7 +10,6 @@ import story.quests.Quest;
 public class QuestInitializer {
 
     public void initializeQuests(Game game, QuestManager questManager) {
-        Quest aNewBeginning = new ANewBeginning(0);
-        questManager.addQuest(aNewBeginning);
+        questManager.addQuest(new BornAnew(game,0));
     }
 }

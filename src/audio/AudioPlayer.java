@@ -32,11 +32,11 @@ public class AudioPlayer {
         });
     }
 
-    public void playMusic(String fileName) {
+    public void playMusic(String fileName, long startPoint) {
         if(Settings.getAudioOn().get()) {
             if (!audioClips.containsKey(fileName)) {
                 clear();
-                final Clip clip = getClip(fileName);
+                final Clip clip = getClip(fileName, startPoint);
                 final AudioClip audioClip = new AudioClip(clip, false);
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
                 audioClip.setVolume(Settings.getVolume().get());
@@ -50,7 +50,7 @@ public class AudioPlayer {
         if(Settings.getAudioOn().get()) {
             if (!audioClips.containsKey(lastPlayedMusicFileName)) {
                 clear();
-                final Clip clip = getClip(lastPlayedMusicFileName);
+                final Clip clip = getClip(lastPlayedMusicFileName, 0);
                 final AudioClip audioClip = new AudioClip(clip, false);
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
                 audioClip.setVolume(Settings.getVolume().get());
@@ -59,19 +59,19 @@ public class AudioPlayer {
         }
     }
 
-    public void playSound(String fileName) {
-        final Clip clip = getClip(fileName);
+    public void playSound(String fileName, long startPoint) {
+        final Clip clip = getClip(fileName, startPoint);
         final AudioClip audioClip = new AudioClip(clip, true);
         audioClip.setVolume(Settings.getVolume().get());
         audioClips.put(fileName, audioClip);
     }
 
-    private Clip getClip(String fileName) {
+    private Clip getClip(String fileName, long startMicro) {
         final URL soundFile = AudioPlayer.class.getResource("/sounds/" + fileName);
         try(AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile)) {
             final Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            clip.setMicrosecondPosition(0);
+            clip.setMicrosecondPosition(startMicro);
             return clip;
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
