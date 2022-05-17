@@ -60,17 +60,17 @@ public class UICheckbox extends UIComponent {
 
     private class Checkbox extends UIClickable{
 
-        private final Value<Boolean> value;
+        private final Value<Boolean> checked;
         private Color color;
         private final Action action;
 
 
-        private Checkbox(Value<Boolean> value) {
-            this(value, null);
+        private Checkbox(Value<Boolean> checked) {
+            this(checked, null);
         }
 
-        private Checkbox(Value<Boolean> value, Action action) {
-            this.value = value;
+        private Checkbox(Value<Boolean> checked, Action action) {
+            this.checked = checked;
             this.action = action;
             width = 20;
             height = 20;
@@ -81,7 +81,7 @@ public class UICheckbox extends UIComponent {
         @Override
         public void update(Game game) {
             super.update(game);
-            color = value.get() ? Color.WHITE : Color.LIGHT_GRAY;
+            color = checked.get() ? Color.WHITE : Color.LIGHT_GRAY;
 
             if(hasFocus) {
                 color = Color.DARK_GRAY;
@@ -95,7 +95,7 @@ public class UICheckbox extends UIComponent {
             Graphics2D g = sprite.createGraphics();
 
             g.setColor(color);
-            if(value.get()){
+            if(checked.get()){
                 g.drawRect(0,0, width - 1, height - 1);
                 g.fillRect(2,2,width - 4,height - 4);
             }else{
@@ -109,7 +109,7 @@ public class UICheckbox extends UIComponent {
         @Override
         public void onClick(Game game) {
             if(hasFocus) {
-                value.set(!value.get());
+                checked.set(!checked.get());
             }
             if(action != null){
                 action.execute(game);

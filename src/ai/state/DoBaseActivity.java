@@ -5,10 +5,10 @@ import main.Game;
 
 /**
  * @author Simon Jern
- * Implements a state where the entity will transition to it's main activity.
+ * Implements a state where the entity will transition to its main activity.
  */
-public class DoActivity extends AIState {
-    public DoActivity(NPC currentNPC, String lastState){
+public class DoBaseActivity extends AIState {
+    public DoBaseActivity(NPC currentNPC, String lastState){
         super(currentNPC, lastState);
     }
     @Override
@@ -17,5 +17,6 @@ public class DoActivity extends AIState {
     }
 
     @Override
+
     public void update(Game game) {}
 }

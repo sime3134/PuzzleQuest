@@ -25,7 +25,7 @@ public class AIManager {
     public AIManager(NPC currentNPC) {
         this.currentNPC = currentNPC;
         lastState = "choose_next_action";
-        currentAIState = new DoActivity(currentNPC, lastState);
+        currentAIState = new DoBaseActivity(currentNPC, lastState);
         tasks = new ArrayList<>();
     }
 
@@ -48,7 +48,7 @@ public class AIManager {
 
     public void transitionTo(String nextState, NPC currentNPC, Game game) {
         switch (nextState) {
-            case "choose_next_action" -> currentAIState = new DoActivity(currentNPC, lastState);
+            case "choose_next_action" -> currentAIState = new DoBaseActivity(currentNPC, lastState);
             case "random_action" -> currentAIState = new RandomAction(currentNPC, lastState);
             case "wander_random" -> currentAIState = new WanderRandom(currentNPC, lastState);
             case "wander_loop" -> currentAIState = new WanderLoop(game, currentNPC, lastState,
