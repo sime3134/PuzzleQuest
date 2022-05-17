@@ -64,7 +64,7 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
             }
         }else if(key == KeyEvent.VK_SPACE && currentValue.length() < maxLength){
             currentValue += " ";
-        }else if(key == KeyEvent.VK_UNDERSCORE && currentValue.length() < maxLength){
+        }else if(key == KeyEvent.VK_ALT && currentValue.length() < maxLength){
             currentValue += "_";
         }else if(key == KeyEvent.VK_ENTER && validate()){
             game.startNewGame(currentValue);
