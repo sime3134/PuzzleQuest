@@ -12,6 +12,7 @@ import dialog.Dialog;
 import dialog.DialogManager;
 import display.Camera;
 import main.Game;
+import main.state.EditorState;
 import settings.Settings;
 
 import java.awt.*;
@@ -92,7 +93,9 @@ public class NPC extends Humanoid {
     @Override
     public void update(Game game){
         super.update(game);
-        brain.update(game);
+        if(!(game.getCurrentState() instanceof EditorState)) {
+            brain.update(game);
+        }
     }
 
     @Override
