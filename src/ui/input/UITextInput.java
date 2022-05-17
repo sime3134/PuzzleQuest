@@ -2,11 +2,12 @@ package ui.input;
 
 import input.KeyInputConsumer;
 import main.Game;
-import ui.containers.HorizontalContainer;
+import main.state.SetupNameState;
 import ui.Spacing;
-import ui.containers.UIContainer;
-import ui.clickable.UIText;
 import ui.clickable.UIClickable;
+import ui.clickable.UIText;
+import ui.containers.HorizontalContainer;
+import ui.containers.UIContainer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -66,7 +67,7 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
             currentValue += " ";
         }else if(key == KeyEvent.VK_ALT && currentValue.length() < maxLength){
             currentValue += "_";
-        }else if(key == KeyEvent.VK_ENTER && validate()){
+        }else if(key == KeyEvent.VK_ENTER && validate() && game.getCurrentState() instanceof SetupNameState){
             game.startNewGame(currentValue);
         }else if(currentValue.length() < maxLength) {
             String keyText = KeyEvent.getKeyText(key);
