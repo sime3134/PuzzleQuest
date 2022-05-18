@@ -270,7 +270,7 @@ public class GameMap implements Persistable {
                 .append(DELIMITER)
                 .append(tiles[0].length)
                 .append(DELIMITER)
-                .append(startingPosition)
+                .append(startingPosition.serialize())
                 .append(DELIMITER)
                 .append(SECTION_DELIMETER);
 
