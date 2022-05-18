@@ -19,12 +19,23 @@ public class Player extends Humanoid {
     private GameObject target;
     private final SelectionCircle selectionCircle;
 
+    private GameObject lastInteractedWith;
+
+    public void setLastInteractedWith(GameObject lastInteractedWith) {
+        this.lastInteractedWith = lastInteractedWith;
+    }
+
+    public GameObject getLastInteractedWith() {
+        return lastInteractedWith;
+    }
+
     public Player(EntityController entityController, SpriteSet spriteSet, String name){
         super(entityController, spriteSet, name, "map5");
         this.speed = 5;
         this.selectionCircle = new SelectionCircle(38, 22);
         this.selectionCircle.setRenderOffset(new Vector2D(5, selectionCircle.getHeight() + 9f));
         this.collisionBoxOffset = new Vector2D(collisionBoxWidth / 2f, collisionBoxHeight / 2f + 11f);
+        lastInteractedWith = new NPC();
     }
 
     @Override
@@ -139,8 +150,7 @@ public class Player extends Humanoid {
                 velocity.reset(willCollideX(other.getCollisionBox()), willCollideY(other.getCollisionBox()));
             }
             if(scenery instanceof TeleportScenery tScenery && tScenery.getActive().get()){
-                game.setShouldChangeToMap(tScenery.getMapToTeleportTo());
-                game.setShouldChangeToPosition(tScenery.getPositionToTeleportTo().getCopy());
+                tScenery.executeTeleport(game);
             }
         }
     }

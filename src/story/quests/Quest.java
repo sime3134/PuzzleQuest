@@ -49,11 +49,11 @@ public abstract class Quest implements Persistable {
         steps.get(currentStep).update(game);
 
         if(steps.get(currentStep).shouldTransition(game)){
-            game.displayNotification("Quest '" + name  + "' updated.");
-            if(currentStep < steps.size()) {
-                if(steps.get(currentStep).getAction() != null){
-                    steps.get(currentStep).getAction().execute(game);
-                }
+            if(steps.get(currentStep).getActionAtFinish() != null){
+                steps.get(currentStep).getActionAtFinish().execute(game);
+            }
+            if(currentStep < steps.size() - 1) {
+                game.displayNotification("Quest '" + name  + "' updated.");
                 currentStep++;
                 description += steps.get(currentStep).getDescription();
             }else{
@@ -85,8 +85,8 @@ public abstract class Quest implements Persistable {
     public abstract void prepare(Game game);
 
     public void goToNextStep(Game game) {
-        if(steps.get(currentStep).getAction() != null){
-            steps.get(currentStep).getAction().execute(game);
+        if(steps.get(currentStep).getActionAtFinish() != null){
+            steps.get(currentStep).getActionAtFinish().execute(game);
         }
         game.displayNotification("Quest '" + name  + "' updated.");
         currentStep++;

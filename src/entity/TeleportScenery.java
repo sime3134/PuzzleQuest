@@ -1,8 +1,10 @@
 package entity;
 
 import content.ContentManager;
+import core.Action;
 import core.Value;
 import core.Vector2D;
+import main.Game;
 
 /**
  * @author Simon Jern
@@ -12,6 +14,10 @@ public class TeleportScenery extends Scenery{
     private String mapToTeleportTo;
     private Vector2D positionToTeleportTo;
     private Value<Boolean> active;
+
+    private Action collisionAction;
+
+    //region Getters & Setters (click to view)
 
     public String getMapToTeleportTo() {
         return mapToTeleportTo;
@@ -36,6 +42,16 @@ public class TeleportScenery extends Scenery{
     public void setActive(Value<Boolean> active) {
         this.active = active;
     }
+
+    public Action getCollisionAction() {
+        return collisionAction;
+    }
+
+    public void setCollisionAction(Action collisionAction) {
+        this.collisionAction = collisionAction;
+    }
+
+    //endregion
 
     public TeleportScenery(){
         super();
@@ -146,5 +162,13 @@ public class TeleportScenery extends Scenery{
         active = new Value<>(Boolean.valueOf(tokens[18]));
 
         nextId = Math.max(nextId, id + 1);
+    }
+
+    public void executeTeleport(Game game) {
+        game.setShouldChangeToMap(mapToTeleportTo);
+        game.setShouldChangeToPosition(positionToTeleportTo.getCopy());
+        if(collisionAction != null) {
+            collisionAction.execute(game);
+        }
     }
 }

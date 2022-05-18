@@ -19,7 +19,7 @@ public class Scenery extends GameObject implements Persistable {
 
     protected Image sprite;
     protected String name;
-    protected Action action;
+    protected Action actionWhenInteractedWith;
 
     public void setSprite(Image sprite) {
         this.sprite = sprite;
@@ -125,8 +125,8 @@ public class Scenery extends GameObject implements Persistable {
 
     @Override
     protected void executePlayerAction(Game game) {
-        if(action != null){
-            action.execute(game);
+        if(actionWhenInteractedWith != null){
+            actionWhenInteractedWith.execute(game);
         }
 
 //        chest = new Chest();
@@ -184,8 +184,8 @@ public class Scenery extends GameObject implements Persistable {
         return sprite;
     }
 
-    public void setAction(Action action){
-        this.action = action;
+    public void setActionWhenInteractedWith(Action actionWhenInteractedWith){
+        this.actionWhenInteractedWith = actionWhenInteractedWith;
     }
 
     @Override

@@ -16,7 +16,7 @@ public abstract class QuestStep {
 
     protected String description;
 
-    private Action action;
+    private Action actionAtFinish;
 
     public String getName() {
         return name;
@@ -26,12 +26,12 @@ public abstract class QuestStep {
         return description;
     }
 
-    public void setAction(Action action) {
-        this.action = action;
+    public void setActionAtFinish(Action actionAtFinish) {
+        this.actionAtFinish = actionAtFinish;
     }
 
-    public Action getAction() {
-        return action;
+    public Action getActionAtFinish() {
+        return actionAtFinish;
     }
 
     protected QuestStep(String name, String description) {
