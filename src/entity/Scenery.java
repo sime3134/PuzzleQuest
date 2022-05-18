@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.Objects;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * Implements world objects that are not tiles and will be displayed on top of the tiles.
  */
 public class Scenery extends GameObject implements Persistable {
@@ -128,22 +128,20 @@ public class Scenery extends GameObject implements Persistable {
         if(actionWhenInteractedWith != null){
             actionWhenInteractedWith.execute(game);
         }
-
-//        chest = new Chest();
-//        if(sprite.equals(game.getContent().getImage("chest"))) {
-//            sprite = game.getContent().getImage("chest_open");
-//            System.out.println(chest.isChest1Open());
-//            if(!chest.isChest1Open()) {
-//                game.getGameState().updateMedallionCount();
-//                chest.setChest1Open(true);
-//                System.out.println(chest.isChest1Open());
-//            }
-//        }
+        if(sprite.equals(game.getContent().getImage("chest"))) {
+            sprite = game.getContent().getImage("chest_open");
+            if(id == 19424) {
+                game.getGameState().updateMedallionCount();
+            }
+        }
         if(sprite.equals(game.getContent().getImage("chest2"))) {
             sprite = game.getContent().getImage("chest2_open");
         }
         if(sprite.equals(game.getContent().getImage("chest3"))) {
             sprite = game.getContent().getImage("chest3_open");
+            if(id == 12840) {
+                game.getGameState().updateMedallionCount();
+            }
         }
         if(sprite.equals(game.getContent().getImage("tree1")) &&
                 game.getCurrentMap().getName().equals("map1")) {
