@@ -248,3 +248,8 @@ Scenery:seedling:11175:977|2953:36:48:0|0:-48.0:0|16:36:32:true:46:24:-5:29:
 Scenery:stump:11176:932|2945:48:42:0|0:14.0:0|14:48:28:false:58:47:-5:0:
 
 ###
+NPC:TOCK:89711:4.0:map4:1198|1852:villager0:stand:DOWN:0:
+NPC:KATE:89712:4.0:map4:619|2747:villager3:stand:DOWN:0:
+NPC:TYRA:89713:4.0:map4:285|2477:villager3:stand:DOWN:0:
+NPC:MANNY:89714:4.0:map4:341|2484:villager2:stand:DOWN:0:
+NPC:CLIDE:89715:4.0:map4:197|2106:villager0:stand:DOWN:0:

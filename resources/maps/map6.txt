@@ -513,3 +513,25 @@ Scenery:bush_with_fruit:11834:1138|2985:48:48:0|0:16.0:0|16:48:32:false:58:53:-5
 Scenery:bush:11835:1045|2989:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 
 ###
+NPC:RON:89718:4.0:map6:477|2785:villager0:stand:DOWN:0:
+NPC:SEAMUS:89719:4.0:map6:877|2177:villager0:stand:DOWN:0:
+NPC:DRACO:89720:4.0:map6:873|2530:villager0:stand:UP:0:
+NPC:SIRIUS:89721:4.0:map6:189|2722:villager0:stand:LEFT:0:
+NPC:NEVILLE:89722:4.0:map6:2706|1886:villager0:stand:DOWN:0:
+NPC:REMUS:89723:4.0:map6:1514|1346:villager0:stand:DOWN:0:
+NPC:HAGRID:89724:4.0:map6:1723|511:villager0:stand:DOWN:0:
+NPC:ALBUS:89725:4.0:map6:1746|2251:villager0:stand:DOWN:0:
+NPC:FRED:89726:4.0:map6:2599|1347:villager2:stand:DOWN:0:
+NPC:GEORGE:89727:4.0:map6:2917|286:villager2:stand:DOWN:0:
+NPC:RON:89728:4.0:map6:475|2829:villager2:stand:UP:0:
+NPC:CRABBE:89729:4.0:map6:921|2532:villager2:stand:UP:0:
+NPC:GOYLE:89730:4.0:map6:831|2529:villager2:stand:UP:0:
+NPC:DEAN:89731:4.0:map6:618|2048:villager2:stand:DOWN:0:
+NPC:FUDGE:89732:4.0:map6:1939|2285:villager2:stand:DOWN:0:
+NPC:GINNY:89733:4.0:map6:2656|1375:villager3:stand:DOWN:0:
+NPC:BELLETRIX:89734:4.0:map6:1348|1517:villager3:stand:DOWN:0:
+NPC:HERMIONE:89735:4.0:map6:509|2811:villager3:stand:LEFT:0:
+NPC:LUNA:89736:4.0:map6:827|2147:villager3:stand:LEFT:0:
+NPC:JAMES:89737:4.0:map6:871|2774:villager0:stand:DOWN:0:
+NPC:PETER:89738:4.0:map6:743|2856:villager2:stand:DOWN:0:
+NPC:LILY:89741:4.0:map6:873|2819:villager3:stand:UP:0:

@@ -700,3 +700,9 @@ Scenery:tree2_v2:10691:2422|2937:126:144:0|0:60.0:0|80:113:40:false:136:149:-5:0
 Scenery:green_stuff:10692:820|3033:42:33:0|0:-33.0:0|11:42:22:true:52:38:-5:0:
 
 ###
+NPC:CHAD:89673:4.0:map2:1417|878:villager2:stand:LEFT:0:
+NPC:CAROL:89674:4.0:map2:1829|575:villager3:stand:DOWN:0:
+NPC:TODD:89675:4.0:map2:1253|635:villager0:stand:DOWN:0:
+NPC:JIMMY:89676:4.0:map2:435|2393:villager2:stand:DOWN:0:
+NPC:dRAKE:89677:4.0:map2:2199|1577:villager0:stand:DOWN:0:
+NPC:JENNIE:89678:4.0:map2:477|470:villager3:stand:DOWN:0:

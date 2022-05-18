@@ -19,17 +19,21 @@ import story.quest_steps.WaitForExternalCompletion;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * Implements a quest where the player should go to two different locations.
  */
 public class BornAnew extends Quest {
 
     private final NPC bill;
+    private final NPC lordGodfrey;
+    private final NPC isak;
 
     public BornAnew(Game game, int id) {
         super("Born anew", "I woke up on an unknown island and can't even remember my own name.\n" +
                 "An old man helped me after I woke up.", id);
         bill = (NPC)game.getGameObjectById(19554);
+        lordGodfrey = (NPC) game.getGameObjectById(89742);
+        isak = (NPC) game.getGameObjectById(89743);
         initializeQuest(game);
         initializeSteps();
     }
@@ -121,6 +125,24 @@ public class BornAnew extends Quest {
                 "talk to the king in his castle south-east of here."));
 
         bill.addDialog(dialog19554_4);
+
+        Dialog dialog89742_5 = new Dialog();
+        dialog89742_5.addLine(new DialogLine("I am Lord Joffrey!" + " Who am I speaking to?"));
+        dialog89742_5.addLine(new DialogLine("Oh you have come here to find out about the mediallion?\n" +
+                "Well without the medallion we will not last long\n" + "If you go to the north east corner of the island\n" +
+                "you will see that the Island has started to die."));
+        dialog89742_5.addLine(new DialogLine("That will happen to the whole island soon if we are not able to\n"
+                + "find the missing medallion pieces."));
+        dialog89742_5.addLine(new DialogLine("But we still have hope, you see we believe\n" + "that the pieces are" +
+                " scattered around the island.\n" + "The problem is we have not been able to locate them"));
+        dialog89742_5.addLine(new DialogLine("We have sent out people to search for them of course but\n" + "we've " +
+                "had no success as of yet." + " Some people have even gone missing."));
+        dialog89742_5.addLine(new DialogLine("A few people has disappeared when searching for the\n" + "pieces in the " +
+                "south western corner of the map."));
+        dialog89742_5.addLine(new DialogLine("We have since forbidden people to search in that\n" + "part of the island" +
+                " if you'd like to know more about it\n" + "I suggest you pay Isak a " +
+                "visit who spends a lot of time down there"));
+        lordGodfrey.addDialog(dialog89742_5);
     }
 
     private void initializeSteps() {
