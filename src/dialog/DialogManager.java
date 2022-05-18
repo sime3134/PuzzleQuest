@@ -55,6 +55,7 @@ public class DialogManager implements Persistable {
             } else {
                 if (speaker != null) {
                     speaker.setCanMove(true);
+                    game.getGameState().getPlayer().setLastInteractedWith(speaker);
                 }
                 game.getGameState().hideDialog();
                 game.setCanPause(true);

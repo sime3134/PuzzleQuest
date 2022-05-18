@@ -12,7 +12,7 @@ import entity.Scenery;
 import entity.TeleportScenery;
 import main.Game;
 import map.GameMap;
-import story.quest_steps.GoToTarget;
+import story.quest_steps.InteractWithGameObject;
 import story.quest_steps.QuestStep;
 import story.quest_steps.WaitForExternalCompletion;
 
@@ -31,7 +31,7 @@ public class BornAnew extends Quest {
                 "An old man helped me after I woke up.", id);
         bill = (NPC)game.getGameObjectById(19554);
         initializeQuest(game);
-        initializeSteps();
+        initializeSteps(game);
     }
 
     public void prepare(Game game){
@@ -109,7 +109,12 @@ public class BornAnew extends Quest {
         dialog19554_3.addLine(new DialogLine("It looks you are ready to go. Come visit me sometimes.", ignore -> {
             bill.setActivity("wander_random");
             game.getPauseState().setCanSave(true);
-            game.getAudioPlayer().playMusic("suburbs.wav", 0);
+            TeleportScenery teleport = (TeleportScenery) game.getGameObjectById(39578);
+            teleport.setCollisionAction(ignore2 -> {
+                teleport.setCollisionAction(null);
+                game.getAudioPlayer().playMusic("suburbs.wav", 0);
+            }
+            );
         }
         ));
 
@@ -121,15 +126,23 @@ public class BornAnew extends Quest {
                 "talk to the king in his castle south-east of here."));
 
         bill.addDialog(dialog19554_4);
+
+        NPC gran = (NPC) game.getGameObjectById(10059);
+
+        Dialog dialog10059_1 = new Dialog();
+
+        dialog10059_1.addLine(new DialogLine("HEY!!"));
+
+        gran.addDialog(dialog10059_1);
     }
 
-    private void initializeSteps() {
+    private void initializeSteps(Game game) {
         QuestStep step0 = new WaitForExternalCompletion("Talk to the old man in his house.", "");
-        step0.setAction(game -> {
+        step0.setActionAtFinish(ignore -> {
             Scenery bed = (Scenery) game.getGameObjectById(89555);
-            bed.setAction(ignore4 -> { game.showBlackScreen(2000, game,
+            bed.setActionWhenInteractedWith(ignore4 -> { game.showBlackScreen(2000, game,
                     ignore5 -> {
-                        bed.setAction(null);
+                        bed.setActionWhenInteractedWith(null);
                         bill.getDialogManager().nextDialog();
                         Player player = game.getGameState().getPlayer();
                         player.setPosition(new Vector2D(111, 165));
@@ -146,11 +159,12 @@ public class BornAnew extends Quest {
             });
         });
         QuestStep step1 = new WaitForExternalCompletion("Get some rest in the bed in the old man's house.", "");
-        QuestStep step2 = new GoToTarget(new Vector2D(2200,1100), new Vector2D(0.0,0.0), "Go to the king's " +
+        QuestStep step2 = new InteractWithGameObject("Go to the king's " +
                 "castle to get more information\nabout the missing medallion",
                 " He told me about the history\nof this island." +
                         " Apparently a group called group19 recently stole a\n" +
-                        "medallion keeping the balance on the island.");
+                        "medallion keeping the balance on the island.", game.getGameObjectById(10059));
+        System.out.println(game.getGameObjectById(10059));
         addQuestStep(step0, step1, step2);
     }
 
