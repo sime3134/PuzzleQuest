@@ -269,9 +269,13 @@ public class GameMap implements Persistable {
                 .append(tiles.length)
                 .append(DELIMITER)
                 .append(tiles[0].length)
-                .append(DELIMITER)
-                .append(startingPosition.serialize())
-                .append(DELIMITER)
+                .append(DELIMITER);
+                if(startingPosition != null) {
+                    sb.append(startingPosition.serialize());
+                }else{
+                    sb.append("null");
+                }
+                sb.append(DELIMITER)
                 .append(SECTION_DELIMETER);
 
         for(int x = 0; x < tiles.length; x++) {
