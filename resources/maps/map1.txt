@@ -376,7 +376,6 @@ Scenery:tree1:89636:2926|919:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:tree1:89637:2944|962:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:tree1:89638:2882|1062:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:tree1:89639:2796|1131:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
-Scenery:tree1:89640:2936|830:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:tree1:89641:2878|1075:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:tree1:89642:2900|629:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:tree1:89643:2908|610:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
@@ -408,8 +407,8 @@ Scenery:tree1:89668:2880|845:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 
 ###
 NPC:GRAN:10059:4.0:map1:2155|1185:villager3:random_action:DOWN:0:
-NPC:FAGGOT:10060:4.0:map1:2059|1371:villager4:stand:DOWN:0:
-NPC:BIG STEVE:89669:4.0:map1:1203|2670:villager0:stand:LEFT:0:
-NPC:BILLIE:89670:4.0:map1:1637|696:villager3:stand:UP:0:
+NPC:BIG STEVE:89669:4.0:map1:1203|2670:villager0:wander_random:LEFT:0:
+NPC:BILLIE:89670:4.0:map1:1637|696:villager3:wander_random:UP:0:
 NPC:JACK:89671:4.0:map1:503|2646:villager2:stand:UP:0:
-NPC:MIKE:89672:4.0:map1:2183|2699:villager2:stand:LEFT:0:
+NPC:MIKE:89672:4.0:map1:2183|2699:villager2:wander_random:LEFT:0:
+NPC:JESSY:90143:4.0:map1:2315|738:villager3:wander_random:DOWN:0:

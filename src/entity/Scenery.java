@@ -19,6 +19,7 @@ public class Scenery extends GameObject implements Persistable {
 
     protected Image sprite;
     protected String name;
+    protected int nextQuest = 1;
     protected Action actionWhenInteractedWith;
 
     public void setSprite(Image sprite) {
@@ -132,24 +133,35 @@ public class Scenery extends GameObject implements Persistable {
             sprite = game.getContent().getImage("chest_open");
             if(id == 19424) {
                 game.getGameState().updateMedallionCount();
+                game.setMazeMedallionFound(true);
             }
         }
         if(sprite.equals(game.getContent().getImage("chest2"))) {
             sprite = game.getContent().getImage("chest2_open");
+            if(id == 10061) {
+                game.getGameState().updateMedallionCount();
+            }
         }
         if(sprite.equals(game.getContent().getImage("chest3"))) {
             sprite = game.getContent().getImage("chest3_open");
             if(id == 12840) {
                 game.getGameState().updateMedallionCount();
             }
+            if(id == 10656) {
+                game.getGameState().updateMedallionCount();
+            }
         }
-        if(sprite.equals(game.getContent().getImage("tree1")) &&
-                game.getCurrentMap().getName().equals("map1")) {
-            game.setShouldChangeToMap("maze");
+        if(sprite.equals(game.getContent().getImage("pot2"))) {
+            if(id == 20851) {
+                game.getGameState().getQuestManager().startQuest(game, nextQuest);
+                nextQuest++;
+            }
         }
-        if(sprite == game.getContent().getImage("small_tree2") &&
-                Objects.equals(game.getCurrentMap().getName(), "maze")){
-            game.getGameState();
+
+        if(sprite.equals(game.getContent().getImage("statue2")) && game.getCurrentMap().getName().equals("maze")
+        && game.isMazeMedallionFound()) {
+            game.setShouldChangeToMap("map21");
+            game.setShouldChangeToPosition(new Vector2D(2000,2100));
         }
 
     }

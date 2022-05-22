@@ -616,3 +616,21 @@ Scenery:tree1:19728:2662|7:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:tree1:19729:2581|5:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 
 ###
+NPC:LAINE:89972:4.0:map20:1780|955:villager3:stand:DOWN:0:
+NPC:MARK:89973:4.0:map20:1826|957:villager0:stand:DOWN:0:
+NPC:BARK:89974:4.0:map20:1800|981:villager0:stand:UP:0:
+NPC:VIENNA:89975:4.0:map20:1449|953:villager3:stand:DOWN:0:
+NPC:MUMBI:89976:4.0:map20:1494|955:villager2:stand:DOWN:0:
+NPC:TUMBI:89977:4.0:map20:1539|955:villager2:stand:DOWN:0:
+NPC:AUSTIN:89978:4.0:map20:1461|985:villager0:stand:UP:0:
+NPC:INDIA:89979:4.0:map20:1521|982:villager3:stand:UP:0:
+NPC:STITH:89980:4.0:map20:272|1024:villager3:wander_random:DOWN:0:
+NPC:LEIGHTON:89981:4.0:map20:799|1009:villager0:wander_random:DOWN:0:
+NPC:ASHLEY:89982:4.0:map20:719|1019:villager2:wander_random:DOWN:0:
+NPC:BAINES:89983:4.0:map20:1649|1034:villager2:wander_random:DOWN:0:
+NPC:COLEMAN:89984:4.0:map20:2021|1215:villager2:wander_random:DOWN:0:
+NPC:KYLE:89985:4.0:map20:2249|1395:villager2:wander_random:DOWN:0:
+NPC:BARKLEY:89986:4.0:map20:2038|1425:villager0:wander_random:DOWN:0:
+NPC:MERTE:89987:4.0:map20:2229|2975:villager3:wander_random:UP:0:
+NPC:GABRIEL:89988:4.0:map20:2215|2749:villager2:wander_random:UP:0:
+NPC:LIEKE:89989:4.0:map20:2197|2108:villager3:wander_random:DOWN:0:

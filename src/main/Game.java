@@ -69,11 +69,20 @@ public class Game implements Persistable {
     private boolean canPause;
     private boolean showBlackScreen;
     private boolean showingBlackScreenWithTimer;
+    private boolean mazeMedallionFound;
 
     //region Getters & Setters (Click to view)
 
     public void setShowBlackScreen(boolean showBlackScreen) {
         this.showBlackScreen = showBlackScreen;
+    }
+
+    public boolean isMazeMedallionFound() {
+        return mazeMedallionFound;
+    }
+
+    public void setMazeMedallionFound(boolean mazeMedallionFound) {
+        this.mazeMedallionFound = mazeMedallionFound;
     }
 
     public void setShouldChangeToMap(String name) {
@@ -409,6 +418,18 @@ public class Game implements Persistable {
             getCurrentMap().removeScenery(scenery);
         }else if(gameObject instanceof NPC npc){
             getCurrentMap().removeNPC(npc);
+        }
+    }
+
+    public void removeGameObjectWithId(long id) {
+        for(GameMap map : maps.getMaps().values()) {
+            GameObject obj = map.findGameObjectById(id);
+            if(obj != null) {
+                obj.setRemoved(true);
+                if (obj.isRemoved()) {
+                    gameObjects.remove(obj);
+                }
+            }
         }
     }
 

@@ -933,3 +933,16 @@ Scenery:stump:13751:3003|3020:48:42:0|0:14.0:0|14:48:28:false:58:47:-5:0:
 Scenery:stump:13752:2903|3022:48:42:0|0:14.0:0|14:48:28:false:58:47:-5:0:
 
 ###
+NPC:MANNY:89777:4.0:map9:324|139:villager0:stand:DOWN:0:
+NPC:WANDERER:89778:4.0:map9:607|329:villager2:wander_random:RIGHT:0:
+NPC:WANDERINA:89779:4.0:map9:1596|503:villager3:wander_random:DOWN:0:
+NPC:ASHER:89780:4.0:map9:2547|497:villager0:wander_random:DOWN:0:
+NPC:LOOPER:89781:4.0:map9:2381|1247:villager0:stand:DOWN:0:
+NPC:TROOPER:89782:4.0:map9:2382|1285:villager3:stand:UP:0:
+NPC:GROWER:89783:4.0:map9:1634|1967:villager0:stand:DOWN:0:
+NPC:TEMPER:89784:4.0:map9:1605|1627:villager2:wander_random:DOWN:0:
+NPC:default:89785:4.0:map9:1921|2497:villager3:wander_random:DOWN:0:
+NPC:CHECKI:89786:4.0:map9:2781|2361:villager3:wander_random:DOWN:0:
+NPC:SPIDE:89787:4.0:map9:2819|1739:villager2:wander_random:DOWN:0:
+NPC:TINKE:89788:4.0:map9:65|2559:villager2:wander_random:DOWN:0:
+NPC:GRANDI:89789:4.0:map9:605|1821:villager3:wander_random:DOWN:0:

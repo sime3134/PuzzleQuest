@@ -778,3 +778,10 @@ Scenery:wood:20387:2311|2154:36:48:0|0:16.0:0|16:36:32:false:46:24:-5:29:
 Scenery:chest3:20388:2763|2101:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 
 ###
+NPC:THOR:89881:4.0:map15:2587|2235:villager0:stand:RIGHT:0:
+NPC:THORINA:89882:4.0:map15:2639|2235:villager3:stand:LEFT:0:
+NPC:STARK:89883:4.0:map15:2556|1930:villager2:wander_random:UP:0:
+NPC:BRIE:89884:4.0:map15:1937|1279:villager3:wander_random:LEFT:0:
+NPC:CAP:89885:4.0:map15:1405|982:villager2:wander_random:DOWN:0:
+NPC:PETER:89886:4.0:map15:847|915:villager0:wander_random:LEFT:0:
+NPC:SNOT:89887:4.0:map15:1185|1075:villager0:wander_random:DOWN:0:

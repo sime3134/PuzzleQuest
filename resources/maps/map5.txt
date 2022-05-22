@@ -284,3 +284,4 @@ Scenery:blue_door3:29880:576|1917:48:48:0|0:20.0:0|0:48:18:false:58:53:-5:0:
 
 ###
 NPC:Bill:19554:4.0:map5:2146|784:villager2:stand:UP:0:
+NPC:CLAIR:90139:4.0:map5:46|2957:villager3:wander_random:DOWN:0:

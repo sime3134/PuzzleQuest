@@ -136,3 +136,8 @@ Scenery:tree1_v2:19285:429|1510:126:144:0|0:60.0:0|80:113:40:false:136:149:-5:0:
 Scenery:small_tree1:19286:398|1554:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 
 ###
+NPC:XHAKIE:90131:4.0:map25:2271|45:villager3:wander_random:DOWN:0:
+NPC:NOTORIOUS:90132:4.0:map25:1407|286:villager3:wander_random:DOWN:0:
+NPC:XAVIER:90133:4.0:map25:1673|161:villager0:wander_random:DOWN:0:
+NPC:BROM:90134:4.0:map25:185|565:villager2:wander_random:DOWN:0:
+NPC:SHAKUR:90135:4.0:map25:635|370:villager2:wander_random:DOWN:0:

@@ -263,7 +263,6 @@ Scenery:small_tree1:16263:925|1126:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree1:16264:820|1132:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree1:16265:2630|1137:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree1:16266:1403|1139:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:well_with_roof:16267:2419|1148:138:144:0|0:20.0:4|70:130:74:false:148:149:-5:0:
 Scenery:large_pole:16268:989|1168:18:144:0|0:50.0:0|94:18:50:false:28:72:-5:77:
 Scenery:large_pole:16269:1383|1168:18:144:0|0:50.0:0|94:18:50:false:28:72:-5:77:
 Scenery:small_tree1:16270:2627|1198:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
@@ -549,5 +548,24 @@ Scenery:rocks2_v4:16549:2697|3022:39:42:0|0:-42.0:0|14:39:28:true:49:47:-5:0:
 Scenery:rocks2_v4:16550:1732|3025:39:42:0|0:-42.0:0|14:39:28:true:49:47:-5:0:
 Scenery:rocks2_v4:16551:1780|3029:39:42:0|0:-42.0:0|14:39:28:true:49:47:-5:0:
 Scenery:rocks2_v4:16552:2650|3029:39:42:0|0:-42.0:0|14:39:28:true:49:47:-5:0:
+Scenery:well_with_roof:89933:2458|1126:138:144:0|0:100.0:4|70:130:74:false:148:149:-5:0:
 
 ###
+NPC:MOOOE:89934:4.0:map18:2403|818:villager3:stand:DOWN:0:
+NPC:PETRA:89935:4.0:map18:1713|816:villager3:stand:DOWN:0:
+NPC:LAYTE:89936:4.0:map18:2190|937:villager3:stand:DOWN:0:
+NPC:BILLY:89938:4.0:map18:2194|970:villager2:stand:UP:0:
+NPC:POOP:89939:4.0:map18:1710|853:villager0:stand:UP:0:
+NPC:SMASH:89940:4.0:map18:236|394:villager2:wander_random:DOWN:0:
+NPC:MAYDAY:89941:4.0:map18:233|1008:villager2:wander_random:DOWN:0:
+NPC:SWIFTY:89942:4.0:map18:283|439:villager3:wander_random:DOWN:0:
+NPC:CREEP:89943:4.0:map18:222|787:villager0:wander_random:DOWN:0:
+NPC:DREA:89944:4.0:map18:509|1429:villager3:wander_random:RIGHT:0:
+NPC:DIA:89945:4.0:map18:1331|1306:villager3:wander_random:LEFT:0:
+NPC:JEFF:89946:4.0:map18:822|1317:villager0:wander_random:RIGHT:0:
+NPC:MARQUE:89947:4.0:map18:1661|1088:villager0:wander_random:DOWN:0:
+NPC:SMOOOT:89948:4.0:map18:2290|1186:villager0:wander_random:UP:0:
+NPC:KAYKAY:89949:4.0:map18:2281|1515:villager0:wander_random:DOWN:0:
+NPC:LITGH:89950:4.0:map18:1655|1551:villager2:wander_random:DOWN:0:
+NPC:BRUCK:89951:4.0:map18:1977|1163:villager2:wander_random:LEFT:0:
+NPC:FRET:89952:4.0:map18:2833|1023:villager0:wander_random:LEFT:0:

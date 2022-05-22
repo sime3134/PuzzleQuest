@@ -79,7 +79,6 @@ Scenery:green_plant3:17846:1993|157:42:36:0|0:-36.0:0|12:42:24:true:52:41:-5:0:
 Scenery:tree1:17847:2736|92:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:red_brown_mushroom2:17848:2649|201:45:45:0|0:-45.0:0|15:45:30:true:55:50:-5:0:
 Scenery:tree1_v2:17850:784|112:126:144:0|0:60.0:0|80:113:40:false:136:149:-5:0:
-Scenery:well_with_roof:17851:594|155:138:144:0|0:20.0:4|70:130:74:false:148:149:-5:0:
 Scenery:small_tree_with_fruit:17854:1678|229:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree_with_fruit:17855:1738|231:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:barrel:17856:537|238:42:48:0|0:16.0:0|16:42:32:false:52:53:-5:0:
@@ -298,12 +297,9 @@ Scenery:bench:18076:1489|1709:78:60:0|0:20.0:0|20:78:40:false:88:65:-5:0:
 Scenery:bush_with_fruit:18077:1369|1717:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 Scenery:small_tree_with_fruit:18078:2770|1767:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree_with_fruit:18079:2770|1767:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:light:18080:1096|1794:30:81:0|0:20.0:7|40:16:41:false:40:40:-5:45:
 Scenery:small_tree_with_fruit:18081:2665|1803:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:light:18082:1644|1804:30:81:0|0:20.0:7|40:16:41:false:40:40:-5:45:
 Scenery:small_tree_with_fruit:18083:2720|1805:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:small_tree_with_fruit:18084:2720|1805:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
-Scenery:light:18085:1970|1807:30:81:0|0:20.0:7|40:16:41:false:40:40:-5:45:
 Scenery:rocks2_v2:18086:689|1888:42:42:0|0:-42.0:0|14:42:28:true:52:47:-5:0:
 Scenery:bush:18087:636|1839:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 Scenery:bush:18088:636|1839:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
@@ -367,6 +363,21 @@ Scenery:small_tree1:18145:2666|2591:48:99:0|0:20.0:5|63:40:27:false:58:49:-5:54:
 Scenery:stump:18146:2305|2661:48:42:0|0:14.0:0|14:48:28:false:58:47:-5:0:
 Scenery:stump:18147:2305|2661:48:42:0|0:14.0:0|14:48:28:false:58:47:-5:0:
 TeleportScenery:teleport:89744:1981|2221:24:24:0|0:-24.0:0|8:24:16:true:34:29:-5:0:maze:48|48:true:
+Scenery:tree1:89760:1896|1975:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
+Scenery:tree1:89761:1766|2091:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
+Scenery:tree1:89762:2058|1900:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
+Scenery:well_with_roof:89992:590|161:138:144:0|0:100.0:4|70:130:74:false:148:149:-5:0:
+Scenery:tree1:90001:1864|2094:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 
 ###
-NPC:ISAK:89743:4.0:map21:1900|2071:villager0:stand:RIGHT:0:
+NPC:ISAK:89743:4.0:map21:2042|1832:villager0:stand:RIGHT:0:
+NPC:KARA:89990:4.0:map21:742|675:villager3:stand:UP:0:
+NPC:SWATT:89991:4.0:map21:919|675:villager0:stand:UP:0:
+NPC:WATERBOY:89993:4.0:map21:446|115:villager2:wander_random:DOWN:0:
+NPC:SLOOT:89994:4.0:map21:1113|1574:villager2:wander_random:DOWN:0:
+NPC:CHRIE:89995:4.0:map21:2045|806:villager3:wander_random:DOWN:0:
+NPC:MOTO:89996:4.0:map21:1716|849:villager0:wander_random:DOWN:0:
+NPC:KLEB:89997:4.0:map21:902|1067:villager0:wander_random:DOWN:0:
+NPC:LOOTHY:89998:4.0:map21:2111|109:villager3:wander_random:DOWN:0:
+NPC:BUKA:89999:4.0:map21:2587|380:villager2:wander_random:DOWN:0:
+NPC:EMILE:90000:4.0:map21:2828|2487:villager0:wander_random:DOWN:0:

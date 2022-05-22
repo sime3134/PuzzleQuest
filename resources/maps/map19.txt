@@ -812,3 +812,21 @@ Scenery:stump:17296:2522|2966:48:42:0|0:14.0:0|14:48:28:false:58:47:-5:0:
 Scenery:green_banner:19721:2626|408:48:87:0|0:60.0:0|0:48:87:true:58:43:-5:48:
 
 ###
+NPC:ICE:89953:4.0:map19:992|43:villager2:wander_random:DOWN:0:
+NPC:CUBE:89954:4.0:map19:1499|25:villager2:wander_random:DOWN:0:
+NPC:CURTIS:89955:4.0:map19:991|604:villager2:wander_random:DOWN:0:
+NPC:MARSHALL:89956:4.0:map19:961|325:villager0:wander_random:DOWN:0:
+NPC:BLIGE:89957:4.0:map19:1037|174:villager3:wander_random:DOWN:0:
+NPC:NICKI:89958:4.0:map19:563|1057:villager3:wander_random:RIGHT:0:
+NPC:CARDI:89959:4.0:map19:1487|1071:villager3:wander_random:LEFT:0:
+NPC:KENDRICK:89960:4.0:map19:1399|944:villager0:wander_random:UP:0:
+NPC:SOUPY:89961:4.0:map19:2625|477:villager0:stand:DOWN:0:
+NPC:LOGIC:89962:4.0:map19:2291|748:villager0:wander_random:LEFT:0:
+NPC:JOYNER:89963:4.0:map19:1934|727:villager2:wander_random:DOWN:0:
+NPC:BEY:89964:4.0:map19:2076|1038:villager3:wander_random:DOWN:0:
+NPC:BIGGIE:89965:4.0:map19:2816|1024:villager2:wander_random:DOWN:0:
+NPC:ALICIA:89966:4.0:map19:2656|1246:villager3:wander_random:DOWN:0:
+NPC:COLE:89967:4.0:map19:2622|1725:villager2:wander_random:DOWN:0:
+NPC:CHAINS:89968:4.0:map19:2368|2505:villager0:wander_random:DOWN:0:
+NPC:BADDIE:89969:4.0:map19:1409|2731:villager3:stand:DOWN:0:
+NPC:TENTACION:89971:4.0:map19:1883|2449:villager0:wander_random:DOWN:0:

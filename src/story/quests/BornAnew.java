@@ -27,6 +27,7 @@ public class BornAnew extends Quest {
     private final NPC bill;
     private final NPC lordGodfrey;
     private final NPC isak;
+    private final NPC akira;
 
     public BornAnew(Game game, int id) {
         super("Born anew", "I woke up on an unknown island and can't even remember my own name.\n" +
@@ -34,6 +35,7 @@ public class BornAnew extends Quest {
         bill = (NPC)game.getGameObjectById(19554);
         lordGodfrey = (NPC) game.getGameObjectById(89742);
         isak = (NPC) game.getGameObjectById(89743);
+        akira = (NPC) game.getGameObjectById(89759);
         initializeQuest(game);
         initializeSteps(game);
     }
@@ -158,17 +160,35 @@ public class BornAnew extends Quest {
         lordGodfrey.addDialog(dialog89742_5);
 
         Dialog dialog89743_6 = new Dialog();
-        dialog89743_6.addLine(new DialogLine("Be careful!\n" + "Do not go near that hole unless you want to disappear"));
         dialog89743_6.addLine(new DialogLine("I'm Isak. What brings you here?"));
         dialog89743_6.addLine(new DialogLine("Ah the missing pieces, well I'm afraid you are wasting your time.\n" +
-                "I don't have any information for you." + "I've only hear rumors and\n" + "you should not trust rumors."));
+                "I don't have any information for you." + "I've only hear rumors and\n" + "rumors are not to be trusted."));
         dialog89743_6.addLine(new DialogLine("What the rumors are?\n" + "They are very vague and not of much value for you I'm afraid.\n"
         + "All I've heard is that there are weird noises in the northern forrest and\n" + "some shady characters moving around near" +
                 " the southern marketplace."));
         dialog89743_6.addLine(new DialogLine("And then there is the people who disappeared while\n" + "searching for the " +
                 "missing pieces. I can't tell you much but I advise\n" + "you to stay away from the hole over there if\n" +
                 "you don't wish to disappear like they did."));
+        dialog89743_6.addLine(new DialogLine("One last thing, if you truly are here to help us\n" + "you should go and talk to" +
+                " Akira.\n" + "She knows more than anyone and can give you some guidance."));
+        dialog89743_6.addLine(new DialogLine("You'll find her in the harbour city up north."));
         isak.addDialog(dialog89743_6);
+
+        Dialog dialog89759_7 = new Dialog();
+        dialog89759_7.addLine(new DialogLine("Who are you? And why are you looking for me?"));
+        dialog89759_7.addLine(new DialogLine("Isak sent you? You must have made a good\n" + "impression on him."
+        + " So tell me, why have you come to see me?"));
+        dialog89759_7.addLine(new DialogLine("Oh you want to help with finding the medallion pieces?\n" +
+                "I'm afraid it's unlikely that you will have any luck, I\n" + "suggest you do something else and" +
+                " don't waste\n" + "time chasing something that you'll never find."));
+        dialog89759_7.addLine(new DialogLine("But if you really want to try I guess it won't hurt.\n" +
+                "I don't know where the pieces are, but I do have some ideas\n" + "that might help you out in" +
+                " your search."));
+        dialog89759_7.addLine(new DialogLine("See my pots over there?\n" + "One of them is not a normal pot. I will" +
+                " not give\n" + "you more information about the pot but when you feel ready to\n" + "start searching for" +
+                " a new medallion piece, interact with\n" + "the special pot and then come and talk to me"));
+        akira.addDialog(dialog89759_7);
+
         NPC gran = (NPC) game.getGameObjectById(10059);
 
         Dialog dialog10059_1 = new Dialog();
@@ -205,9 +225,13 @@ public class BornAnew extends Quest {
                 "castle to get more information\nabout the missing medallion",
                 " He told me about the history\nof this island." +
                         " Apparently a group called group19 recently stole a\n" +
-                        "medallion keeping the balance on the island.", game.getGameObjectById(10059));
+                        "medallion keeping the balance on the island.",game.getGameObjectById(89742)); //game.getGameObjectById(10059));
         System.out.println(game.getGameObjectById(10059));
-        addQuestStep(step0, step1, step2);
+        QuestStep step3 = new InteractWithGameObject("Go talk to Isak in the\n" + "south-west corner of the map.",""
+                /*" Isak might have\ninformation about the disappearances in that part of the map."*/,
+                game.getGameObjectById(89743));
+        QuestStep step4 = new InteractWithGameObject("Find Akira in the northern harbour.", "", game.getGameObjectById(89759));
+        addQuestStep(step0, step1, step2, step3, step4);
     }
 
     private static void changeScenerySprite(Game game, long id, String newSpriteName) {

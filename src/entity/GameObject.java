@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Simon Jern, Erik Larsson
+ * @author Simon Jern, Erik Larsson, Johan Salomonsson
  * The core class for all entities in the game.
  */
 public abstract class GameObject {
@@ -30,6 +30,7 @@ public abstract class GameObject {
     protected int height;
 
     protected boolean walkable;
+    protected boolean removed = false;
 
     protected int collisionBoxWidth;
     protected int collisionBoxHeight;
@@ -82,6 +83,14 @@ public abstract class GameObject {
 
     public boolean isWalkable() {
         return walkable;
+    }
+
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
     }
 
     public int getWidth() {
