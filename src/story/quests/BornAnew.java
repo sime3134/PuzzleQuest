@@ -42,8 +42,8 @@ public class BornAnew extends Quest {
 
     public void prepare(Game game){
         game.setShowBlackScreen(true);
-        game.getPauseState().setCanSave(false);
         Dialog intro = new Dialog(ignore -> {
+            game.getPauseState().setCanSave(false);
             game.getGameState().getDialogManager().clear();
             bill.getBrain().addTask(new GoToPosition(bill, new Vector2D(613, 1968),
 

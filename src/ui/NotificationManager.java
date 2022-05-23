@@ -23,6 +23,9 @@ public class NotificationManager {
         unusedNotification.add(new NotificationContainer());
         unusedNotification.add(new NotificationContainer());
         unusedNotification.add(new NotificationContainer());
+        unusedNotification.add(new NotificationContainer());
+        unusedNotification.add(new NotificationContainer());
+        unusedNotification.add(new NotificationContainer());
     }
 
     public void displayNotification(String notification){
@@ -30,6 +33,7 @@ public class NotificationManager {
         unusedNotification.remove(0);
         container.setOrder(notifications.size());
         container.setNotificationText(notification);
+        container.setNumberOfUpdatesWaiting(0);
         notifications.add(container);
     }
 
@@ -45,11 +49,14 @@ public class NotificationManager {
             notifications.remove(container);
             unusedNotification.add(container);
         }
+
+        finishedNotifications.clear();
     }
 
     public void draw(Graphics g){
         for(NotificationContainer container : notifications){
             container.draw(g);
+            System.out.println("Unused: " + unusedNotification.size());
         }
     }
 }

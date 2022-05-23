@@ -25,6 +25,10 @@ public class NotificationContainer extends HorizontalContainer{
                 getFixedHeight() * order));
     }
 
+    public void setNumberOfUpdatesWaiting(int numberOfUpdatesWaiting) {
+        this.numberOfUpdatesWaiting = numberOfUpdatesWaiting;
+    }
+
     public NotificationContainer(){
         super();
         setFixedPosition(true);

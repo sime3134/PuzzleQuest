@@ -117,7 +117,7 @@ public class UIText extends UIClickable {
         for(String line : lines) {
             biggestWidth = Math.max(biggestWidth,metrics.stringWidth(line));
         }
-        width = Math.max(1, biggestWidth + padding.getHorizontal());
+        width = Math.max(1, biggestWidth + padding.getHorizontal() + 10);
         height = Math.max(1, lines.length * metrics.getHeight() + padding.getVertical()
                 + (lines.length > 1 ? 10 : 0) * lines.length);
     }

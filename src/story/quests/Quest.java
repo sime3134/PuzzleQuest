@@ -88,9 +88,13 @@ public abstract class Quest implements Persistable {
         if(steps.get(currentStep).getActionAtFinish() != null){
             steps.get(currentStep).getActionAtFinish().execute(game);
         }
-        game.displayNotification("Quest '" + name  + "' updated.");
-        currentStep++;
-        description += steps.get(currentStep).getDescription();
+        if(currentStep < steps.size() - 1) {
+            game.displayNotification("Quest '" + name  + "' updated.");
+            currentStep++;
+            description += steps.get(currentStep).getDescription();
+        }else{
+            disengage(game);
+        }
     }
 
     @Override

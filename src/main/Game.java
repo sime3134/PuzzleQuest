@@ -287,6 +287,7 @@ public class Game implements Persistable {
     }
 
     public void loadGame() {
+        getGameState().getPlayer().setLastInteractedWith(new NPC());
         getGameState().getQuestManager().initializeQuests(this);
         ProgressIO.load(this, "./save_file.txt");
         addGameObject(getGameState().getPlayer());

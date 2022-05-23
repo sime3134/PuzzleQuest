@@ -130,7 +130,7 @@ public class Scenery extends GameObject implements Persistable {
         }
         if(sprite.equals(game.getContent().getImage("chest"))) {
             sprite = game.getContent().getImage("chest_open");
-            if(id == 19424) {
+            if(id == 34000) {
                 game.getGameState().updateMedallionCount();
                 game.setMazeMedallionFound(true);
             }
@@ -153,6 +153,7 @@ public class Scenery extends GameObject implements Persistable {
 
         if(sprite.equals(game.getContent().getImage("statue2")) && game.getCurrentMap().getName().equals("maze")
         && game.isMazeMedallionFound()) {
+            game.getGameState().getQuestManager().getQuestById(1).goToNextStep(game);
             game.setShouldChangeToMap("map21");
             game.setShouldChangeToPosition(new Vector2D(2000,2100));
         }
