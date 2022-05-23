@@ -55,4 +55,9 @@ public class Dialog {
     public void addLine(DialogLine line) {
         lines.add(line);
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(active);
+    }
 }

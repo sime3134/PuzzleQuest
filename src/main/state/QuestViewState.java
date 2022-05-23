@@ -28,18 +28,30 @@ public class QuestViewState extends State {
 
     public void setClickedQuest(Game game, int questId) {
         List<Quest> activeQuests = game.getGameState().getQuestManager().getActiveQuests();
-        questStepText.setText("- " + activeQuests.get(questId).getCurrentStep().getName());
-        questDescText.setText(activeQuests.get(questId).getDescription());
+        int index = getIndexFromQuestId(activeQuests, questId);
+        if(index != -1) {
+            questStepText.setText("- " + activeQuests.get(index).getCurrentStep().getName());
+            questDescText.setText(activeQuests.get(index).getDescription());
 
-        List<UIComponent> questTexts = questList.getChildren();
-        for(UIComponent component : questTexts){
-            QuestText questText = (QuestText) component;
-            questText.setUnderlined(false);
+            List<UIComponent> questTexts = questList.getChildren();
+            for (UIComponent component : questTexts) {
+                QuestText questText = (QuestText) component;
+                questText.setUnderlined(false);
 
-            if(questText.getQuestId() == questId){
-                questText.setUnderlined(true);
+                if (questText.getQuestId() == questId) {
+                    questText.setUnderlined(true);
+                }
             }
         }
+    }
+
+    private int getIndexFromQuestId(List<Quest> activeQuests, int questId) {
+        for(int i = 0; i < activeQuests.size(); i++) {
+            if(activeQuests.get(i).getId() == questId){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override

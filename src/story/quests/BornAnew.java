@@ -75,44 +75,55 @@ public class BornAnew extends Quest {
     }
 
     private void initializeQuest(Game game) {
-        Dialog dialog19554_1 = new Dialog(ignore -> {
+        initializeAkiraDialog(game);
+
+        initializeIsakDialog(game);
+
+        initializeJoffreyDialog();
+
+        initializeBillDialogs(game);
+    }
+
+    private void initializeBillDialogs(Game game) {
+        Dialog billDialog = new Dialog(ignore -> {
             bill.getDialogManager().nextDialog();
             this.goToNextStep(game);
         });
 
-        dialog19554_1.addLine(new DialogLine("My name is Bill by the way. \nWelcome to my home."));
-        dialog19554_1.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest in the bed " +
+        billDialog.addLine(new DialogLine("My name is Bill by the way. \nWelcome to my home."));
+        billDialog.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest in the bed " +
                 "over there and we will talk tomorrow."));
-        dialog19554_1.setActive(false);
+        billDialog.setActive(false);
 
-        bill.addDialog(dialog19554_1);
+        bill.addDialog(billDialog);
 
-        Dialog dialog19554_2 = new Dialog();
-        dialog19554_2.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest in the bed " +
+        Dialog billDialog2 = new Dialog();
+        billDialog2.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest in the bed " +
                 "over there and we will talk tomorrow."));
 
-        bill.addDialog(dialog19554_2);
+        bill.addDialog(billDialog2);
 
-        Dialog dialog19554_3 = new Dialog(ignore -> {
+        Dialog billDialog3 = new Dialog(ignore -> {
+            lordGodfrey.getDialogManager().nextDialog();
             bill.getDialogManager().nextDialog();
             this.goToNextStep(game);
         });
 
-        dialog19554_3.addLine(new DialogLine("Good morning. Did you sleep well?"));
-        dialog19554_3.addLine(new DialogLine("You have bad luck washing ashore on this island.\n" +
+        billDialog3.addLine(new DialogLine("Good morning. Did you sleep well?"));
+        billDialog3.addLine(new DialogLine("You have bad luck washing ashore on this island.\n" +
                 "Did you notice how the nature has died outside?"));
-        dialog19554_3.addLine(new DialogLine("The island is dying after Group19 stole\n" +
+        billDialog3.addLine(new DialogLine("The island is dying after Group19 stole\n" +
                 "the medallion keeping it in balance."));
-        dialog19554_3.addLine(new DialogLine("What medallion you say?"));
-        dialog19554_3.addLine(new DialogLine("The medallion contains a stone of life, I'm sure you have heard " +
+        billDialog3.addLine(new DialogLine("What medallion you say?"));
+        billDialog3.addLine(new DialogLine("The medallion contains a stone of life, I'm sure you have heard " +
                 "of them?"));
-        dialog19554_3.addLine(new DialogLine("The legends say that this island was originally just dead rock."));
-        dialog19554_3.addLine(new DialogLine("But one day an adventurer found a stone of life " +
+        billDialog3.addLine(new DialogLine("The legends say that this island was originally just dead rock."));
+        billDialog3.addLine(new DialogLine("But one day an adventurer found a stone of life " +
                 "\nand with it, created life on the island."));
-        dialog19554_3.addLine(new DialogLine("And now, without it, it is once again dying."));
-        dialog19554_3.addLine(new DialogLine("If you want to hear more about it, talk to the king in his\n" +
+        billDialog3.addLine(new DialogLine("And now, without it, it is once again dying."));
+        billDialog3.addLine(new DialogLine("If you want to hear more about it, talk to the king in his\n" +
                 "castle south-east of here."));
-        dialog19554_3.addLine(new DialogLine("It looks you are ready to go. Come visit me sometimes.", ignore -> {
+        billDialog3.addLine(new DialogLine("It looks you are ready to go. Come visit me sometimes.", ignore -> {
             bill.setActivity("wander_random");
             game.getPauseState().setCanSave(true);
             TeleportScenery teleport = (TeleportScenery) game.getGameObjectById(39578);
@@ -124,78 +135,122 @@ public class BornAnew extends Quest {
         }
         ));
 
-        bill.addDialog(dialog19554_3);
+        bill.addDialog(billDialog3);
 
-        Dialog dialog19554_4 = new Dialog();
+        Dialog billDialog4 = new Dialog();
 
-        dialog19554_4.addLine(new DialogLine("If you want to hear more about the missing medallion\n" +
-                "talk to the king in his castle south-east of here."));
+        billDialog4.addLine(new DialogLine("If you want to hear more about the missing medallion\n" +
+                "talk to lord Joffrey in his castle south-east of here."));
 
-        bill.addDialog(dialog19554_4);
+        bill.addDialog(billDialog4);
+    }
 
-        Dialog dialog89742_5 = new Dialog();
-        dialog89742_5.addLine(new DialogLine("I am Lord Joffrey!" + " Who am I speaking to?"));
-        dialog89742_5.addLine(new DialogLine("Oh you have come here to find out about the medallion?\n" +
-                "The medallion contained a stone that gave this island life. Before the\n" + "medallion was placed on this island " +
-                "there was no life here.\n" + "The medallion awoke the nature on here and allow life to flourish."));
-        dialog89742_5.addLine(new DialogLine("The word of the medallion spread and attracted all kinds of people.\n" +
-                "But it was when group19 showed up that trouble started.\n" + "After a few failed attempts at stealing it " + "they succeeded\n" + "in " +
-                "getting their hands on it."));
-        dialog89742_5.addLine(new DialogLine("But it didn't end the way they anticipated.\n" +
-                "the moment they grabbed the medallion it split into pieces\n" +
-                "and now the pieces lay scattered all around the island."));
-        dialog89742_5.addLine(new DialogLine("Without the medallion life on this island will not last long.\n" +
-                "If you go to the north east corner of the island you will see that\n" + "the island has started to die" +
-                ". this deterioration will continue\n" + "and lead to the death of the island" + " unless the pieces\n" + "of the " +
+    private void initializeJoffreyDialog() {
+        Dialog inactiveDialog1 = new Dialog();
+        inactiveDialog1.addLine(new DialogLine(""));
+        inactiveDialog1.setActive(false);
+        lordGodfrey.addDialog(inactiveDialog1);
+
+        Dialog joffreyDialog1 = new Dialog(ignore -> {
+            isak.getDialogManager().nextDialog();
+            lordGodfrey.getDialogManager().nextDialog();
+        });
+        joffreyDialog1.addLine(new DialogLine("I am Lord Joffrey!" + " Who am I speaking to?"));
+        joffreyDialog1.addLine(new DialogLine("Oh you have come here to find out about the medallion?\n" +
+                "The medallion contains a stone that gave this island life. Before the\n" + "medallion was " +
+                "placed on this island hundreds of years ago, there was no life here.\n"
+                + "The medallion awoke nature and made life flourish."));
+        joffreyDialog1.addLine(new DialogLine("The word of the medallion spread and attracted all kinds of people.\n" +
+                "But it was when group19 showed up that trouble started.\n" + "They have always attempted to " +
+                "steal it but nevery succeeded.\n" + " Until now."));
+        joffreyDialog1.addLine(new DialogLine("But it didn't end the way they anticipated.\n" +
+                " The medallion can only be used by someone of the finders bloodline.\n" +
+                " The moment they grabbed the medallion it split into pieces\n" +
+                " and now the pieces lay scattered all around the island."));
+        joffreyDialog1.addLine(new DialogLine("Without the medallion life on this island will not last long.\n" +
+                "The deterioration in the north east will continue\n" + "and lead to the death of this island" +
+                " unless the pieces\n of the " +
                 "medallion are collected and put back together again."));
-        dialog89742_5.addLine(new DialogLine("But we still have hope, as I said\n" + "the pieces are" +
-                " scattered around the island.\n" + "The problem is we have not been able to locate them"));
-        dialog89742_5.addLine(new DialogLine("We have sent out people to search for them but\n" + "we've " +
+        joffreyDialog1.addLine(new DialogLine("The problem is we have not been able to locate them"));
+        joffreyDialog1.addLine(new DialogLine("We have sent out people to search for them but\n" + "we've " +
                 "had no success as of yet." + " Some people have even gone missing."));
-        dialog89742_5.addLine(new DialogLine("They have disappeared while searching for the\n" + "missing pieces in the " +
+        joffreyDialog1.addLine(new DialogLine("They have disappeared while searching for the\n" + "missing pieces in the " +
                 "south-western corner of the map."));
-        dialog89742_5.addLine(new DialogLine("We have since forbidden people to search in that\n" + "part of the island" +
-                " if you'd like to know more about it\n" + "I suggest you pay Isak a " +
-                "visit who spends a lot of time down there"));
-        lordGodfrey.addDialog(dialog89742_5);
+        joffreyDialog1.addLine(new DialogLine("We have since forbidden people to search in that\n" + " area of " +
+                "the island" +
+                " if you'd like to know more about it\n" + "I suggest you pay Isak down there a visit."));
+        lordGodfrey.addDialog(joffreyDialog1);
 
-        Dialog dialog89743_6 = new Dialog();
-        dialog89743_6.addLine(new DialogLine("I'm Isak. What brings you here?"));
-        dialog89743_6.addLine(new DialogLine("Ah the missing pieces, well I'm afraid you are wasting your time.\n" +
-                "I don't have any information for you." + "I've only hear rumors and\n" + "rumors are not to be trusted."));
-        dialog89743_6.addLine(new DialogLine("What the rumors are?\n" + "They are very vague and not of much value for you I'm afraid.\n"
-        + "All I've heard is that there are weird noises in the northern forrest and\n" + "some shady characters moving around near" +
-                " the southern marketplace."));
-        dialog89743_6.addLine(new DialogLine("And then there is the people who disappeared while\n" + "searching for the " +
-                "missing pieces. I can't tell you much but I advise\n" + "you to stay away from the hole over there if\n" +
-                "you don't wish to disappear like they did."));
-        dialog89743_6.addLine(new DialogLine("One last thing, if you truly are here to help us\n" + "you should go and talk to" +
-                " Akira.\n" + "She knows more than anyone and can give you some guidance."));
-        dialog89743_6.addLine(new DialogLine("You'll find her in the harbour city up north."));
-        isak.addDialog(dialog89743_6);
+        Dialog joffreyDialog2 = new Dialog();
+        joffreyDialog2.addLine(new DialogLine("If you want to know more, talk to Isak in the south " +
+                "west\ncorner of the " +
+                "island."));
+        lordGodfrey.addDialog(joffreyDialog2);
+    }
 
-        Dialog dialog89759_7 = new Dialog();
-        dialog89759_7.addLine(new DialogLine("Who are you? And why are you looking for me?"));
-        dialog89759_7.addLine(new DialogLine("Isak sent you? You must have made a good\n" + "impression on him."
-        + " So tell me, why have you come to see me?"));
-        dialog89759_7.addLine(new DialogLine("Oh you want to help with finding the medallion pieces?\n" +
-                "I'm afraid it's unlikely that you will have any luck, I\n" + "suggest you do something else and" +
-                " don't waste\n" + "time chasing something that you'll never find."));
-        dialog89759_7.addLine(new DialogLine("But if you really want to try I guess it won't hurt.\n" +
+    private void initializeIsakDialog(Game game) {
+        Dialog inactiveDialog1 = new Dialog();
+        inactiveDialog1.addLine(new DialogLine(""));
+        inactiveDialog1.setActive(false);
+        isak.addDialog(inactiveDialog1);
+
+        Dialog isakDialog1 = new Dialog(ignore -> {
+            game.getGameState().getQuestManager().startQuest(game, 1);
+            akira.getDialogManager().nextDialog();
+            isak.getDialogManager().nextDialog();
+            NPC jester = (NPC) game.getGameObjectById(100000);
+            NPC locky = (NPC) game.getGameObjectById(90147);
+            NPC stocky = (NPC) game.getGameObjectById(90149);
+            jester.setActivity("wander_random");
+            jester.getDialogManager().nextDialog();
+            locky.getDialogManager().nextDialog();
+            stocky.getDialogManager().nextDialog();
+        });
+
+        isakDialog1.addLine(new DialogLine("I'm Isak. What brings you here?"));
+        isakDialog1.addLine(new DialogLine("Ah the missing pieces, well I'm afraid you are wasting your time.\n"
+                + "I've only heard rumors and\n" + "rumors are not to be trusted."));
+        isakDialog1.addLine(new DialogLine("The rumors?\n" + "They are very vague and not of much value for " +
+                "you I'm afraid."));
+        isakDialog1.addLine(new DialogLine("There are people who has disappeared while\n" + "searching for the" +
+                " missing pieces. Apparently the\nhole over there has something to do with it. I advise\n" +
+                "you to stay away from the hole if you don't wish to disappear like they did."));
+        isakDialog1.addLine(new DialogLine("One last thing, if you truly are here to help us\n" + "you should " +
+                "also go talk to Akira,\nthe old mentor of group19."));
+        isakDialog1.addLine(new DialogLine("You'll find her in the harbour city up north."));
+        isak.addDialog(isakDialog1);
+
+        Dialog isakDialog2 = new Dialog();
+        isakDialog2.addLine(new DialogLine("Talk to Akira in the harbour city up north."));
+
+        isak.addDialog(isakDialog2);
+    }
+
+    private void initializeAkiraDialog(Game game) {
+        Dialog inactiveDialog1 = new Dialog();
+        inactiveDialog1.addLine(new DialogLine(""));
+        inactiveDialog1.setActive(false);
+        akira.addDialog(inactiveDialog1);
+
+        Dialog akiraDialog1 = new Dialog(ignore -> {
+            game.getGameState().getQuestManager().startQuest(game, 2);
+            game.getGameState().getQuestManager().startQuest(game, 4);
+        });
+        akiraDialog1.addLine(new DialogLine("Who are you? And why are you looking for me?"));
+        akiraDialog1.addLine(new DialogLine("Isak sent you? You must have made a good\n" + "impression on him."
+                + " So tell me, why have you come to see me?"));
+        akiraDialog1.addLine(new DialogLine("Oh you want to help with finding the medallion pieces?\n" +
                 "I don't know where the pieces are, but I do have some ideas\n" + "that might help you out in" +
                 " your search."));
-        dialog89759_7.addLine(new DialogLine("See my pots over there?\n" + "One of them is not a normal pot. I will" +
-                " not give\n" + "you more information about the pot but when you feel ready to\n" + "start searching for" +
-                " a new medallion piece, interact with\n" + "the special pot and then come and talk to me"));
-        akira.addDialog(dialog89759_7);
+        akiraDialog1.addLine(new DialogLine("Talk to Luna, owner of a pub on the west shore.\n" + "She has " +
+                "heard rumours about a chest in the middle of ocean."));
+        akiraDialog1.addLine(new DialogLine("Then there is also Komako in the southern marketplace, he has\n" +
+                "explored the northern forest a lot since there are weird signs from there."));
+        akira.addDialog(akiraDialog1);
 
-        NPC gran = (NPC) game.getGameObjectById(10059);
-
-        Dialog dialog10059_1 = new Dialog();
-
-        dialog10059_1.addLine(new DialogLine("HEY!!"));
-
-        gran.addDialog(dialog10059_1);
+        Dialog akiraDialog2 = new Dialog();
+        akiraDialog2.addLine(new DialogLine("Talk to Komako or Luna for more information."));
+        akira.addDialog(akiraDialog2);
     }
 
     private void initializeSteps(Game game) {
@@ -225,12 +280,15 @@ public class BornAnew extends Quest {
                 "castle to get more information\nabout the missing medallion",
                 " He told me about the history\nof this island." +
                         " Apparently a group called group19 recently stole a\n" +
-                        "medallion keeping the balance on the island.",game.getGameObjectById(89742)); //game.getGameObjectById(10059));
-        System.out.println(game.getGameObjectById(10059));
-        QuestStep step3 = new InteractWithGameObject("Go talk to Isak in the\n" + "south-west corner of the map.",""
-                /*" Isak might have\ninformation about the disappearances in that part of the map."*/,
+                        "medallion keeping the balance on the island.",game.getGameObjectById(89742));
+        QuestStep step3 = new InteractWithGameObject("Go talk to Isak in the\n" + "south-west corner of the " +
+                "island.",
+                " I was advised to talk\nto a guy called Isak in the south west.",
                 game.getGameObjectById(89743));
-        QuestStep step4 = new InteractWithGameObject("Find Akira in the northern harbour.", "", game.getGameObjectById(89759));
+        QuestStep step4 = new InteractWithGameObject("Find Akira in the northern harbour city.", "The old mentor" +
+                "\nof " +
+                "group19 lives in the harbor city and has some rumours about the\nmissing pieces.",
+                game.getGameObjectById(89759));
         addQuestStep(step0, step1, step2, step3, step4);
     }
 

@@ -35,7 +35,7 @@ public class QuestManager implements Persistable {
 
     public void initializeQuests(Game game) {
         quests = new ArrayList<>();
-        new QuestInitializer().initializeQuests(game, this);
+        new LoreInitializer().initializeQuests(game, this);
     }
 
     public void startQuest(Game game, int id) {

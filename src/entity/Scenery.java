@@ -9,7 +9,6 @@ import display.Camera;
 import main.Game;
 
 import java.awt.*;
-import java.util.Objects;
 
 /**
  * @author Simon Jern, Johan Salomonsson
@@ -149,12 +148,6 @@ public class Scenery extends GameObject implements Persistable {
             }
             if(id == 10656) {
                 game.getGameState().updateMedallionCount();
-            }
-        }
-        if(sprite.equals(game.getContent().getImage("pot2"))) {
-            if(id == 20851) {
-                game.getGameState().getQuestManager().startQuest(game, nextQuest);
-                nextQuest++;
             }
         }
 

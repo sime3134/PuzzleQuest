@@ -1,24 +1,28 @@
 package story.quests;
 
+import ai.task.GoToPositionWithoutPathFinding;
+import core.Vector2D;
 import dialog.Dialog;
 import dialog.DialogLine;
 import entity.NPC;
+import entity.TeleportScenery;
 import main.Game;
+import settings.Settings;
 import story.quest_steps.InteractWithGameObject;
 import story.quest_steps.QuestStep;
+import story.quest_steps.WaitForExternalCompletion;
 
 /**
  * @author Johan Salomonsson
  */
 public class Maze extends Quest {
-
-    private final NPC akira;
     private final NPC mazer;
+    private final NPC john;
 
     public Maze(Game game, int id) {
         super("Maze", "", id);
-        akira = (NPC) game.getGameObjectById(89759);
         mazer = (NPC) game.getGameObjectById(89755);
+        john = (NPC) game.getGameObjectById(100002);
 
         initializeQuest(game);
         initializeSteps(game);
@@ -31,46 +35,50 @@ public class Maze extends Quest {
     }
 
     private void initializeQuest(Game game) {
-        Dialog dialog89759_8 = new Dialog(ignore -> {
-            akira.getDialogManager().nextDialog();
+
+        Dialog mazerDialog = new Dialog();
+        mazerDialog.addLine(new DialogLine("You have found the end off the maze.\n" +
+                "If you have found the missing medallion piece in here you are free to\n leave. If not " +
+                "I'm afraid I can't let you out until you find it."));
+        mazerDialog.addLine(new DialogLine("After all the survival of the island rests on finding the\n" +
+                "missing pieces. When you have found the piece of the medallion just\n" + "interact with this" +
+                " statue and you will be transported back to the island."));
+        mazer.addDialog(mazerDialog);
+
+        Dialog johnDialog = new Dialog(ignore -> {
             this.goToNextStep(game);
+            Vector2D johnNewPosition = john.getPosition();
+            johnNewPosition.add(new Vector2D(5 * Settings.getTileSize(), 0));
+            john.getBrain().addTask(new GoToPositionWithoutPathFinding(john, johnNewPosition,
+                    ignore1 -> john.setDirection("LEFT")));
         });
-        dialog89759_8.addLine(new DialogLine("So you are ready to start the search? Well I am glad that\n" +
-                "you are trying to help us. Like I said before I don't\n" + "know the locations of the missing pieces" +
-                " but a good\n" + "place to start looking is near Isak's home."));
-        dialog89759_8.addLine(new DialogLine("Search for something that can take you underground.\n" +
-                "Well, get going, every second wasted costs this island life."));
-        akira.addDialog(dialog89759_8);
-        Dialog dialog89755_9 = new Dialog();
-            dialog89755_9.addLine(new DialogLine("You have found the end off the maze.\n" +
-                    "If you have found the missing medallion piece in here you are free to\n leave. If not " +
-                    "I'm afraid I can't let you out until you find it."));
-            dialog89755_9.addLine(new DialogLine("After all the survival of the island rests on finding the\n" +
-                    "missing pieces. When you have found the piece of the medallion just\n" + "interact with this" +
-                    " statue and you will be transported back to the island."));
-            mazer.addDialog(dialog89755_9);
-        Dialog dialog89759_10 = new Dialog(ignore -> {
-            akira.getDialogManager().nextDialog();
+        johnDialog.addLine(new DialogLine("Finally! I have been stuck down here for ages."));
+        johnDialog.addLine(new DialogLine("I'm John. An explorer of kinds."));
+        johnDialog.addLine(new DialogLine("Who built this maze and for what purpose?"));
+        johnDialog.addLine(new DialogLine("I came down here to find answers but instead I'm left\nwith more " +
+                "questions."));
+        johnDialog.addLine(new DialogLine("How can nature grow below earth?"));
+        johnDialog.addLine(new DialogLine("Maybe you will find the answers..."));
+
+        TeleportScenery teleportToMaze = (TeleportScenery) game.getGameObjectById(89744);
+        teleportToMaze.setCollisionAction(ignore -> {
             this.goToNextStep(game);
+            teleportToMaze.setCollisionAction(null);
         });
-            dialog89759_10.addLine(new DialogLine("I'm glad to see you made it back alive, I had my doubts.\n" +
-                    "We have lost a few people down there before. So tell me\n" + "did you find anything?"));
-        dialog89759_10.addLine(new DialogLine("Oh you found a part of the medallion? Excellent. \n" +
-                "This is a step in the right direction but just one piece will not get us far.\n" +
-                "If you want to keep looking just let me know and I'll see if I can help you."));
-        akira.addDialog(dialog89759_10);
     }
 
     private void initializeSteps(Game game) {
-        QuestStep step1 = new InteractWithGameObject("Talk to Akira", "",
-                game.getGameObjectById(89759));
-        QuestStep step2 = new InteractWithGameObject("Go to Isak's home", "Search for a way underground\n" +
-                "and look for a medallion piece.",game.getGameObjectById(19424));
-        QuestStep step3 = new InteractWithGameObject("Find your way out of the maze",
-                "You found a part from the missing medallion.\nNow you need to find the way out of the maze",
-                game.getGameObjectById(89756));
-        QuestStep step4 = new InteractWithGameObject("Talk to Akira",
-                "You found a piece of the medallion, go tell Akira about it", game.getGameObjectById(89759));
-        addQuestStep(step1,step2,step3,step4);
+        QuestStep step0 = new WaitForExternalCompletion("The guarded hole", "I should find the hole Isak" +
+                " was talking" +
+                " about and\nmake my way down.");
+        QuestStep step1 = new WaitForExternalCompletion("Exploring the maze",
+                "I found an underground maze. I should explore it.\n");
+        QuestStep step2 = new InteractWithGameObject("Growing mystery",
+                "A man called John told me that nature is growing even down here.\n" +
+                        "What could be the reason?", game.getGameObjectById(19424));
+        QuestStep step3 = new InteractWithGameObject("Finding the way out",
+                "I found a piece of the medallion. I don't know how it got here\n" +
+                        "but I guess I will know with time.", game.getGameObjectById(89756));
+        addQuestStep(step0,step1,step2,step3);
     }
 }
