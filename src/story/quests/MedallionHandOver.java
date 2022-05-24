@@ -41,7 +41,7 @@ public class MedallionHandOver extends Quest{
     public void initializeSteps(Game game) {
         QuestStep step1 = new InteractWithGameObject("Hand the pieces over to Lord Joffrey","",
                 game.getGameObjectById(89742));
-        step1.setActionAtFinish(ignore -> game.displayNotification("Congratulations you won!\n" +
+        step1.setActionAtFinish(ignore -> game.displayNotification("Congratulations you saved the island!\n" +
                 "Feel free to keep exploring the island."));
         addQuestStep(step1);
 
