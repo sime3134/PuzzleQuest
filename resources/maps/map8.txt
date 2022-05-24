@@ -511,7 +511,7 @@ Scenery:bush_with_fruit:19575:575|313:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0
 Scenery:bush_with_fruit:19576:577|261:48:48:0|0:16.0:0|16:48:32:false:58:53:-5:0:
 
 ###
-NPC:LORD GODFREY:89742:4.0:map8:1307|476:villager1:stand:DOWN:0:
+NPC:LORD JOFFREY:89742:4.0:map8:1307|476:villager1:stand:DOWN:0:
 NPC:TYRELL:89767:4.0:map8:2187|1775:villager2:stand:UP:0:
 NPC:ERIDINA:89768:4.0:map8:609|483:villager3:wander_random:UP:0:
 NPC:SIMONA:89769:4.0:map8:1030|186:villager3:wander_random:DOWN:0:
