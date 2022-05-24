@@ -371,7 +371,7 @@ Scenery:tree1:90001:1670|2087:114:148:0|0:60.0:0|80:113:40:false:124:74:-5:79:
 Scenery:post_sign3:100001:1970|2223:42:48:0|0:16.0:0|16:42:32:false:52:53:-5:0:
 
 ###
-NPC:ISAK:89743:4.0:map21:2042|1832:villager0:stand:RIGHT:0:
+NPC:ISAK:89743:4.0:map21:1918|1680:villager0:stand:DOWN:0:
 NPC:KARA:89990:4.0:map21:742|675:villager3:stand:UP:0:
 NPC:SWATT:89991:4.0:map21:919|675:villager0:stand:UP:0:
 NPC:WATERBOY:89993:4.0:map21:446|115:villager2:wander_random:DOWN:0:
