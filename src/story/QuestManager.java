@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class QuestManager implements Persistable {
 
-    private List<Quest> quests;
+    private final List<Quest> quests;
 
     public QuestManager() {
         quests = new ArrayList<>();
@@ -28,13 +28,12 @@ public class QuestManager implements Persistable {
         quests.add(quest);
     }
 
-    public List<Quest> getActiveQuests() {
-        return quests.stream()
-                .filter(quest -> quest.isActive()).toList();
+    public List<Quest> getQuests() {
+        return quests;
     }
 
     public void initializeQuests(Game game) {
-        quests = new ArrayList<>();
+        quests.clear();
         new LoreInitializer().initialize(game, this);
     }
 

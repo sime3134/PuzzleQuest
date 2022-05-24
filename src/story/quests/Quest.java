@@ -48,18 +48,18 @@ public abstract class Quest implements Persistable {
     public void update(Game game){
         steps.get(currentStep).update(game);
 
-        if(steps.get(currentStep).shouldTransition(game)){
-            if(steps.get(currentStep).getActionAtFinish() != null){
-                steps.get(currentStep).getActionAtFinish().execute(game);
-            }
-            if(currentStep < steps.size() - 1) {
-                game.displayNotification("Quest '" + name  + "' updated.");
-                currentStep++;
-                description += steps.get(currentStep).getDescription();
-            }else{
-                disengage(game);
-            }
-        }
+//        if(steps.get(currentStep).shouldTransition(game)){
+//            if(steps.get(currentStep).getActionAtFinish() != null){
+//                steps.get(currentStep).getActionAtFinish().execute(game);
+//            }
+//            if(currentStep < steps.size() - 1) {
+//                game.displayNotification("Quest '" + name  + "' updated.");
+//                currentStep++;
+//                description += steps.get(currentStep).getDescription();
+//            }else{
+//                disengage(game);
+//            }
+//        }
     }
 
     protected void disengage(Game game) {
@@ -88,11 +88,13 @@ public abstract class Quest implements Persistable {
         if(steps.get(currentStep).getActionAtFinish() != null){
             steps.get(currentStep).getActionAtFinish().execute(game);
         }
+        System.out.println(currentStep);
         if(currentStep < steps.size() - 1) {
             game.displayNotification("Quest '" + name  + "' updated.");
             currentStep++;
             description += steps.get(currentStep).getDescription();
         }else{
+            System.out.println(currentStep + " steps: " + steps.size());
             disengage(game);
         }
     }
@@ -123,8 +125,9 @@ public abstract class Quest implements Persistable {
         active = Boolean.parseBoolean(tokens[3]);
         finished = Boolean.parseBoolean(tokens[4]);
         currentStep = Integer.parseInt(tokens[5]);
-        for(int i = currentStep; i > 0; i--){
+        for(int i = 1; i < currentStep + 1; i++){
             description += steps.get(i).getDescription();
         }
+        System.out.println(name + ": " + currentStep);
     }
 }

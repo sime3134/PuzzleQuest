@@ -70,7 +70,6 @@ public class Game implements Persistable {
 
     //region Getters & Setters (Click to view)
 
-
     public boolean isShowBlackScreen() {
         return showBlackScreen;
     }
@@ -273,6 +272,7 @@ public class Game implements Persistable {
 
     public void resumeGame() {
         stateManager.goToGameState();
+        getGameState().initializeNameTags(this);
     }
 
     public void saveGame() {
@@ -280,6 +280,8 @@ public class Game implements Persistable {
     }
 
     public void loadGame() {
+        sceneryToOverwrite.clear();
+        maps.loadAll(content, "/maps");
         getGameState().getPlayer().setLastInteractedWith(new NPC());
         getGameState().getQuestManager().initializeQuests(this);
         ProgressIO.load(this, "./save_file.txt");

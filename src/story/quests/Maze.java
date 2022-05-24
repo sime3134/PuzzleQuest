@@ -18,7 +18,6 @@ import story.quest_steps.WaitForExternalCompletion;
 public class Maze extends Quest {
     private final NPC mazer;
     private final NPC john;
-
     private final NPC isak;
 
     public Maze(Game game, int id) {

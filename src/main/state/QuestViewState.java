@@ -14,6 +14,7 @@ import ui.containers.UIContainer;
 import ui.containers.VerticalContainer;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestViewState extends State {
@@ -27,7 +28,12 @@ public class QuestViewState extends State {
     private UIText questName;
 
     public void setClickedQuest(Game game, int questId) {
-        List<Quest> activeQuests = game.getGameState().getQuestManager().getActiveQuests();
+        List<Quest> activeQuests = new ArrayList<>();
+        for(Quest quest : game.getGameState().getQuestManager().getQuests()){
+            if(quest.isActive()){
+                activeQuests.add(quest);
+            }
+        }
         int index = getIndexFromQuestId(activeQuests, questId);
         if(index != -1) {
             questName.setText(activeQuests.get(index).getName());
@@ -133,7 +139,12 @@ public class QuestViewState extends State {
     public void updateQuestMenu(GameState gameState){
         questList.clear();
 
-        List<Quest> activeQuests = gameState.getQuestManager().getActiveQuests();
+        List<Quest> activeQuests = new ArrayList<>();
+        for(Quest quest : gameState.getQuestManager().getQuests()){
+            if(quest.isActive()){
+                activeQuests.add(quest);
+            }
+        }
 
         for(int i = 0; i < activeQuests.size(); i++){
             QuestText questText = new QuestText(activeQuests.get(i).getName(), this, activeQuests.get(i).getId());
