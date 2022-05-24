@@ -40,12 +40,13 @@ public class Maze extends Quest {
 
         Dialog mazerDialog = new Dialog();
         mazerDialog.addLine(new DialogLine("Hey, I think this is the way out of the maze.\n" +
-                "It says on this statue that the statue will get you out of the maze."));
+                "It says so on this statue."));
         mazerDialog.addLine(new DialogLine("But it doesn't work. It seems like it wants me\n" +
                 "to do something else first."));
         mazer.addDialog(mazerDialog);
 
         Dialog johnDialog = new Dialog(ignore -> {
+            john.getDialogManager().nextDialog();
             game.getPauseState().setCanSave(false);
             Vector2D johnNewPosition = john.getPosition();
             johnNewPosition.add(new Vector2D(5 * Settings.getTileSize(), 0));
@@ -65,6 +66,12 @@ public class Maze extends Quest {
         johnDialog.addLine(new DialogLine("Maybe you will find the answers..."));
 
         john.addDialog(johnDialog);
+
+        Dialog inactiveDialog = new Dialog();
+
+        inactiveDialog.addLine(new DialogLine(""));
+        inactiveDialog.setActive(false);
+        john.addDialog(inactiveDialog);
 
         TeleportScenery teleportToMaze = (TeleportScenery) game.getGameObjectById(89744);
         teleportToMaze.setCollisionAction(ignore -> {

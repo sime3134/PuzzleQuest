@@ -129,6 +129,7 @@ public class Scenery extends GameObject implements Persistable {
         }
         if(sprite.equals(game.getContent().getImage("chest"))) {
             sprite = game.getContent().getImage("chest_open");
+            name = "chest_open";
             if(id == 34000) {
                 game.getGameState().increaseMedallionCount(game);
                 game.getGameState().setMazeMedallionFound(true);
@@ -136,12 +137,14 @@ public class Scenery extends GameObject implements Persistable {
         }
         if(sprite.equals(game.getContent().getImage("chest2"))) {
             sprite = game.getContent().getImage("chest2_open");
+            name = "chest2_open";
             if(id == 10061) {
                 game.getGameState().increaseMedallionCount(game);
             }
         }
         if(sprite.equals(game.getContent().getImage("chest3"))) {
             sprite = game.getContent().getImage("chest3_open");
+            name = "chest3_open";
             if(id == 10656) {
                 game.getGameState().increaseMedallionCount(game);
             }

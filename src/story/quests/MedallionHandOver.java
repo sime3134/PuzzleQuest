@@ -27,8 +27,11 @@ public class MedallionHandOver extends Quest{
     }
 
     public void initializeQuest(Game game) {
-        Dialog joffreyDialog = new Dialog(ignore -> this.goToNextStep(game));
-        joffreyDialog.addLine(new DialogLine("Greetings my friend!\nHow have you found the island?"));
+        Dialog joffreyDialog = new Dialog(ignore -> {
+            this.goToNextStep(game);
+            lordJoffrey.getDialogManager().nextDialog();
+        });
+        joffreyDialog.addLine(new DialogLine("Greetings my friend!\nHow do you find the island?"));
         joffreyDialog.addLine(new DialogLine("You found the missing pieces?!\nHow on earth did you manage that?"));
         joffreyDialog.addLine(new DialogLine("How can we ever thank you?\nNow we will finally be able to save " +
                 "the island."));
@@ -38,6 +41,10 @@ public class MedallionHandOver extends Quest{
         joffreyDialog.addLine(new DialogLine("We won't ever forget this, you will always have a\n" +
                 "home here if you wish to remain. I will make sure of that."));
         lordJoffrey.addDialog(joffreyDialog);
+
+        Dialog joffreyDialog2 = new Dialog();
+        joffreyDialog2.addLine(new DialogLine("We are forever in debt to you."));
+        lordJoffrey.addDialog(joffreyDialog2);
 
     }
     public void initializeSteps(Game game) {
