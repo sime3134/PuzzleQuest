@@ -382,7 +382,7 @@ NPC:KLEB:89997:4.0:map21:902|1067:villager0:wander_random:DOWN:0:
 NPC:LOOTHY:89998:4.0:map21:2111|109:villager3:wander_random:DOWN:0:
 NPC:BUKA:89999:4.0:map21:2587|380:villager2:wander_random:DOWN:0:
 NPC:EMILE:90000:4.0:map21:2828|2487:villager0:wander_random:DOWN:0:
-NPC:FINN:90146:4.0:map21:2015|2238:villager0:stand:DOWN:0:
+NPC:FINN:90146:4.0:map21:2776|2111:villager0:wander_random:DOWN:0:
 NPC:LOCKY:90147:4.0:map21:1996|2192:villager3:stand:RIGHT:0:
 NPC:JESTER:100000:4.0:map21:1968|2165:villager2:stand:UP:0:
 NPC:STOCKY:90149:4.0:map21:1939|2195:villager0:stand:LEFT:0:

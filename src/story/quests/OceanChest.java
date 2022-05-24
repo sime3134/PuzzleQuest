@@ -28,16 +28,6 @@ public class OceanChest extends Quest{
     }
 
     private void initializeQuest(Game game){
-        Dialog dialog89759_16 = new Dialog();
-        dialog89759_16.addLine(new DialogLine("How was Bill doing?"));
-        dialog89759_16.addLine(new DialogLine("I see, well are you ready to continue the search now?"));
-        dialog89759_16.addLine(new DialogLine("Great! Well as usual I'm not entirely sure where to look\n" +
-                "but I have heard rumors about a medallion piece in the ocean somewhere.\n" +
-                "I wish I had more information to give you but that is all that I've heard."));
-        dialog89759_16.addLine(new DialogLine("My advice is that you go to gather some information from the staff\n" +
-                "at the Ocean View restaurant. They claim to have seen the medallion piece on a few occasions.\n" +
-                "You'll find the restaurant south-east of here. Good luck!"));
-        akira.addDialog(dialog89759_16);
 
         Dialog dialog89736_17 = new Dialog();
         dialog89736_17.addLine(new DialogLine("Hi, how can I help you?"));
@@ -47,7 +37,7 @@ public class OceanChest extends Quest{
                 "I have no idea where it is located at the moment."));
         dialog89736_17.addLine(new DialogLine("There is a man called Mensah that has taken it upon\n" +
                 "himself to follow the island so we don't lose it. If you find him\n" +
-                "he will be able to give you more information. He'll be somewhere along the coast line."));
+                "he will be able to give you more information.\nHe'll be somewhere along the coast line."));
         luna.addDialog(dialog89736_17);
 
         Dialog dialog90144_18 = new Dialog();
@@ -71,16 +61,15 @@ public class OceanChest extends Quest{
     }
 
     private void initializeSteps(Game game){
-        QuestStep step1 = new InteractWithGameObject("Talk to Akira","",game.getGameObjectById(89759));
-        QuestStep step2 = new InteractWithGameObject("Talk to the staff at the ocean restaurant", "Go to" +
+        QuestStep step1 = new InteractWithGameObject("Talk to the staff at the ocean restaurant", "Go to" +
                 " the ocean restaurant\n in the west and speak to the staff",game.getGameObjectById(89736));
-        QuestStep step3 = new InteractWithGameObject("Find Mensah", "Find Mensah somewhere along\n" +
+        QuestStep step2 = new InteractWithGameObject("Find Mensah", "Find Mensah somewhere along\n" +
                 "the coastline and speak to him.",game.getGameObjectById(90144));
-        QuestStep step4 = new InteractWithGameObject("Get to the island","Find a way out to the small\n" +
+        QuestStep step3 = new InteractWithGameObject("Get to the island","Find a way out to the small\n" +
                 "Island and open the chest",game.getGameObjectById(10061));
-        QuestStep step5 = new InteractWithGameObject("Talk to Akira", "Get back to the main\n" +
+        QuestStep step4 = new InteractWithGameObject("Talk to Akira", "Get back to the main\n" +
                 "island and talk to Akira",game.getGameObjectById(89759));
-        addQuestStep(step1,step2,step3,step4,step5);
+        addQuestStep(step1,step2,step3,step4);
 
     }
 }
