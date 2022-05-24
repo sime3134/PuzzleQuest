@@ -143,9 +143,6 @@ public class Scenery extends GameObject implements Persistable {
         }
         if(sprite.equals(game.getContent().getImage("chest3"))) {
             sprite = game.getContent().getImage("chest3_open");
-            if(id == 12840) {
-                game.getGameState().increaseMedallionCount(game);
-            }
             if(id == 10656) {
                 game.getGameState().increaseMedallionCount(game);
             }
