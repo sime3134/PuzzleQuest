@@ -37,12 +37,10 @@ public class Maze extends Quest {
     private void initializeQuest(Game game) {
 
         Dialog mazerDialog = new Dialog();
-        mazerDialog.addLine(new DialogLine("You have found the end off the maze.\n" +
-                "If you have found the missing medallion piece in here you are free to\n leave. If not " +
-                "I'm afraid I can't let you out until you find it."));
-        mazerDialog.addLine(new DialogLine("After all the survival of the island rests on finding the\n" +
-                "missing pieces. When you have found the piece of the medallion just\n" + "interact with this" +
-                " statue and you will be transported back to the island."));
+        mazerDialog.addLine(new DialogLine("Hey, I think this is the way out of the maze.\n" +
+                "It says on this statue that the statue will get you out of the maze."));
+        mazerDialog.addLine(new DialogLine("But it doesn't work. It seems like it wants me\n" +
+                "to do something else first."));
         mazer.addDialog(mazerDialog);
 
         Dialog johnDialog = new Dialog(ignore -> {
