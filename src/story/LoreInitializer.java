@@ -3,6 +3,7 @@ package story;
 import dialog.Dialog;
 import dialog.DialogLine;
 import entity.NPC;
+import entity.Scenery;
 import main.Game;
 import story.quests.*;
 
@@ -18,6 +19,10 @@ public class LoreInitializer {
         questManager.addQuest(new ForestMystery(game,2));
         questManager.addQuest(new CatchUpWithBill(game,3));
         questManager.addQuest(new OceanChest(game,4));
+
+        game.addSceneryToOverwrite((Scenery) game.getGameObjectById(34000));
+        game.addSceneryToOverwrite((Scenery) game.getGameObjectById(10061));
+        game.addSceneryToOverwrite((Scenery) game.getGameObjectById(10656));
 
         NPC jester = (NPC) game.getGameObjectById(100000);
         NPC locky = (NPC) game.getGameObjectById(90147);

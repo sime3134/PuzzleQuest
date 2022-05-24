@@ -6,6 +6,7 @@ import entity.NPC;
 import main.Game;
 import story.quest_steps.InteractWithGameObject;
 import story.quest_steps.QuestStep;
+import story.quest_steps.WaitForExternalCompletion;
 
 public class OceanChest extends Quest{
 
@@ -13,9 +14,9 @@ public class OceanChest extends Quest{
     private final NPC luna;
 
     public OceanChest(Game game, int id) {
-        super("Ocean Chest","I was told to go to an ocean restaurant in the west.\nto get more information about" +
-                " the location of" +
-                " a potential medallion piece.\n", id);
+        super("Ocean Chest","I was told to go to an ocean restaurant in the west\nto get more information about" +
+                "a potential location of" +
+                " a\nmedallion piece.", id);
         mensah = (NPC) game.getGameObjectById(90144);
         luna = (NPC) game.getGameObjectById(89736);
 
@@ -34,7 +35,10 @@ public class OceanChest extends Quest{
         inactiveDialog.setActive(false);
         luna.addDialog(inactiveDialog);
 
-        Dialog lunaDialog = new Dialog();
+        Dialog lunaDialog = new Dialog(ignore -> {
+            mensah.getDialogManager().nextDialog();
+            this.goToNextStep(game);
+        });
         lunaDialog.addLine(new DialogLine("Hi, how can I help you?"));
         lunaDialog.addLine(new DialogLine("Oh, you're looking for the missing pieces?\n" +
                 "Well I only know about one possible location. There is what we call\n" +
@@ -46,7 +50,12 @@ public class OceanChest extends Quest{
                 "he will be able to give you more information."));
         luna.addDialog(lunaDialog);
 
-        Dialog mensahDialog = new Dialog();
+        mensah.addDialog(inactiveDialog);
+
+        Dialog mensahDialog = new Dialog(ignore -> {
+            mensah.getDialogManager().nextDialog();
+            this.goToNextStep(game);
+        });
         mensahDialog.addLine(new DialogLine("That's right. I'm Mensah, if you have come to search for\n" +
                 "the moving island, it's right there."));
         mensahDialog.addLine(new DialogLine("I'm certain that there is a part of the lost medallion out there.\n" +
@@ -57,17 +66,25 @@ public class OceanChest extends Quest{
                 "you will simply have to go and search for it yourself."));
         mensahDialog.addLine(new DialogLine("Good luck and I truly hope you'll be successful."));
         mensah.addDialog(mensahDialog);
+
+        Dialog mensahDialog2 = new Dialog();
+        mensahDialog2.addLine(new DialogLine("Good luck!"));
+        mensah.addDialog(mensahDialog2);
+
+
+        Dialog mensahDialog3 = new Dialog();
+        mensahDialog3.addLine(new DialogLine("Congratulations, you found a piece of the medallion!"));
+        mensah.addDialog(mensahDialog3);
     }
 
     private void initializeSteps(Game game){
-        QuestStep step1 = new InteractWithGameObject("Talk to the owner of the ocean restaurant", "",
-                game.getGameObjectById(89736));
-        QuestStep step2 = new InteractWithGameObject("Find Mensah somewhere along the coastline", "Luna told me " +
-                "about a floating island that might have a medallion piece hidden on it.\nI should talk to a guy" +
-                " called Mensah for more information.\n",
-                game.getGameObjectById(90144));
+        QuestStep step1 = new WaitForExternalCompletion("Talk to the owner of the ocean restaurant", "");
+        QuestStep step2 = new WaitForExternalCompletion("Find Mensah somewhere along the coastline", "Luna told me " +
+                "about a floating island that might\nhave a medallion piece hidden on it. I should talk to a " +
+                "guy called Mensah\nfor more information. ");
         QuestStep step3 = new InteractWithGameObject("Find a way out to the island","Apparently there is a " +
-                "hidden path to the island.\n I'll just have to try my luck.",game.getGameObjectById(10061));
+                "hidden path to the island.\nI'll just have to try my luck.", game.getGameObjectById(10061));
+        step3.setActionAtFinish(ignore -> mensah.getDialogManager().nextDialog());
         addQuestStep(step1,step2,step3);
 
     }
