@@ -34,11 +34,11 @@ public class NotificationContainer extends HorizontalContainer{
         setFixedPosition(true);
         this.order = 0;
         setBackgroundColor(Color.DARK_GRAY);
-        setFixedHeight(40);
-        setFixedWidth(500);
+        setFixedHeight(70);
+        setFixedWidth(800);
         setCenterChildren(true);
         notificationText = new UIText("");
-        notificationText.setFontSize(14);
+        notificationText.setFontSize(16);
         setAbsolutePosition(new Vector2D(Settings.getScreenWidth(),
                 getFixedHeight() * order));
         addComponent(notificationText);

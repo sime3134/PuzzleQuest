@@ -24,8 +24,6 @@ public class NotificationManager {
         unusedNotification.add(new NotificationContainer());
         unusedNotification.add(new NotificationContainer());
         unusedNotification.add(new NotificationContainer());
-        unusedNotification.add(new NotificationContainer());
-        unusedNotification.add(new NotificationContainer());
     }
 
     public void displayNotification(String notification){
@@ -56,7 +54,6 @@ public class NotificationManager {
     public void draw(Graphics g){
         for(NotificationContainer container : notifications){
             container.draw(g);
-            System.out.println("Unused: " + unusedNotification.size());
         }
     }
 }

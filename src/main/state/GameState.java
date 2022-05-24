@@ -164,13 +164,15 @@ public class GameState extends State implements Persistable {
         uiContainers.add(dialogContainer);
     }
 
-    public void updateMedallionCount() {
+    public void increaseMedallionCount(Game game) {
         if(medallionsCollected < 3) {
             medallionsCollected++;
+            game.displayNotification("Found a piece of the medallion!");
         }
         medallionText.setText("Medallions collected: " + medallionsCollected + "/3");
         if(medallionsCollected == 3) {
             medallionText.setFontColor(Color.yellow);
+            game.displayNotification("You have found all the pieces of the medallion!");
         }
     }
 

@@ -30,6 +30,7 @@ public class QuestViewState extends State {
         List<Quest> activeQuests = game.getGameState().getQuestManager().getActiveQuests();
         int index = getIndexFromQuestId(activeQuests, questId);
         if(index != -1) {
+            questName.setText(activeQuests.get(index).getName());
             questStepText.setText("- " + activeQuests.get(index).getCurrentStep().getName());
             questDescText.setText(activeQuests.get(index).getDescription());
 

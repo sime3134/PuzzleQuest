@@ -105,16 +105,16 @@ public class Player extends Humanoid {
                 if(target != null) {
                     target.detach(selectionCircle);
                 }
-                selectionCircle.setWidth(gameObject.getSelectionCircleWidth());
-                selectionCircle.setHeight(gameObject.getSelectionCircleHeight());
-                selectionCircle.setRenderOffset(new Vector2D(gameObject.getSelectionCircleRenderXOffset(),
-                        gameObject.getSelectionCircleRenderYOffset()));
-                gameObject.attach(selectionCircle);
+//                selectionCircle.setWidth(gameObject.getSelectionCircleWidth());
+//                selectionCircle.setHeight(gameObject.getSelectionCircleHeight());
+//                selectionCircle.setRenderOffset(new Vector2D(gameObject.getSelectionCircleRenderXOffset(),
+//                        gameObject.getSelectionCircleRenderYOffset()));
+                //gameObject.attach(selectionCircle);
                 target = gameObject;
             }
         }else {
             if(target != null) {
-                target.detach(selectionCircle);
+//                target.detach(selectionCircle);
                 target = null;
             }
         }

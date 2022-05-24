@@ -15,7 +15,7 @@ public class LoreInitializer {
     public void initializeQuests(Game game, QuestManager questManager) {
         questManager.addQuest(new BornAnew(game,0));
         questManager.addQuest(new Maze(game, 1));
-        questManager.addQuest(new ForrestMystery(game,2));
+        questManager.addQuest(new ForestMystery(game,2));
         questManager.addQuest(new CatchUpWithBill(game,3));
         questManager.addQuest(new OceanChest(game,4));
 

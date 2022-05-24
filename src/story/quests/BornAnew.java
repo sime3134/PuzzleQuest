@@ -25,17 +25,22 @@ import java.util.concurrent.TimeUnit;
 public class BornAnew extends Quest {
 
     private final NPC bill;
-    private final NPC lordGodfrey;
+    private final NPC lordJoffrey;
     private final NPC isak;
     private final NPC akira;
+
+    private final NPC komako;
+    private final NPC luna;
 
     public BornAnew(Game game, int id) {
         super("Born anew", "I woke up on an unknown island and can't even remember my own name.\n" +
                 "An old man helped me after I woke up.", id);
         bill = (NPC)game.getGameObjectById(19554);
-        lordGodfrey = (NPC) game.getGameObjectById(89742);
+        lordJoffrey = (NPC) game.getGameObjectById(89742);
         isak = (NPC) game.getGameObjectById(89743);
         akira = (NPC) game.getGameObjectById(89759);
+        luna = (NPC) game.getGameObjectById(89736);
+        komako = (NPC) game.getGameObjectById(90121);
         initializeQuest(game);
         initializeSteps(game);
     }
@@ -104,7 +109,7 @@ public class BornAnew extends Quest {
         bill.addDialog(billDialog2);
 
         Dialog billDialog3 = new Dialog(ignore -> {
-            lordGodfrey.getDialogManager().nextDialog();
+            lordJoffrey.getDialogManager().nextDialog();
             bill.getDialogManager().nextDialog();
             this.goToNextStep(game);
         });
@@ -121,7 +126,7 @@ public class BornAnew extends Quest {
         billDialog3.addLine(new DialogLine("But one day an adventurer found a stone of life " +
                 "\nand with it, created life on the island."));
         billDialog3.addLine(new DialogLine("And now, without it, it is once again dying."));
-        billDialog3.addLine(new DialogLine("If you want to hear more about it, talk to the king in his\n" +
+        billDialog3.addLine(new DialogLine("If you want to hear more about it, talk to Lord Joffrey in his\n" +
                 "castle south-east of here."));
         billDialog3.addLine(new DialogLine("It looks you are ready to go. Come visit me sometimes.", ignore -> {
             bill.setActivity("wander_random");
@@ -139,8 +144,8 @@ public class BornAnew extends Quest {
 
         Dialog billDialog4 = new Dialog();
 
-        billDialog4.addLine(new DialogLine("If you want to hear more about the missing medallion\n" +
-                "talk to lord Joffrey in his castle south-east of here."));
+        billDialog4.addLine(new DialogLine("Lord Joffrey is the ruler of this island. His ancestors found the\n" +
+                "life of stone."));
 
         bill.addDialog(billDialog4);
     }
@@ -149,11 +154,11 @@ public class BornAnew extends Quest {
         Dialog inactiveDialog1 = new Dialog();
         inactiveDialog1.addLine(new DialogLine(""));
         inactiveDialog1.setActive(false);
-        lordGodfrey.addDialog(inactiveDialog1);
+        lordJoffrey.addDialog(inactiveDialog1);
 
         Dialog joffreyDialog1 = new Dialog(ignore -> {
             isak.getDialogManager().nextDialog();
-            lordGodfrey.getDialogManager().nextDialog();
+            lordJoffrey.getDialogManager().nextDialog();
         });
         joffreyDialog1.addLine(new DialogLine("I am Lord Joffrey!" + " Who am I speaking to?"));
         joffreyDialog1.addLine(new DialogLine("Oh you have come here to find out about the medallion?\n" +
@@ -179,13 +184,11 @@ public class BornAnew extends Quest {
         joffreyDialog1.addLine(new DialogLine("We have since forbidden people to search in that\n" + " area of " +
                 "the island" +
                 " if you'd like to know more about it\n" + "I suggest you pay Isak down there a visit."));
-        lordGodfrey.addDialog(joffreyDialog1);
+        lordJoffrey.addDialog(joffreyDialog1);
 
         Dialog joffreyDialog2 = new Dialog();
-        joffreyDialog2.addLine(new DialogLine("If you want to know more, talk to Isak in the south " +
-                "west\ncorner of the " +
-                "island."));
-        lordGodfrey.addDialog(joffreyDialog2);
+        joffreyDialog2.addLine(new DialogLine("We've lived here peacefully for centuries, and now this..."));
+        lordJoffrey.addDialog(joffreyDialog2);
     }
 
     private void initializeIsakDialog(Game game) {
@@ -221,7 +224,7 @@ public class BornAnew extends Quest {
         isak.addDialog(isakDialog1);
 
         Dialog isakDialog2 = new Dialog();
-        isakDialog2.addLine(new DialogLine("Talk to Akira in the harbour city up north."));
+        isakDialog2.addLine(new DialogLine("Akira was the mentor of group 19. How could it end up like this?"));
 
         isak.addDialog(isakDialog2);
     }
@@ -235,6 +238,9 @@ public class BornAnew extends Quest {
         Dialog akiraDialog1 = new Dialog(ignore -> {
             game.getGameState().getQuestManager().startQuest(game, 2);
             game.getGameState().getQuestManager().startQuest(game, 4);
+            akira.getDialogManager().nextDialog();
+            luna.getDialogManager().nextDialog();
+            komako.getDialogManager().nextDialog();
         });
         akiraDialog1.addLine(new DialogLine("Who are you? And why are you looking for me?"));
         akiraDialog1.addLine(new DialogLine("Isak sent you? You must have made a good\n" + "impression on him."
@@ -242,14 +248,15 @@ public class BornAnew extends Quest {
         akiraDialog1.addLine(new DialogLine("Oh you want to help with finding the medallion pieces?\n" +
                 "I don't know where the pieces are, but I do have some ideas\n" + "that might help you out in" +
                 " your search."));
-        akiraDialog1.addLine(new DialogLine("Talk to Luna, owner of a pub on the west shore.\n" + "She has " +
+        akiraDialog1.addLine(new DialogLine("Talk to Luna, owner of the ocean restaurant on the west shore.\n" +
+                "She has " +
                 "heard rumours about a chest in the middle of ocean."));
         akiraDialog1.addLine(new DialogLine("Then there is also Komako in the southern marketplace, he has\n" +
                 "explored the northern forest a lot since there are weird signs from there."));
         akira.addDialog(akiraDialog1);
 
         Dialog akiraDialog2 = new Dialog();
-        akiraDialog2.addLine(new DialogLine("Talk to Komako or Luna for more information."));
+        akiraDialog2.addLine(new DialogLine("We must save the island as soon as possible."));
         akira.addDialog(akiraDialog2);
     }
 
