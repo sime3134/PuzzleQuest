@@ -61,15 +61,16 @@ public class OceanChest extends Quest{
     }
 
     private void initializeSteps(Game game){
-        QuestStep step1 = new InteractWithGameObject("Talk to the staff at the ocean restaurant", "Go to" +
-                " the ocean restaurant\n in the west and speak to the staff",game.getGameObjectById(89736));
-        QuestStep step2 = new InteractWithGameObject("Find Mensah", "Find Mensah somewhere along\n" +
+        QuestStep step1 = new InteractWithGameObject("Talk to Akira","",game.getGameObjectById(89759));
+        QuestStep step2 = new InteractWithGameObject("Talk to the staff at the ocean restaurant", "Go to" +
+                " the ocean restaurant in the west\nand speak to the staff.",game.getGameObjectById(89736));
+        QuestStep step3 = new InteractWithGameObject("Find Mensah", " Find Mensah somewhere along\n" +
                 "the coastline and speak to him.",game.getGameObjectById(90144));
-        QuestStep step3 = new InteractWithGameObject("Get to the island","Find a way out to the small\n" +
+        QuestStep step4 = new InteractWithGameObject("Get to the island"," Find a way out to the small\n" +
                 "Island and open the chest",game.getGameObjectById(10061));
-        QuestStep step4 = new InteractWithGameObject("Talk to Akira", "Get back to the main\n" +
-                "island and talk to Akira",game.getGameObjectById(89759));
-        addQuestStep(step1,step2,step3,step4);
+        QuestStep step5 = new InteractWithGameObject("Talk to Akira", " Get back to the main" +
+                "island and\n talk to Akira",game.getGameObjectById(89759));
+        addQuestStep(step1,step2,step3,step4,step5);
 
     }
 }

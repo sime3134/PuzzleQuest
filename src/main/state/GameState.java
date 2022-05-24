@@ -146,7 +146,7 @@ public class GameState extends State implements Persistable {
 
         UIContainer medallions = new VerticalContainer();
         medallions.setAlignment(new Alignment(Alignment.Horizontal.RIGHT, Alignment.Vertical.TOP));
-        medallionText = new UIText("Medallions collected: " + medallionsCollected + "/7");
+        medallionText = new UIText("Medallions collected: " + medallionsCollected + "/3");
         medallions.addComponent(medallionText);
         uiContainers.add(medallions);
 
@@ -165,11 +165,11 @@ public class GameState extends State implements Persistable {
     }
 
     public void updateMedallionCount() {
-        if(medallionsCollected < 7) {
+        if(medallionsCollected < 3) {
             medallionsCollected++;
         }
-        medallionText.setText("Medallions collected: " + medallionsCollected + "/7");
-        if(medallionsCollected == 7) {
+        medallionText.setText("Medallions collected: " + medallionsCollected + "/3");
+        if(medallionsCollected == 3) {
             medallionText.setFontColor(Color.yellow);
         }
     }

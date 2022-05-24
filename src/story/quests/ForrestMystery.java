@@ -35,11 +35,12 @@ public class ForrestMystery extends Quest{
                 "medallion."));
         dialog90121_12.addLine(new DialogLine("I don't mind giving you some information but I must\nwarn you that " +
                 "it might not lead you anywhere. But it is true\nI suspect that there is a piece of the medallion " +
-                "somewhere in\n the forrest. Why?"));
-        dialog90121_12.addLine(new DialogLine("Ever since group19 split the medallion there has been weird things happening\n " +
-                "in the forrest. Mainly odd noises but we have also observed\nodd glows of light at night. We have not" +
-                " been able to determine where\nthe noises come from. Most of us agree that it seems to be coming from\n" +
-                "the east part of the forrest but there are also reports of noises\n from other parts of the forrest."));
+                "somewhere in\nthe forrest. Why?"));
+        dialog90121_12.addLine(new DialogLine("Ever since group19 split the medallion there has been weird things\nhappening" +
+                " in the forrest. Mainly odd noises but we have\nalso observed odd glows of light at night."));
+        dialog90121_12.addLine(new DialogLine("We have not been able to determine where\nthe noises come from." +
+                " Most of us agree that it seems to be coming from\nthe east part of the forrest" +
+                " but there are also reports of noises\nfrom other parts of the forrest."));
         dialog90121_12.addLine(new DialogLine("I wish I could help you more but if I knew where to find it,\n" +
                 "I would've gone and collected it myself. But I hope you do try to\nsearch the forrest." +
                 " A fresh pair of eyes might have more luck.\nNow I will have to ask you to leave," +
@@ -48,12 +49,14 @@ public class ForrestMystery extends Quest{
     }
 
     private void initializeSteps(Game game) {
-        QuestStep step1 = new InteractWithGameObject("Find Komako", "Komako has a lot of knowledge about\n" +
-                "what's been going on in\nthe forrest. Talk to him and gather information",game.getGameObjectById(90121));
-        QuestStep step2 = new InteractWithGameObject("Search the northern forrest", "Komako is sure there is\n" +
-                "a part of the medallion\nsomewhere in the forrest.", game.getGameObjectById(10656));
-        QuestStep step3 = new InteractWithGameObject("Tell Akira you found a medallion", "You found a part of\n" +
-                "the medallion", game.getGameObjectById(89759));
+        QuestStep step1 = new InteractWithGameObject("Talk to akira", "", game.getGameObjectById(89759));
+        QuestStep step2 = new InteractWithGameObject("Find Komako", "Komako has a lot of knowledge about " +
+                "what's been going\non in the forrest. Talk to him and gather information\nyou'll likely find him near" +
+                "the southern market place.\n",game.getGameObjectById(90121));
+        QuestStep step3 = new InteractWithGameObject("Search the northern forrest", "Komako is sure there is" +
+                " a part of the medallion\nsomewhere in the forrest.", game.getGameObjectById(10656));
+        /*QuestStep step3 = new InteractWithGameObject("Tell Akira you found a medallion", "You found a part of\n" +
+                "the medallion", game.getGameObjectById(89759)); */
         addQuestStep(step1,step2,step3);
     }
 }
