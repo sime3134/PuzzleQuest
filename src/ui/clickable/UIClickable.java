@@ -30,7 +30,7 @@ public abstract class UIClickable extends UIComponent implements MouseConsumer {
     }
 
     @Override
-    public abstract void draw(Graphics g);
+    public abstract void draw(Game game, Graphics g);
 
     protected Rectangle getBounds(){
         return new Rectangle(

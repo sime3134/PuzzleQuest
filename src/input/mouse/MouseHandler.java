@@ -132,9 +132,9 @@ public class MouseHandler {
         return lastLeftButtonAction;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Game game, Graphics g) {
         if(leftButtonAction != null) {
-            leftButtonAction.draw(g);
+            leftButtonAction.draw(game, g);
         }
     }
 }

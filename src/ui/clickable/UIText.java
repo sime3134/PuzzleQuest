@@ -127,7 +127,7 @@ public class UIText extends UIClickable {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Game game, Graphics g) {
         if(visible) {
             g.drawImage(getSprite(),
                     absolutePosition.intX(),

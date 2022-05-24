@@ -50,8 +50,8 @@ public class UICheckbox extends UIComponent {
     }
 
     @Override
-    public void draw(Graphics g) {
-        container.draw(g);
+    public void draw(Game game, Graphics g) {
+        container.draw(game, g);
     }
 
     public void setFontSize(int size) {
@@ -126,7 +126,7 @@ public class UICheckbox extends UIComponent {
         }
 
         @Override
-        public void draw(Graphics g) {
+        public void draw(Game game, Graphics g) {
             g.drawImage(
                     getSprite(),
                     absolutePosition.intX(),

@@ -101,7 +101,7 @@ public class UITextInput extends UIClickable implements KeyInputConsumer {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Game game, Graphics g) {
         g.drawImage(
                 getSprite(),
                 absolutePosition.intX(),

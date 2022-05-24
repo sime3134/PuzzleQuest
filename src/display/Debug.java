@@ -29,7 +29,7 @@ public class Debug {
         if(Settings.getRenderCollisionBox().get()){
             drawCollisionBoxes(game, g);
         }
-        uiContainers.forEach(container -> container.draw(g));
+        uiContainers.forEach(container -> container.draw(game, g));
     }
 
     private void drawCollisionBoxes(Game game, Graphics g) {

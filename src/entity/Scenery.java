@@ -18,7 +18,6 @@ public class Scenery extends GameObject implements Persistable {
 
     protected Image sprite;
     protected String name;
-    protected int nextQuest = 1;
     protected Action actionWhenInteractedWith;
 
     public void setSprite(Image sprite) {
@@ -132,7 +131,7 @@ public class Scenery extends GameObject implements Persistable {
             sprite = game.getContent().getImage("chest_open");
             if(id == 34000) {
                 game.getGameState().increaseMedallionCount(game);
-                game.setMazeMedallionFound(true);
+                game.getGameState().setMazeMedallionFound(true);
             }
         }
         if(sprite.equals(game.getContent().getImage("chest2"))) {
@@ -149,7 +148,7 @@ public class Scenery extends GameObject implements Persistable {
         }
 
         if(sprite.equals(game.getContent().getImage("statue2")) && game.getCurrentMap().getName().equals("maze")
-        && game.isMazeMedallionFound()) {
+        && game.getGameState().isMazeMedallionFound()) {
             game.getGameState().getQuestManager().getQuestById(1).goToNextStep(game);
             game.setShouldChangeToMap("map21");
             game.setShouldChangeToPosition(new Vector2D(2000,2100));

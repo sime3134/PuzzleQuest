@@ -57,11 +57,11 @@ public abstract class State {
         }
     }
 
-    public void draw(Graphics g) {
-        mouseHandler.draw(g);
+    public void draw(Game game, Graphics g) {
+        mouseHandler.draw(game, g);
 
         uiContainers.stream().filter(uiContainer -> uiContainer.isVisible())
-                .forEach(uiContainer -> uiContainer.draw(g));
+                .forEach(uiContainer -> uiContainer.draw(game, g));
     }
 
     public abstract void escapeButtonPressed(Game game);

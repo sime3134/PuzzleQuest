@@ -6,6 +6,7 @@ import entity.NPC;
 import main.Game;
 import story.quest_steps.InteractWithGameObject;
 import story.quest_steps.QuestStep;
+import story.quest_steps.WaitForExternalCompletion;
 
 public class ForestMystery extends Quest{
     private final NPC komako;
@@ -30,7 +31,7 @@ public class ForestMystery extends Quest{
         inactiveDialog.setActive(false);
         komako.addDialog(inactiveDialog);
 
-        Dialog komakoDialog = new Dialog();
+        Dialog komakoDialog = new Dialog(ignore -> this.goToNextStep(game));
         komakoDialog.addLine(new DialogLine("Hi, my name is Komako, and who are you?\n" +
                 "And why have you come to see me?\""));
         komakoDialog.addLine(new DialogLine("Well you are not the first one who have come asking\n" +
@@ -52,14 +53,10 @@ public class ForestMystery extends Quest{
     }
 
     private void initializeSteps(Game game) {
-        QuestStep step1 = new InteractWithGameObject("Find Komako near the southern marketplace.", "",
-                game.getGameObjectById(90121));
+        QuestStep step1 = new WaitForExternalCompletion("Find Komako near the southern marketplace.", "");
         QuestStep step2 = new InteractWithGameObject("Search the northern forest", "Komako is sure there is" +
                 " a part of the medallion\nsomewhere in the forest, I'll go search the area.",
                 game.getGameObjectById(10656));
-        /*QuestStep step3 = new InteractWithGameObject("Tell Akira you found a medallion", "You found a part
-        of\n" +
-                "the medallion", game.getGameObjectById(89759)); */
         addQuestStep(step1, step2);
     }
 }

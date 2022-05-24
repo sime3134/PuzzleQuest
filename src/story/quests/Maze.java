@@ -19,11 +19,14 @@ public class Maze extends Quest {
     private final NPC mazer;
     private final NPC john;
 
+    private final NPC isak;
+
     public Maze(Game game, int id) {
         super("Maze", "I should find the hole Isak " +
                 "was talking about and make my way down.\n", id);
         mazer = (NPC) game.getGameObjectById(89755);
         john = (NPC) game.getGameObjectById(100002);
+        isak = (NPC) game.getGameObjectById(89743);
 
         initializeQuest(game);
         initializeSteps(game);
@@ -79,8 +82,11 @@ public class Maze extends Quest {
                 "A man called John told me that nature is growing even down here.\n" +
                         "What could be the reason?", game.getGameObjectById(34000));
         QuestStep step3 = new WaitForExternalCompletion("Find your way out",
-                "I found a piece of the medallion.\nI don't know how it got here " +
+                "I found a piece of the medallion.\n" +
+                        "It's power probably made nature flourish in the maze." +
+                        "\nI don't know how it got here " +
                         "but I guess I will know with time.\nTime to get out!");
+        step3.setActionAtFinish(ignore -> isak.getDialogManager().nextDialog());
         addQuestStep(step0,step1,step2,step3);
     }
 }

@@ -75,8 +75,8 @@ public class TilePlacer extends MouseAction{
     }
 
     @Override
-    public void draw(Graphics g) {
-        previewImage.draw(g);
+    public void draw(Game game, Graphics g) {
+        previewImage.draw(game, g);
     }
 
     @Override

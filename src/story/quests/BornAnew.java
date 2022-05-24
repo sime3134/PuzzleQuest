@@ -156,34 +156,35 @@ public class BornAnew extends Quest {
         inactiveDialog1.setActive(false);
         lordJoffrey.addDialog(inactiveDialog1);
 
-        Dialog joffreyDialog1 = new Dialog(ignore -> {
+        Dialog joffreyDialog1 = new Dialog(game -> {
             isak.getDialogManager().nextDialog();
             lordJoffrey.getDialogManager().nextDialog();
+            this.goToNextStep(game);
         });
         joffreyDialog1.addLine(new DialogLine("I am Lord Joffrey!" + " Who am I speaking to?"));
         joffreyDialog1.addLine(new DialogLine("Oh you have come here to find out about the medallion?\n" +
                 "The medallion contains a stone that gave this island life. Before the\n" + "medallion was " +
                 "placed on this island hundreds of years ago, there was no life here.\n"
                 + "The medallion awoke nature and made life flourish."));
-        joffreyDialog1.addLine(new DialogLine("The word of the medallion spread and attracted all kinds of people.\n" +
-                "But it was when group19 showed up that trouble started.\n" + "They have always attempted to " +
-                "steal it but nevery succeeded.\n" + " Until now."));
+        joffreyDialog1.addLine(new DialogLine("The word of the medallion spread and attracted all kinds " +
+                "of\npeople." + "But it was when group19 showed up that trouble started.\n" + "They have always attempted to " +
+                "steal it but never succeeded, until now."));
         joffreyDialog1.addLine(new DialogLine("But it didn't end the way they anticipated.\n" +
-                " The medallion can only be used by someone of the finders bloodline.\n" +
-                " The moment they grabbed the medallion it split into pieces\n" +
-                " and now the pieces lay scattered all around the island."));
+                "The medallion can only be used by someone of the finders bloodline.\n" +
+                "The moment they grabbed the medallion it split into pieces\n" +
+                "and now the pieces lay scattered all around the island."));
         joffreyDialog1.addLine(new DialogLine("Without the medallion life on this island will not last long.\n" +
                 "The deterioration in the north east will continue\n" + "and lead to the death of this island" +
-                " unless the pieces\n of the " +
+                " unless the pieces\nof the " +
                 "medallion are collected and put back together again."));
-        joffreyDialog1.addLine(new DialogLine("The problem is we have not been able to locate them"));
+        joffreyDialog1.addLine(new DialogLine("The problem is we have not been able to locate them."));
         joffreyDialog1.addLine(new DialogLine("We have sent out people to search for them but\n" + "we've " +
                 "had no success as of yet." + " Some people have even gone missing."));
         joffreyDialog1.addLine(new DialogLine("They have disappeared while searching for the\n" + "missing pieces in the " +
                 "south-western corner of the map."));
-        joffreyDialog1.addLine(new DialogLine("We have since forbidden people to search in that\n" + " area of " +
+        joffreyDialog1.addLine(new DialogLine("We have since forbidden people to search in that\n" + "area of " +
                 "the island" +
-                " if you'd like to know more about it\n" + "I suggest you pay Isak down there a visit."));
+                " if you'd like to know more about it.\n" + "I suggest you pay Isak down there a visit."));
         lordJoffrey.addDialog(joffreyDialog1);
 
         Dialog joffreyDialog2 = new Dialog();
@@ -208,15 +209,16 @@ public class BornAnew extends Quest {
             jester.getDialogManager().nextDialog();
             locky.getDialogManager().nextDialog();
             stocky.getDialogManager().nextDialog();
+            this.goToNextStep(game);
         });
 
         isakDialog1.addLine(new DialogLine("I'm Isak. What brings you here?"));
         isakDialog1.addLine(new DialogLine("Ah the missing pieces, well I'm afraid you are wasting your time.\n"
-                + "I've only heard rumors and\n" + "rumors are not to be trusted."));
+                + "I've only heard rumors and rumors are not to be trusted."));
         isakDialog1.addLine(new DialogLine("The rumors?\n" + "They are very vague and not of much value for " +
                 "you I'm afraid."));
-        isakDialog1.addLine(new DialogLine("There are people who has disappeared while\n" + "searching for the" +
-                " missing pieces. Apparently the\nhole over there has something to do with it. I advise\n" +
+        isakDialog1.addLine(new DialogLine("There are people who has disappeared while searching for the" +
+                " missing\npieces. Apparently the hole over there has something to do with it. I advise\n" +
                 "you to stay away from the hole if you don't wish to disappear like they did."));
         isakDialog1.addLine(new DialogLine("One last thing, if you truly are here to help us\n" + "you should " +
                 "also go talk to Akira,\nthe old mentor of group19."));
@@ -225,8 +227,16 @@ public class BornAnew extends Quest {
 
         Dialog isakDialog2 = new Dialog();
         isakDialog2.addLine(new DialogLine("Akira was the mentor of group 19. How could it end up like this?"));
-
         isak.addDialog(isakDialog2);
+
+        Dialog isakDialog3 = new Dialog(ignore -> isak.getDialogManager().nextDialog());
+        isakDialog3.addLine(new DialogLine("You found a piece of the medallion? Amazing."));
+        isakDialog3.addLine(new DialogLine("I hope you can find the other pieces too."));
+        isak.addDialog(isakDialog3);
+
+        Dialog isakDialog4 = new Dialog();
+        isakDialog4.addLine(new DialogLine("I hope you can find the other pieces too."));
+        isak.addDialog(isakDialog4);
     }
 
     private void initializeAkiraDialog(Game game) {
@@ -283,15 +293,14 @@ public class BornAnew extends Quest {
             });
         });
         QuestStep step1 = new WaitForExternalCompletion("Get some rest in the bed in the old man's house.", "");
-        QuestStep step2 = new InteractWithGameObject("Go to the king's " +
+        QuestStep step2 = new WaitForExternalCompletion("Go to lord Joffrey's " +
                 "castle to get more information\nabout the missing medallion",
                 " He told me about the history\nof this island." +
                         " Apparently a group called group19 recently stole a\n" +
-                        "medallion keeping the balance on the island.",game.getGameObjectById(89742));
-        QuestStep step3 = new InteractWithGameObject("Go talk to Isak in the\n" + "south-west corner of the " +
+                        "medallion keeping the balance on the island.");
+        QuestStep step3 = new WaitForExternalCompletion("Go talk to Isak in the" + " south-west\ncorner of the " +
                 "island.",
-                " I was advised to talk\nto a guy called Isak in the south west.",
-                game.getGameObjectById(89743));
+                " I was advised to talk\nto a guy called Isak in the south-west.");
         QuestStep step4 = new InteractWithGameObject("Find Akira in the northern harbour city.", "The old mentor" +
                 "\nof " +
                 "group19 lives in the harbor city and has some rumours about the\nmissing pieces.",

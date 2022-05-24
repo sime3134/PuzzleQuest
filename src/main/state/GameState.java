@@ -8,6 +8,7 @@ import dialog.DialogManager;
 import entity.Player;
 import main.Game;
 import settings.Settings;
+import story.LoreInitializer;
 import story.QuestManager;
 import ui.Alignment;
 import ui.clickable.UIText;
@@ -34,6 +35,8 @@ public class GameState extends State implements Persistable {
     private UIText medallionText;
     private int medallionsCollected = 0;
 
+    private boolean mazeMedallionFound;
+
     private UIContainer dialogContainer;
     private UIText currentDialogLine;
 
@@ -49,6 +52,14 @@ public class GameState extends State implements Persistable {
     };
 
     //region Getters & Setters (click to view)
+
+    public boolean isMazeMedallionFound() {
+        return mazeMedallionFound;
+    }
+
+    public void setMazeMedallionFound(boolean mazeMedallionFound) {
+        this.mazeMedallionFound = mazeMedallionFound;
+    }
 
     public DialogManager getDialogManager() {
         return dialogManager;
@@ -94,11 +105,6 @@ public class GameState extends State implements Persistable {
 
         handleWorldMapLocation(game);
         questManager.update(game);
-    }
-
-    @Override
-    public void draw(Graphics g) {
-        super.draw(g);
     }
 
     private void handleWorldMapLocation(Game game) {
@@ -173,6 +179,7 @@ public class GameState extends State implements Persistable {
         if(medallionsCollected == 3) {
             medallionText.setFontColor(Color.yellow);
             game.displayNotification("You have found all the pieces of the medallion!");
+            game.getGameState().getQuestManager().startQuest(game, 5);
         }
     }
 
@@ -192,7 +199,11 @@ public class GameState extends State implements Persistable {
                 .append(SECTION_DELIMETER)
                 .append(player.serialize())
                 .append(INNER_SECTION_DELIMETER)
-                .append(questManager.serialize());
+                .append(questManager.serialize())
+                .append(INNER_SECTION_DELIMETER)
+                .append(medallionsCollected)
+                .append(INNER_SECTION_DELIMETER)
+                .append(mazeMedallionFound);
         return sb.toString();
     }
 
@@ -203,6 +214,8 @@ public class GameState extends State implements Persistable {
         if(sections.length > 1) {
             questManager.applySerializedData(sections[1]);
         }
+        medallionsCollected = Integer.parseInt(sections[2]);
+        mazeMedallionFound = Boolean.parseBoolean(sections[3]);
     }
 
     public void resetPlayerPosition() {
@@ -234,5 +247,9 @@ public class GameState extends State implements Persistable {
         player.setName(playerName);
         resetPlayerPosition();
         questManager.initializeQuests(game);
+    }
+
+    public void initializeNameTags(Game game) {
+        new LoreInitializer().initializeNameTags(game);
     }
 }

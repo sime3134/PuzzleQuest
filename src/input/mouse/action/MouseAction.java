@@ -13,7 +13,7 @@ import java.awt.*;
 public abstract class MouseAction implements MouseConsumer {
 
     public abstract void update(Game game);
-    public abstract void draw(Graphics g);
+    public abstract void draw(Game game, Graphics g);
     public abstract UIImage getSprite();
     public abstract void cleanUp();
 }

@@ -6,7 +6,6 @@ import IO.ProgressIO;
 import audio.AudioPlayer;
 import content.ContentManager;
 import controller.GameController;
-import controller.NPCController;
 import core.Action;
 import core.CollisionBox;
 import core.Time;
@@ -25,7 +24,6 @@ import ui.NotificationManager;
 import ui.containers.UIContainer;
 
 import java.awt.*;
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.*;
 
@@ -69,20 +67,11 @@ public class Game implements Persistable {
     private boolean canPause;
     private boolean showBlackScreen;
     private boolean showingBlackScreenWithTimer;
-    private boolean mazeMedallionFound;
 
     //region Getters & Setters (Click to view)
 
     public void setShowBlackScreen(boolean showBlackScreen) {
         this.showBlackScreen = showBlackScreen;
-    }
-
-    public boolean isMazeMedallionFound() {
-        return mazeMedallionFound;
-    }
-
-    public void setMazeMedallionFound(boolean mazeMedallionFound) {
-        this.mazeMedallionFound = mazeMedallionFound;
     }
 
     public void setShouldChangeToMap(String name) {
@@ -264,12 +253,12 @@ public class Game implements Persistable {
 
         }
 
-        stateManager.draw(g);
-        notificationManager.draw(g);
+        stateManager.draw(this, g);
+        notificationManager.draw(this, g);
 
         if(Settings.isDebugMode()){
             debug.draw(this, g);
-            debugSettingsContainer.draw(g);
+            debugSettingsContainer.draw(this, g);
         }
     }
 
@@ -296,6 +285,7 @@ public class Game implements Persistable {
         loadMap(getGameState().getPlayer().getCurrentMapName());
         stateManager.goToGameState();
         audioPlayer.playMusic("suburbs.wav", 0);
+        getGameState().initializeNameTags(this);
     }
 
     private void updateNPCMapsFromLoad() {
@@ -319,6 +309,7 @@ public class Game implements Persistable {
         stateManager.goToGameState();
         getGameState().getQuestManager().startQuest(this, 0);
         getGameState().handleNonNpcDialog(this);
+        getGameState().initializeNameTags(this);
     }
 
     public void goToMainMenu() {
@@ -364,19 +355,6 @@ public class Game implements Persistable {
         stateManager.goToLastState();
     }
 
-    public void initializeNPCs(int numberToAdd) {
-        SecureRandom randomizer = new SecureRandom();
-        for(int i = 0; i < numberToAdd; i++){
-
-            Vector2D spawnPosition = getCurrentMap().getRandomAvailablePositionOnMap();
-
-            NPC npc = new NPC(new NPCController(),
-                    content.getSpriteSet("villager" + randomizer.nextInt(5)), "default", getCurrentMap().getName());
-            npc.setPosition(spawnPosition);
-            addNPC(npc);
-        }
-    }
-
     public void loadMapFromPath(String path) {
         gameObjects.clear();
         maps.setCurrent(MapIO.loadFromPath(content, path));
@@ -396,7 +374,6 @@ public class Game implements Persistable {
         }else{
             camera.focusOn(getGameState().getPlayer());
         }
-        //initializeNPCs(20);
     }
 
     public void saveMap(String filePath) {
@@ -419,18 +396,6 @@ public class Game implements Persistable {
             getCurrentMap().removeScenery(scenery);
         }else if(gameObject instanceof NPC npc){
             getCurrentMap().removeNPC(npc);
-        }
-    }
-
-    public void removeGameObjectWithId(long id) {
-        for(GameMap map : maps.getMaps().values()) {
-            GameObject obj = map.findGameObjectById(id);
-            if(obj != null) {
-                obj.setRemoved(true);
-                if (obj.isRemoved()) {
-                    gameObjects.remove(obj);
-                }
-            }
         }
     }
 

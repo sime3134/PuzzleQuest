@@ -97,25 +97,27 @@ public class Player extends Humanoid {
      * Sets and removes the current target of the player.
      */
     private void handleTarget(Game game) {
-        Optional<GameObject> closestGameObject = findClosestGameObject(game);
+        if(canMove) {
+            Optional<GameObject> closestGameObject = findClosestGameObject(game);
 
-        if(closestGameObject.isPresent()){
-            GameObject gameObject = closestGameObject.get();
-            if(!gameObject.equals(target)) {
-                if(target != null) {
-                    target.detach(selectionCircle);
-                }
+            if (closestGameObject.isPresent()) {
+                GameObject gameObject = closestGameObject.get();
+                if (!gameObject.equals(target)) {
+                    if (target != null) {
+                        target.detach(selectionCircle);
+                    }
 //                selectionCircle.setWidth(gameObject.getSelectionCircleWidth());
 //                selectionCircle.setHeight(gameObject.getSelectionCircleHeight());
 //                selectionCircle.setRenderOffset(new Vector2D(gameObject.getSelectionCircleRenderXOffset(),
 //                        gameObject.getSelectionCircleRenderYOffset()));
-                //gameObject.attach(selectionCircle);
-                target = gameObject;
-            }
-        }else {
-            if(target != null) {
+                    //gameObject.attach(selectionCircle);
+                    target = gameObject;
+                }
+            } else {
+                if (target != null) {
 //                target.detach(selectionCircle);
-                target = null;
+                    target = null;
+                }
             }
         }
     }

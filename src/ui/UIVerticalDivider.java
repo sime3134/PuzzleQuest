@@ -42,7 +42,7 @@ public class UIVerticalDivider extends UIComponent{
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Game game, Graphics g) {
         g.drawImage(sprite,
                 getAbsolutePosition().intX(),
                 getAbsolutePosition().intY(),

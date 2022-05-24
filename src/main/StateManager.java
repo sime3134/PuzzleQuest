@@ -52,8 +52,8 @@ public class StateManager {
         currentState.update(game);
     }
 
-    public void draw(Graphics g) {
-        currentState.draw(g);
+    public void draw(Game game, Graphics g) {
+        currentState.draw(game, g);
     }
 
     public void goToLastState() {

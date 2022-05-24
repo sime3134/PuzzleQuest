@@ -48,8 +48,8 @@ public class SceneryPlacer extends MouseAction{
     }
 
     @Override
-    public void draw(Graphics g) {
-        preview.draw(g);
+    public void draw(Game game, Graphics g) {
+        preview.draw(game, g);
     }
 
     @Override

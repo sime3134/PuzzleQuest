@@ -168,7 +168,7 @@ public class UIMinimap extends UIClickable{
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Game game, Graphics g) {
         g.drawImage(
                 getSprite(),
                 absolutePosition.intX(),

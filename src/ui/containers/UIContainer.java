@@ -185,7 +185,7 @@ public abstract class UIContainer extends UIComponent {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Game game, Graphics g) {
         if(visible) {
             g.drawImage(
                     getSprite(),
@@ -195,7 +195,7 @@ public abstract class UIContainer extends UIComponent {
             );
 
             for (UIComponent component : children) {
-                component.draw(g);
+                component.draw(game, g);
             }
         }
     }

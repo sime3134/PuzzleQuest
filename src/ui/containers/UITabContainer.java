@@ -120,7 +120,7 @@ public class UITabContainer extends VerticalContainer{
         }
 
         @Override
-        public void draw(Graphics g) {
+        public void draw(Game game, Graphics g) {
             g.drawImage(
                     getSprite(),
                     absolutePosition.intX(),

@@ -51,9 +51,9 @@ public class NotificationManager {
         finishedNotifications.clear();
     }
 
-    public void draw(Graphics g){
+    public void draw(Game game, Graphics g){
         for(NotificationContainer container : notifications){
-            container.draw(g);
+            container.draw(game, g);
         }
     }
 }

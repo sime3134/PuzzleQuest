@@ -161,7 +161,7 @@ public class GameObjectTool extends MouseAction{
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Game game, Graphics g) {
 
     }
 

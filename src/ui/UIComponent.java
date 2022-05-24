@@ -121,5 +121,5 @@ public abstract class UIComponent {
     }
 
     public abstract void update(Game game);
-    public abstract void draw(Graphics g);
+    public abstract void draw(Game game, Graphics g);
 }
