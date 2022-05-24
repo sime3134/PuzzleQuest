@@ -21,7 +21,7 @@ public class RelativeUIText extends UIText {
     public void update(Game game){
         super.update(game);
         if(obj instanceof NPC npc) {
-            text = npc.getBrain().getCurrentAIState().getClass().getSimpleName();
+            text = npc.getName();
         }
     }
 }

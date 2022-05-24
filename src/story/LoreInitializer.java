@@ -6,7 +6,7 @@ import entity.NPC;
 import entity.Scenery;
 import main.Game;
 import story.quests.*;
-import ui.clickable.UIText;
+import ui.RelativeUIText;
 import ui.containers.RelativeContainer;
 
 /**
@@ -65,37 +65,45 @@ public class LoreInitializer {
     }
 
     public void initializeNameTags(Game game) {
-        RelativeContainer billTag = new RelativeContainer((NPC) game.getGameObjectById(19554), game.getCamera());
-        billTag.addComponent(new UIText("Bill"));
+        NPC bill = (NPC) game.getGameObjectById(19554);
+        NPC isak = (NPC) game.getGameObjectById(89743);
+        NPC joffrey = (NPC) game.getGameObjectById(89742);
+        NPC akira = (NPC) game.getGameObjectById(89759);
+        NPC mensah = (NPC) game.getGameObjectById(90144);
+        NPC luna = (NPC) game.getGameObjectById(89736);
+        NPC komako = (NPC) game.getGameObjectById(90121);
+
+        RelativeContainer billTag = new RelativeContainer(bill, game.getCamera());
+        billTag.addComponent(new RelativeUIText("Bill", bill));
         game.getGameState().addUIContainer(billTag);
 
-        RelativeContainer isakTag = new RelativeContainer((NPC) game.getGameObjectById(89743), game.getCamera());
-        isakTag.addComponent(new UIText("Isak"));
+        RelativeContainer isakTag = new RelativeContainer(isak, game.getCamera());
+        isakTag.addComponent(new RelativeUIText("Isak", isak));
         game.getGameState().addUIContainer(isakTag);
 
-        RelativeContainer joffreyTag = new RelativeContainer((NPC) game.getGameObjectById(89742),
+        RelativeContainer joffreyTag = new RelativeContainer(joffrey,
                 game.getCamera());
-        joffreyTag.addComponent(new UIText("Lord Joffrey"));
+        joffreyTag.addComponent(new RelativeUIText("Lord Joffrey", joffrey));
         game.getGameState().addUIContainer(joffreyTag);
 
-        RelativeContainer akiraTag = new RelativeContainer((NPC) game.getGameObjectById(89759),
+        RelativeContainer akiraTag = new RelativeContainer(akira,
                 game.getCamera());
-        akiraTag.addComponent(new UIText("Akira"));
+        akiraTag.addComponent(new RelativeUIText("Akira", akira));
         game.getGameState().addUIContainer(akiraTag);
 
-        RelativeContainer mensahTag = new RelativeContainer((NPC) game.getGameObjectById(90144),
+        RelativeContainer mensahTag = new RelativeContainer(mensah,
                 game.getCamera());
-        mensahTag.addComponent(new UIText("Mensah"));
+        mensahTag.addComponent(new RelativeUIText("Mensah", mensah));
         game.getGameState().addUIContainer(mensahTag);
 
-        RelativeContainer lunaTag = new RelativeContainer((NPC) game.getGameObjectById(89736),
+        RelativeContainer lunaTag = new RelativeContainer(luna,
                 game.getCamera());
-        lunaTag.addComponent(new UIText("Luna"));
+        lunaTag.addComponent(new RelativeUIText("Luna", luna));
         game.getGameState().addUIContainer(lunaTag);
 
-        RelativeContainer komakoTag = new RelativeContainer((NPC) game.getGameObjectById(90121),
+        RelativeContainer komakoTag = new RelativeContainer(komako,
                 game.getCamera());
-        komakoTag.addComponent(new UIText("Komako"));
+        komakoTag.addComponent(new RelativeUIText("Komako", komako));
         game.getGameState().addUIContainer(komakoTag);
     }
 }

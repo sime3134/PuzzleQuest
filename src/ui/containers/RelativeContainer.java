@@ -30,14 +30,15 @@ public class RelativeContainer extends HorizontalContainer{
     public void calculatePosition(){
         if(objectToFollow != null && shouldUpdate) {
             this.absolutePosition = objectToFollow.getRenderPosition(camera);
-            absolutePosition.subtract(new Vector2D(width / 4f, 20));
+            absolutePosition.subtract(new Vector2D((width / 4f) - 5, 20));
             calculateContentPosition();
         }
     }
 
     @Override
     public void draw(Game game, Graphics g) {
-        if(visible && objectToFollow.getCurrentMapName().equals(game.getCurrentMap().getName())) {
+        if(visible && objectToFollow.getCurrentMapName().equals(game.getCurrentMap().getName())
+                && !game.isShowBlackScreen()) {
             shouldUpdate = true;
             g.drawImage(
                     getSprite(),

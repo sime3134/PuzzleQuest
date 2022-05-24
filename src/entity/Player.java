@@ -97,7 +97,6 @@ public class Player extends Humanoid {
      * Sets and removes the current target of the player.
      */
     private void handleTarget(Game game) {
-        if(canMove) {
             Optional<GameObject> closestGameObject = findClosestGameObject(game);
 
             if (closestGameObject.isPresent()) {
@@ -119,7 +118,6 @@ public class Player extends Humanoid {
                     target = null;
                 }
             }
-        }
     }
 
     private Optional<GameObject> findClosestGameObject(Game game) {

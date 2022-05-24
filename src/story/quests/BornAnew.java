@@ -28,7 +28,6 @@ public class BornAnew extends Quest {
     private final NPC lordJoffrey;
     private final NPC isak;
     private final NPC akira;
-
     private final NPC komako;
     private final NPC luna;
 
@@ -36,6 +35,7 @@ public class BornAnew extends Quest {
         super("Born anew", "I woke up on an unknown island and can't even remember my own name.\n" +
                 "An old man helped me after I woke up.", id);
         bill = (NPC)game.getGameObjectById(19554);
+        bill.setName("???");
         lordJoffrey = (NPC) game.getGameObjectById(89742);
         isak = (NPC) game.getGameObjectById(89743);
         akira = (NPC) game.getGameObjectById(89759);
@@ -95,7 +95,8 @@ public class BornAnew extends Quest {
             this.goToNextStep(game);
         });
 
-        billDialog.addLine(new DialogLine("My name is Bill by the way. \nWelcome to my home."));
+        billDialog.addLine(new DialogLine("My name is Bill by the way. \nWelcome to my home.",
+                ignore -> bill.setName("Bill")));
         billDialog.addLine(new DialogLine("I can see that you are exhausted.. \nGet some rest in the bed " +
                 "over there and we will talk tomorrow."));
         billDialog.setActive(false);

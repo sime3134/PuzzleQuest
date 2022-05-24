@@ -70,6 +70,11 @@ public class Game implements Persistable {
 
     //region Getters & Setters (Click to view)
 
+
+    public boolean isShowBlackScreen() {
+        return showBlackScreen;
+    }
+
     public void setShowBlackScreen(boolean showBlackScreen) {
         this.showBlackScreen = showBlackScreen;
     }
@@ -240,17 +245,16 @@ public class Game implements Persistable {
         if(!showBlackScreen) {
             maps.draw(g, camera);
 
-            if(stateManager.getCurrentState() instanceof EditorState) {
+            if (stateManager.getCurrentState() instanceof EditorState) {
                 gameObjects.stream()
                         .filter(gameObject -> camera.isObjectInView(gameObject))
                         .forEach(gameObject -> renderGameObject(g, camera, gameObject));
-            }else {
+            } else {
                 gameObjects.stream()
                         .filter(gameObject -> camera.isObjectInView(gameObject))
                         .filter(gameObject -> !(gameObject instanceof TeleportScenery))
                         .forEach(gameObject -> renderGameObject(g, camera, gameObject));
             }
-
         }
 
         stateManager.draw(this, g);
