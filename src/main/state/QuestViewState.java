@@ -27,6 +27,13 @@ public class QuestViewState extends State {
 
     private UIText questName;
 
+    private int currentIndex;
+
+    public QuestViewState() {
+        super();
+        currentIndex = 0;
+    }
+
     public void setClickedQuest(Game game, int questId) {
         List<Quest> activeQuests = new ArrayList<>();
         for(Quest quest : game.getGameState().getQuestManager().getQuests()){
@@ -36,6 +43,7 @@ public class QuestViewState extends State {
         }
         int index = getIndexFromQuestId(activeQuests, questId);
         if(index != -1) {
+            currentIndex = index;
             questName.setText(activeQuests.get(index).getName());
             questStepText.setText("- " + activeQuests.get(index).getCurrentStep().getName());
             questDescText.setText(activeQuests.get(index).getDescription());
@@ -150,15 +158,15 @@ public class QuestViewState extends State {
             QuestText questText = new QuestText(activeQuests.get(i).getName(), this, activeQuests.get(i).getId());
             questList.addComponent(questText);
 
-            if(i == 0){
+            if(i == currentIndex){
                 questText.setUnderlined(true);
             }
         }
 
         if(!activeQuests.isEmpty()) {
-            questStepText.setText("- " + activeQuests.get(0).getCurrentStep().getName());
-            questName.setText(activeQuests.get(0).getName());
-            questDescText.setText(activeQuests.get(0).getDescription());
+            questStepText.setText("- " + activeQuests.get(currentIndex).getCurrentStep().getName());
+            questName.setText(activeQuests.get(currentIndex).getName());
+            questDescText.setText(activeQuests.get(currentIndex).getDescription());
         }
 
     }

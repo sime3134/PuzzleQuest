@@ -247,6 +247,8 @@ public class GameState extends State implements Persistable {
         player.setName(playerName);
         resetPlayerPosition();
         questManager.initializeQuests(game);
+        medallionsCollected = 0;
+        mazeMedallionFound = false;
     }
 
     public void initializeNameTags(Game game) {
