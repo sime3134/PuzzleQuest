@@ -115,7 +115,7 @@ public class BornAnew extends Quest {
 
         billDialog3.addLine(new DialogLine("Good morning. Did you sleep well?"));
         billDialog3.addLine(new DialogLine("You have bad luck washing ashore on this island.\n" +
-                "Did you notice how the nature has died outside?"));
+                "Did you notice how the nature has withered outside?"));
         billDialog3.addLine(new DialogLine("The island is dying after Group19 stole\n" +
                 "the medallion keeping it in balance."));
         billDialog3.addLine(new DialogLine("What medallion you say?"));
@@ -127,7 +127,7 @@ public class BornAnew extends Quest {
         billDialog3.addLine(new DialogLine("And now, without it, it is once again dying."));
         billDialog3.addLine(new DialogLine("If you want to hear more about it, talk to Lord Joffrey in his\n" +
                 "castle south-east of here."));
-        billDialog3.addLine(new DialogLine("It looks you are ready to go. Come visit me sometimes.", ignore -> {
+        billDialog3.addLine(new DialogLine("It looks you are ready to go. Come visit me sometime.", ignore -> {
             bill.setActivity("wander_random");
             game.getPauseState().setCanSave(true);
             TeleportScenery teleport = (TeleportScenery) game.getGameObjectById(39578);

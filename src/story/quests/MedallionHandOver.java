@@ -31,12 +31,12 @@ public class MedallionHandOver extends Quest{
             this.goToNextStep(game);
             lordJoffrey.getDialogManager().nextDialog();
         });
-        joffreyDialog.addLine(new DialogLine("Greetings my friend!\nHow do you find the island?"));
+        joffreyDialog.addLine(new DialogLine("Greetings my friend!\nHow are you finding the island?"));
         joffreyDialog.addLine(new DialogLine("You found the missing pieces?!\nHow on earth did you manage that?"));
         joffreyDialog.addLine(new DialogLine("How can we ever thank you?\nNow we will finally be able to save " +
                 "the island."));
         joffreyDialog.addLine(new DialogLine("Are you carrying the pieces with you?"));
-        joffreyDialog.addLine(new DialogLine("Great! Please hand them over to me and I will\n have the " +
+        joffreyDialog.addLine(new DialogLine("Great! Please hand them over to me and I will\nhave the " +
                 "medallion restored."));
         joffreyDialog.addLine(new DialogLine("We won't ever forget this, you will always have a\n" +
                 "home here if you wish to remain. I will make sure of that."));

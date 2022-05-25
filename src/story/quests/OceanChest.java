@@ -81,8 +81,8 @@ public class OceanChest extends Quest{
         QuestStep step1 = new WaitForExternalCompletion("Talk to the owner of the ocean restaurant", "");
         QuestStep step2 = new WaitForExternalCompletion("Find Mensah somewhere along the coastline", "Luna told me " +
                 "about a floating island that might\nhave a medallion piece hidden on it. I should talk to a " +
-                "guy called Mensah\nfor more information. ");
-        QuestStep step3 = new InteractWithGameObject("Find a way out to the island","Apparently there is a " +
+                "guy called Mensah\nfor more information.");
+        QuestStep step3 = new InteractWithGameObject("Find a way out to the island"," Apparently there is a " +
                 "hidden path to the island.\nI'll just have to try my luck.", game.getGameObjectById(10061));
         step3.setActionAtFinish(ignore -> mensah.getDialogManager().nextDialog());
         addQuestStep(step1,step2,step3);

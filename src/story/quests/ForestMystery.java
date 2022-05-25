@@ -13,7 +13,7 @@ public class ForestMystery extends Quest{
 
     public ForestMystery(Game game, int id) {
         super("Forest Mystery", "Komako has a lot of knowledge about" +
-                "what's been going on in the forest.\nI should talk to him.", id);
+                "what's been going on in the forest.\nI should talk to him. ", id);
         komako = (NPC) game.getGameObjectById(90121);
 
         initializeQuest(game);
@@ -34,20 +34,21 @@ public class ForestMystery extends Quest{
         Dialog komakoDialog = new Dialog(ignore -> this.goToNextStep(game));
         komakoDialog.addLine(new DialogLine("Hi, my name is Komako, and who are you?\n" +
                 "And why have you come to see me?\""));
-        komakoDialog.addLine(new DialogLine("Well you are not the first one who have come asking\n" +
-                "for information. And if Akira sent you she must think you\nhave a chance of finding a piece of the " +
+        komakoDialog.addLine(new DialogLine("Well you are not the first one who has come asking\n" +
+                "for information. And if Akira sent you she must think you\nhave a chance of finding the pieces " +
+                "of the " +
                 "medallion."));
         komakoDialog.addLine(new DialogLine("I don't mind giving you some information but I must\nwarn you that " +
                 "it might not lead you anywhere. But it is true\nI suspect that there is a piece of the medallion " +
-                "somewhere in\nthe forrest. Why?"));
+                "somewhere in\nthe forest."));
         komakoDialog.addLine(new DialogLine("Ever since group19 split the medallion there has been weird things\nhappening" +
-                " in the forrest. Mainly odd noises but we have\nalso observed odd glows of light at night."));
+                " in the forest. Mainly odd noises but we have\nalso observed odd glows of light at night."));
         komakoDialog.addLine(new DialogLine("We have not been able to determine where\nthe noises come from." +
-                " Most of us agree that it seems to be coming from\nthe east part of the forrest" +
-                " but there are also reports of noises\nfrom other parts of the forrest."));
+                " Most of us agree that it seems to be coming from\nthe east part of the forest" +
+                " but there are also reports of noises\nfrom other parts of the forest."));
         komakoDialog.addLine(new DialogLine("I wish I could help you more but if I knew where to find it,\n" +
-                "I would've gone and collected it myself. But I hope you do try to\nsearch the forrest." +
-                " A fresh pair of eyes might have more luck.\nNow I will have to ask you to leave," +
+                "I would've gone and collected it myself. But I hope you do try to\nsearch the forest." +
+                " A fresh pair of eyes might have better luck.\nNow I will have to ask you to leave," +
                 " I have other business to attend. Good luck!"));
         komako.addDialog(komakoDialog);
     }
