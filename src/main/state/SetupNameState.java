@@ -41,13 +41,13 @@ public class SetupNameState extends State{
         nameInput = new UITextInput(3, 10);
         enterName.setFontSize(24);
         UIText nameRules = new UIText("3-10 characters");
-        UIButton startGame = new UIButton("Start Game", (game) -> {
+        UIButton startGame = new UIButton("Start Game", game -> {
             if(nameInput.validate()) {
                 game.startNewGame(nameInput.getText());
                 nameInput.clear();
             }
         });
-        UIButton back = new UIButton("Back", (game) -> {
+        UIButton back = new UIButton("Back", game -> {
             nameInput.clear();
             game.goToLastState();
         }

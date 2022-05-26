@@ -3,8 +3,6 @@ package map;
 import IO.MapIO;
 import content.ContentManager;
 import display.Camera;
-import entity.GameObject;
-import entity.Scenery;
 import main.Game;
 
 import java.awt.*;
@@ -41,30 +39,6 @@ public class MapManager {
 
     public void loadAll(ContentManager content, String basePath) {
         maps = MapIO.loadAllMaps(content, basePath);
-    }
-
-    public void loadMap(String name) {
-        currentMap = maps.get(name);
-    }
-
-    public void saveMap(Game game, String filePath) {
-        currentMap.setSceneryList(game.getGameObjectsOfClass(Scenery.class));
-        MapIO.save(currentMap, filePath);
-    }
-
-
-    public void createNewMap(int width, int height, ContentManager content) {
-        currentMap = new GameMap(width, height, content);
-    }
-
-    public void spawn(Game game, GameObject gameObject) {
-        game.getGameObjects().add(gameObject);
-        currentMap.getSceneryList().add((Scenery) gameObject);
-    }
-
-    public void despawn(Game game, GameObject gameObject) {
-        game.getGameObjects().remove(gameObject);
-        currentMap.getSceneryList().remove((Scenery)gameObject);
     }
 
     public void update(Game game) {

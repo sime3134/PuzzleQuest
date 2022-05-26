@@ -240,7 +240,6 @@ public class GameMap implements Persistable {
         return sceneryList.stream()
                 .filter(scenery -> !scenery.isWalkable())
                 .anyMatch(scenery -> scenery.getCollisionBox().collidingWith(gridCollisionBox));
-        //TODO: Better with getExtendedCollisionBox()?
     }
 
     /**

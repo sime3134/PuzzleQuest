@@ -1,7 +1,6 @@
 package core;
 
 import main.GameLoop;
-import settings.Settings;
 
 /**
  * @author Simon Jern

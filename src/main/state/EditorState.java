@@ -65,12 +65,12 @@ public class EditorState extends State {
     @Override
     public void setupUI() {
         super.setupUI();
-        UIButton mainMenuButton = new UIButton("main menu", (game) -> displayWarning(game));
-        UIButton saveButton = new UIButton("save", (game) -> displaySaveDialog(game));
-        UIButton loadButton = new UIButton("load", (game) -> displayLoadDialog(game));
-        UIButton newButton = new UIButton("new", (game) -> game.createNewMap(64, 64, game.getContent()));
+        UIButton mainMenuButton = new UIButton("main menu", game -> displayWarning(game));
+        UIButton saveButton = new UIButton("save", game -> displaySaveDialog(game));
+        UIButton loadButton = new UIButton("load", game -> displayLoadDialog(game));
+        UIButton newButton = new UIButton("new", game -> game.createNewMap(64, 64, game.getContent()));
         UIButton pngButton = new UIButton("PNG",
-                (game) -> WorldMapDrawer.generateMap(game.getCurrentMap(), 2304, game.getCurrentMap().getName()));
+                game -> WorldMapDrawer.generateMap(game.getCurrentMap(), 2304, game.getCurrentMap().getName()));
         HorizontalContainer buttonMenu = new HorizontalContainer(mainMenuButton, pngButton, saveButton,
                 loadButton, newButton);
         mainMenuButton.setWidth(180);

@@ -30,11 +30,11 @@ public class MainMenuState extends State{
         container.addComponent(title);
         uiContainers.add(container);
 
-        UIButton newGame = new UIButton("New Game", (game) -> game.enterUsername());
-        UIButton loadGame = new UIButton("Load Game", (game) -> game.loadGame());
-        UIButton settings = new UIButton("Settings", (game) -> game.goToSettingsMenu());
-        UIButton exitGame = new UIButton("Exit Game", (game) -> System.exit(0));
-        UIButton worldEditor = new UIButton("World Editor", (game) -> game.goToWorldEditor());
+        UIButton newGame = new UIButton("New Game", game -> game.enterUsername());
+        UIButton loadGame = new UIButton("Load Game", game -> game.loadGame());
+        UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
+        UIButton exitGame = new UIButton("Exit Game", game -> System.exit(0));
+        UIButton worldEditor = new UIButton("World Editor", game -> game.goToWorldEditor());
 
         newGame.setBackgroundColor(Color.GRAY);
         newGame.setClickColor(Color.YELLOW);

@@ -37,11 +37,11 @@ public class PauseMenuState extends State{
         container.addComponent(title);
         uiContainers.add(container);
 
-        UIButton resumeGame = new UIButton("Resume Game", (game) -> game.resumeGame());
-        UIButton saveGame = new UIButton("Save Game", (game) -> game.saveGame());
-        UIButton mainMenu = new UIButton("Main Menu", (game) -> game.goToMainMenu());
-        UIButton settings = new UIButton("Settings", (game) -> game.goToSettingsMenu());
-        UIButton exitGame = new UIButton("Exit Game", (game) -> System.exit(0));
+        UIButton resumeGame = new UIButton("Resume Game", game -> game.resumeGame());
+        UIButton saveGame = new UIButton("Save Game", game -> game.saveGame());
+        UIButton mainMenu = new UIButton("Main Menu", game -> game.goToMainMenu());
+        UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
+        UIButton exitGame = new UIButton("Exit Game", game -> System.exit(0));
 
         resumeGame.setBackgroundColor(Color.GRAY);
         resumeGame.setClickColor(Color.YELLOW);

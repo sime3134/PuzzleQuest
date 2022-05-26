@@ -18,10 +18,6 @@ public class AIManager {
     private final NPC currentNPC;
     private final List<AITask> tasks;
 
-    public AIState getCurrentAIState() {
-        return currentAIState;
-    }
-
     public AIManager(NPC currentNPC) {
         this.currentNPC = currentNPC;
         lastState = "choose_next_action";

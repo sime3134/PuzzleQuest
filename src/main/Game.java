@@ -292,6 +292,7 @@ public class Game implements Persistable {
         stateManager.goToGameState();
         audioPlayer.playMusic("suburbs.wav", 0);
         getGameState().initializeNameTags(this);
+        stateManager.getQuestViewState().setCurrentIndex(0);
     }
 
     private void updateNPCMapsFromLoad() {
@@ -316,6 +317,7 @@ public class Game implements Persistable {
         getGameState().getQuestManager().startQuest(this, 0);
         getGameState().handleNonNpcDialog(this);
         getGameState().initializeNameTags(this);
+        stateManager.getQuestViewState().setCurrentIndex(0);
     }
 
     public void goToMainMenu() {

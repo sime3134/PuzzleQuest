@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class MapIO {
 
+    private MapIO(){}
+
     public static void save(GameMap gameMap, String filePath){
         if(filePath.contains(".txt")) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -31,7 +33,7 @@ public class MapIO {
     }
 
     public static Map<String, GameMap> loadAllMaps(ContentManager content, String basePath) {
-        Map<String, GameMap> maps = new HashMap();
+        Map<String, GameMap> maps = new HashMap<>();
 
         if (MapIO.class.getResource(basePath) != null) {
             URL resource = MapIO.class.getResource(basePath);

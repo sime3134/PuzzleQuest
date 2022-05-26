@@ -29,6 +29,10 @@ public class QuestViewState extends State {
 
     private int currentIndex;
 
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
+
     public QuestViewState() {
         super();
         currentIndex = 0;
@@ -158,15 +162,15 @@ public class QuestViewState extends State {
             QuestText questText = new QuestText(activeQuests.get(i).getName(), this, activeQuests.get(i).getId());
             questList.addComponent(questText);
 
-            if(i == currentIndex){
+            if(i == 0){
                 questText.setUnderlined(true);
             }
         }
 
         if(!activeQuests.isEmpty()) {
-            questStepText.setText("- " + activeQuests.get(currentIndex).getCurrentStep().getName());
-            questName.setText(activeQuests.get(currentIndex).getName());
-            questDescText.setText(activeQuests.get(currentIndex).getDescription());
+            questStepText.setText("- " + activeQuests.get(0).getCurrentStep().getName());
+            questName.setText(activeQuests.get(0).getName());
+            questDescText.setText(activeQuests.get(0).getDescription());
         }
 
     }

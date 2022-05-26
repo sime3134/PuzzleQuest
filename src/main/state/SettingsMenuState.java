@@ -34,12 +34,12 @@ public class SettingsMenuState extends State{
         uiContainers.add(container);
 
         UIText audioTxt= new UIText("Audio");
-        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioOn(), (game) -> game.toggleAudio());
-        UIButton increase = new UIButton("+", (game) -> Settings.increaseVolume());
-        UIButton decrease = new UIButton("-", (game) -> Settings.decreaseVolume());
-        UIButton back = new UIButton("Back", (game) -> game.goToLastState());
+        UICheckbox audio = new UICheckbox("ON/OFF", Settings.getAudioOn(), game -> game.toggleAudio());
+        UIButton increase = new UIButton("+", game -> Settings.increaseVolume());
+        UIButton decrease = new UIButton("-", game -> Settings.decreaseVolume());
+        UIButton back = new UIButton("Back", game -> game.goToLastState());
         UIButton saveMap = new UIButton("Save world map to file",
-                (game) -> WorldMapDrawer.generateFullWorldMap(game.getMapManager().getWorldMap(), 3200, 5));
+                game -> WorldMapDrawer.generateFullWorldMap(game.getMapManager().getWorldMap(), 3200, 5));
 
         audioTxt.setFontSize(30);
         audio.setFontSize(20);
@@ -59,7 +59,7 @@ public class SettingsMenuState extends State{
 
         UIText displayText = new UIText("Display");
         UICheckbox fullscreen = new UICheckbox("Fullscreen", Settings.getFullScreenSetting(),
-                (game) -> game.setFullScreen());
+                game -> game.setFullScreen());
 
         displayText.setFontSize(30);
         fullscreen.setFontSize(20);

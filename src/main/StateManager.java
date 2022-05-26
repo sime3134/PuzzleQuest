@@ -37,6 +37,10 @@ public class StateManager {
         return editorState;
     }
 
+    public QuestViewState getQuestViewState() {
+        return questViewState;
+    }
+
     public StateManager(Game game) {
         mainMenuState = new MainMenuState();
         pauseMenuState = new PauseMenuState();
