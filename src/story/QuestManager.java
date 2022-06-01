@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * Manages all quests in the game.
  */
 public class QuestManager implements Persistable {
