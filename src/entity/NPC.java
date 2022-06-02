@@ -45,16 +45,6 @@ public class NPC extends Humanoid {
         return brain;
     }
 
-    public NPC getCopy(String mapName) {
-        NPC copy = new NPC(new NPCController(), animationManager.getSpriteSet(), "default", mapName);
-
-        copy.position = position;
-        copy.id = nextId;
-        nextId++;
-
-        return copy;
-    }
-
     public void setActivity(String activity) {
         this.activity = activity;
     }
@@ -138,6 +128,19 @@ public class NPC extends Humanoid {
         return activity;
     }
 
+    public NPC getCopy(String mapName) {
+        NPC copy = new NPC(new NPCController(), animationManager.getSpriteSet(), "default", mapName);
+
+        copy.position = position;
+        copy.id = nextId;
+        nextId++;
+
+        return copy;
+    }
+
+    /**
+     * Saves the NPC down to text to save in file.
+     */
     @Override
     public String serialize() {
         StringBuilder sb = new StringBuilder();
@@ -165,6 +168,9 @@ public class NPC extends Humanoid {
         return sb.toString();
     }
 
+    /**
+     * Restores an NPC from contents of a text file.
+     */
     @Override
     public void applySerializedData(String serializedData) {
         String[] tokens = serializedData.split(DELIMITER);
