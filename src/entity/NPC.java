@@ -70,10 +70,9 @@ public class NPC extends Humanoid {
     public DialogManager getDialogManager() {
         return dialogManager;
     }
-
     //endregion
 
-    public NPC(){
+    public NPC() {
         super(new NPCController());
         path = new ArrayList<>();
         dialogManager = new DialogManager(this);
@@ -91,7 +90,7 @@ public class NPC extends Humanoid {
     }
 
     @Override
-    public void update(Game game){
+    public void update(Game game) {
         super.update(game);
         if(!(game.getCurrentState() instanceof EditorState)) {
             brain.update(game);
@@ -103,12 +102,14 @@ public class NPC extends Humanoid {
         super.draw(g, camera);
         if(Settings.getRenderPaths().get()) {
             int i = 0;
-            for(Vector2D v : path){
+            for(Vector2D v : path) {
                 i++;
                 g.setColor(Color.BLUE);
-                g.fillRect(v.intX() - camera.getPosition().intX(), v.intY() - camera.getPosition().intY(), 48, 48);
+                g.fillRect(v.intX() - camera.getPosition().intX(), v.intY() -
+                        camera.getPosition().intY(), 48, 48);
                 g.setColor(Color.WHITE);
-                g.drawString(Integer.toString(i), v.intX() - camera.getPosition().intX() + 8, v.intY() - camera.getPosition().intY() + 5);
+                g.drawString(Integer.toString(i), v.intX() - camera.getPosition().intX() + 8,
+                        v.intY() - camera.getPosition().intY() + 5);
             }
         }
     }

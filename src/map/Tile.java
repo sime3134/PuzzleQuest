@@ -19,6 +19,7 @@ public class Tile implements Persistable {
     protected String tileSheetName;
     protected int collisionBoxType;
 
+    //region getters and setters (click to view)
     public Image getSprite(){
         return sprite;
     }
@@ -44,6 +45,20 @@ public class Tile implements Persistable {
         this.collisionBoxType = collisionBoxType;
     }
 
+    public int getMoveCost() {
+        return tileSheetName.equals("paths")
+                || tileSheetName.equals("borders") ? 5 : 80;
+    }
+
+    public int getTileIndex() {
+        return tileIndex;
+    }
+
+    public String getTileSheetName() {
+        return tileSheetName;
+    }
+    //endregion
+
     public Tile() {
         collisionBoxType = 0;
     }
@@ -51,14 +66,14 @@ public class Tile implements Persistable {
     /**
      * Constructor used to display tile sheet in tile editor.
      */
-    public Tile(ContentManager content, String tileSheetName){
+    public Tile(ContentManager content, String tileSheetName) {
         this.tileSheet = content.getImage(tileSheetName);
         this.tileSheetName = tileSheetName;
         this.collisionBoxType = 0;
         generateSprite();
     }
 
-    public Tile(ContentManager content, int tileIndex, String tileSheetName){
+    public Tile(ContentManager content, int tileIndex, String tileSheetName) {
         this.tileSheet = content.getImage(tileSheetName);
         this.tileIndex = tileIndex;
         this.tileSheetName = tileSheetName;
@@ -66,7 +81,7 @@ public class Tile implements Persistable {
         generateSprite();
     }
 
-    public Tile(Image tileSheet, int tileIndex, String tileSheetName){
+    public Tile(Image tileSheet, int tileIndex, String tileSheetName) {
         this.tileSheet = tileSheet;
         this.tileIndex = tileIndex;
         this.tileSheetName = tileSheetName;
@@ -86,7 +101,7 @@ public class Tile implements Persistable {
         );
     }
 
-    public void reloadGraphics(ContentManager content){
+    public void reloadGraphics(ContentManager content) {
         tileSheet = content.getImage(tileSheetName);
         generateSprite();
     }
@@ -118,11 +133,6 @@ public class Tile implements Persistable {
         collisionBoxType = Integer.parseInt(tokens[3]);
     }
 
-    public int getMoveCost() {
-        return tileSheetName.equals("paths")
-                || tileSheetName.equals("borders") ? 5 : 80;
-    }
-
 //    private boolean tileIsGrassBorder() {
 //        boolean notGrassBorder = tileIndex == 40
 //                || tileIndex == 41 || tileIndex == 42
@@ -133,14 +143,6 @@ public class Tile implements Persistable {
 //
 //        return !notGrassBorder;
 //    }
-
-    public int getTileIndex() {
-        return tileIndex;
-    }
-
-    public String getTileSheetName() {
-        return tileSheetName;
-    }
 
     public void draw(Graphics g, int posX, int posY) {
         g.drawImage(getSprite(), posX, posY, null);

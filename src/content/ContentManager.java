@@ -22,7 +22,33 @@ public class ContentManager {
     private final Map<String, Image> images;
     private Font font;
 
-    public ContentManager(){
+    //region getters and setters (click to view)
+    private String[] getImagesInFolder(String basePath) {
+        URL resource = ContentManager.class.getResource(basePath);
+        File file = new File(resource.getFile());
+        return file.list((current, name) -> new File(current, name).isFile());
+    }
+
+    private String[] getFolderNames(String basePath) {
+        URL resource = ContentManager.class.getResource(basePath);
+        File file = new File(resource.getFile());
+        return file.list((current, name) -> new File(current, name).isDirectory());
+    }
+
+    public SpriteSet getSpriteSet(String name) {
+        return spriteSets.get(name);
+    }
+
+    public Image getImage(String name) {
+        return images.get(name);
+    }
+
+    public SpriteSet getAnimatedTileSheet(String name) {
+        return animatedTileSets.get(name);
+    }
+    //endregion
+
+    public ContentManager() {
         spriteSets = new HashMap<>();
         animatedTileSets = new HashMap<>();
         images = new HashMap<>();
@@ -53,7 +79,7 @@ public class ContentManager {
     private void loadImages(String filePath) {
         String[] imagesInFolder = getImagesInFolder(filePath);
 
-        for(String fileName : imagesInFolder){
+        for(String fileName : imagesInFolder) {
             images.put(fileName.substring(0, fileName.length() - 4),
                     ImgUtils.loadImage(filePath + "/" + fileName));
         }
@@ -62,12 +88,12 @@ public class ContentManager {
     private void loadSpriteSets(String filePath) {
         String[] folderNames = getFolderNames(filePath);
 
-        for(String folderName : folderNames){
+        for(String folderName : folderNames) {
             SpriteSet spriteSet = new SpriteSet(folderName);
             String pathToFolder = filePath + "/" + folderName;
             String[] sheetsInFolder = getImagesInFolder(pathToFolder);
 
-            for(String sheetName : sheetsInFolder){
+            for(String sheetName : sheetsInFolder) {
                 spriteSet.addSheet(sheetName.substring(0, sheetName.length() - 4),
                         generateSubImages(pathToFolder, sheetName));
             }
@@ -94,7 +120,7 @@ public class ContentManager {
     private void loadAnimatedTileSets(String filePath) {
         String[] imagesInFolder = getImagesInFolder(filePath);
 
-        for(String fileName : imagesInFolder){
+        for(String fileName : imagesInFolder) {
             String fileNameWithoutExtension = fileName.substring(0, fileName.length() - 4);
             SpriteSet spriteSet = new SpriteSet(fileName);
 
@@ -102,29 +128,5 @@ public class ContentManager {
                     generateSubImages(filePath, fileName));
             animatedTileSets.put(fileNameWithoutExtension, spriteSet);
         }
-    }
-
-    private String[] getImagesInFolder(String basePath) {
-        URL resource = ContentManager.class.getResource(basePath);
-        File file = new File(resource.getFile());
-        return file.list((current, name) -> new File(current, name).isFile());
-    }
-
-    private String[] getFolderNames(String basePath) {
-        URL resource = ContentManager.class.getResource(basePath);
-        File file = new File(resource.getFile());
-        return file.list((current, name) -> new File(current, name).isDirectory());
-    }
-
-    public SpriteSet getSpriteSet(String name) {
-        return spriteSets.get(name);
-    }
-
-    public Image getImage(String name) {
-        return images.get(name);
-    }
-
-    public SpriteSet getAnimatedTileSheet(String name) {
-        return animatedTileSets.get(name);
     }
 }

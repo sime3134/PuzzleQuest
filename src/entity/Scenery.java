@@ -20,6 +20,7 @@ public class Scenery extends GameObject implements Persistable {
     protected String name;
     protected Action actionWhenInteractedWith;
 
+    //region getter and setters (click to view)
     public void setSprite(Image sprite) {
         this.sprite = sprite;
     }
@@ -27,6 +28,32 @@ public class Scenery extends GameObject implements Persistable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public CollisionBox getCollisionBox() {
+        Vector2D position = getPosition().getCopy();
+
+        return CollisionBox.of(
+                new Vector2D(position.getX() + collisionBoxOffset.getX(),
+                        position.getY() + collisionBoxOffset.getY()),
+                collisionBoxWidth,
+                collisionBoxHeight
+        );
+    }
+
+    @Override
+    public CollisionBox getStaticCollisionBox() {
+        return getCollisionBox();
+    }
+
+    public Image getSprite() {
+        return sprite;
+    }
+    //endregion
 
     public Scenery() {
     }
@@ -61,7 +88,7 @@ public class Scenery extends GameObject implements Persistable {
         this.collisionBoxOffset = new Vector2D(0, height / 3f);
         if(walkable) {
             this.renderOrderComparisonYOffset = -height;
-        }else{
+        }else {
             this.renderOrderComparisonYOffset = height / 3f;
         }
     }
@@ -72,7 +99,7 @@ public class Scenery extends GameObject implements Persistable {
         if(ratio > 1.2) {
             this.selectionCircleHeight = height / 2;
             this.selectionCircleRenderYOffset = this.selectionCircleHeight + 5;
-        }else{
+        }else {
             this.selectionCircleHeight = height + 5;
         }
         this.selectionCircleRenderXOffset = -5;
@@ -90,7 +117,6 @@ public class Scenery extends GameObject implements Persistable {
 
     @Override
     public void update(Game state) {
-
     }
 
     @Override
@@ -99,27 +125,6 @@ public class Scenery extends GameObject implements Persistable {
                 getRenderPosition(camera).intX(),
                 getRenderPosition(camera).intY(),
                 null);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public CollisionBox getCollisionBox() {
-        Vector2D position = getPosition().getCopy();
-
-        return CollisionBox.of(
-                new Vector2D(position.getX() + collisionBoxOffset.getX(),
-                        position.getY() + collisionBoxOffset.getY()),
-                collisionBoxWidth,
-                collisionBoxHeight
-        );
-    }
-
-    @Override
-    public CollisionBox getStaticCollisionBox() {
-        return getCollisionBox();
     }
 
     @Override
@@ -159,7 +164,7 @@ public class Scenery extends GameObject implements Persistable {
 
     }
 
-    public Scenery getCopy(){
+    public Scenery getCopy() {
         Scenery copy = new Scenery();
 
         copy.name = this.name;
@@ -181,10 +186,6 @@ public class Scenery extends GameObject implements Persistable {
         nextId++;
 
         return copy;
-    }
-
-    public Image getSprite() {
-        return sprite;
     }
 
     public void setActionWhenInteractedWith(Action actionWhenInteractedWith){
