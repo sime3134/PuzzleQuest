@@ -5,7 +5,7 @@ import main.Game;
 import story.QuestStepTransition;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * Implements a step in a quest that the player has to complete to
  * proceed in the quest.
  */

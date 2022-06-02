@@ -9,6 +9,10 @@ import main.Game;
 import story.quest_steps.InteractWithGameObject;
 import story.quest_steps.QuestStep;
 
+/**
+ * @author Johan Salomonsson
+ * A quest that is not finished.
+ */
 public class CatchUpWithBill extends Quest {
     private final NPC bill;
     private final NPC akira;

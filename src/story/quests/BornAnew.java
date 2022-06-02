@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Simon Jern, Johan Salomonsson
- * Implements a quest where the player should go to two different locations.
+ * Implements the starting quest of the game.
  */
 public class BornAnew extends Quest {
     private final NPC bill;

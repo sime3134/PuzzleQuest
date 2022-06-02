@@ -8,7 +8,9 @@ import ui.containers.HorizontalContainer;
 import ui.containers.UIContainer;
 import ui.containers.VerticalContainer;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
 
 /**
  * @author Johan Salomonsson, Sara Persson, Simon Jern
@@ -39,9 +41,9 @@ public class PauseMenuState extends State{
 
         UIButton resumeGame = new UIButton("Resume Game", game -> game.resumeGame());
         UIButton saveGame = new UIButton("Save Game", game -> game.saveGame());
-        UIButton mainMenu = new UIButton("Main Menu", game -> game.goToMainMenu());
+        UIButton mainMenu = new UIButton("Main Menu", game -> displayWarningMainMenu(game));
         UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
-        UIButton exitGame = new UIButton("Exit Game", game -> System.exit(0));
+        UIButton exitGame = new UIButton("Exit Game", game -> displayWarningExitGame(game));
 
         resumeGame.setBackgroundColor(Color.GRAY);
         resumeGame.setClickColor(Color.YELLOW);
@@ -72,6 +74,34 @@ public class PauseMenuState extends State{
         VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings, exitGame);
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
+    }
+
+
+    private void displayWarningExitGame(Game game) {
+        Locale locale = Locale.ENGLISH;
+        JOptionPane.setDefaultLocale(locale);
+        int answer = JOptionPane.showConfirmDialog(null,
+                "Are you sure you would like to exit the game?\nAll unsaved progress will be lost.",
+                "Warning, you are about to exit the game!",
+                JOptionPane.YES_NO_OPTION);
+
+        if(answer == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    private void displayWarningMainMenu(Game game) {
+        Locale locale = Locale.ENGLISH;
+        JOptionPane.setDefaultLocale(locale);
+        int answer = JOptionPane.showConfirmDialog(null,
+                "Are you sure you would like to return to the main menu?\nAll unsaved" +
+                        " progress will be lost.",
+                "Warning, you are about to go back to the main menu!",
+                JOptionPane.YES_NO_OPTION);
+
+        if(answer == JOptionPane.YES_OPTION) {
+            game.goToMainMenu();
+        }
     }
 
     @Override

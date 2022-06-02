@@ -3,6 +3,10 @@ package ui.clickable;
 import main.Game;
 import main.state.QuestViewState;
 
+/**
+ * @author Johan Salomonsson, Simon Jern
+ * Used to set the text in quests.
+ */
 public class QuestText extends UIText{
 
     private final QuestViewState questState;

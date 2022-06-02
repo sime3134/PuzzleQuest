@@ -8,7 +8,9 @@ import ui.containers.HorizontalContainer;
 import ui.containers.UIContainer;
 import ui.containers.VerticalContainer;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
 
 /**
  * @author Johan Salomonsson, Sara Persson, Simon Jern
@@ -33,7 +35,7 @@ public class MainMenuState extends State{
         UIButton newGame = new UIButton("New Game", game -> game.enterUsername());
         UIButton loadGame = new UIButton("Load Game", game -> game.loadGame());
         UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
-        UIButton exitGame = new UIButton("Exit Game", game -> System.exit(0));
+        UIButton exitGame = new UIButton("Exit Game", game -> displayWarning(game));
         UIButton worldEditor = new UIButton("World Editor", game -> game.goToWorldEditor());
 
         newGame.setBackgroundColor(Color.GRAY);
@@ -66,6 +68,18 @@ public class MainMenuState extends State{
         uiContainers.add(menu);
     }
 
+
+    private void displayWarning(Game game) {
+        Locale locale = Locale.ENGLISH;
+        JOptionPane.setDefaultLocale(locale);
+        int answer = JOptionPane.showConfirmDialog(null,
+                "Are you sure you would like to exit the game?", "Warning, you are about to exit the game!",
+                JOptionPane.YES_NO_OPTION);
+
+        if(answer == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
     @Override
     public void escapeButtonPressed(Game game) {
 

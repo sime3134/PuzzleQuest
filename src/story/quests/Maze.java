@@ -14,6 +14,7 @@ import story.quest_steps.WaitForExternalCompletion;
 
 /**
  * @author Johan Salomonsson
+ * Implements a quest where you have to find a medallion inside a maze and then find your way out.
  */
 public class Maze extends Quest {
     private final NPC mazer;

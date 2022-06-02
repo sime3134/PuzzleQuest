@@ -8,6 +8,10 @@ import story.quest_steps.InteractWithGameObject;
 import story.quest_steps.QuestStep;
 import story.quest_steps.WaitForExternalCompletion;
 
+/**
+ * @author Johan Salomonsson, Simon Jern
+ * Implements a quest where you look for a medallion piece in a forest.
+ */
 public class ForestMystery extends Quest{
     private final NPC komako;
 
@@ -56,7 +60,7 @@ public class ForestMystery extends Quest{
     private void initializeSteps(Game game) {
         QuestStep step1 = new WaitForExternalCompletion("Find Komako near the southern marketplace.", "");
         QuestStep step2 = new InteractWithGameObject("Search the northern forest", "Komako is sure there is" +
-                " a part of the medallion\nsomewhere in the forest, I'll go search the area.",
+                " a piece of the medallion\nsomewhere in the forest, I'll go search the area.",
                 game.getGameObjectById(10656));
         addQuestStep(step1, step2);
     }
