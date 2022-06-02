@@ -7,6 +7,10 @@ import main.Game;
 import story.quest_steps.QuestStep;
 import story.quest_steps.WaitForExternalCompletion;
 
+/**
+ * @author Johan Salomonsson, Simon Jern
+ * Implements the final quest where you hand the medallions over to lord Joffrey.
+ */
 public class MedallionHandOver extends Quest{
 
     private final NPC lordJoffrey;

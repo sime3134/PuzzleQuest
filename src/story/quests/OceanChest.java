@@ -8,6 +8,10 @@ import story.quest_steps.InteractWithGameObject;
 import story.quest_steps.QuestStep;
 import story.quest_steps.WaitForExternalCompletion;
 
+/**
+ * @author Johan Salomonsson, Simon Jern
+ * Implements a quest where you search for a medallion on an island somewhere along the coast.
+ */
 public class OceanChest extends Quest{
 
     private final NPC mensah;
@@ -58,7 +62,7 @@ public class OceanChest extends Quest{
         });
         mensahDialog.addLine(new DialogLine("That's right. I'm Mensah, if you have come to search for\n" +
                 "the moving island, it's right there."));
-        mensahDialog.addLine(new DialogLine("I'm certain that there is a part of the lost medallion out there.\n" +
+        mensahDialog.addLine(new DialogLine("I'm certain that there is a piece of the lost medallion out there.\n" +
                 "the problem is how to get to it. There is a way out to it and back but we've\n" +
                 "had issues with finding it. Some have made it far out but had to turn back\n" +
                 "to avoid drowning."));

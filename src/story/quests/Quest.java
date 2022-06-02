@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Simon Jern
+ * @author Simon Jern, Johan Salomonsson
  * Implements a quest that has one or several steps that should be completed to
  * complete the quest in whole.
  */

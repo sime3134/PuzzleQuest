@@ -4,6 +4,11 @@ import entity.GameObject;
 import main.Game;
 import story.QuestStepTransition;
 
+/**
+ * @author Simon Jern, Johan Salomonsson
+ * This class implements the logic that a quest step is finished when the player interacts with
+ * a specifik item or person.
+ */
 public class InteractWithGameObject extends QuestStep {
 
     private final GameObject gameObjectToInteractWith;
