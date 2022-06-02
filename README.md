@@ -11,8 +11,8 @@
 - Move the player with WASD.
 - Open the quest menu by pressing Q.
 - Interact with NPCs or items by facing them and pressing E. At the moment this moves the dialog with the NPC forward.
-  - It also lets you "sleep" in the bed in the first quest and open chests.
-  - We have just started writing dialog so when the same messages starts repeating that means that there is no more dialog added to the game.
+  - At the moment it is only possible to interact with NPCs with nametags above them. 
+  - It also lets you "sleep" in the bed in the first quest and open chests to collect medallions.
 - Pause the game with ESC.
 - You can save your game in the pause menu, however please be aware that there are parts of the game where you 
   can't save.
