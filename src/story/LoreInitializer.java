@@ -11,7 +11,7 @@ import ui.containers.RelativeContainer;
 
 /**
  * @author Simon Jern
- * Initializes all quests in the game.
+ * Initializes all quests and lore in the game.
  */
 public class LoreInitializer {
 

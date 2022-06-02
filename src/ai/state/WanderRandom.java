@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Simon Jern
- * Implements a state where the entity will walk towards a goal.
+ * Implements a state where the entity will walk towards a target.
  */
 public class WanderRandom extends AIState{
 

@@ -12,6 +12,10 @@ import ui.containers.UIContainer;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * @author Simon Jern
+ * Implements a component to take text input from the player.
+ */
 public class UITextInput extends UIClickable implements KeyInputConsumer {
 
     private final UIContainer container;

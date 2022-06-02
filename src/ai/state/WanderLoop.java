@@ -11,7 +11,8 @@ import java.util.List;
 
 /**
  * @author Simon Jern
- * Implements a state where the entity will walk towards a goal.
+ * Implements a state where the entity will walk towards a goal. Not working and should not be implemented at
+ * the moment.
  */
 public class WanderLoop extends AIState{
 

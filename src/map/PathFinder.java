@@ -12,6 +12,11 @@ public class PathFinder {
 
     private PathFinder(){}
 
+    /**
+     * Calculates scores for tiles to determine the best path to a target from a start point.
+     * Scores are determined by distance to target, a base score depending on type of tile etc.
+     * @return a path from start to target
+     */
     public static List<Vector2D> findPath(Vector2D start, Vector2D target, GameMap map) {
         final PriorityQueue<Node> open = new PriorityQueue<>();
         final Set<Node> closed = new HashSet<>();
@@ -81,6 +86,9 @@ public class PathFinder {
         return Collections.emptyList();
     }
 
+    /**
+     * Extracts the found path from the nodes that form the path.
+     */
     private static List<Vector2D> extractPath(Node current) {
         List<Vector2D> path = new ArrayList<>();
 
@@ -94,6 +102,9 @@ public class PathFinder {
         return path;
     }
 
+    /**
+     * A node represents a tile.
+     */
     private static class Node implements Comparable<Node> {
         private int moveCost;
         private int heuristic;
@@ -119,6 +130,9 @@ public class PathFinder {
         }
     }
 
+    /**
+     * Object pool with nodes to increase performance.
+     */
     public static class NodeBuffer {
 
         private NodeBuffer(){}
@@ -134,10 +148,6 @@ public class PathFinder {
 
         public static synchronized void put(Node node) {
             nodes.addLast(node);
-        }
-
-        public static synchronized void putAll(List<Node> list){
-            nodes.addAll(list);
         }
 
         public static synchronized Node get(int moveCost, int heuristic, int gridX, int gridY) {

@@ -7,6 +7,10 @@ import ui.clickable.UIText;
 
 import java.awt.*;
 
+/**
+ * @author Simon Jern
+ * A container displaying a notification to display to the player.
+ */
 public class NotificationContainer extends VerticalContainer{
 
     private int numberOfUpdatesWaiting;

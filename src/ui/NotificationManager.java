@@ -7,6 +7,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Simon Jern
+ * Manages all notifications being showed on the screen for the player.
+ */
 public class NotificationManager {
 
     private final List<NotificationContainer> notifications;
