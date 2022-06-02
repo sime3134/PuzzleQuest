@@ -7,7 +7,10 @@ import ui.containers.UIContainer;
 import ui.containers.VerticalContainer;
 
 import java.awt.*;
-
+/**
+ * @author Johan Salomonsson, Simon Jern
+ * State that shows the controls for the game.
+ */
 public class ControlsState extends State{
     @Override
     public void escapeButtonPressed(Game game) {

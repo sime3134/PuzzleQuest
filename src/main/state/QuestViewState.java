@@ -17,6 +17,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Simon Jern, Johan Salomonsson
+ * State that contains and shows information about quests
+ */
 public class QuestViewState extends State {
 
     private UIContainer questList;
