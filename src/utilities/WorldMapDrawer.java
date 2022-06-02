@@ -1,6 +1,7 @@
 package utilities;
 
 import core.Vector2D;
+import entity.NPC;
 import entity.Scenery;
 import map.GameMap;
 import settings.Settings;
@@ -50,7 +51,8 @@ public class WorldMapDrawer {
             List<Scenery> scenery = maps.get(mapNumber).getSceneryList();
 
             drawScenery(lengthOfOneMap, g, x1, y1, minimapRatio, spriteSizeOnMinimap, pixelOffset, scenery);
-
+            drawNPCs(lengthOfOneMap, g, x1, y1, minimapRatio, spriteSizeOnMinimap, pixelOffset,
+                    maps.get(mapNumber).getNPCList());
         }
 
 
@@ -95,7 +97,21 @@ public class WorldMapDrawer {
                     null);
         });
 
-        saveToFile(mapImage, "./" + mapName.substring(0, mapName.length() - 4) + ".png");
+        List<NPC> npcs = gameMap.getNPCList();
+
+        npcs.stream().forEach(npc -> {
+            Vector2D positionWithOffset = npc.getPosition().getCopy();
+            positionWithOffset.subtract(npc.getRenderOffset());
+            positionWithOffset.add(pixelOffset);
+
+            g.drawImage(
+                    getScaledSprite(npc.getSprite(), minimapRatio),
+                    (int) Math.round(positionWithOffset.getX() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getX()),
+                    (int) Math.round(positionWithOffset.getY() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getY()),
+                    null);
+        });
+
+        saveToFile(mapImage, "./" + mapName + ".png");
 
         g.dispose();
     }
@@ -125,6 +141,23 @@ public class WorldMapDrawer {
         int finalX = x1;
         int finalY = y1;
         scenery.stream().forEach(gameObject -> {
+            Vector2D positionWithOffset = gameObject.getPosition().getCopy();
+            positionWithOffset.subtract(gameObject.getRenderOffset());
+            positionWithOffset.add(pixelOffset);
+
+            g.drawImage(
+                    getScaledSprite(gameObject.getSprite(), minimapRatio),
+                    (int) Math.round(finalX * lengthOfOneMap + positionWithOffset.getX() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getX()),
+                    (int) Math.round(finalY * lengthOfOneMap + positionWithOffset.getY() / Settings.getTileSize() * spriteSizeOnMinimap + pixelOffset.getY()),
+                    null);
+        });
+    }
+
+    private static void drawNPCs(int lengthOfOneMap, Graphics2D g, int x1, int y1, double minimapRatio,
+                              int spriteSizeOnMinimap, Vector2D pixelOffset, List<NPC> npcs) {
+        int finalX = x1;
+        int finalY = y1;
+        npcs.stream().forEach(gameObject -> {
             Vector2D positionWithOffset = gameObject.getPosition().getCopy();
             positionWithOffset.subtract(gameObject.getRenderOffset());
             positionWithOffset.add(pixelOffset);
