@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class PathFinder {
 
-    private PathFinder(){}
+    private PathFinder() {}
 
     /**
      * Calculates scores for tiles to determine the best path to a target from a start point.
@@ -28,7 +28,7 @@ public class PathFinder {
                 int heuristic = Math.abs(x - target.gridX() + Math.abs(y - target.gridY()));
                 Node node = NodeBuffer.get(map.getTile(x, y).getMoveCost(), heuristic, x, y);
 
-                if(!map.tileIsAvailable(x, y)){
+                if(!map.tileIsAvailable(x, y)) {
                     closed.add(node);
                 }
 
@@ -45,41 +45,41 @@ public class PathFinder {
             current = open.poll();
             closed.add(current);
 
-            if(current.equals(targetNode)){
-                for(Node[] row : nodeMap){
-                    for(Node node : row){
+            if(current.equals(targetNode)) {
+                for(Node[] row : nodeMap) {
+                    for(Node node : row) {
                         NodeBuffer.put(node);
                     }
                 }
                 return extractPath(current);
             }
 
-            for(int x = current.gridX - 1; x < current.gridX + 2; x++){
-                for(int y = current.gridY- 1; y < current.gridY + 2; y++){
-                    if(map.isWithinBounds(x, y)){
+            for(int x = current.gridX - 1; x < current.gridX + 2; x++) {
+                for(int y = current.gridY- 1; y < current.gridY + 2; y++) {
+                    if(map.isWithinBounds(x, y)) {
                         Node neighbor = nodeMap[x][y];
 
-                        if(closed.contains(neighbor)){
+                        if(closed.contains(neighbor)) {
                             continue;
                         }
 
                         int calculatedCost = neighbor.heuristic + neighbor.moveCost + current.totalCost;
 
-                        if(calculatedCost < neighbor.totalCost || !open.contains(neighbor)){
+                        if(calculatedCost < neighbor.totalCost || !open.contains(neighbor)) {
                             neighbor.totalCost = calculatedCost;
                             neighbor.parent = current;
 
-                            if(!open.contains(neighbor)){
+                            if(!open.contains(neighbor)) {
                                 open.add(neighbor);
                             }
                         }
                     }
                 }
             }
-        }while(!open.isEmpty());
+        } while(!open.isEmpty());
 
-        for(Node[] row : nodeMap){
-            for(Node node : row){
+        for(Node[] row : nodeMap) {
+            for(Node node : row) {
                 NodeBuffer.put(node);
             }
         }
@@ -92,13 +92,12 @@ public class PathFinder {
     private static List<Vector2D> extractPath(Node current) {
         List<Vector2D> path = new ArrayList<>();
 
-        while(current.parent != null){
+        while(current.parent != null) {
             path.add(current.getPosition());
             current = current.parent;
         }
 
         Collections.reverse(path);
-
         return path;
     }
 
@@ -125,7 +124,7 @@ public class PathFinder {
             return Integer.compare(this.totalCost, that.totalCost);
         }
 
-        public Vector2D getPosition(){
+        public Vector2D getPosition() {
             return Vector2D.ofGridPosition(gridX, gridY);
         }
     }
@@ -135,13 +134,13 @@ public class PathFinder {
      */
     public static class NodeBuffer {
 
-        private NodeBuffer(){}
+        private NodeBuffer() {}
 
         private static LinkedList<Node> nodes;
 
-        public static void initialize(){
+        public static void initialize() {
             nodes = new LinkedList<>();
-            for(int i = 0; i < 10000; i ++){
+            for(int i = 0; i < 10000; i ++) {
                 nodes.add(new Node(0,0,0,0));
             }
         }
@@ -161,14 +160,6 @@ public class PathFinder {
             node.gridY = gridY;
             node.parent = null;
             return node;
-        }
-
-        public static void clear() {
-            nodes.clear();
-        }
-
-        public static int size() {
-            return nodes.size();
         }
     }
 }
