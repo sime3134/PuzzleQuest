@@ -32,7 +32,7 @@ public class PauseMenuState extends State{
         super.setupUI();
         UIContainer container = new HorizontalContainer();
         container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
-        UIText title = new UIText("Puzzle Quest 2.0");
+        UIText title = new UIText("Game paused");
         title.setFontSize(28);
         container.addComponent(title);
         uiContainers.add(container);
@@ -41,6 +41,7 @@ public class PauseMenuState extends State{
         UIButton saveGame = new UIButton("Save Game", game -> game.saveGame());
         UIButton mainMenu = new UIButton("Main Menu", game -> game.goToMainMenu());
         UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
+        UIButton controls = new UIButton("Controls", game -> game.goToControlsMenu());
         UIButton exitGame = new UIButton("Exit Game", game -> System.exit(0));
 
         resumeGame.setBackgroundColor(Color.GRAY);
@@ -64,12 +65,18 @@ public class PauseMenuState extends State{
         settings.setHoverColor(Color.lightGray);
         settings.setPadding(25);
 
+        controls.setBackgroundColor(Color.GRAY);
+        controls.setClickColor(Color.YELLOW);
+        controls.setHoverColor(Color.lightGray);
+        controls.setPadding(25);
+
         exitGame.setBackgroundColor(Color.GRAY);
         exitGame.setClickColor(Color.YELLOW);
         exitGame.setHoverColor(Color.lightGray);
         exitGame.setPadding(25);
 
-        VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings, exitGame);
+        VerticalContainer pauseMenu = new VerticalContainer(resumeGame, saveGame, mainMenu, settings,
+                controls, exitGame);
         pauseMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(pauseMenu);
     }

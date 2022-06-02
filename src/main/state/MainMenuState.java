@@ -24,7 +24,8 @@ public class MainMenuState extends State{
     public void setupUI() {
         super.setupUI();
         UIContainer container = new HorizontalContainer();
-        container.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.TOP));
+        container.setAlignment(new Alignment(Alignment.Horizontal.CENTER,
+                Alignment.Vertical.TOP));
         UIText title = new UIText("Puzzle Quest 2.0");
         title.setFontSize(28);
         container.addComponent(title);
@@ -33,6 +34,7 @@ public class MainMenuState extends State{
         UIButton newGame = new UIButton("New Game", game -> game.enterUsername());
         UIButton loadGame = new UIButton("Load Game", game -> game.loadGame());
         UIButton settings = new UIButton("Settings", game -> game.goToSettingsMenu());
+        UIButton controls = new UIButton("Controls", game -> game.goToControlsMenu());
         UIButton exitGame = new UIButton("Exit Game", game -> System.exit(0));
         UIButton worldEditor = new UIButton("World Editor", game -> game.goToWorldEditor());
 
@@ -51,6 +53,11 @@ public class MainMenuState extends State{
         settings.setHoverColor(Color.lightGray);
         settings.setPadding(25);
 
+        controls.setBackgroundColor(Color.GRAY);
+        controls.setClickColor(Color.YELLOW);
+        controls.setHoverColor(Color.lightGray);
+        controls.setPadding(25);
+
         exitGame.setBackgroundColor(Color.GRAY);
         exitGame.setClickColor(Color.YELLOW);
         exitGame.setHoverColor(Color.lightGray);
@@ -61,7 +68,8 @@ public class MainMenuState extends State{
         worldEditor.setHoverColor(Color.lightGray);
         worldEditor.setPadding(25);
 
-        VerticalContainer menu = new VerticalContainer(newGame, loadGame, settings, worldEditor, exitGame);
+        VerticalContainer menu = new VerticalContainer(newGame, loadGame, settings, controls, worldEditor,
+                exitGame);
         menu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         uiContainers.add(menu);
     }

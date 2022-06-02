@@ -14,6 +14,8 @@ public class StateManager {
     private final EditorState editorState;
     private final SettingsMenuState settingsState;
 
+    private final ControlsState controlsState;
+
     private final PauseMenuState pauseMenuState;
 
     private final QuestViewState questViewState;
@@ -50,6 +52,7 @@ public class StateManager {
         editorState = new EditorState(game.getContent());
         setupNameState = new SetupNameState();
         gameState = new GameState(game);
+        controlsState = new ControlsState();
     }
 
     public void update(Game game) {
@@ -107,5 +110,11 @@ public class StateManager {
         currentState = editorState;
         currentState.setupUI();
         editorState.setupToolsContainers(content);
+    }
+
+    public void goToControlsMenu() {
+        lastState = currentState;
+        currentState = controlsState;
+        currentState.setupUI();
     }
 }

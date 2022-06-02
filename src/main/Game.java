@@ -213,7 +213,10 @@ public class Game implements Persistable {
         }
 
         updateObjectsDrawOrder();
-        if(!(stateManager.getCurrentState() instanceof PauseMenuState) && !showingBlackScreenWithTimer) {
+        if(!(stateManager.getCurrentState() instanceof PauseMenuState)
+                && !(stateManager.getCurrentState() instanceof ControlsState)
+                && !(stateManager.getCurrentState() instanceof QuestViewState)
+                && !showingBlackScreenWithTimer) {
             gameObjects.forEach(gameObject -> gameObject.update(this));
         }
 
@@ -277,6 +280,7 @@ public class Game implements Persistable {
 
     public void saveGame() {
         ProgressIO.save(this,"./save_file.txt");
+        notificationManager.displayNotification("Game saved successfully.", false);
     }
 
     public void loadGame() {
@@ -520,7 +524,11 @@ public class Game implements Persistable {
         }, delay);
     }
 
-    public void displayNotification(String notification) {
-        notificationManager.displayNotification(notification);
+    public void displayNotification(String notification, boolean questLog) {
+        notificationManager.displayNotification(notification, questLog);
+    }
+
+    public void goToControlsMenu() {
+        stateManager.goToControlsMenu();
     }
 }

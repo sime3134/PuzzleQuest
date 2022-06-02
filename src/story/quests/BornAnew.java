@@ -66,14 +66,15 @@ public class BornAnew extends Quest {
 
             game.getGameState().setNonNPCDialogActive(false);
         });
-        intro.addLine(new DialogLine("Hey! Wake up..."));
+        intro.addLine(new DialogLine("Hey! Wake up...\n\nPress [E] to proceed in dialogs."));
         intro.addLine(new DialogLine("Are you alive?"));
         intro.addLine(new DialogLine("...", ignore -> game.setShowBlackScreen(false)));
         intro.addLine(new DialogLine("Ah.. You finally woke up! How are you feeling?",
                 ignore -> game.getGameState().getPlayer().setDirection("DOWN")));
         intro.addLine(new DialogLine("I just found you lying here.\n" +
                 "It seems like you washed ashore."));
-        intro.addLine(new DialogLine("Come with me to my house and warm up to start with."));
+        intro.addLine(new DialogLine("Follow me to my house and warm up to start with." +
+                "\nYou can move with the [W], [A], [S], [D] keys and interact with the [E] key."));
         game.getGameState().getDialogManager().addDialog(intro);
     }
 
@@ -127,7 +128,9 @@ public class BornAnew extends Quest {
         billDialog3.addLine(new DialogLine("And now, without it, it is once again dying."));
         billDialog3.addLine(new DialogLine("If you want to hear more about it, talk to Lord Joffrey in his\n" +
                 "castle south-east of here."));
-        billDialog3.addLine(new DialogLine("It looks you are ready to go. Come visit me sometime.", ignore -> {
+        billDialog3.addLine(new DialogLine("It looks you are ready to go. Come visit me sometime." +
+                "\nAnd by the way, you can pause with the [Esc] key.",
+                ignore -> {
             bill.setActivity("wander_random");
             game.getPauseState().setCanSave(true);
             TeleportScenery teleport = (TeleportScenery) game.getGameObjectById(39578);

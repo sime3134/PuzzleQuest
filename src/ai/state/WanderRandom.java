@@ -49,6 +49,9 @@ public class WanderRandom extends AIState{
         }
 
         if(!path.isEmpty()){
+            if(!currentNPC.isMoving()){
+                System.out.println("target: " + path.get(0) + "   npcPos: " + currentNPC.getPosition());
+            }
             controller.moveToTarget(path.get(0), currentNPC.getPosition());
         }
     }

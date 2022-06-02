@@ -26,12 +26,13 @@ public class NotificationManager {
         unusedNotification.add(new NotificationContainer());
     }
 
-    public void displayNotification(String notification){
+    public void displayNotification(String notification, boolean questLog){
         NotificationContainer container = unusedNotification.get(0);
         unusedNotification.remove(0);
         container.setOrder(notifications.size());
         container.setNotificationText(notification);
         container.setNumberOfUpdatesWaiting(0);
+        container.setSecondRow(questLog);
         notifications.add(container);
     }
 
@@ -44,6 +45,7 @@ public class NotificationManager {
         }
 
         for(NotificationContainer container : finishedNotifications){
+            container.setSecondRow(false);
             notifications.remove(container);
             unusedNotification.add(container);
         }

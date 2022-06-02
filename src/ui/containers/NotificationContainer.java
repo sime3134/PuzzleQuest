@@ -7,11 +7,13 @@ import ui.clickable.UIText;
 
 import java.awt.*;
 
-public class NotificationContainer extends HorizontalContainer{
+public class NotificationContainer extends VerticalContainer{
 
     private int numberOfUpdatesWaiting;
 
     private final UIText notificationText;
+
+    private final UIText secondRow;
 
     private int order;
 
@@ -34,11 +36,12 @@ public class NotificationContainer extends HorizontalContainer{
         setFixedPosition(true);
         this.order = 0;
         setBackgroundColor(Color.DARK_GRAY);
-        setFixedHeight(70);
         setFixedWidth(800);
         setCenterChildren(true);
         notificationText = new UIText("");
         notificationText.setFontSize(16);
+        secondRow = new UIText("[Q] to view");
+        secondRow.setFontSize(16);
         setAbsolutePosition(new Vector2D(Settings.getScreenWidth(),
                 getFixedHeight() * order));
         addComponent(notificationText);
@@ -55,5 +58,13 @@ public class NotificationContainer extends HorizontalContainer{
 
     public boolean finished(Game game){
         return numberOfUpdatesWaiting >= game.getTime().getUpdatesFromSeconds(5);
+    }
+
+    public void setSecondRow(boolean questLog) {
+        if(questLog){
+            addComponent(secondRow);
+        }else{
+            removeComponent(secondRow);
+        }
     }
 }

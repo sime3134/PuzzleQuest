@@ -85,14 +85,6 @@ public abstract class GameObject {
         return walkable;
     }
 
-    public boolean isRemoved() {
-        return removed;
-    }
-
-    public void setRemoved(boolean removed) {
-        this.removed = removed;
-    }
-
     public int getWidth() {
         return width;
     }

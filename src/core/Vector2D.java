@@ -92,8 +92,8 @@ public class Vector2D implements Persistable {
 
     public boolean isInRangeOf(Vector2D position) {
         if(position != null) {
-            return Math.abs(x - position.getX()) < Settings.getProximityRange()
-                    && Math.abs(y - position.getY()) < Settings.getProximityRange();
+            return Math.abs(x - position.getX()) < 7
+                    && Math.abs(y - position.getY()) < 7;
         }
         return false;
     }
