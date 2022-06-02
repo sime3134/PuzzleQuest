@@ -30,7 +30,8 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     private boolean wheelMouseClicked;
     private boolean wheelMousePressed;
     private boolean wheelMouseReleased;
-
+    
+    //region getters and setters (click to view)
     public static Input getInstance() {
         if(input == null){
             input = new Input();
@@ -40,38 +41,6 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     public List<Integer> getTypedKeyBuffer() {
         return typedKeyBuffer;
-    }
-
-    private Input(){
-        currentlyPressed = new boolean[1000];
-        pressed = new boolean[1000];
-        mousePosition = new Vector2D(0, 0);
-        typedKeyBuffer = new ArrayList<>();
-    }
-
-    public boolean isKeyPressed(int keyCode) {
-        if(!pressed[keyCode] && currentlyPressed[keyCode]) {
-            pressed[keyCode] = true;
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean isKeyCurrentlyPressed(int keyCode) {
-        return currentlyPressed[keyCode];
-    }
-
-    public void cleanUp() {
-        leftMouseClicked = false;
-        rightMouseClicked = false;
-        wheelMouseClicked = false;
-
-        leftMouseReleased = false;
-        rightMouseReleased = false;
-        wheelMouseReleased = false;
-
-        typedKeyBuffer.clear();
     }
 
     public Vector2D getMousePosition() {
@@ -112,6 +81,39 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     public boolean isWheelMouseReleased() {
         return wheelMouseReleased;
+    }
+    //endregion
+
+    private Input() {
+        currentlyPressed = new boolean[1000];
+        pressed = new boolean[1000];
+        mousePosition = new Vector2D(0, 0);
+        typedKeyBuffer = new ArrayList<>();
+    }
+
+    public boolean isKeyPressed(int keyCode) {
+        if(!pressed[keyCode] && currentlyPressed[keyCode]) {
+            pressed[keyCode] = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isKeyCurrentlyPressed(int keyCode) {
+        return currentlyPressed[keyCode];
+    }
+
+    public void cleanUp() {
+        leftMouseClicked = false;
+        rightMouseClicked = false;
+        wheelMouseClicked = false;
+
+        leftMouseReleased = false;
+        rightMouseReleased = false;
+        wheelMouseReleased = false;
+
+        typedKeyBuffer.clear();
     }
 
     @Override
