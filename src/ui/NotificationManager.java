@@ -29,7 +29,11 @@ public class NotificationManager {
     public void displayNotification(String notification, boolean questLog){
         NotificationContainer container = unusedNotification.get(0);
         unusedNotification.remove(0);
-        container.setOrder(notifications.size());
+        if(notifications.size() > 0) {
+            container.setOriginPosition(notifications.size(), notifications.get(notifications.size() - 1));
+        }else{
+            container.setOriginPosition(0, null);
+        }
         container.setNotificationText(notification);
         container.setNumberOfUpdatesWaiting(0);
         container.setSecondRow(questLog);

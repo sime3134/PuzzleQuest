@@ -66,6 +66,7 @@ public abstract class Quest implements Persistable {
         active = false;
         finished = true;
         game.displayNotification("Finished quest: " + name, false);
+        game.getQuestState().questCompleted(game);
     }
 
     public void addQuestStep(QuestStep... questSteps){

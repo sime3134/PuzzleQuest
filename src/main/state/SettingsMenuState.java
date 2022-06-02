@@ -44,18 +44,24 @@ public class SettingsMenuState extends State{
         audioTxt.setFontSize(30);
         audio.setFontSize(20);
         audioTxt.getPadding().setBottom(20);
+        audioTxt.setUnderlined(true);
 
         increase.setBackgroundColor(Color.GRAY);
         increase.setClickColor(Color.YELLOW);
         increase.setHoverColor(Color.lightGray);
-        increase.setPadding(10);
+        increase.getMargin().setLeft(10);
         increase.setFontSize(30);
+        increase.setWidth(60);
+        increase.setHeight(50);
 
         decrease.setBackgroundColor(Color.GRAY);
         decrease.setClickColor(Color.YELLOW);
         decrease.setHoverColor(Color.lightGray);
-        decrease.setPadding(10);
         decrease.setFontSize(30);
+        decrease.setWidth(60);
+        decrease.setHeight(50);
+
+        UIContainer increaseDecrease = new HorizontalContainer(decrease, increase);
 
         UIText displayText = new UIText("Display");
         UICheckbox fullscreen = new UICheckbox("Fullscreen", Settings.getFullScreenSetting(),
@@ -65,6 +71,7 @@ public class SettingsMenuState extends State{
         fullscreen.setFontSize(20);
         displayText.getPadding().setBottom(20);
         displayText.getPadding().setTop(20);
+        displayText.setUnderlined(true);
 
         back.setBackgroundColor(Color.GRAY);
         back.setClickColor(Color.YELLOW);
@@ -74,8 +81,10 @@ public class SettingsMenuState extends State{
         saveMap.setBackgroundColor(Color.GRAY);
         saveMap.setClickColor(Color.YELLOW);
         saveMap.setHoverColor(Color.lightGray);
+        saveMap.setWidth(400);
+        saveMap.getMargin().setLeft(10);
 
-        VerticalContainer settingsMenu = new VerticalContainer(audioTxt, audio, increase, decrease, displayText,
+        VerticalContainer settingsMenu = new VerticalContainer(audioTxt, audio, increaseDecrease, displayText,
                 fullscreen);
         settingsMenu.setAlignment(new Alignment(Alignment.Horizontal.CENTER, Alignment.Vertical.CENTER));
         settingsMenu.setCenterChildren(true);

@@ -33,6 +33,21 @@ public class QuestViewState extends State {
         this.currentIndex = currentIndex;
     }
 
+    public void questCompleted(Game game) {
+        List<Quest> activeQuests = new ArrayList<>();
+        for(Quest quest : game.getGameState().getQuestManager().getQuests()){
+            if(quest.isActive()){
+                activeQuests.add(quest);
+            }
+        }
+
+        if(!activeQuests.isEmpty()){
+            currentIndex--;
+        }else{
+            currentIndex = 0;
+        }
+    }
+
     public QuestViewState() {
         super();
         currentIndex = 0;
@@ -162,15 +177,15 @@ public class QuestViewState extends State {
             QuestText questText = new QuestText(activeQuests.get(i).getName(), this, activeQuests.get(i).getId());
             questList.addComponent(questText);
 
-            if(i == 0){
+            if(i == currentIndex){
                 questText.setUnderlined(true);
             }
         }
 
         if(!activeQuests.isEmpty()) {
-            questStepText.setText("- " + activeQuests.get(0).getCurrentStep().getName());
-            questName.setText(activeQuests.get(0).getName());
-            questDescText.setText(activeQuests.get(0).getDescription());
+            questStepText.setText("- " + activeQuests.get(currentIndex).getCurrentStep().getName());
+            questName.setText(activeQuests.get(currentIndex).getName());
+            questDescText.setText(activeQuests.get(currentIndex).getDescription());
         }
 
     }

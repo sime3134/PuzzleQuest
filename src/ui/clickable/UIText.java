@@ -88,10 +88,11 @@ public class UIText extends UIClickable {
             graphics.drawString(lines[i], padding.getLeft(),
                     (i + 1) * fontSize + padding.getTop() + yPos);
             if(underlined) {
+                graphics.setStroke(new BasicStroke(5));
                 graphics.drawLine(padding.getLeft(),
-                        (i + 1) * fontSize + padding.getTop() + (lines.length > 1 && i != 0 ? 10 : 0) + 2,
+                        (i + 1) * fontSize + padding.getTop() + (lines.length > 1 && i != 0 ? 10 : 0) + 3,
                         padding.getLeft() + width,
-                        (i + 1) * fontSize + padding.getTop() + (lines.length > 1 && i != 0 ? 10 : 0) + 2);
+                        (i + 1) * fontSize + padding.getTop() + (lines.length > 1 && i != 0 ? 10 : 0) + 3);
             }
         }
 

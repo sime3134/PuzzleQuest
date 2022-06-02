@@ -17,14 +17,17 @@ public class NotificationContainer extends VerticalContainer{
 
     private int order;
 
+    private NotificationContainer notificationBefore;
+
     public void setNotificationText(String notificationString) {
         this.notificationText.setText(notificationString);
     }
 
-    public void setOrder(int order) {
+    public void setOriginPosition(int order, NotificationContainer notificationContainer) {
         this.order = order;
         setAbsolutePosition(new Vector2D(Settings.getScreenWidth(),
                 getFixedHeight() * order));
+        this.notificationBefore = notificationContainer;
     }
 
     public void setNumberOfUpdatesWaiting(int numberOfUpdatesWaiting) {
@@ -34,7 +37,6 @@ public class NotificationContainer extends VerticalContainer{
     public NotificationContainer(){
         super();
         setFixedPosition(true);
-        this.order = 0;
         setBackgroundColor(Color.DARK_GRAY);
         setFixedWidth(800);
         setCenterChildren(true);
@@ -51,8 +53,13 @@ public class NotificationContainer extends VerticalContainer{
     public void update(Game game){
         super.update(game);
         setFixedWidth(notificationText.getWidth() + 20);
-        setAbsolutePosition(new Vector2D(Settings.getScreenWidth() - getFixedWidth() - 10,
-                getFixedHeight() * order + 10 * order + 10));
+        if(notificationBefore != null){
+            setAbsolutePosition(new Vector2D(Settings.getScreenWidth() - getFixedWidth() - 10,
+                    notificationBefore.getAbsolutePosition().getY() + notificationBefore.getHeight() + 10));
+        }else {
+            setAbsolutePosition(new Vector2D(Settings.getScreenWidth() - getFixedWidth() - 10,
+                    10));
+        }
         numberOfUpdatesWaiting++;
     }
 
