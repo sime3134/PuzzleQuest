@@ -74,7 +74,8 @@ public class BornAnew extends Quest {
         intro.addLine(new DialogLine("I just found you lying here.\n" +
                 "It seems like you washed ashore."));
         intro.addLine(new DialogLine("Follow me to my house and warm up to start with." +
-                "\nYou can move with the [W], [A], [S], [D] keys and interact with the [E] key."));
+                "\nYou can move with the [W], [A], [S], [D] keys and interact with the [E] key.\n" +
+                "If you would like to pause the game press the [Esc] key."));
         game.getGameState().getDialogManager().addDialog(intro);
     }
 
