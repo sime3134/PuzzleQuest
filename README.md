@@ -1,4 +1,5 @@
 # PuzzleQuest
+School project. Game developed over around 5 months.
 
 # Access to code
 1. Clone the project from GitHub with following link: https://github.com/sime3134/PuzzleQuest
