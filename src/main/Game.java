@@ -391,6 +391,8 @@ public class Game implements Persistable {
         }else{
             camera.focusOn(getGameState().getPlayer());
         }
+
+        setShowBlackScreen(false);
     }
 
     public void saveMap(String filePath) {
